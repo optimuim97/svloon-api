@@ -28,6 +28,15 @@ class UserAddressesTable extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make("Lat", "lat")
+                ->sortable()
+                ->searchable(),
+            Column::make("Lon", "lon")
+                ->sortable()
+                ->searchable(),
+            Column::make("Address Name", "address_name")
+                ->sortable()
+                ->searchable(),
             Column::make("User Id", "user_id")
                 ->sortable()
                 ->searchable(),

@@ -8,6 +8,9 @@ use App\Repositories\BaseRepository;
 class UserAddressRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'lat',
+        'lon',
+        'address_name',
         'user_id'
     ];
 

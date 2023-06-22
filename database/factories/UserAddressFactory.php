@@ -24,7 +24,10 @@ class UserAddressFactory extends Factory
     {
         
         return [
-            'user_id' => $this->faker->word,
+            'lat' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'lon' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'address_name' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'user_id' => $this->faker->randomDigitNotNull,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

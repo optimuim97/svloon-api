@@ -16,6 +16,12 @@
     <p>{{ $userAddress->address_name }}</p>
 </div>
 
+<!-- User Id Field -->
+<div class="col-sm-12">
+    {!! Form::label('user_id', 'User Id:') !!}
+    <p>{{ $userAddress->user_id }}</p>
+</div>
+
 <!-- Created At Field -->
 <div class="col-sm-12">
     {!! Form::label('created_at', 'Created At:') !!}

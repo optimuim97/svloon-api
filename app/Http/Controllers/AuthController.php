@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     /**
     * @OA\Post(
-    * path="api/auth/login",
+    * path="/auth/login",
     * operationId="authLogin",
     * tags={"Login"},
     * summary="User Login",

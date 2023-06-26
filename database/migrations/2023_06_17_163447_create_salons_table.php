@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('salons', function (Blueprint $table) {
-            $table->id('id');
+            $table->unsignedBigInteger('id');
             $table->string('name');
             $table->text('description');
             $table->string('imageUrl');
@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('schedule');
             $table->string('scheduleStart');
             $table->string('scheduleEnd');
-            $table->integer('owner_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->string('addressActive');
             $table->timestamps();
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

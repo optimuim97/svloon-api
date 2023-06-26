@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class SignUpController extends Controller
 {
 
     /**
      * @OA\Post(
-     * path="api/sign-up",
+     * path="/sign-up",
      * operationId="Register",
      * tags={"Register"},
      * summary="User Register",
@@ -70,7 +71,7 @@ class SignUpController extends Controller
             "is_professional" => $request->is_professional,
             "email" => $request->email,
             "email_verified_at" => $request->email_verified_at,
-            "password" => $request->password,
+            "password" => Hash::make($request->password),
         ]);
 
         return response()->json([

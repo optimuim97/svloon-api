@@ -1,0 +1,792 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Svloon",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/salons": {
+            "get": {
+                "tags": [
+                    "Salon"
+                ],
+                "summary": "getSalonList",
+                "description": "Get all Salons",
+                "operationId": "ba9c9fa1eb3bff7ead6a05df374800ff",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Salon"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salon"
+                ],
+                "summary": "createSalon",
+                "description": "Create Salon",
+                "operationId": "91ce14a2212e7783913b40cf80679d39",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Salon"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Salon"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salons/{id}": {
+            "get": {
+                "tags": [
+                    "Salon"
+                ],
+                "summary": "getSalonItem",
+                "description": "Get Salon",
+                "operationId": "4a2600d7488bc94a47f37548e7d5fbb9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Salon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Salon"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salon"
+                ],
+                "summary": "updateSalon",
+                "description": "Update Salon",
+                "operationId": "efdbbb8a72cba47ea3f8c315e71d6a03",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Salon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Salon"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Salon"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salon"
+                ],
+                "summary": "deleteSalon",
+                "description": "Delete Salon",
+                "operationId": "7ad4206d090d328c392d7b30e9aa31b3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Salon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user-addresses": {
+            "get": {
+                "tags": [
+                    "UserAddress"
+                ],
+                "summary": "getUserAddressList",
+                "description": "Get all UserAddresses",
+                "operationId": "24d5fddc81acf5ca4d178acdc107ac7d",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserAddress"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "UserAddress"
+                ],
+                "summary": "createUserAddress",
+                "description": "Create UserAddress",
+                "operationId": "522a827037e60361dbb3df6e4869f088",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserAddress"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user-addresses/{id}": {
+            "get": {
+                "tags": [
+                    "UserAddress"
+                ],
+                "summary": "getUserAddressItem",
+                "description": "Get UserAddress",
+                "operationId": "a95d0deb18c650d1eb691f21bc0188d0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of UserAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "UserAddress"
+                ],
+                "summary": "updateUserAddress",
+                "description": "Update UserAddress",
+                "operationId": "7c3e710cd7f92e1c38c08acd47fb2ca8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of UserAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserAddress"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "UserAddress"
+                ],
+                "summary": "deleteUserAddress",
+                "description": "Delete UserAddress",
+                "operationId": "c316f0551de0a7afeced7fc27279c5bf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of UserAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "User Login",
+                "description": "Login User Here",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Login Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Login Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "api/sign-up": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "User Register",
+                "description": "User Register here",
+                "operationId": "Register",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "firstname",
+                                    "lastname",
+                                    "dial_code",
+                                    "phone_number",
+                                    "profession",
+                                    "photo_url",
+                                    "is_active",
+                                    "is_professional",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "text"
+                                    },
+                                    "firstname": {
+                                        "type": "text"
+                                    },
+                                    "lastname": {
+                                        "type": "text"
+                                    },
+                                    "dial_code": {
+                                        "type": "text"
+                                    },
+                                    "phone_number": {
+                                        "type": "text"
+                                    },
+                                    "profession": {
+                                        "type": "text"
+                                    },
+                                    "photo_url": {
+                                        "type": "text"
+                                    },
+                                    "is_active": {
+                                        "type": "text"
+                                    },
+                                    "is_professional": {
+                                        "type": "text"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Convenience": {
+                "required": [],
+                "properties": {
+                    "label": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "icon": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Salon": {
+                "required": [],
+                "properties": {
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Service": {
+                "required": [],
+                "properties": {
+                    "label": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "imageUrl": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "isPromo": {
+                        "description": "",
+                        "type": "boolean",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ServiceType": {
+                "required": [],
+                "properties": {
+                    "label": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UserAddress": {
+                "required": [],
+                "properties": {
+                    "lat": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "lon": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "address_name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "user_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

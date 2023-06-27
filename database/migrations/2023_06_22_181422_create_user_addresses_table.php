@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('lat');
             $table->string('lon');
             $table->string('address_name');
-            $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained();
         });
     }
 

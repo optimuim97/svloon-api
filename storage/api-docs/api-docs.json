@@ -526,7 +526,6 @@
                                     "dial_code",
                                     "phone_number",
                                     "profession",
-                                    "photo_url",
                                     "is_active",
                                     "is_professional",
                                     "password"

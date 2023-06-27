@@ -23,7 +23,7 @@ class SignUpController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"email", "password","firstname","lastname","dial_code","phone_number","profession","photo_url","is_active","is_professional","password"},
+     *               required={"email", "password","firstname","lastname","dial_code","phone_number","profession","is_active","is_professional","password"},
      *               @OA\Property(property="email", type="text"),
      *               @OA\Property(property="firstname", type="text"),
      *               @OA\Property(property="lastname", type="text"),
@@ -74,10 +74,28 @@ class SignUpController extends Controller
             "password" => Hash::make($request->password),
         ]);
 
-        return response()->json([
-            "message" => "",
-            "status_code" => Response::HTTP_CREATED,
-            "data" => $user
-        ], Response::HTTP_CREATED);
+        $validated = $request->validate([
+            'email' => ["required", "unique:users"],
+            'password' => "required",
+            'firstname' => "required",
+            'lastname' => "required",
+            'name' => "required",
+            'dial_code' => "required",
+            'phone_number' => "required",
+            'profession' => "required",
+            'photo_url' => "required",
+            'is_active' => "required",
+            'is_professional' => "required",
+            'email' => "required"
+        ]);
+
+        // if($validated){
+            return response()->json([
+                "message" => "",
+                "status_code" => Response::HTTP_CREATED,
+                "data" => $user
+            ], Response::HTTP_CREATED);
+        // }
+
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('isPromo');
             $table->string('imageUrl');
             $table->timestamps();
+            $table->foreignId('service_type_id')->constrained();
         });
     }
 

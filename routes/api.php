@@ -52,3 +52,15 @@ Route::resource('user-types', App\Http\Controllers\API\UserTypeAPIController::cl
 
 Route::resource('salon-type-accounts', App\Http\Controllers\API\SalonTypeAccountAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('salon-service-types', App\Http\Controllers\API\SalonServiceTypeAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('service-place-types', App\Http\Controllers\API\ServicePlaceTypeAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
+    ->except(['create', 'edit']);

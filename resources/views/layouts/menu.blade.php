@@ -76,3 +76,31 @@
         <p>Salon Type Accounts</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('salonServiceTypes.index') }}" class="nav-link {{ Request::is('salonServiceTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Service Types</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('servicePlaceTypes.index') }}" class="nav-link {{ Request::is('servicePlaceTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Service Place Types</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('salonServices.index') }}" class="nav-link {{ Request::is('salonServices*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Services</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('salonPictures.index') }}" class="nav-link {{ Request::is('salonPictures*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Pictures</p>
+    </a>
+</li>

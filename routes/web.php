@@ -21,3 +21,7 @@ Route::resource('appointements', App\Http\Controllers\AppointementController::cl
 Route::resource('user-types', App\Http\Controllers\UserTypeController::class);
 
 Route::resource('salon-type-accounts', App\Http\Controllers\SalonTypeAccountController::class);
+Route::resource('salon-service-types', App\Http\Controllers\SalonServiceTypeController::class);
+Route::resource('service-place-types', App\Http\Controllers\ServicePlaceTypeController::class);
+Route::resource('salon-services', App\Http\Controllers\SalonServiceController::class);
+Route::resource('salon-pictures', App\Http\Controllers\SalonPictureController::class);

@@ -16,13 +16,20 @@ return new class extends Migration
         Schema::create('salons', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
-            $table->text('description');
-            $table->text('imageUrl');
-            $table->text('aboutUs');
-            $table->string('schedule');
-            $table->timestamp('scheduleEnd');
+            $table->string('email')->unique();
+            $table->string('owner_fullname')->nullable();
+            $table->string('dialCode')->nullable();
+            $table->string('password')->nullable();
             $table->timestamp('scheduleStart');
-            $table->foreignId('user_id')->constrained();
+            $table->timestamp('scheduleEnd');
+            $table->string('scheduleStr');
+            $table->string('city');
+            $table->string('phoneNumber');
+            $table->string('phone')->nullable();
+            $table->string('postalCode')->nullable();
+            $table->string('localNumber')->nullable();
+            $table->text('bailDocument');
+            $table->bigInteger('salon_type_id')->unsigned();
             $table->timestamps();
         });
     }

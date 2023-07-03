@@ -16,43 +16,35 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="description",
+ *          property="email",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="imageUrl",
+ *          property="owner_fullname",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="aboutUs",
+ *          property="dialCode",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="schedule",
+ *          property="password",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="schedule",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      ),
- *      @OA\Property(
- *          property="schedule",
+ *          property="scheduleStart",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -60,7 +52,64 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      ),
  *      @OA\Property(
- *          property="user_id",
+ *          property="scheduleEnd",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *          format="date-time"
+ *      ),
+ *      @OA\Property(
+ *          property="scheduleStr",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="city",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="phoneNumber",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="phone",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="postalCode",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="localNumber",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="bailDocument",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="salon_type_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -90,22 +139,36 @@ use Illuminate\Database\Eloquent\Model;
 
     public $fillable = [
         'name',
-        'description',
-        'imageUrl',
-        'aboutUs',
-        'schedule',
-        'schedule',
-        'schedule',
-        'user_id'
+        'email',
+        'owner_fullname',
+        'dialCode',
+        'password',
+        'scheduleStart',
+        'scheduleEnd',
+        'scheduleStr',
+        'city',
+        'phoneNumber',
+        'phone',
+        'postalCode',
+        'localNumber',
+        'bailDocument',
+        'salon_type_id'
     ];
 
     protected $casts = [
         'name' => 'string',
-        'description' => 'string',
-        'imageUrl' => 'string',
-        'aboutUs' => 'string',
-        'schedule' => 'string',
-        'user_id' => 'integer'
+        'email' => 'string',
+        'owner_fullname' => 'string',
+        'dialCode' => 'string',
+        'password' => 'string',
+        'scheduleStr' => 'string',
+        'city' => 'string',
+        'phoneNumber' => 'string',
+        'phone' => 'string',
+        'postalCode' => 'string',
+        'localNumber' => 'string',
+        'bailDocument' => 'string',
+        'salon_type_id' => 'integer'
     ];
 
     public static array $rules = [

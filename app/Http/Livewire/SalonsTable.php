@@ -31,25 +31,46 @@ class SalonsTable extends DataTableComponent
             Column::make("Name", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Description", "description")
+            Column::make("Email", "email")
                 ->sortable()
                 ->searchable(),
-            Column::make("Imageurl", "imageUrl")
+            Column::make("Owner Fullname", "owner_fullname")
                 ->sortable()
                 ->searchable(),
-            Column::make("Aboutus", "aboutUs")
+            Column::make("Dialcode", "dialCode")
                 ->sortable()
                 ->searchable(),
-            Column::make("Schedule", "schedule")
+            Column::make("Password", "password")
                 ->sortable()
                 ->searchable(),
-            Column::make("Schedule", "schedule")
+            Column::make("Schedulestart", "scheduleStart")
                 ->sortable()
                 ->searchable(),
-            Column::make("Schedule", "schedule")
+            Column::make("Scheduleend", "scheduleEnd")
                 ->sortable()
                 ->searchable(),
-            Column::make("User Id", "user_id")
+            Column::make("Schedulestr", "scheduleStr")
+                ->sortable()
+                ->searchable(),
+            Column::make("City", "city")
+                ->sortable()
+                ->searchable(),
+            Column::make("Phonenumber", "phoneNumber")
+                ->sortable()
+                ->searchable(),
+            Column::make("Phone", "phone")
+                ->sortable()
+                ->searchable(),
+            Column::make("Postalcode", "postalCode")
+                ->sortable()
+                ->searchable(),
+            Column::make("Localnumber", "localNumber")
+                ->sortable()
+                ->searchable(),
+            Column::make("Baildocument", "bailDocument")
+                ->sortable()
+                ->searchable(),
+            Column::make("Salon Type Id", "salon_type_id")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')

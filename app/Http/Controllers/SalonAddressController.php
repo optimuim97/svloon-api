@@ -46,7 +46,7 @@ class SalonAddressController extends AppBaseController
 
         Flash::success('Salon Address saved successfully.');
 
-        return redirect(route('salonAddresses.index'));
+        return redirect(route('salon-addresses.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SalonAddressController extends AppBaseController
         if (empty($salonAddress)) {
             Flash::error('Salon Address not found');
 
-            return redirect(route('salonAddresses.index'));
+            return redirect(route('salon-addresses.index'));
         }
 
         return view('salon_addresses.show')->with('salonAddress', $salonAddress);
@@ -75,7 +75,7 @@ class SalonAddressController extends AppBaseController
         if (empty($salonAddress)) {
             Flash::error('Salon Address not found');
 
-            return redirect(route('salonAddresses.index'));
+            return redirect(route('salon-addresses.index'));
         }
 
         return view('salon_addresses.edit')->with('salonAddress', $salonAddress);
@@ -91,14 +91,14 @@ class SalonAddressController extends AppBaseController
         if (empty($salonAddress)) {
             Flash::error('Salon Address not found');
 
-            return redirect(route('salonAddresses.index'));
+            return redirect(route('salon-addresses.index'));
         }
 
         $salonAddress = $this->salonAddressRepository->update($request->all(), $id);
 
         Flash::success('Salon Address updated successfully.');
 
-        return redirect(route('salonAddresses.index'));
+        return redirect(route('salon-addresses.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class SalonAddressController extends AppBaseController
         if (empty($salonAddress)) {
             Flash::error('Salon Address not found');
 
-            return redirect(route('salonAddresses.index'));
+            return redirect(route('salon-addresses.index'));
         }
 
         $this->salonAddressRepository->delete($id);
 
         Flash::success('Salon Address deleted successfully.');
 
-        return redirect(route('salonAddresses.index'));
+        return redirect(route('salon-addresses.index'));
     }
 }

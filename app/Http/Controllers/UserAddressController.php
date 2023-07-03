@@ -46,7 +46,7 @@ class UserAddressController extends AppBaseController
 
         Flash::success('User Address saved successfully.');
 
-        return redirect(route('userAddresses.index'));
+        return redirect(route('user-addresses.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class UserAddressController extends AppBaseController
         if (empty($userAddress)) {
             Flash::error('User Address not found');
 
-            return redirect(route('userAddresses.index'));
+            return redirect(route('user-addresses.index'));
         }
 
         return view('user_addresses.show')->with('userAddress', $userAddress);
@@ -75,7 +75,7 @@ class UserAddressController extends AppBaseController
         if (empty($userAddress)) {
             Flash::error('User Address not found');
 
-            return redirect(route('userAddresses.index'));
+            return redirect(route('user-addresses.index'));
         }
 
         return view('user_addresses.edit')->with('userAddress', $userAddress);
@@ -91,14 +91,14 @@ class UserAddressController extends AppBaseController
         if (empty($userAddress)) {
             Flash::error('User Address not found');
 
-            return redirect(route('userAddresses.index'));
+            return redirect(route('user-addresses.index'));
         }
 
         $userAddress = $this->userAddressRepository->update($request->all(), $id);
 
         Flash::success('User Address updated successfully.');
 
-        return redirect(route('userAddresses.index'));
+        return redirect(route('user-addresses.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class UserAddressController extends AppBaseController
         if (empty($userAddress)) {
             Flash::error('User Address not found');
 
-            return redirect(route('userAddresses.index'));
+            return redirect(route('user-addresses.index'));
         }
 
         $this->userAddressRepository->delete($id);
 
         Flash::success('User Address deleted successfully.');
 
-        return redirect(route('userAddresses.index'));
+        return redirect(route('user-addresses.index'));
     }
 }

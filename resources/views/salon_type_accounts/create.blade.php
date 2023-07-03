@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                        Edit Salon Address
+                    Create Salon Type Accounts
                     </h1>
                 </div>
             </div>
@@ -19,17 +19,19 @@
 
         <div class="card">
 
-            {!! Form::model($salonAddress, ['route' => ['salon-addresses.update', $salonAddress->id], 'method' => 'patch']) !!}
+            {!! Form::open(['route' => 'salon-type-accounts.store']) !!}
 
             <div class="card-body">
+
                 <div class="row">
-                    @include('salon_addresses.fields')
+                    @include('salon_type_accounts.fields')
                 </div>
+
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('salon-addresses.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('salon-type-accounts.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

@@ -46,7 +46,7 @@ class UserTypeController extends AppBaseController
 
         Flash::success('User Type saved successfully.');
 
-        return redirect(route('userTypes.index'));
+        return redirect(route('user-types.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class UserTypeController extends AppBaseController
         if (empty($userType)) {
             Flash::error('User Type not found');
 
-            return redirect(route('userTypes.index'));
+            return redirect(route('user-types.index'));
         }
 
         return view('user_types.show')->with('userType', $userType);
@@ -75,7 +75,7 @@ class UserTypeController extends AppBaseController
         if (empty($userType)) {
             Flash::error('User Type not found');
 
-            return redirect(route('userTypes.index'));
+            return redirect(route('user-types.index'));
         }
 
         return view('user_types.edit')->with('userType', $userType);
@@ -91,14 +91,14 @@ class UserTypeController extends AppBaseController
         if (empty($userType)) {
             Flash::error('User Type not found');
 
-            return redirect(route('userTypes.index'));
+            return redirect(route('user-types.index'));
         }
 
         $userType = $this->userTypeRepository->update($request->all(), $id);
 
         Flash::success('User Type updated successfully.');
 
-        return redirect(route('userTypes.index'));
+        return redirect(route('user-types.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class UserTypeController extends AppBaseController
         if (empty($userType)) {
             Flash::error('User Type not found');
 
-            return redirect(route('userTypes.index'));
+            return redirect(route('user-types.index'));
         }
 
         $this->userTypeRepository->delete($id);
 
         Flash::success('User Type deleted successfully.');
 
-        return redirect(route('userTypes.index'));
+        return redirect(route('user-types.index'));
     }
 }

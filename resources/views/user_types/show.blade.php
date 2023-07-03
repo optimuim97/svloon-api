@@ -11,7 +11,7 @@ User Type Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('userTypes.index') }}">
+                       href="{{ route('user-types.index') }}">
                                                     Back
                                             </a>
                 </div>

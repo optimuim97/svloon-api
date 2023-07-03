@@ -9,13 +9,20 @@ class SalonRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'name',
-        'description',
-        'imageUrl',
-        'aboutUs',
-        'schedule',
-        'schedule',
-        'schedule',
-        'user_id'
+        'email',
+        'owner_fullname',
+        'dialCode',
+        'password',
+        'scheduleStart',
+        'scheduleEnd',
+        'scheduleStr',
+        'city',
+        'phoneNumber',
+        'phone',
+        'postalCode',
+        'localNumber',
+        'bailDocument',
+        'salon_type_id'
     ];
 
     public function getFieldsSearchable(): array

@@ -4,46 +4,88 @@
     <p>{{ $salon->name }}</p>
 </div>
 
-<!-- Description Field -->
+<!-- Email Field -->
 <div class="col-sm-12">
-    {!! Form::label('description', 'Description:') !!}
-    <p>{{ $salon->description }}</p>
+    {!! Form::label('email', 'Email:') !!}
+    <p>{{ $salon->email }}</p>
 </div>
 
-<!-- Imageurl Field -->
+<!-- Owner Fullname Field -->
 <div class="col-sm-12">
-    {!! Form::label('imageUrl', 'Imageurl:') !!}
-    <p>{{ $salon->imageUrl }}</p>
+    {!! Form::label('owner_fullname', 'Owner Fullname:') !!}
+    <p>{{ $salon->owner_fullname }}</p>
 </div>
 
-<!-- Aboutus Field -->
+<!-- Dialcode Field -->
 <div class="col-sm-12">
-    {!! Form::label('aboutUs', 'Aboutus:') !!}
-    <p>{{ $salon->aboutUs }}</p>
+    {!! Form::label('dialCode', 'Dialcode:') !!}
+    <p>{{ $salon->dialCode }}</p>
 </div>
 
-<!-- Schedule Field -->
+<!-- Password Field -->
 <div class="col-sm-12">
-    {!! Form::label('schedule', 'Schedule:') !!}
-    <p>{{ $salon->schedule }}</p>
+    {!! Form::label('password', 'Password:') !!}
+    <p>{{ $salon->password }}</p>
 </div>
 
-<!-- Schedule Field -->
+<!-- Schedulestart Field -->
 <div class="col-sm-12">
-    {!! Form::label('schedule', 'Schedule:') !!}
-    <p>{{ $salon->schedule }}</p>
+    {!! Form::label('scheduleStart', 'Schedulestart:') !!}
+    <p>{{ $salon->scheduleStart }}</p>
 </div>
 
-<!-- Schedule Field -->
+<!-- Scheduleend Field -->
 <div class="col-sm-12">
-    {!! Form::label('schedule', 'Schedule:') !!}
-    <p>{{ $salon->schedule }}</p>
+    {!! Form::label('scheduleEnd', 'Scheduleend:') !!}
+    <p>{{ $salon->scheduleEnd }}</p>
 </div>
 
-<!-- User Id Field -->
+<!-- Schedulestr Field -->
 <div class="col-sm-12">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{{ $salon->user_id }}</p>
+    {!! Form::label('scheduleStr', 'Schedulestr:') !!}
+    <p>{{ $salon->scheduleStr }}</p>
+</div>
+
+<!-- City Field -->
+<div class="col-sm-12">
+    {!! Form::label('city', 'City:') !!}
+    <p>{{ $salon->city }}</p>
+</div>
+
+<!-- Phonenumber Field -->
+<div class="col-sm-12">
+    {!! Form::label('phoneNumber', 'Phonenumber:') !!}
+    <p>{{ $salon->phoneNumber }}</p>
+</div>
+
+<!-- Phone Field -->
+<div class="col-sm-12">
+    {!! Form::label('phone', 'Phone:') !!}
+    <p>{{ $salon->phone }}</p>
+</div>
+
+<!-- Postalcode Field -->
+<div class="col-sm-12">
+    {!! Form::label('postalCode', 'Postalcode:') !!}
+    <p>{{ $salon->postalCode }}</p>
+</div>
+
+<!-- Localnumber Field -->
+<div class="col-sm-12">
+    {!! Form::label('localNumber', 'Localnumber:') !!}
+    <p>{{ $salon->localNumber }}</p>
+</div>
+
+<!-- Baildocument Field -->
+<div class="col-sm-12">
+    {!! Form::label('bailDocument', 'Baildocument:') !!}
+    <p>{{ $salon->bailDocument }}</p>
+</div>
+
+<!-- Salon Type Id Field -->
+<div class="col-sm-12">
+    {!! Form::label('salon_type_id', 'Salon Type Id:') !!}
+    <p>{{ $salon->salon_type_id }}</p>
 </div>
 
 <!-- Created At Field -->

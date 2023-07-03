@@ -876,7 +876,7 @@
                     "UserAddress"
                 ],
                 "summary": "getUserAddressList",
-                "description": "Get all UserAddresses",
+                "description": "Get all user-addresses",
                 "operationId": "24d5fddc81acf5ca4d178acdc107ac7d",
                 "responses": {
                     "200": {

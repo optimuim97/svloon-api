@@ -41,3 +41,6 @@ Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
 
 Route::resource('user-addresses', App\Http\Controllers\API\UserAddressAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('user-types', App\Http\Controllers\API\UserTypeAPIController::class)
+    ->except(['create', 'edit']);

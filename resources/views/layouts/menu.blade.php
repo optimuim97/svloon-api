@@ -47,3 +47,10 @@
         <p>User Addresses</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('userTypes.index') }}" class="nav-link {{ Request::is('userTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>User Types</p>
+    </a>
+</li>

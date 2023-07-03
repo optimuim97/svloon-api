@@ -16,3 +16,4 @@ Route::resource('service-types', App\Http\Controllers\ServiceTypeController::cla
 Route::resource('services', App\Http\Controllers\ServiceController::class);
 Route::resource('salons', App\Http\Controllers\SalonController::class);
 Route::resource('user-addresses', App\Http\Controllers\UserAddressController::class);
+Route::resource('user-types', App\Http\Controllers\UserTypeController::class);

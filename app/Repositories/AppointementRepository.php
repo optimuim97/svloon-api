@@ -2,19 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Salon;
+use App\Models\Appointement;
 use App\Repositories\BaseRepository;
 
-class SalonRepository extends BaseRepository
+class AppointementRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'name',
-        'description',
-        'imageUrl',
-        'aboutUs',
-        'schedule',
-        'schedule',
-        'schedule',
+        'date',
+        'hour',
+        'place',
         'user_id'
     ];
 
@@ -25,6 +21,6 @@ class SalonRepository extends BaseRepository
 
     public function model(): string
     {
-        return Salon::class;
+        return Appointement::class;
     }
 }

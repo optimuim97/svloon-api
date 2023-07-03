@@ -47,3 +47,18 @@
         <p>User Addresses</p>
     </a>
 </li>
+
+
+<li class="nav-item">
+    <a href="{{ route('salonAddresses.index') }}" class="nav-link {{ Request::is('salonAddresses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Addresses</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('appointements.index') }}" class="nav-link {{ Request::is('appointements*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Appointements</p>
+    </a>
+</li>

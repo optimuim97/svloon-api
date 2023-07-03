@@ -2,20 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Salon;
+use App\Models\SalonAddress;
 use App\Repositories\BaseRepository;
 
-class SalonRepository extends BaseRepository
+class SalonAddressRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'name',
-        'description',
-        'imageUrl',
-        'aboutUs',
-        'schedule',
-        'schedule',
-        'schedule',
-        'user_id'
+        'lat',
+        'lon',
+        'address_name',
+        'salon_id'
     ];
 
     public function getFieldsSearchable(): array
@@ -25,6 +21,6 @@ class SalonRepository extends BaseRepository
 
     public function model(): string
     {
-        return Salon::class;
+        return SalonAddress::class;
     }
 }

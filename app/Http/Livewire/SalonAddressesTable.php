@@ -5,18 +5,18 @@ namespace App\Http\Livewire;
 use Laracasts\Flash\Flash;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Salon;
+use App\Models\SalonAddress;
 
-class SalonsTable extends DataTableComponent
+class SalonAddressesTable extends DataTableComponent
 {
-    protected $model = Salon::class;
+    protected $model = SalonAddress::class;
 
     protected $listeners = ['deleteRecord' => 'deleteRecord'];
 
     public function deleteRecord($id)
     {
-        Salon::find($id)->delete();
-        Flash::success('Salon deleted successfully.');
+        SalonAddress::find($id)->delete();
+        Flash::success('Salon Address deleted successfully.');
         $this->emit('refreshDatatable');
     }
 
@@ -28,35 +28,23 @@ class SalonsTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Name", "name")
+            Column::make("Lat", "lat")
                 ->sortable()
                 ->searchable(),
-            Column::make("Description", "description")
+            Column::make("Lon", "lon")
                 ->sortable()
                 ->searchable(),
-            Column::make("Imageurl", "imageUrl")
+            Column::make("Address Name", "address_name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Aboutus", "aboutUs")
-                ->sortable()
-                ->searchable(),
-            Column::make("Schedule", "schedule")
-                ->sortable()
-                ->searchable(),
-            Column::make("Schedule", "schedule")
-                ->sortable()
-                ->searchable(),
-            Column::make("Schedule", "schedule")
-                ->sortable()
-                ->searchable(),
-            Column::make("User Id", "user_id")
+            Column::make("Salon Id", "salon_id")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')
                 ->format(
                     fn($value, $row, Column $column) => view('common.livewire-tables.actions', [
-                        'showUrl' => route('salons.show', $row->id),
-                        'editUrl' => route('salons.edit', $row->id),
+                        'showUrl' => route('salon-addresses.show', $row->id),
+                        'editUrl' => route('salon-addresses.edit', $row->id),
                         'recordId' => $row->id,
                     ])
                 )

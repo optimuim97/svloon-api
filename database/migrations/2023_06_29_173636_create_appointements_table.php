@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('salons', function (Blueprint $table) {
+        Schema::create('appointements', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name');
-            $table->text('description');
-            $table->string('imageUrl');
-            $table->text('abouUs');
-            $table->string('schedule');
-            $table->string('scheduleStart');
-            $table->string('scheduleEnd');
-            $table->string('addressActive');
+            $table->timestamp('date');
+            $table->timestamp('hour');
+            $table->string('place');
             $table->timestamps();
             $table->foreignId('user_id')->constrained();
         });
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('salons');
+        Schema::drop('appointements');
     }
 };

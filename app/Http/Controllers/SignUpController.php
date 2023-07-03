@@ -89,13 +89,13 @@ class SignUpController extends Controller
             'email' => "required"
         ]);
 
-        // if($validated){
+        if($validated){
             return response()->json([
-                "message" => "",
+                "message" => "User Created",
                 "status_code" => Response::HTTP_CREATED,
                 "data" => $user
             ], Response::HTTP_CREATED);
-        // }
+        }
 
     }
 }

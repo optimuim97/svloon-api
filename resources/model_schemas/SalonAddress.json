@@ -12,7 +12,7 @@
         "inView": false
     },
     {
-        "name": "name",
+        "name": "lat",
         "dbType": "string",
         "htmlType": "text",
         "validations": "",
@@ -24,43 +24,7 @@
         "inView": true
     },
     {
-        "name": "description",
-        "dbType": "text",
-        "htmlType": "textarea",
-        "validations": "",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "imageUrl",
-        "dbType": "text",
-        "htmlType": "file",
-        "validations": "",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "aboutUs",
-        "dbType": "text",
-        "htmlType": "textarea",
-        "validations": "",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "schedule",
+        "name": "lon",
         "dbType": "string",
         "htmlType": "text",
         "validations": "",
@@ -72,9 +36,9 @@
         "inView": true
     },
     {
-        "name": "schedule",
-        "dbType": "timestamp",
-        "htmlType": "date",
+        "name": "address_name",
+        "dbType": "string",
+        "htmlType": "text",
         "validations": "",
         "searchable": true,
         "fillable": true,
@@ -84,19 +48,7 @@
         "inView": true
     },
     {
-        "name": "schedule",
-        "dbType": "timestamp",
-        "htmlType": "date",
-        "validations": "",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "user_id",
+        "name": "salon_id",
         "dbType": "integer",
         "htmlType": "select",
         "validations": "",

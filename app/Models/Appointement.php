@@ -6,45 +6,10 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Salon",
+ *      schema="Appointement",
  *      required={},
  *      @OA\Property(
- *          property="name",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="description",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="imageUrl",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="aboutUs",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="schedule",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="schedule",
+ *          property="date",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -52,12 +17,19 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      ),
  *      @OA\Property(
- *          property="schedule",
+ *          property="hour",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *          format="date-time"
+ *      ),
+ *      @OA\Property(
+ *          property="place",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
  *      ),
  *      @OA\Property(
  *          property="user_id",
@@ -84,27 +56,19 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Salon extends Model
+ */class Appointement extends Model
 {
-    use HasFactory;    public $table = 'salons';
+    use HasFactory;    public $table = 'appointements';
 
     public $fillable = [
-        'name',
-        'description',
-        'imageUrl',
-        'aboutUs',
-        'schedule',
-        'schedule',
-        'schedule',
+        'date',
+        'hour',
+        'place',
         'user_id'
     ];
 
     protected $casts = [
-        'name' => 'string',
-        'description' => 'string',
-        'imageUrl' => 'string',
-        'aboutUs' => 'string',
-        'schedule' => 'string',
+        'place' => 'string',
         'user_id' => 'integer'
     ];
 

@@ -18,3 +18,4 @@ Route::resource('salons', App\Http\Controllers\SalonController::class);
 Route::resource('user-addresses', App\Http\Controllers\UserAddressController::class);
 Route::resource('salon-addresses', App\Http\Controllers\SalonAddressController::class);
 Route::resource('appointements', App\Http\Controllers\AppointementController::class);
+Route::resource('user-types', App\Http\Controllers\UserTypeController::class);

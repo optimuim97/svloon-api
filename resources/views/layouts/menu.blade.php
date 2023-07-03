@@ -60,5 +60,9 @@
     <a href="{{ route('appointements.index') }}" class="nav-link {{ Request::is('appointements*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Appointements</p>
+<li class="nav-item">
+    <a href="{{ route('userTypes.index') }}" class="nav-link {{ Request::is('userTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>User Types</p>
     </a>
 </li>

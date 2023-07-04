@@ -11,7 +11,7 @@ Salon Service Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('salonServices.index') }}">
+                       href="{{ route('salon-services.index') }}">
                                                     Back
                                             </a>
                 </div>

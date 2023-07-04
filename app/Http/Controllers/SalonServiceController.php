@@ -46,7 +46,7 @@ class SalonServiceController extends AppBaseController
 
         Flash::success('Salon Service saved successfully.');
 
-        return redirect(route('salonServices.index'));
+        return redirect(route('salon-services.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SalonServiceController extends AppBaseController
         if (empty($salonService)) {
             Flash::error('Salon Service not found');
 
-            return redirect(route('salonServices.index'));
+            return redirect(route('salon-services.index'));
         }
 
         return view('salon_services.show')->with('salonService', $salonService);
@@ -75,7 +75,7 @@ class SalonServiceController extends AppBaseController
         if (empty($salonService)) {
             Flash::error('Salon Service not found');
 
-            return redirect(route('salonServices.index'));
+            return redirect(route('salon-services.index'));
         }
 
         return view('salon_services.edit')->with('salonService', $salonService);
@@ -91,14 +91,14 @@ class SalonServiceController extends AppBaseController
         if (empty($salonService)) {
             Flash::error('Salon Service not found');
 
-            return redirect(route('salonServices.index'));
+            return redirect(route('salon-services.index'));
         }
 
         $salonService = $this->salonServiceRepository->update($request->all(), $id);
 
         Flash::success('Salon Service updated successfully.');
 
-        return redirect(route('salonServices.index'));
+        return redirect(route('salon-services.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class SalonServiceController extends AppBaseController
         if (empty($salonService)) {
             Flash::error('Salon Service not found');
 
-            return redirect(route('salonServices.index'));
+            return redirect(route('salon-services.index'));
         }
 
         $this->salonServiceRepository->delete($id);
 
         Flash::success('Salon Service deleted successfully.');
 
-        return redirect(route('salonServices.index'));
+        return redirect(route('salon-services.index'));
     }
 }

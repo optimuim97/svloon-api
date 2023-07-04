@@ -22,19 +22,16 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    
+    Route::post('ask-quick-service', [AuthController::class, 'me']);
 
 });
 
 Route::post('sign-up', [SignUpController::class, 'register']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
     ->except(['create', 'edit']);

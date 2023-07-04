@@ -46,7 +46,7 @@ class ServicePlaceTypeController extends AppBaseController
 
         Flash::success('Service Place Type saved successfully.');
 
-        return redirect(route('servicePlaceTypes.index'));
+        return redirect(route('service-place-types.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ServicePlaceTypeController extends AppBaseController
         if (empty($servicePlaceType)) {
             Flash::error('Service Place Type not found');
 
-            return redirect(route('servicePlaceTypes.index'));
+            return redirect(route('service-place-types.index'));
         }
 
         return view('service_place_types.show')->with('servicePlaceType', $servicePlaceType);
@@ -75,7 +75,7 @@ class ServicePlaceTypeController extends AppBaseController
         if (empty($servicePlaceType)) {
             Flash::error('Service Place Type not found');
 
-            return redirect(route('servicePlaceTypes.index'));
+            return redirect(route('service-place-types.index'));
         }
 
         return view('service_place_types.edit')->with('servicePlaceType', $servicePlaceType);
@@ -91,14 +91,14 @@ class ServicePlaceTypeController extends AppBaseController
         if (empty($servicePlaceType)) {
             Flash::error('Service Place Type not found');
 
-            return redirect(route('servicePlaceTypes.index'));
+            return redirect(route('service-place-types.index'));
         }
 
         $servicePlaceType = $this->servicePlaceTypeRepository->update($request->all(), $id);
 
         Flash::success('Service Place Type updated successfully.');
 
-        return redirect(route('servicePlaceTypes.index'));
+        return redirect(route('service-place-types.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ServicePlaceTypeController extends AppBaseController
         if (empty($servicePlaceType)) {
             Flash::error('Service Place Type not found');
 
-            return redirect(route('servicePlaceTypes.index'));
+            return redirect(route('service-place-types.index'));
         }
 
         $this->servicePlaceTypeRepository->delete($id);
 
         Flash::success('Service Place Type deleted successfully.');
 
-        return redirect(route('servicePlaceTypes.index'));
+        return redirect(route('service-place-types.index'));
     }
 }

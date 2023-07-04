@@ -46,7 +46,7 @@ class SalonPictureController extends AppBaseController
 
         Flash::success('Salon Picture saved successfully.');
 
-        return redirect(route('salonPictures.index'));
+        return redirect(route('salon-pictures.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SalonPictureController extends AppBaseController
         if (empty($salonPicture)) {
             Flash::error('Salon Picture not found');
 
-            return redirect(route('salonPictures.index'));
+            return redirect(route('salon-pictures.index'));
         }
 
         return view('salon_pictures.show')->with('salonPicture', $salonPicture);
@@ -75,7 +75,7 @@ class SalonPictureController extends AppBaseController
         if (empty($salonPicture)) {
             Flash::error('Salon Picture not found');
 
-            return redirect(route('salonPictures.index'));
+            return redirect(route('salon-pictures.index'));
         }
 
         return view('salon_pictures.edit')->with('salonPicture', $salonPicture);
@@ -91,14 +91,14 @@ class SalonPictureController extends AppBaseController
         if (empty($salonPicture)) {
             Flash::error('Salon Picture not found');
 
-            return redirect(route('salonPictures.index'));
+            return redirect(route('salon-pictures.index'));
         }
 
         $salonPicture = $this->salonPictureRepository->update($request->all(), $id);
 
         Flash::success('Salon Picture updated successfully.');
 
-        return redirect(route('salonPictures.index'));
+        return redirect(route('salon-pictures.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class SalonPictureController extends AppBaseController
         if (empty($salonPicture)) {
             Flash::error('Salon Picture not found');
 
-            return redirect(route('salonPictures.index'));
+            return redirect(route('salon-pictures.index'));
         }
 
         $this->salonPictureRepository->delete($id);
 
         Flash::success('Salon Picture deleted successfully.');
 
-        return redirect(route('salonPictures.index'));
+        return redirect(route('salon-pictures.index'));
     }
 }

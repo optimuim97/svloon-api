@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($servicePlaceType, ['route' => ['servicePlaceTypes.update', $servicePlaceType->id], 'method' => 'patch']) !!}
+            {!! Form::model($servicePlaceType, ['route' => ['service-place-types.update', $servicePlaceType->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('servicePlaceTypes.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('service-place-types.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

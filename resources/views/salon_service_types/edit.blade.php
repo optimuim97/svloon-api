@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($salonServiceType, ['route' => ['salonServiceTypes.update', $salonServiceType->id], 'method' => 'patch']) !!}
+            {!! Form::model($salonServiceType, ['route' => ['salon-service-types.update', $salonServiceType->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('salonServiceTypes.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('salon-service-types.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

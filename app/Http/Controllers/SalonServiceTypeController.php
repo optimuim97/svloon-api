@@ -46,7 +46,7 @@ class SalonServiceTypeController extends AppBaseController
 
         Flash::success('Salon Service Type saved successfully.');
 
-        return redirect(route('salonServiceTypes.index'));
+        return redirect(route('salon-service-types.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SalonServiceTypeController extends AppBaseController
         if (empty($salonServiceType)) {
             Flash::error('Salon Service Type not found');
 
-            return redirect(route('salonServiceTypes.index'));
+            return redirect(route('salon-service-types.index'));
         }
 
         return view('salon_service_types.show')->with('salonServiceType', $salonServiceType);
@@ -75,7 +75,7 @@ class SalonServiceTypeController extends AppBaseController
         if (empty($salonServiceType)) {
             Flash::error('Salon Service Type not found');
 
-            return redirect(route('salonServiceTypes.index'));
+            return redirect(route('salon-service-types.index'));
         }
 
         return view('salon_service_types.edit')->with('salonServiceType', $salonServiceType);
@@ -91,14 +91,14 @@ class SalonServiceTypeController extends AppBaseController
         if (empty($salonServiceType)) {
             Flash::error('Salon Service Type not found');
 
-            return redirect(route('salonServiceTypes.index'));
+            return redirect(route('salon-service-types.index'));
         }
 
         $salonServiceType = $this->salonServiceTypeRepository->update($request->all(), $id);
 
         Flash::success('Salon Service Type updated successfully.');
 
-        return redirect(route('salonServiceTypes.index'));
+        return redirect(route('salon-service-types.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class SalonServiceTypeController extends AppBaseController
         if (empty($salonServiceType)) {
             Flash::error('Salon Service Type not found');
 
-            return redirect(route('salonServiceTypes.index'));
+            return redirect(route('salon-service-types.index'));
         }
 
         $this->salonServiceTypeRepository->delete($id);
 
         Flash::success('Salon Service Type deleted successfully.');
 
-        return redirect(route('salonServiceTypes.index'));
+        return redirect(route('salon-service-types.index'));
     }
 }

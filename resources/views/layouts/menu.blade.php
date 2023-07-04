@@ -78,28 +78,28 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('salonServiceTypes.index') }}" class="nav-link {{ Request::is('salonServiceTypes*') ? 'active' : '' }}">
+    <a href="{{ route('salon-service-types.index') }}" class="nav-link {{ Request::is('salon-service-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Salon Service Types</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('servicePlaceTypes.index') }}" class="nav-link {{ Request::is('servicePlaceTypes*') ? 'active' : '' }}">
+    <a href="{{ route('service-place-types.index') }}" class="nav-link {{ Request::is('service-place-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Service Place Types</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('salonServices.index') }}" class="nav-link {{ Request::is('salonServices*') ? 'active' : '' }}">
+    <a href="{{ route('salon-services.index') }}" class="nav-link {{ Request::is('salon-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Salon Services</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('salonPictures.index') }}" class="nav-link {{ Request::is('salonPictures*') ? 'active' : '' }}">
+    <a href="{{ route('salon-pictures.index') }}" class="nav-link {{ Request::is('salon-pictures*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Salon Pictures</p>
     </a>

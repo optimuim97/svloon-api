@@ -104,3 +104,24 @@
         <p>Salon Pictures</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('quickServices.index') }}" class="nav-link {{ Request::is('quickServices*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Quick Services</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('paymentMethods.index') }}" class="nav-link {{ Request::is('paymentMethods*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Payment Methods</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('paymentTypes.index') }}" class="nav-link {{ Request::is('paymentTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Payment Types</p>
+    </a>
+</li>

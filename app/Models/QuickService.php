@@ -6,15 +6,36 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Appointement",
+ *      schema="QuickService",
  *      required={},
  *      @OA\Property(
- *          property="creator_id",
+ *          property="service_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="integer",
  *          format="int32"
+ *      ),
+ *      @OA\Property(
+ *          property="address",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="lat",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="lon",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
  *      ),
  *      @OA\Property(
  *          property="user_id",
@@ -25,63 +46,25 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="date",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *          format="date"
- *      ),
- *      @OA\Property(
- *          property="hour",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      ),
- *      @OA\Property(
- *          property="date_time",
+ *          property="duration",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="reference",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="is_confirmed",
+ *          property="isConfirmed",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="boolean",
  *      ),
  *      @OA\Property(
- *          property="is_report",
+ *          property="hasAlreadySendRemeber",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="boolean",
- *      ),
- *      @OA\Property(
- *          property="is_cancel",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="boolean",
- *      ),
- *      @OA\Property(
- *          property="report_date",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *          format="date"
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -100,33 +83,30 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Appointement extends Model
+ */class QuickService extends Model
 {
-    use HasFactory;    public $table = 'appointements';
+    use HasFactory;    public $table = 'quick_services';
 
     public $fillable = [
-        'creator_id',
+        'service_id',
+        'address',
+        'lat',
+        'lon',
         'user_id',
-        'date',
-        'hour',
-        'date_time',
-        'reference',
-        'is_confirmed',
-        'is_report',
-        'is_cancel',
-        'report_date'
+        'duration',
+        'isConfirmed',
+        'hasAlreadySendRemeber'
     ];
 
     protected $casts = [
-        'creator_id' => 'integer',
+        'service_id' => 'integer',
+        'address' => 'string',
+        'lat' => 'string',
+        'lon' => 'string',
         'user_id' => 'integer',
-        'date' => 'date',
-        'date_time' => 'string',
-        'reference' => 'string',
-        'is_confirmed' => 'boolean',
-        'is_report' => 'boolean',
-        'is_cancel' => 'boolean',
-        'report_date' => 'date'
+        'duration' => 'string',
+        'isConfirmed' => 'boolean',
+        'hasAlreadySendRemeber' => 'boolean'
     ];
 
     public static array $rules = [

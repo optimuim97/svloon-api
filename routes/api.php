@@ -26,9 +26,7 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    
-    Route::post('ask-quick-service', [AuthController::class, 'me']);
-
+    Route::post('request-quick-service', [QuickServiceController::class, 'requestQuickService']);
 });
 
 Route::post('sign-up', [SignUpController::class, 'register']);
@@ -60,4 +58,16 @@ Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIContro
     ->except(['create', 'edit']);
 
 Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('payment-types', App\Http\Controllers\API\PaymentTypeAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class)
     ->except(['create', 'edit']);

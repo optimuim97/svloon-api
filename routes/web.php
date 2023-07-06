@@ -25,3 +25,6 @@ Route::resource('salon-service-types', App\Http\Controllers\SalonServiceTypeCont
 Route::resource('service-place-types', App\Http\Controllers\ServicePlaceTypeController::class);
 Route::resource('salon-services', App\Http\Controllers\SalonServiceController::class);
 Route::resource('salon-pictures', App\Http\Controllers\SalonPictureController::class);
+Route::resource('quick-services', App\Http\Controllers\QuickServiceController::class);
+Route::resource('payment-methods', App\Http\Controllers\PaymentMethodController::class);
+Route::resource('payment-types', App\Http\Controllers\PaymentTypeController::class);

@@ -8,10 +8,16 @@ use App\Repositories\BaseRepository;
 class AppointementRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'creator_id',
+        'user_id',
         'date',
         'hour',
-        'place',
-        'user_id'
+        'date_time',
+        'reference',
+        'is_confirmed',
+        'is_report',
+        'is_cancel',
+        'report_date'
     ];
 
     public function getFieldsSearchable(): array

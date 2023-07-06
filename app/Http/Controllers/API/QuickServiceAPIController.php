@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateSalonAPIRequest;
-use App\Http\Requests\API\UpdateSalonAPIRequest;
-use App\Models\Salon;
-use App\Repositories\SalonRepository;
+use App\Http\Requests\API\CreateQuickServiceAPIRequest;
+use App\Http\Requests\API\UpdateQuickServiceAPIRequest;
+use App\Models\QuickService;
+use App\Repositories\QuickServiceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class SalonController
+ * Class QuickServiceController
  */
 
-class SalonAPIController extends AppBaseController
+class QuickServiceAPIController extends AppBaseController
 {
-    private SalonRepository $salonRepository;
+    private QuickServiceRepository $quickServiceRepository;
 
-    public function __construct(SalonRepository $salonRepo)
+    public function __construct(QuickServiceRepository $quickServiceRepo)
     {
-        $this->salonRepository = $salonRepo;
+        $this->quickServiceRepository = $quickServiceRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salons",
-     *      summary="getSalonList",
-     *      tags={"Salon"},
-     *      description="Get all Salons",
+     *      path="/quick-services",
+     *      summary="getQuickServiceList",
+     *      tags={"QuickService"},
+     *      description="Get all QuickServices",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class SalonAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Salon")
+     *                  @OA\Items(ref="#/components/schemas/QuickService")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class SalonAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salons = $this->salonRepository->all(
+        $quickServices = $this->quickServiceRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salons->toArray(), 'Salons retrieved successfully');
+        return $this->sendResponse($quickServices->toArray(), 'Quick Services retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salons",
-     *      summary="createSalon",
-     *      tags={"Salon"},
-     *      description="Create Salon",
+     *      path="/quick-services",
+     *      summary="createQuickService",
+     *      tags={"QuickService"},
+     *      description="Create QuickService",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Salon")
+     *        @OA\JsonContent(ref="#/components/schemas/QuickService")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/QuickService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,22 +93,24 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonAPIRequest $request): JsonResponse
+    public function store(CreateQuickServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $salon = $this->salonRepository->create($input);
-        return $this->sendResponse($salon->toArray(), 'Salon saved successfully');
+
+        $quickService = $this->quickServiceRepository->create($input);
+
+        return $this->sendResponse($quickService->toArray(), 'Quick Service saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salons/{id}",
-     *      summary="getSalonItem",
-     *      tags={"Salon"},
-     *      description="Get Salon",
+     *      path="/quick-services/{id}",
+     *      summary="getQuickServiceItem",
+     *      tags={"QuickService"},
+     *      description="Get QuickService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of QuickService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -126,7 +128,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/QuickService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -138,25 +140,25 @@ class SalonAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var QuickService $quickService */
+        $quickService = $this->quickServiceRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($quickService)) {
+            return $this->sendError('Quick Service not found');
         }
 
-        return $this->sendResponse($salon->toArray(), 'Salon retrieved successfully');
+        return $this->sendResponse($quickService->toArray(), 'Quick Service retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salons/{id}",
-     *      summary="updateSalon",
-     *      tags={"Salon"},
-     *      description="Update Salon",
+     *      path="/quick-services/{id}",
+     *      summary="updateQuickService",
+     *      tags={"QuickService"},
+     *      description="Update QuickService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of QuickService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -165,7 +167,7 @@ class SalonAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Salon")
+     *        @OA\JsonContent(ref="#/components/schemas/QuickService")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -178,7 +180,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/QuickService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -188,31 +190,31 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateSalonAPIRequest $request): JsonResponse
+    public function update($id, UpdateQuickServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var QuickService $quickService */
+        $quickService = $this->quickServiceRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($quickService)) {
+            return $this->sendError('Quick Service not found');
         }
 
-        $salon = $this->salonRepository->update($input, $id);
+        $quickService = $this->quickServiceRepository->update($input, $id);
 
-        return $this->sendResponse($salon->toArray(), 'Salon updated successfully');
+        return $this->sendResponse($quickService->toArray(), 'QuickService updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salons/{id}",
-     *      summary="deleteSalon",
-     *      tags={"Salon"},
-     *      description="Delete Salon",
+     *      path="/quick-services/{id}",
+     *      summary="deleteQuickService",
+     *      tags={"QuickService"},
+     *      description="Delete QuickService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of QuickService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -242,15 +244,15 @@ class SalonAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var QuickService $quickService */
+        $quickService = $this->quickServiceRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($quickService)) {
+            return $this->sendError('Quick Service not found');
         }
 
-        $salon->delete();
+        $quickService->delete();
 
-        return $this->sendSuccess('Salon deleted successfully');
+        return $this->sendSuccess('Quick Service deleted successfully');
     }
 }

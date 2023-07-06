@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateSalonAPIRequest;
-use App\Http\Requests\API\UpdateSalonAPIRequest;
-use App\Models\Salon;
-use App\Repositories\SalonRepository;
+use App\Http\Requests\API\CreatePaymentTypeAPIRequest;
+use App\Http\Requests\API\UpdatePaymentTypeAPIRequest;
+use App\Models\PaymentType;
+use App\Repositories\PaymentTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class SalonController
+ * Class PaymentTypeController
  */
 
-class SalonAPIController extends AppBaseController
+class PaymentTypeAPIController extends AppBaseController
 {
-    private SalonRepository $salonRepository;
+    private PaymentTypeRepository $paymentTypeRepository;
 
-    public function __construct(SalonRepository $salonRepo)
+    public function __construct(PaymentTypeRepository $paymentTypeRepo)
     {
-        $this->salonRepository = $salonRepo;
+        $this->paymentTypeRepository = $paymentTypeRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salons",
-     *      summary="getSalonList",
-     *      tags={"Salon"},
-     *      description="Get all Salons",
+     *      path="/payment-types",
+     *      summary="getPaymentTypeList",
+     *      tags={"PaymentType"},
+     *      description="Get all PaymentTypes",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class SalonAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Salon")
+     *                  @OA\Items(ref="#/components/schemas/PaymentType")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class SalonAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salons = $this->salonRepository->all(
+        $paymentTypes = $this->paymentTypeRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salons->toArray(), 'Salons retrieved successfully');
+        return $this->sendResponse($paymentTypes->toArray(), 'Payment Types retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salons",
-     *      summary="createSalon",
-     *      tags={"Salon"},
-     *      description="Create Salon",
+     *      path="/payment-types",
+     *      summary="createPaymentType",
+     *      tags={"PaymentType"},
+     *      description="Create PaymentType",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Salon")
+     *        @OA\JsonContent(ref="#/components/schemas/PaymentType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/PaymentType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,22 +93,24 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonAPIRequest $request): JsonResponse
+    public function store(CreatePaymentTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $salon = $this->salonRepository->create($input);
-        return $this->sendResponse($salon->toArray(), 'Salon saved successfully');
+
+        $paymentType = $this->paymentTypeRepository->create($input);
+
+        return $this->sendResponse($paymentType->toArray(), 'Payment Type saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salons/{id}",
-     *      summary="getSalonItem",
-     *      tags={"Salon"},
-     *      description="Get Salon",
+     *      path="/payment-types/{id}",
+     *      summary="getPaymentTypeItem",
+     *      tags={"PaymentType"},
+     *      description="Get PaymentType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of PaymentType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -126,7 +128,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/PaymentType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -138,25 +140,25 @@ class SalonAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var PaymentType $paymentType */
+        $paymentType = $this->paymentTypeRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($paymentType)) {
+            return $this->sendError('Payment Type not found');
         }
 
-        return $this->sendResponse($salon->toArray(), 'Salon retrieved successfully');
+        return $this->sendResponse($paymentType->toArray(), 'Payment Type retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salons/{id}",
-     *      summary="updateSalon",
-     *      tags={"Salon"},
-     *      description="Update Salon",
+     *      path="/payment-types/{id}",
+     *      summary="updatePaymentType",
+     *      tags={"PaymentType"},
+     *      description="Update PaymentType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of PaymentType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -165,7 +167,7 @@ class SalonAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Salon")
+     *        @OA\JsonContent(ref="#/components/schemas/PaymentType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -178,7 +180,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/PaymentType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -188,31 +190,31 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateSalonAPIRequest $request): JsonResponse
+    public function update($id, UpdatePaymentTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var PaymentType $paymentType */
+        $paymentType = $this->paymentTypeRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($paymentType)) {
+            return $this->sendError('Payment Type not found');
         }
 
-        $salon = $this->salonRepository->update($input, $id);
+        $paymentType = $this->paymentTypeRepository->update($input, $id);
 
-        return $this->sendResponse($salon->toArray(), 'Salon updated successfully');
+        return $this->sendResponse($paymentType->toArray(), 'PaymentType updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salons/{id}",
-     *      summary="deleteSalon",
-     *      tags={"Salon"},
-     *      description="Delete Salon",
+     *      path="/payment-types/{id}",
+     *      summary="deletePaymentType",
+     *      tags={"PaymentType"},
+     *      description="Delete PaymentType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of PaymentType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -242,15 +244,15 @@ class SalonAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var PaymentType $paymentType */
+        $paymentType = $this->paymentTypeRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($paymentType)) {
+            return $this->sendError('Payment Type not found');
         }
 
-        $salon->delete();
+        $paymentType->delete();
 
-        return $this->sendSuccess('Salon deleted successfully');
+        return $this->sendSuccess('Payment Type deleted successfully');
     }
 }

@@ -5,18 +5,18 @@ namespace App\Http\Livewire;
 use Laracasts\Flash\Flash;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Appointement;
+use App\Models\QuickService;
 
-class AppointementsTable extends DataTableComponent
+class QuickServicesTable extends DataTableComponent
 {
-    protected $model = Appointement::class;
+    protected $model = QuickService::class;
 
     protected $listeners = ['deleteRecord' => 'deleteRecord'];
 
     public function deleteRecord($id)
     {
-        Appointement::find($id)->delete();
-        Flash::success('Appointement deleted successfully.');
+        QuickService::find($id)->delete();
+        Flash::success('Quick Service deleted successfully.');
         $this->emit('refreshDatatable');
     }
 
@@ -28,41 +28,35 @@ class AppointementsTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Creator Id", "creator_id")
+            Column::make("Service Id", "service_id")
+                ->sortable()
+                ->searchable(),
+            Column::make("Address", "address")
+                ->sortable()
+                ->searchable(),
+            Column::make("Lat", "lat")
+                ->sortable()
+                ->searchable(),
+            Column::make("Lon", "lon")
                 ->sortable()
                 ->searchable(),
             Column::make("User Id", "user_id")
                 ->sortable()
                 ->searchable(),
-            Column::make("Date", "date")
+            Column::make("Duration", "duration")
                 ->sortable()
                 ->searchable(),
-            Column::make("Hour", "hour")
+            Column::make("Isconfirmed", "isConfirmed")
                 ->sortable()
                 ->searchable(),
-            Column::make("Date Time", "date_time")
-                ->sortable()
-                ->searchable(),
-            Column::make("Reference", "reference")
-                ->sortable()
-                ->searchable(),
-            Column::make("Is Confirmed", "is_confirmed")
-                ->sortable()
-                ->searchable(),
-            Column::make("Is Report", "is_report")
-                ->sortable()
-                ->searchable(),
-            Column::make("Is Cancel", "is_cancel")
-                ->sortable()
-                ->searchable(),
-            Column::make("Report Date", "report_date")
+            Column::make("Hasalreadysendremeber", "hasAlreadySendRemeber")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')
                 ->format(
                     fn($value, $row, Column $column) => view('common.livewire-tables.actions', [
-                        'showUrl' => route('appointements.show', $row->id),
-                        'editUrl' => route('appointements.edit', $row->id),
+                        'showUrl' => route('quick-services.show', $row->id),
+                        'editUrl' => route('quick-services.edit', $row->id),
                         'recordId' => $row->id,
                     ])
                 )

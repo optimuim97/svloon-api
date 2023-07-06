@@ -1,3 +1,4 @@
+// Salon
 SalonTypAccount 
 label
 description
@@ -46,3 +47,4 @@ SalonPictures
 salon_id
 path
 originalName
+// End Salon //

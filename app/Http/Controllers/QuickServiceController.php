@@ -46,7 +46,7 @@ class QuickServiceController extends AppBaseController
 
         Flash::success('Quick Service saved successfully.');
 
-        return redirect(route('quickServices.index'));
+        return redirect(route('quick-services.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class QuickServiceController extends AppBaseController
         if (empty($quickService)) {
             Flash::error('Quick Service not found');
 
-            return redirect(route('quickServices.index'));
+            return redirect(route('quick-services.index'));
         }
 
         return view('quick_services.show')->with('quickService', $quickService);
@@ -75,7 +75,7 @@ class QuickServiceController extends AppBaseController
         if (empty($quickService)) {
             Flash::error('Quick Service not found');
 
-            return redirect(route('quickServices.index'));
+            return redirect(route('quick-services.index'));
         }
 
         return view('quick_services.edit')->with('quickService', $quickService);
@@ -91,14 +91,14 @@ class QuickServiceController extends AppBaseController
         if (empty($quickService)) {
             Flash::error('Quick Service not found');
 
-            return redirect(route('quickServices.index'));
+            return redirect(route('quick-services.index'));
         }
 
         $quickService = $this->quickServiceRepository->update($request->all(), $id);
 
         Flash::success('Quick Service updated successfully.');
 
-        return redirect(route('quickServices.index'));
+        return redirect(route('quick-services.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class QuickServiceController extends AppBaseController
         if (empty($quickService)) {
             Flash::error('Quick Service not found');
 
-            return redirect(route('quickServices.index'));
+            return redirect(route('quick-services.index'));
         }
 
         $this->quickServiceRepository->delete($id);
 
         Flash::success('Quick Service deleted successfully.');
 
-        return redirect(route('quickServices.index'));
+        return redirect(route('quick-services.index'));
     }
 }

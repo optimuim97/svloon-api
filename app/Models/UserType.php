@@ -48,12 +48,14 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */class UserType extends Model
 {
-    use HasFactory;    public $table = 'user_types';
+    use HasFactory;    
+    public $table = 'user_types';
 
     public $fillable = [
         'label',
         'description',
-        'avantages'
+        'avantages',
+        'slug'
     ];
 
     protected $casts = [

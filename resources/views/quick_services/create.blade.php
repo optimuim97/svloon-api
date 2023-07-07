@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'quickServices.store']) !!}
+            {!! Form::open(['route' => 'quick-services.store']) !!}
 
             <div class="card-body">
 
@@ -31,7 +31,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('quickServices.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('quick-services.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

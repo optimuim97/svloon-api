@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($quickService, ['route' => ['quickServices.update', $quickService->id], 'method' => 'patch']) !!}
+            {!! Form::model($quickService, ['route' => ['quick-services.update', $quickService->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('quickServices.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('quick-services.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

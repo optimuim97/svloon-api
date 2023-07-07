@@ -46,7 +46,7 @@ class PaymentTypeController extends AppBaseController
 
         Flash::success('Payment Type saved successfully.');
 
-        return redirect(route('paymentTypes.index'));
+        return redirect(route('payment-types.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PaymentTypeController extends AppBaseController
         if (empty($paymentType)) {
             Flash::error('Payment Type not found');
 
-            return redirect(route('paymentTypes.index'));
+            return redirect(route('payment-types.index'));
         }
 
         return view('payment_types.show')->with('paymentType', $paymentType);
@@ -75,7 +75,7 @@ class PaymentTypeController extends AppBaseController
         if (empty($paymentType)) {
             Flash::error('Payment Type not found');
 
-            return redirect(route('paymentTypes.index'));
+            return redirect(route('payment-types.index'));
         }
 
         return view('payment_types.edit')->with('paymentType', $paymentType);
@@ -91,14 +91,14 @@ class PaymentTypeController extends AppBaseController
         if (empty($paymentType)) {
             Flash::error('Payment Type not found');
 
-            return redirect(route('paymentTypes.index'));
+            return redirect(route('payment-types.index'));
         }
 
         $paymentType = $this->paymentTypeRepository->update($request->all(), $id);
 
         Flash::success('Payment Type updated successfully.');
 
-        return redirect(route('paymentTypes.index'));
+        return redirect(route('payment-types.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class PaymentTypeController extends AppBaseController
         if (empty($paymentType)) {
             Flash::error('Payment Type not found');
 
-            return redirect(route('paymentTypes.index'));
+            return redirect(route('payment-types.index'));
         }
 
         $this->paymentTypeRepository->delete($id);
 
         Flash::success('Payment Type deleted successfully.');
 
-        return redirect(route('paymentTypes.index'));
+        return redirect(route('payment-types.index'));
     }
 }

@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('user_types', function (Blueprint $table) {
             $table->id('id');
             $table->string('label');
-            $table->text('description');
-            $table->text('avantages');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->text('avantages')->nullable();
             $table->timestamps();
         });
     }

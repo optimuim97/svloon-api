@@ -11,7 +11,7 @@ Payment Method Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('paymentMethods.index') }}">
+                       href="{{ route('quick-services.index') }}">
                                                     Back
                                             </a>
                 </div>

@@ -33,6 +33,7 @@ class SignUpController extends Controller
      *               @OA\Property(property="photo_url", type="text"),
      *               @OA\Property(property="is_active", type="text"),
      *               @OA\Property(property="is_professional", type="text"),
+     *               @OA\Property(property="user_type_id", type="integer"),
      *               @OA\Property(property="password", type="password"),
      *            ),
      *        ),
@@ -58,6 +59,7 @@ class SignUpController extends Controller
      */
     public function register(Request $request)
     {
+        $request->validate(User::$rules);
 
         $user = User::create([
             "firstname" => $request->firstname,
@@ -72,30 +74,13 @@ class SignUpController extends Controller
             "email" => $request->email,
             "email_verified_at" => $request->email_verified_at,
             "password" => Hash::make($request->password),
+            "user_type_id" => $request->user_type_id
         ]);
 
-        $validated = $request->validate([
-            'email' => ["required", "unique:users"],
-            'password' => "required",
-            'firstname' => "required",
-            'lastname' => "required",
-            'name' => "required",
-            'dial_code' => "required",
-            'phone_number' => "required",
-            'profession' => "required",
-            'photo_url' => "required",
-            'is_active' => "required",
-            'is_professional' => "required",
-            'email' => "required"
-        ]);
-
-        if($validated){
-            return response()->json([
-                "message" => "User Created",
-                "status_code" => Response::HTTP_CREATED,
-                "data" => $user
-            ], Response::HTTP_CREATED);
-        }
-
+        return response()->json([
+            "message" => "User Created",
+            "status_code" => Response::HTTP_CREATED,
+            "data" => $user
+        ], Response::HTTP_CREATED);
     }
 }

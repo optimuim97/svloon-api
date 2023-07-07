@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\UserTypeRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Str;
 
 class UserTypeController extends AppBaseController
 {
@@ -41,6 +42,7 @@ class UserTypeController extends AppBaseController
     public function store(CreateUserTypeRequest $request)
     {
         $input = $request->all();
+        $input['slug'] = Str::slug($input['label']);
 
         $userType = $this->userTypeRepository->create($input);
 

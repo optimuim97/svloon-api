@@ -106,21 +106,21 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('quickServices.index') }}" class="nav-link {{ Request::is('quickServices*') ? 'active' : '' }}">
+    <a href="{{ route('quick-services.index') }}" class="nav-link {{ Request::is('quick-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Quick Services</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('paymentMethods.index') }}" class="nav-link {{ Request::is('paymentMethods*') ? 'active' : '' }}">
+    <a href="{{ route('quick-services.index') }}" class="nav-link {{ Request::is('quick-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Payment Methods</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('paymentTypes.index') }}" class="nav-link {{ Request::is('paymentTypes*') ? 'active' : '' }}">
+    <a href="{{ route('payment-types.index') }}" class="nav-link {{ Request::is('payment-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Payment Types</p>
     </a>

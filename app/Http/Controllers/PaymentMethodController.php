@@ -46,7 +46,7 @@ class PaymentMethodController extends AppBaseController
 
         Flash::success('Payment Method saved successfully.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('quick-services.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Payment Method not found');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('quick-services.index'));
         }
 
         return view('payment_methods.show')->with('paymentMethod', $paymentMethod);
@@ -75,7 +75,7 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Payment Method not found');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('quick-services.index'));
         }
 
         return view('payment_methods.edit')->with('paymentMethod', $paymentMethod);
@@ -91,14 +91,14 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Payment Method not found');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('quick-services.index'));
         }
 
         $paymentMethod = $this->paymentMethodRepository->update($request->all(), $id);
 
         Flash::success('Payment Method updated successfully.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('quick-services.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class PaymentMethodController extends AppBaseController
         if (empty($paymentMethod)) {
             Flash::error('Payment Method not found');
 
-            return redirect(route('paymentMethods.index'));
+            return redirect(route('quick-services.index'));
         }
 
         $this->paymentMethodRepository->delete($id);
 
         Flash::success('Payment Method deleted successfully.');
 
-        return redirect(route('paymentMethods.index'));
+        return redirect(route('quick-services.index'));
     }
 }

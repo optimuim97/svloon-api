@@ -55,7 +55,20 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-
+    public static array $rules = [
+        'email' => ["required", "unique:users"],
+        'password' => "required",
+        'firstname' => "required",
+        'lastname' => "required",
+        'name' => "required",
+        'dial_code' => "required",
+        'phone_number' => "required",
+        'profession_id' => "nullable",
+        'photo_url' => "nullable",
+        'is_active' => "required",
+        'is_professional' => "required",
+        'user_type_id'=> "required"
+    ];
 
     // Rest omitted for brevity
 
@@ -78,4 +91,5 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+    
 }

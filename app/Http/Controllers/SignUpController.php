@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Salon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,9 +13,9 @@ class SignUpController extends Controller
 
     /**
      * @OA\Post(
-     * path="/sign-up",
+     * path="/sign-up", 
      * operationId="Register",
-     * tags={"Register"},
+     * tags={"Register"},   
      * summary="User Register",
      * description="User Register here",
      *     @OA\RequestBody(
@@ -34,7 +35,7 @@ class SignUpController extends Controller
      *               @OA\Property(property="is_active", type="text"),
      *               @OA\Property(property="is_professional", type="text"),
      *               @OA\Property(property="user_type_id", type="integer"),
-     *               @OA\Property(property="password", type="password"),
+     *               @OA\Property(property="password", type="password")
      *            ),
      *        ),
      *    ),
@@ -83,6 +84,21 @@ class SignUpController extends Controller
 
         if($user->userType->slug=="artist"){
             //TODO add artist info
+        }
+
+        if($user?->userType?->slug == "pro"){
+            
+            Salon::create([
+                "name" => $user->name,
+                "email" => $user->email,
+                "owner_fullname" => $user->owner_fullname,
+                "dialCode" => "+225",
+                "phoneNumber" => $user->phone_number,
+                "phone" => $user->phone,
+                "postalCode" => $user->postalCode,
+                "localNumber" => $user->localNumber,
+                "salon_type_id" => $user->salon_type_id,
+            ]);
         }
 
         return response()->json([

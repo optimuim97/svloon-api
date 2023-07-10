@@ -2,7 +2,7 @@
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Home</p>
+        <p>Tableau de Bord</p>
     </a>
 </li>
 
@@ -16,7 +16,7 @@
 <li class="nav-item">
     <a href="{{ route('service-types.index') }}" class="nav-link {{ Request::is('service-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Service Types</p>
+        <p> Type de Services </p>
     </a>
 </li>
 
@@ -41,53 +41,53 @@
     </a>
 </li> --}}
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('user-addresses.index') }}" class="nav-link {{ Request::is('user-addresses*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>User Addresses</p>
     </a>
-</li>
+</li> --}}
 
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('salon-addresses.index') }}" class="nav-link {{ Request::is('salon-addresses*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Salon Addresses</p>
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item">
     <a href="{{ route('appointements.index') }}" class="nav-link {{ Request::is('appointements*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Appointements</p>
+        <p>RDV</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('user-types.index') }}" class="nav-link {{ Request::is('userTypes*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>User Types</p>
+        <p>Type d'utilisateur</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('salon-type-accounts.index') }}" class="nav-link {{ Request::is('salon-type-accounts*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Salon Type Accounts</p>
+        <p> Type de Compte Salon</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('salon-service-types.index') }}" class="nav-link {{ Request::is('salon-service-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Salon Service Types</p>
+        <p>Types de Service </p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('service-place-types.index') }}" class="nav-link {{ Request::is('service-place-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Service Place Types</p>
+        <p> Types de Lieu</p>
     </a>
 </li>
 
@@ -101,27 +101,34 @@
 <li class="nav-item">
     <a href="{{ route('salon-pictures.index') }}" class="nav-link {{ Request::is('salon-pictures*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Salon Pictures</p>
+        <p>Salon Image des salons </p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('quick-services.index') }}" class="nav-link {{ Request::is('quick-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Quick Services</p>
+        <p> Services Rapide </p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('quick-services.index') }}" class="nav-link {{ Request::is('quick-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Payment Methods</p>
+        <p> Methodes de paiements</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('payment-types.index') }}" class="nav-link {{ Request::is('payment-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Payment Types</p>
+        <p>Mode de Paiement </p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('serviceTypes.index') }}" class="nav-link {{ Request::is('serviceTypes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Service Types</p>
     </a>
 </li>

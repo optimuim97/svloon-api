@@ -32,7 +32,8 @@ class User extends Authenticatable implements JWTSubject
         'is_professional',
         'email',
         'email_verified_at',
-        'password'
+        'password',
+        "user_type_id"
     ];
 
     /**
@@ -60,7 +61,6 @@ class User extends Authenticatable implements JWTSubject
         'password' => "required",
         'firstname' => "required",
         'lastname' => "required",
-        'name' => "required",
         'dial_code' => "required",
         'phone_number' => "required",
         'profession_id' => "nullable",
@@ -97,9 +97,19 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function userType(): BelongsTo
+    public function userType()
     {
-        return $this->belongsTo(UserType::class, 'foreign_key', 'other_key');
+        return $this->belongsTo(UserType::class);
+    }
+
+    /**
+     * Get all of the salons for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function salons()
+    {
+        return $this->hasMany(Salon::class);
     }
     
 }

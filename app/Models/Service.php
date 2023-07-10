@@ -61,7 +61,8 @@ use Illuminate\Database\Eloquent\Model;
         'label',
         'description',
         'imageUrl',
-        'isPromo'
+        'isPromo',
+        'salon_id',
     ];
 
     protected $casts = [
@@ -72,7 +73,8 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+        'label'=>  "required",
+        'salon_id'=> "required" 
     ];
 
     

@@ -20,16 +20,16 @@ return new class extends Migration
             $table->string('owner_fullname')->nullable();
             $table->string('dialCode')->nullable();
             $table->string('password')->nullable();
-            $table->timestamp('scheduleStart');
-            $table->timestamp('scheduleEnd');
-            $table->string('scheduleStr');
-            $table->string('city');
-            $table->string('phoneNumber');
+            $table->timestamp('scheduleStart')->nullable();
+            $table->timestamp('scheduleEnd')->nullable();
+            $table->string('scheduleStr')->nullable();
+            $table->string('city')->nullable();
+            $table->string('phoneNumber')->nullable();
             $table->string('phone')->nullable();
             $table->string('postalCode')->nullable();
             $table->string('localNumber')->nullable();
-            $table->text('bailDocument');
-            $table->bigInteger('salon_type_id')->unsigned();
+            $table->text('bailDocument')->nullable();
+            $table->bigInteger('salon_type_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -177,7 +177,8 @@
         "primary": false,
         "inForm": true,
         "inIndex": true,
-        "inView": true
+        "inView": true,
+        "dataType": "file"
     },
     {
         "name": "salon_type_id",

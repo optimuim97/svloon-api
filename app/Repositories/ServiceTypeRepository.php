@@ -9,7 +9,8 @@ class ServiceTypeRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'label',
-        'description'
+        'description',
+        'image_url'
     ];
 
     public function getFieldsSearchable(): array

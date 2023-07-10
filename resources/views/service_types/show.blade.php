@@ -11,7 +11,7 @@ Service Type Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('service-types.index') }}">
+                       href="{{ route('serviceTypes.index') }}">
                                                     Back
                                             </a>
                 </div>

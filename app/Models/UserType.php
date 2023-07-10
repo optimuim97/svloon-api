@@ -73,10 +73,9 @@ use Illuminate\Database\Eloquent\Model;
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users(): HasMany
+    public function users()
     {
-        return $this->hasMany(User::class, 'foreign_key', 'local_key');
+        return $this->hasMany(User::class);
     }
-
     
 }

@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id('id');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('price');
-            $table->boolean('isPromo');
-            $table->string('imageUrl');
+            $table->boolean('isPromo')->nullable();
+            $table->string('imageUrl')->nullable();
             $table->timestamps();
-            $table->foreignId('service_type_id')->constrained();
+            $table->foreignId('service_type_id')->constrained()->nullable();
+            $table->foreignId('salon_id')->constrained()->nullable();
         });
     }
 

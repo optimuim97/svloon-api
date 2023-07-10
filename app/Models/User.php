@@ -91,5 +91,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Get the userType that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userType(): BelongsTo
+    {
+        return $this->belongsTo(UserType::class, 'foreign_key', 'other_key');
+    }
     
 }

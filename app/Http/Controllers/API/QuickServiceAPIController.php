@@ -64,13 +64,35 @@ class QuickServiceAPIController extends AppBaseController
 
     /**
      * @OA\Post(
-     *      path="/quick-services",
+     *      path="/auth/quick-services",
      *      summary="createQuickService",
      *      tags={"QuickService"},
      *      description="Create QuickService",
+     *      @OA\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *        ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/QuickService")
+     *        @OA\JsonContent(ref="#/components/schemas/QuickService"),
+     *        @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *          @OA\Schema( 
+     *              required={"service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"},
+     *              @OA\Property(property="service_id", type="string"),
+     *              @OA\Property(property="address", type="string"),
+     *              @OA\Property(property="lat", type="string"),
+     *              @OA\Property(property="lon", type="string"),
+     *              @OA\Property(property="user_id", type="string"),
+     *              @OA\Property(property="payment_method_id", type="integer"),
+     *              @OA\Property(property="payment_method_type_id", type="integer"),
+     *              @OA\Property(property="duration", type="string"),
+     *              @OA\Property(property="is_confirmed", type="string"),
+     *              @OA\Property(property="has_already_send_remeber", type="string")
+     *          )
+     *        )
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -93,9 +115,15 @@ class QuickServiceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateQuickServiceAPIRequest $request): JsonResponse
+    public function requestQuickService(CreateQuickServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $user = auth('api')->users;
+        $input ["user_id"] = $user->id;
+
+        dd($input);
+
+        $request->validate(QuickService::$rules);
 
         $quickService = $this->quickServiceRepository->create($input);
 

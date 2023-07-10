@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id('id');
             $table->foreignId('service_id')->constrained()->nullable();
             $table->foreignId('user_id')->constrained()->nullable();
+            $table->foreignId('payment_method_id')->constrained()->nullable();
+            $table->foreignId('payment_method_type_id')->constrained()->nullable();
             $table->string('address');
             $table->string('hour')->nullable();
             $table->string('lat');

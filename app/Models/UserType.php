@@ -68,5 +68,15 @@ use Illuminate\Database\Eloquent\Model;
         
     ];
 
+    /**
+     * Get all of the users for the UserType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'foreign_key', 'local_key');
+    }
+
     
 }

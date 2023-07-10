@@ -25,7 +25,7 @@ class PaymentTypeAPIController extends AppBaseController
 
     /**
      * @OA\Get(
-     *      path="/payment-types",
+     *      path="payment-types",
      *      summary="getPaymentTypeList",
      *      tags={"PaymentType"},
      *      description="Get all PaymentTypes",

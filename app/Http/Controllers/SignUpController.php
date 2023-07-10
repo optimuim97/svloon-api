@@ -76,6 +76,14 @@ class SignUpController extends Controller
             "password" => Hash::make($request->password),
             "user_type_id" => $request->user_type_id
         ]);
+        
+        if($user->userType->slug=="salon"){
+            //TODO add salon info
+        }
+
+        if($user->userType->slug=="artist"){
+            //TODO add artist info
+        }
 
         return response()->json([
             "message" => "User Created",

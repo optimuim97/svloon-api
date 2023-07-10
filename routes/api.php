@@ -26,7 +26,7 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::post('request-quick-service', [QuickServiceController::class, 'requestQuickService']);
+    Route::post('request-quick-service', [QuickServiceAPIController::class, 'requestQuickService']);
 });
 
 Route::post('sign-up', [SignUpController::class, 'register']);

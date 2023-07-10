@@ -94,8 +94,10 @@ use Illuminate\Database\Eloquent\Model;
         'lon',
         'user_id',
         'duration',
-        'isConfirmed',
-        'hasAlreadySendRemeber'
+        'is_confirmed',
+        'has_already_send_remeber',
+        'payment_method_id',
+        'payment_method_type_id'
     ];
 
     protected $casts = [
@@ -110,8 +112,17 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+        'service_id' => "required",
+        'user_id' => "required",
+        'address' => "required",
+        'hour' => "required",
+        'lat' => "required",
+        'lon' => "required",
+        'duration' => "required",
+        'is_confirmed' => "required",
+        'is_report' => "nullable",
+        'is_cancel' => "nullable",
+        'has_already_send_remeber' => "required",
     ];
-
     
 }

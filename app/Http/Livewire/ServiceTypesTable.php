@@ -7,7 +7,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\ServiceType;
 
-class serviceTypesTable extends DataTableComponent
+class ServiceTypesTable extends DataTableComponent
 {
     protected $model = ServiceType::class;
 
@@ -32,6 +32,9 @@ class serviceTypesTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make("Description", "description")
+                ->sortable()
+                ->searchable(),
+            Column::make("Image Url", "image_url")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')

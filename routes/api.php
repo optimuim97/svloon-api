@@ -71,3 +71,6 @@ Route::resource('payment-types', App\Http\Controllers\API\PaymentTypeAPIControll
 
 Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('service-types', App\Http\Controllers\API\ServiceTypeAPIController::class)
+    ->except(['create', 'edit']);

@@ -2,34 +2,33 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateSalonAPIRequest;
-use App\Http\Requests\API\UpdateSalonAPIRequest;
-use App\Models\Salon;
-use App\Repositories\SalonRepository;
+use App\Http\Requests\API\CreateServiceTypeAPIRequest;
+use App\Http\Requests\API\UpdateServiceTypeAPIRequest;
+use App\Models\ServiceType;
+use App\Repositories\ServiceTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Str;
 
 /**
- * Class SalonController
+ * Class ServiceTypeController
  */
 
-class SalonAPIController extends AppBaseController
+class ServiceTypeAPIController extends AppBaseController
 {
-    private SalonRepository $salonRepository;
+    private ServiceTypeRepository $serviceTypeRepository;
 
-    public function __construct(SalonRepository $salonRepo)
+    public function __construct(ServiceTypeRepository $serviceTypeRepo)
     {
-        $this->salonRepository = $salonRepo;
+        $this->serviceTypeRepository = $serviceTypeRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salons",
-     *      summary="getSalonList",
-     *      tags={"Salon"},
-     *      description="Get all Salons",
+     *      path="/service-types",
+     *      summary="getServiceTypeList",
+     *      tags={"ServiceType"},
+     *      description="Get all ServiceTypes",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -42,7 +41,7 @@ class SalonAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Salon")
+     *                  @OA\Items(ref="#/components/schemas/ServiceType")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -54,24 +53,24 @@ class SalonAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salons = $this->salonRepository->all(
+        $serviceTypes = $this->serviceTypeRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salons->toArray(), 'Salons retrieved successfully');
+        return $this->sendResponse($serviceTypes->toArray(), 'Service Types retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salons",
-     *      summary="createSalon",
-     *      tags={"Salon"},
-     *      description="Create Salon",
+     *      path="/service-types",
+     *      summary="createServiceType",
+     *      tags={"ServiceType"},
+     *      description="Create ServiceType",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Salon")
+     *        @OA\JsonContent(ref="#/components/schemas/ServiceType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -84,7 +83,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/ServiceType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -94,22 +93,24 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonAPIRequest $request): JsonResponse
+    public function store(CreateServiceTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $salon = $this->salonRepository->create($input);
-        return $this->sendResponse($salon->toArray(), 'Salon saved successfully');
+
+        $serviceType = $this->serviceTypeRepository->create($input);
+
+        return $this->sendResponse($serviceType->toArray(), 'Service Type saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salons/{id}",
-     *      summary="getSalonItem",
-     *      tags={"Salon"},
-     *      description="Get Salon",
+     *      path="/service-types/{id}",
+     *      summary="getServiceTypeItem",
+     *      tags={"ServiceType"},
+     *      description="Get ServiceType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of ServiceType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -127,7 +128,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/ServiceType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -139,25 +140,25 @@ class SalonAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var ServiceType $serviceType */
+        $serviceType = $this->serviceTypeRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($serviceType)) {
+            return $this->sendError('Service Type not found');
         }
 
-        return $this->sendResponse($salon->toArray(), 'Salon retrieved successfully');
+        return $this->sendResponse($serviceType->toArray(), 'Service Type retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salons/{id}",
-     *      summary="updateSalon",
-     *      tags={"Salon"},
-     *      description="Update Salon",
+     *      path="/service-types/{id}",
+     *      summary="updateServiceType",
+     *      tags={"ServiceType"},
+     *      description="Update ServiceType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of ServiceType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -166,21 +167,7 @@ class SalonAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *          @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 allOf={
-     *                     @OA\Schema(ref="#components/schemas/Salon"),
-     *                     @OA\Schema(
-     *                         @OA\Property(
-     *                             description="Bail Document",
-     *                             property="bailDocument",
-     *                             type="string", format="binary"
-     *                         )
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *        @OA\JsonContent(ref="#/components/schemas/ServiceType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -193,7 +180,7 @@ class SalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Salon"
+     *                  ref="#/components/schemas/ServiceType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -203,43 +190,31 @@ class SalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, Request $request): JsonResponse
+    public function update($id, UpdateServiceTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        // $fileTemp = $request->file("bailDocument");
 
-        // dd([$input, $fileTemp]);
-        
-        // if($fileTemp->isValid()){
-        //     $fileExtension = $fileTemp->getClientOriginalExtension();
-        //     $fileName = Str::random(4). '.'. $fileExtension;
-           
-        //     $fileTemp->storeAs(
-        //         'public/documents', $fileName
-        //     );
-        // }
+        /** @var ServiceType $serviceType */
+        $serviceType = $this->serviceTypeRepository->find($id);
 
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
-
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($serviceType)) {
+            return $this->sendError('Service Type not found');
         }
 
-        $salon = $this->salonRepository->update($input, $id);
+        $serviceType = $this->serviceTypeRepository->update($input, $id);
 
-        return $this->sendResponse($salon->toArray(), 'Salon updated successfully');
+        return $this->sendResponse($serviceType->toArray(), 'ServiceType updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salons/{id}",
-     *      summary="deleteSalon",
-     *      tags={"Salon"},
-     *      description="Delete Salon",
+     *      path="/service-types/{id}",
+     *      summary="deleteServiceType",
+     *      tags={"ServiceType"},
+     *      description="Delete ServiceType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Salon",
+     *          description="id of ServiceType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -269,15 +244,15 @@ class SalonAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Salon $salon */
-        $salon = $this->salonRepository->find($id);
+        /** @var ServiceType $serviceType */
+        $serviceType = $this->serviceTypeRepository->find($id);
 
-        if (empty($salon)) {
-            return $this->sendError('Salon not found');
+        if (empty($serviceType)) {
+            return $this->sendError('Service Type not found');
         }
 
-        $salon->delete();
+        $serviceType->delete();
 
-        return $this->sendSuccess('Salon deleted successfully');
+        return $this->sendSuccess('Service Type deleted successfully');
     }
 }

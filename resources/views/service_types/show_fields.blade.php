@@ -10,6 +10,12 @@
     <p>{{ $serviceType->description }}</p>
 </div>
 
+<!-- Image Url Field -->
+<div class="col-sm-12">
+    {!! Form::label('image_url', 'Image Url:') !!}
+    <p>{{ $serviceType->image_url }}</p>
+</div>
+
 <!-- Created At Field -->
 <div class="col-sm-12">
     {!! Form::label('created_at', 'Created At:') !!}

@@ -23,6 +23,13 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      ),
  *      @OA\Property(
+ *          property="image_url",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
  *          property="created_at",
  *          description="",
  *          readOnly=true,
@@ -45,12 +52,14 @@ use Illuminate\Database\Eloquent\Model;
 
     public $fillable = [
         'label',
-        'description'
+        'description',
+        'image_url'
     ];
 
     protected $casts = [
         'label' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'image_url' => 'string'
     ];
 
     public static array $rules = [

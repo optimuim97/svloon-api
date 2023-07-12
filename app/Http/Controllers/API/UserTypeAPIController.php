@@ -13,7 +13,6 @@ use App\Http\Controllers\AppBaseController;
 /**
  * Class UserTypeController
  */
-
 class UserTypeAPIController extends AppBaseController
 {
     private UserTypeRepository $userTypeRepository;
@@ -29,7 +28,7 @@ class UserTypeAPIController extends AppBaseController
      *      summary="getUserTypeList",
      *      tags={"UserType"},
      *      description="Get all UserTypes",
-     *      @OA\Response(
+     *      @OA\Response
      *          response=200,
      *          description="successful operation",
      *          @OA\JsonContent(

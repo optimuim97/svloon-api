@@ -121,8 +121,6 @@ class QuickServiceAPIController extends AppBaseController
         $user = auth('api')->users;
         $input ["user_id"] = $user->id;
 
-        dd($input);
-
         $request->validate(QuickService::$rules);
 
         $quickService = $this->quickServiceRepository->create($input);

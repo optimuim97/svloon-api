@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CreateQuickService;
 use App\Http\Controllers\SignUpController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,8 +26,12 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::post('request-quick-service', [QuickServiceAPIController::class, 'requestQuickService']);
 });
+
+Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::post('request-quick-service', CreateQuickService::class);
 
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -60,8 +64,7 @@ Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIContro
 Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
-    ->except(['create', 'edit']);
+
 
 Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)
     ->except(['create', 'edit']);

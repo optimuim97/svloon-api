@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\ServiceType;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -32,7 +33,10 @@ class ServiceController extends AppBaseController
      */
     public function create()
     {
-        return view('services.create');
+        $serviceType = ServiceType::all()->pluck('label', 'id');
+
+        // dd($serviceType);
+        return view('services.create', compact("serviceType"));
     }
 
     /**
@@ -41,6 +45,7 @@ class ServiceController extends AppBaseController
     public function store(CreateServiceRequest $request)
     {
         $input = $request->all();
+        // dd($input);
 
         $service = $this->serviceRepository->create($input);
 

@@ -46,7 +46,7 @@ class ServiceTypeController extends AppBaseController
 
         Flash::success('Service Type saved successfully.');
 
-        return redirect(route('serviceTypes.index'));
+        return redirect(route('service-types.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ServiceTypeController extends AppBaseController
         if (empty($serviceType)) {
             Flash::error('Service Type not found');
 
-            return redirect(route('serviceTypes.index'));
+            return redirect(route('service-types.index'));
         }
 
         return view('service_types.show')->with('serviceType', $serviceType);
@@ -75,7 +75,7 @@ class ServiceTypeController extends AppBaseController
         if (empty($serviceType)) {
             Flash::error('Service Type not found');
 
-            return redirect(route('serviceTypes.index'));
+            return redirect(route('service-types.index'));
         }
 
         return view('service_types.edit')->with('serviceType', $serviceType);
@@ -91,14 +91,14 @@ class ServiceTypeController extends AppBaseController
         if (empty($serviceType)) {
             Flash::error('Service Type not found');
 
-            return redirect(route('serviceTypes.index'));
+            return redirect(route('service-types.index'));
         }
 
         $serviceType = $this->serviceTypeRepository->update($request->all(), $id);
 
         Flash::success('Service Type updated successfully.');
 
-        return redirect(route('serviceTypes.index'));
+        return redirect(route('service-types.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ServiceTypeController extends AppBaseController
         if (empty($serviceType)) {
             Flash::error('Service Type not found');
 
-            return redirect(route('serviceTypes.index'));
+            return redirect(route('service-types.index'));
         }
 
         $this->serviceTypeRepository->delete($id);
 
         Flash::success('Service Type deleted successfully.');
 
-        return redirect(route('serviceTypes.index'));
+        return redirect(route('service-types.index'));
     }
 }

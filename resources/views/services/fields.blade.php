@@ -1,7 +1,18 @@
 <!-- Label Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('label', 'Label:') !!}
-    {!! Form::text('label', null, ['class' => 'form-control']) !!}
+    {!! Form::label('title', 'title:') !!}
+    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('price', 'price:') !!}
+    {!! Form::text('price', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- User Id Field -->
+<div class="form-group col-sm-12">
+    {!! Form::label('service_type_id', 'Type de Service :') !!}
+    {!! Form::select('service_type_id',$serviceType, null,['class' => 'form-control custom-select']) !!}
 </div>
 
 <!-- Description Field -->

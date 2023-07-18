@@ -40,7 +40,6 @@ class GeoService{
     }
 
     public function Polygon(){
-
         $geofence = new Polygon();
 
         $geofence->addPoint(new Coordinate(-12.085870,-77.016261));
@@ -51,9 +50,8 @@ class GeoService{
         $outsidePoint = new Coordinate(-12.075452, -76.985079);
         $insidePoint = new Coordinate(-12.092542, -77.021540);
 
-        var_dump($geofence->contains($outsidePoint)); // returns bool(false) the point is outside the polygon
-        var_dump($geofence->contains($insidePoint)); // returns bool(true) the point is inside the polygon
-
+        // var_dump($geofence->contains($outsidePoint)); // returns bool(false) the point is outside the polygon
+        // var_dump($geofence->contains($insidePoint)); // returns bool(true) the point is inside the polygon
 
         return [
             $geofence->contains($outsidePoint),           

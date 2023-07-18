@@ -127,8 +127,15 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('serviceTypes.index') }}" class="nav-link {{ Request::is('serviceTypes*') ? 'active' : '' }}">
+    <a href="{{ route('service-types.index') }}" class="nav-link {{ Request::is('service-types*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Service Types</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('services-salons.index') }}" class="nav-link {{ Request::is('services-salons*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Services Salons</p>
     </a>
 </li>

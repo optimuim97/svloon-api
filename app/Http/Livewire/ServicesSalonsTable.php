@@ -5,18 +5,18 @@ namespace App\Http\Livewire;
 use Laracasts\Flash\Flash;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Service;
+use App\Models\ServicesSalon;
 
-class ServicesTable extends DataTableComponent
+class ServicesSalonsTable extends DataTableComponent
 {
-    protected $model = Service::class;
+    protected $model = ServicesSalon::class;
 
     protected $listeners = ['deleteRecord' => 'deleteRecord'];
 
     public function deleteRecord($id)
     {
-        Service::find($id)->delete();
-        Flash::success('Service deleted successfully.');
+        ServicesSalon::find($id)->delete();
+        Flash::success('Services Salon deleted successfully.');
         $this->emit('refreshDatatable');
     }
 
@@ -28,23 +28,20 @@ class ServicesTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("title", "title")
+            Column::make("Salon Id", "salon_id")
                 ->sortable()
                 ->searchable(),
-            Column::make("Description", "description")
+            Column::make("Service Id", "service_id")
                 ->sortable()
                 ->searchable(),
-            Column::make("Imageurl", "imageUrl")
-                ->sortable()
-                ->searchable(),
-            Column::make("Ispromo", "isPromo")
+            Column::make("Isactive", "isActive")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')
                 ->format(
                     fn($value, $row, Column $column) => view('common.livewire-tables.actions', [
-                        'showUrl' => route('services.show', $row->id),
-                        'editUrl' => route('services.edit', $row->id),
+                        'showUrl' => route('services-salons.show', $row->id),
+                        'editUrl' => route('services-salons.edit', $row->id),
                         'recordId' => $row->id,
                     ])
                 )

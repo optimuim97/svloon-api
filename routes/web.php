@@ -31,3 +31,5 @@ Route::prefix("dash")->group(
         Route::resource('payment-types', App\Http\Controllers\PaymentTypeController::class);
     }
 );
+
+Route::resource('services-salons', App\Http\Controllers\ServicesSalonController::class);

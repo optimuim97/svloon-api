@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Collection;
+
 /**
  * @OA\Schema(
  *      schema="Salon",
@@ -175,6 +177,8 @@ use Illuminate\Database\Eloquent\Model;
         
     ];
 
+    protected $appends = ['quick_service_list'];
+
     /**
      * Get the user that owns the Salon
      *
@@ -185,4 +189,21 @@ use Illuminate\Database\Eloquent\Model;
         return $this->belongsTo(User::class);
     }
     
+    public function getQuickServiceListAttribute(){
+
+        $serviceList = new Collection();
+        $servicesSalon = ServicesSalon::where(["salon_id"=>$this->id,"is_active"=> true])->get();
+
+        if(!empty($servicesSalon)){
+            
+            foreach ($servicesSalon as $value) {
+                $serviceList->add(Service::where(["id"=>$value->service_id])->first());
+            }
+            
+            return $serviceList->unique("id",true);
+        }
+
+        return $serviceList;
+
+    }
 }

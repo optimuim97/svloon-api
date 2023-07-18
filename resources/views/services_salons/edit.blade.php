@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Service Types
+                        Edit Services Salon
                     </h1>
                 </div>
             </div>
@@ -19,19 +19,17 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'service-types.store']) !!}
+            {!! Form::model($servicesSalon, ['route' => ['services-salons.update', $servicesSalon->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-
                 <div class="row">
-                    @include('service_types.fields')
+                    @include('services_salons.fields')
                 </div>
-
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('service-types.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('services-salons.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

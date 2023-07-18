@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('services_salons', function (Blueprint $table) {
             $table->id('id');
-            $table->string('label');
-            $table->string('image_url')->nullable();
-            $table->text('description');
+            $table->bigInteger('salon_id')->unsigned();
+            $table->bigInteger('service_id')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('service_types');
+        Schema::drop('services_salons');
     }
 };

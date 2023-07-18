@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\CreateQuickServiceApiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CreateQuickService;
 use App\Http\Controllers\SignUpController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +31,7 @@ Route::group([
 Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::post('request-quick-service', CreateQuickService::class);
+Route::post('request-quick-service', CreateQuickServiceApiController::class);
 
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -76,4 +76,7 @@ Route::resource('appointements', App\Http\Controllers\API\AppointementAPIControl
     ->except(['create', 'edit']);
 
 Route::resource('service-types', App\Http\Controllers\API\ServiceTypeAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('services-salons', App\Http\Controllers\API\ServicesSalonAPIController::class)
     ->except(['create', 'edit']);

@@ -1,36 +1,31 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Service",
+ *      schema="ServicesSalon",
  *      required={},
  *      @OA\Property(
- *          property="label",
+ *          property="salon_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="description",
+ *          property="service_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="imageUrl",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="isPromo",
+ *          property="isActive",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -53,32 +48,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */
-class Service extends Model
+ */class ServicesSalon extends Model
 {
-    use HasFactory;    
-    public $table = 'services';
+    use HasFactory;    public $table = 'services_salons';
 
     public $fillable = [
-        'title',
-        'description',
-        'imageUrl',
-        'isPromo',
         'salon_id',
-        'service_type_id',
-        'price',
+        'service_id',
+        'is_active'
     ];
 
     protected $casts = [
-        'label' => 'string',
-        'description' => 'string',
-        'imageUrl' => 'string',
-        'isPromo' => 'boolean'
+        'salon_id' => 'integer',
+        'service_id' => 'integer',
+        'is_active' => 'boolean'
     ];
 
     public static array $rules = [
-        // 'label'=>  "required",
-        // 'salon_id'=> "required" 
+        
     ];
-
+    
 }

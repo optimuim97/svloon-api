@@ -177,7 +177,7 @@ use Illuminate\Support\Collection;
         
     ];
 
-    protected $appends = ['quick_service_list'];
+    protected $appends = ['quick_service_list', "address"];
 
     /**
      * Get the user that owns the Salon
@@ -199,11 +199,18 @@ use Illuminate\Support\Collection;
             foreach ($servicesSalon as $value) {
                 $serviceList->add(Service::where(["id"=>$value->service_id])->first());
             }
-            
+
             return $serviceList->unique("id",true);
         }
 
         return $serviceList;
 
     }
+
+    public function getAddressAttribute(){
+        $address = SalonAddress::where("salon_id", $this->id)->get();
+        return $address;
+    }
+
+
 }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('lat');
             $table->string('lon');
+            $table->text('note')->nullable();
             $table->string('duration');
             $table->boolean('is_confirmed');
             $table->boolean('is_report')->nullable();

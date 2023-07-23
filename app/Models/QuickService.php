@@ -85,20 +85,11 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */class QuickService extends Model
 {
-    use HasFactory;    public $table = 'quick_services';
+    use HasFactory;    
+    public $table = 'quick_services';
 
-    public $fillable = [
-        'service_id',
-        'address',
-        'lat',
-        'lon',
-        'user_id',
-        'duration',
-        'is_confirmed',
-        'has_already_send_remeber',
-        'payment_method_id',
-        'payment_method_type_id'
-    ];
+    protected $guarded = [];
+    protected $appends = ["service"];
 
     protected $casts = [
         'service_id' => 'integer',
@@ -107,6 +98,7 @@ use Illuminate\Database\Eloquent\Model;
         'lon' => 'string',
         'user_id' => 'integer',
         'duration' => 'string',
+        'note' => 'string',
         'isConfirmed' => 'boolean',
         'hasAlreadySendRemeber' => 'boolean'
     ];
@@ -118,11 +110,18 @@ use Illuminate\Database\Eloquent\Model;
         'hour' => "required",
         'lat' => "required",
         'lon' => "required",
-        'duration' => "required",
+        'note' => "required",
+        'date' => "required",
+        // 'duration' => "required",
         'is_confirmed' => "required",
         'is_report' => "nullable",
         'is_cancel' => "nullable",
-        'has_already_send_remeber' => "required",
+        // 'has_already_send_remeber' => "required"
     ];
+
+    public function getServiceAttribute(){
+        $service = Service::where("id", $this->service_id)->first();
+        return $service;
+    }
     
 }

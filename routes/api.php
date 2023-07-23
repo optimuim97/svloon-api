@@ -31,7 +31,7 @@ Route::group([
 Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::post('request-quick-service', CreateQuickServiceApiController::class);
+Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 
 Route::post('sign-up', [SignUpController::class, 'register']);
 

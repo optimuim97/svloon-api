@@ -225,6 +225,99 @@
                 }
             }
         },
+        "/auth/quick-services": {
+            "post": {
+                "tags": [
+                    "QuickService"
+                ],
+                "summary": "createQuickService",
+                "description": "Create QuickService",
+                "operationId": "d49d2f3d2181634689202e09aabd06a2",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "type": "string"
+                                    },
+                                    "lon": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "payment_method_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_method_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "duration": {
+                                        "type": "string"
+                                    },
+                                    "is_confirmed": {
+                                        "type": "string"
+                                    },
+                                    "has_already_send_remeber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QuickService"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/QuickService"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payment-methods": {
             "get": {
                 "tags": [
@@ -680,99 +773,6 @@
                                             "items": {
                                                 "$ref": "#/components/schemas/QuickService"
                                             }
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/quick-services": {
-            "post": {
-                "tags": [
-                    "QuickService"
-                ],
-                "summary": "createQuickService",
-                "description": "Create QuickService",
-                "operationId": "18075b3504fdcd85d1790734ddef71bb",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
-                                ],
-                                "properties": {
-                                    "service_id": {
-                                        "type": "string"
-                                    },
-                                    "address": {
-                                        "type": "string"
-                                    },
-                                    "lat": {
-                                        "type": "string"
-                                    },
-                                    "lon": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "string"
-                                    },
-                                    "payment_method_id": {
-                                        "type": "integer"
-                                    },
-                                    "payment_method_type_id": {
-                                        "type": "integer"
-                                    },
-                                    "duration": {
-                                        "type": "string"
-                                    },
-                                    "is_confirmed": {
-                                        "type": "string"
-                                    },
-                                    "has_already_send_remeber": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/QuickService"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/QuickService"
                                         },
                                         "message": {
                                             "type": "string"

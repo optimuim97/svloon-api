@@ -33,3 +33,6 @@ Route::prefix("dash")->group(
 );
 
 Route::resource('services-salons', App\Http\Controllers\ServicesSalonController::class);
+Route::resource('salon-schedules', App\Http\Controllers\SalonScheduleController::class);
+Route::resource('salon-availabilies', App\Http\Controllers\SalonAvailabilyController::class);
+Route::resource('salon-un-availabilies', App\Http\Controllers\SalonUnAvailabilyController::class);

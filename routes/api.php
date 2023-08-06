@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router) {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -64,8 +62,6 @@ Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIContro
 Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
     ->except(['create', 'edit']);
 
-
-
 Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)
     ->except(['create', 'edit']);
 
@@ -79,4 +75,16 @@ Route::resource('service-types', App\Http\Controllers\API\ServiceTypeAPIControll
     ->except(['create', 'edit']);
 
 Route::resource('services-salons', App\Http\Controllers\API\ServicesSalonAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('salon-schedules', App\Http\Controllers\API\SalonScheduleAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('salon-availabilies', App\Http\Controllers\API\SalonAvailabilyAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::get("get-salon-availabilies/{salonId}", [App\Http\Controllers\API\SalonAvailabilyAPIController::class, "getSalonAvailabilityById"]);
+
+
+Route::resource('salon-un-availabilies', App\Http\Controllers\API\SalonUnAvailabilyAPIController::class)
     ->except(['create', 'edit']);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateQuickServiceAPIRequest;
 use App\Http\Requests\API\UpdateQuickServiceAPIRequest;
 use App\Models\QuickService;
 use App\Repositories\QuickServiceRepository;

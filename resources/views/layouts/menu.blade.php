@@ -139,3 +139,24 @@
         <p>Services Salons</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('salon-schedules.index') }}" class="nav-link {{ Request::is('salon-schedules*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Schedules</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('salon-availabilies.index') }}" class="nav-link {{ Request::is('salon-availabilies*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Availabilies</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('salon-un-availabilies.index') }}" class="nav-link {{ Request::is('salon-un-availabilies*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Un Availabilies</p>
+    </a>
+</li>

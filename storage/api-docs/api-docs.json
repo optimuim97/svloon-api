@@ -1368,6 +1368,327 @@
                 }
             }
         },
+        "/salon-availabilies": {
+            "get": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "getSalonAvailabilyList",
+                "description": "Get all SalonAvailabilies",
+                "operationId": "49498100be94c4cd12c738b1da6a8603",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SalonAvailabily"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "createSalonAvailabily",
+                "description": "Create SalonAvailabily",
+                "operationId": "13f9d5f5af4046ed88304c34f9e5c5f0",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "date",
+                                    "hour_start",
+                                    "hour_end",
+                                    "break_start",
+                                    "break_end"
+                                ],
+                                "properties": {
+                                    "date": {
+                                        "type": "text"
+                                    },
+                                    "hour_start": {
+                                        "type": "text"
+                                    },
+                                    "hour_end": {
+                                        "type": "text"
+                                    },
+                                    "break_start": {
+                                        "type": "text"
+                                    },
+                                    "break_end": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salon-availabilies/{id}": {
+            "get": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "getSalonAvailabilyItem",
+                "description": "Get SalonAvailabily",
+                "operationId": "6a0c6cab6a5c927512819c1615c56c21",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "updateSalonAvailabily",
+                "description": "Update SalonAvailabily",
+                "operationId": "24d22703426648cdae1a1cd3a8115bee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "date",
+                                    "hour_start",
+                                    "hour_end",
+                                    "break_start",
+                                    "break_end"
+                                ],
+                                "properties": {
+                                    "date": {
+                                        "type": "text"
+                                    },
+                                    "hour_start": {
+                                        "type": "text"
+                                    },
+                                    "hour_end": {
+                                        "type": "text"
+                                    },
+                                    "break_start": {
+                                        "type": "text"
+                                    },
+                                    "break_end": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "deleteSalonAvailabily",
+                "description": "Delete SalonAvailabily",
+                "operationId": "7f8dc55b0a224dcea63e0dd82e452248",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "get-salon-availabilies/{id}": {
+            "get": {
+                "tags": [
+                    "SalonAvailabily"
+                ],
+                "summary": "updateSalonAvailabily",
+                "description": "Update SalonAvailabily",
+                "operationId": "2c2f3f6640eee5fbde1090dbfe44a3a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SalonAvailabily"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/salon-pictures": {
             "get": {
                 "tags": [
@@ -1552,6 +1873,221 @@
                         "name": "id",
                         "in": "path",
                         "description": "id of SalonPicture",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salon-schedules": {
+            "get": {
+                "tags": [
+                    "SalonSchedule"
+                ],
+                "summary": "getSalonScheduleList",
+                "description": "Get all SalonSchedules",
+                "operationId": "b014bbbcc62f30c0c26b63971692f2d5",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SalonSchedule"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SalonSchedule"
+                ],
+                "summary": "createSalonSchedule",
+                "description": "Create SalonSchedule",
+                "operationId": "d27c4ebfb79e058f903830e8a07abb1c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SalonSchedule"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonSchedule"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salon-schedules/{id}": {
+            "get": {
+                "tags": [
+                    "SalonSchedule"
+                ],
+                "summary": "getSalonScheduleItem",
+                "description": "Get SalonSchedule",
+                "operationId": "59f0f47776f1ad664d69dfa99d9b056f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonSchedule",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonSchedule"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SalonSchedule"
+                ],
+                "summary": "updateSalonSchedule",
+                "description": "Update SalonSchedule",
+                "operationId": "f1b0813a2c431fb9470bcf3bdb5853f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonSchedule",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SalonSchedule"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonSchedule"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SalonSchedule"
+                ],
+                "summary": "deleteSalonSchedule",
+                "description": "Delete SalonSchedule",
+                "operationId": "f3982a37e6cfbf85ab06a245617f7f4f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonSchedule",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -2197,6 +2733,221 @@
                         "name": "id",
                         "in": "path",
                         "description": "id of SalonTypeAccount",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salon-un-availabilies": {
+            "get": {
+                "tags": [
+                    "SalonUnAvailabily"
+                ],
+                "summary": "getSalonUnAvailabilyList",
+                "description": "Get all SalonUnAvailabilies",
+                "operationId": "cbb6be27a68614839b2583f864cfa7b5",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SalonUnAvailabily"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SalonUnAvailabily"
+                ],
+                "summary": "createSalonUnAvailabily",
+                "description": "Create SalonUnAvailabily",
+                "operationId": "f9f4c28aa999de2cac821a85e54ececb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SalonUnAvailabily"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonUnAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/salon-un-availabilies/{id}": {
+            "get": {
+                "tags": [
+                    "SalonUnAvailabily"
+                ],
+                "summary": "getSalonUnAvailabilyItem",
+                "description": "Get SalonUnAvailabily",
+                "operationId": "446f5e9226bef04c86bad94b9bc43f94",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonUnAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonUnAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SalonUnAvailabily"
+                ],
+                "summary": "updateSalonUnAvailabily",
+                "description": "Update SalonUnAvailabily",
+                "operationId": "ddc8beb95f818e83d2128c13211ba7e2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonUnAvailabily",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SalonUnAvailabily"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SalonUnAvailabily"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SalonUnAvailabily"
+                ],
+                "summary": "deleteSalonUnAvailabily",
+                "description": "Delete SalonUnAvailabily",
+                "operationId": "d0bb9b66dc4b88c7dc51444e1cfd86d0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SalonUnAvailabily",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3900,6 +4651,33 @@
                 },
                 "type": "object"
             },
+            "SalonAvailabily": {
+                "required": [],
+                "properties": {
+                    "date": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "SalonPicture": {
                 "required": [],
                 "properties": {
@@ -3919,6 +4697,74 @@
                     "original_name": {
                         "description": "",
                         "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "SalonSchedule": {
+                "required": [],
+                "properties": {
+                    "start_day": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "end_dat": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "start_hour": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "end_hour": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "pause_start": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "pause_end": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "is_active": {
+                        "description": "",
+                        "type": "boolean",
                         "readOnly": false,
                         "nullable": true
                     },
@@ -4033,6 +4879,39 @@
                         "nullable": true
                     },
                     "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "SalonUnAvailabily": {
+                "required": [],
+                "properties": {
+                    "date": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "raison": {
                         "description": "",
                         "type": "string",
                         "readOnly": false,

@@ -35,7 +35,20 @@ class SignUpController extends Controller
      *               @OA\Property(property="is_active", type="text"),
      *               @OA\Property(property="is_professional", type="text"),
      *               @OA\Property(property="user_type_id", type="integer"),
-     *               @OA\Property(property="password", type="password")
+     *               @OA\Property(property="password", type="password"),
+     *               @OA\Property(property="salon_name", type="text"),
+     *               @OA\Property(property="salon_email", type="text"),
+     *               @OA\Property(property="salon_owner_fullname", type="text"),
+     *               @OA\Property(property="salon_dialCode", type="text"),
+     *               @OA\Property(property="salon_password", type="text"),
+     *               @OA\Property(property="salon_scheduleStr", type="text"),
+     *               @OA\Property(property="salon_city", type="text"),
+     *               @OA\Property(property="salon_phoneNumber", type="text"),
+     *               @OA\Property(property="salon_phone", type="text"),
+     *               @OA\Property(property="salon_postalCode", type="text"),
+     *               @OA\Property(property="salon_localNumber", type="text"),
+     *               @OA\Property(property="salon_bailDocument", type="text"),
+     *               @OA\Property(property="salon_salon_type_id", type="text"),
      *            ),
      *        ),
      *    ),
@@ -66,7 +79,7 @@ class SignUpController extends Controller
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
             "name" => $request->firstname . '' . $request->lastname,
-            "dial_code" => $request->dial_code,
+            "dial_code" => $request->dial_code ?? "+225",
             "phone_number" => $request->phone_number,
             "profession" => $request->profession,
             "photo_url" => "https://i.imgur.com/zCL2LAh.png",
@@ -79,7 +92,23 @@ class SignUpController extends Controller
         ]);
         
         if($user->userType->slug=="salon"){
-            //TODO add salon info
+
+          //TODO add salon info
+            $salon =  Salon::create([
+                "name" => $request->salon_name ?? $request->name,
+                "email" => $request->salon_email ?? $request->email,
+                "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname. $request->lastname,
+                "password" => Hash::make($request->password),
+                "scheduleStr" => $request->salon_scheduleStr ?? "",
+                "city" => $request->salon_city ?? "",
+                "dialCode" => $request->salon_dialCode ?? "+225",
+                "phoneNumber" => $request->salon_phoneNumber ?? "",
+                "phone" => $request->salon_phone. $request->phone_number,
+                "postalCode" => $request->salon_postalCode ?? "",
+                "localNumber" => $request->salon_localNumber ?? "",
+                "bailDocument" => $request->salon_bailDocument ?? "",
+                "salon_type_id" => $request->salon_salon_type_id ?? ""
+            ]);
         }
 
         if($user->userType->slug=="artist"){

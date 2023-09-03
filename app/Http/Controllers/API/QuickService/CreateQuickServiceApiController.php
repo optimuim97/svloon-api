@@ -109,20 +109,22 @@ class CreateQuickServiceApiController extends AppBaseController
 
         $salonAvailabilities = $nearlySalons->availabilities;
 
-        $this->checkAvailability($salonAvailabilities, $input['date']);
+        $check = $this->checkAvailability($salonAvailabilities, $input['date']);
 
-        if (!empty($nearlySalons)) {
+        if ($check) {
+            if (!empty($nearlySalons)) {
 
-            $quickService = $this->quickServiceRepository->create($input);
+                $quickService = $this->quickServiceRepository->create($input);
 
-            if ($quickService) {
-                return $this->sendResponse([
-                    $quickService->toArray()
-                ], 'Service Rapide enregister avec success');
-                //TODO send Email
+                if ($quickService) {
+                    return $this->sendResponse([
+                        $quickService->toArray()
+                    ], 'Service Rapide enregister avec success');
+                    //TODO send Email
+                }
+
+                return $this->sendError("Reservation non pris en compte");
             }
-
-            return $this->sendError("Reservation non pris en compte");
         }
 
         return $this->sendError("Pas de salon a proximite");
@@ -135,10 +137,10 @@ class CreateQuickServiceApiController extends AppBaseController
             ->select(
                 "*",
                 DB::raw("55555 * acos(cos(radians(" . $latitude . "))
-            * cos(radians(salon_addresses.lat))
-            * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
-            + sin(radians(" . $latitude . "))
-            * sin(radians(salon_addresses.lat))) AS distance")
+                * cos(radians(salon_addresses.lat))
+                * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
+                + sin(radians(" . $latitude . "))
+                * sin(radians(salon_addresses.lat))) AS distance")
             )
             ->groupBy("salon_addresses.id")
             ->get();
@@ -153,7 +155,9 @@ class CreateQuickServiceApiController extends AppBaseController
                     Carbon::parse($availability->hour_end)
                 );
 
-            return $check;
+            if ($check == true) {
+                return true;
+            }
         }
     }
 }

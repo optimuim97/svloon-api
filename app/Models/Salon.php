@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Collection;
 
 /**
@@ -135,9 +136,10 @@ use Illuminate\Support\Collection;
  *          format="date-time"
  *      )
  * )
- */class Salon extends Model
+ */ class Salon extends Model
 {
-    use HasFactory;    public $table = 'salons';
+    use HasFactory;
+    public $table = 'salons';
 
     public $fillable = [
         'name',
@@ -173,11 +175,9 @@ use Illuminate\Support\Collection;
         'salon_type_id' => 'integer'
     ];
 
-    public static array $rules = [
-        
-    ];
+    public static array $rules = [];
 
-    protected $appends = ['quick_service_list', "address"];
+    protected $appends = ['quick_service_list', "address", 'availabilities'];
 
     /**
      * Get the user that owns the Salon
@@ -188,29 +188,44 @@ use Illuminate\Support\Collection;
     {
         return $this->belongsTo(User::class);
     }
-    
-    public function getQuickServiceListAttribute(){
+
+    public function getQuickServiceListAttribute()
+    {
 
         $serviceList = new Collection();
-        $servicesSalon = ServicesSalon::where(["salon_id"=>$this->id,"is_active"=> true])->get();
+        $servicesSalon = ServicesSalon::where(["salon_id" => $this->id, "is_active" => true])->get();
 
-        if(!empty($servicesSalon)){
-            
+        if (!empty($servicesSalon)) {
+
             foreach ($servicesSalon as $value) {
-                $serviceList->add(Service::where(["id"=>$value->service_id])->first());
+                $serviceList->add(Service::where(["id" => $value->service_id])->first());
             }
 
-            return $serviceList->unique("id",true);
+            return $serviceList->unique("id", true);
         }
 
         return $serviceList;
-
     }
 
-    public function getAddressAttribute(){
+    public function getAddressAttribute()
+    {
         $address = SalonAddress::where("salon_id", $this->id)->get();
         return $address;
     }
 
+    public function getAvailabilitiesAttribute()
+    {
+        $salonAvailabilities = SalonAvailabily::where("salon_id", $this->id)->get();
+        $valideDate = [];
 
+        foreach ($salonAvailabilities as $key => $item) {
+            $date = Carbon::parse($item->date)->isPast();
+
+            if (!$date) {
+                array_push($valideDate, $date);
+            }
+        }
+
+        return $valideDate;
+    }
 }

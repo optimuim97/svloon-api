@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="SalonService",
@@ -55,9 +56,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class SalonService extends Model
+ */ class SalonService extends Model
 {
-    use HasFactory;    public $table = 'salon_services';
+    use HasFactory;
+    public $table = 'salon_services';
 
     public $fillable = [
         'name',
@@ -72,9 +74,5 @@ use Illuminate\Database\Eloquent\Model;
         'salon_id' => 'integer'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

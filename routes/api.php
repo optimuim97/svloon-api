@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\API\CreateQuickServiceApiController;
+use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
+use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SignUpController;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +27,12 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
-    ->except(['create', 'edit']);
+// Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
+//     ->except(['create', 'edit']);
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
+Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
+
 
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -87,4 +90,8 @@ Route::get("get-salon-availabilies/{salonId}", [App\Http\Controllers\API\SalonAv
 
 
 Route::resource('salon-un-availabilies', App\Http\Controllers\API\SalonUnAvailabilyAPIController::class)
+    ->except(['create', 'edit']);
+
+
+Route::resource('extras', App\Http\Controllers\API\ExtraAPIController::class)
     ->except(['create', 'edit']);

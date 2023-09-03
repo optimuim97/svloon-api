@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Service;
 use App\Models\ServiceType;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
@@ -126,5 +127,10 @@ class ServiceController extends AppBaseController
         Flash::success('Service deleted successfully.');
 
         return redirect(route('services.index'));
+    }
+
+    public function getServiceByType($type)
+    {
+        $serviceList = Service::where()->get();
     }
 }

@@ -1,18 +1,18 @@
 <!-- Label Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('title', 'title:') !!}
+    {!! Form::label('title', 'Titre :') !!}
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('price', 'price:') !!}
+    {!! Form::label('price', 'Prix:') !!}
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- User Id Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('service_type_id', 'Type de Service :') !!}
-    {!! Form::select('service_type_id',$serviceType, null,['class' => 'form-control custom-select']) !!}
+    {!! Form::select('service_type_id', $serviceType, null, ['class' => 'form-control custom-select']) !!}
 </div>
 
 <!-- Description Field -->
@@ -23,7 +23,7 @@
 
 <!-- Imageurl Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('imageUrl', 'Imageurl:') !!}
+    {!! Form::label('imageUrl', 'Image (url):') !!}
     <div class="input-group">
         <div class="custom-file">
             {!! Form::file('imageUrl', ['class' => 'custom-file-input']) !!}

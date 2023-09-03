@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +57,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Service extends Model
 {
-    use HasFactory;    
+    use HasFactory;
     public $table = 'services';
 
     public $fillable = [
@@ -78,7 +79,16 @@ class Service extends Model
 
     public static array $rules = [
         // 'label'=>  "required",
-        // 'salon_id'=> "required" 
+        // 'salon_id'=> "required"
     ];
 
+    /**
+     * The extra that belong to the Service
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function extras()
+    {
+        return $this->belongsToMany(Extra::class);
+    }
 }

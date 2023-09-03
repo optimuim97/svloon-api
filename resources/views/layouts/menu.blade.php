@@ -160,3 +160,10 @@
         <p>Salon Un Availabilies</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('extras.index') }}" class="nav-link {{ Request::is('extras*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Extras</p>
+    </a>
+</li>

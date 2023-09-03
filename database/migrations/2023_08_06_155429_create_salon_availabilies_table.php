@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('salon_availabilies', function (Blueprint $table) {
             $table->id('id');
+            $table->unsignedBigInteger('salon_id')->nullable();
             $table->date('date');
             $table->time('hour_start');
             $table->time('hour_end');

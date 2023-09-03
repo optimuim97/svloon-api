@@ -181,3 +181,10 @@
         <p>Messages</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('appointmentStatuses.index') }}" class="nav-link {{ Request::is('appointmentStatuses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Appointment Statuses</p>
+    </a>
+</li>

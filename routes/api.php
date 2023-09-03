@@ -98,3 +98,6 @@ Route::resource('conversations', App\Http\Controllers\API\ConversationAPIControl
 
 Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('appointment-statuses', App\Http\Controllers\API\AppointmentStatusAPIController::class)
+    ->except(['create', 'edit']);

@@ -39,3 +39,4 @@ Route::resource('salon-un-availabilies', App\Http\Controllers\SalonUnAvailabilyC
 Route::resource('extras', App\Http\Controllers\ExtraController::class);
 Route::resource('conversations', App\Http\Controllers\ConversationController::class);
 Route::resource('messages', App\Http\Controllers\MessageController::class);
+Route::resource('appointment-statuses', App\Http\Controllers\AppointmentStatusController::class);

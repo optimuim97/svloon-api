@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Appointement",
@@ -100,13 +101,15 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Appointement extends Model
+ */ class Appointement extends Model
 {
-    use HasFactory;    public $table = 'appointements';
+    use HasFactory;
+    public $table = 'appointements';
 
     public $fillable = [
         'creator_id',
         'user_id',
+        'appointment_status_id',
         'date',
         'hour',
         'date_time',
@@ -114,7 +117,7 @@ use Illuminate\Database\Eloquent\Model;
         'is_confirmed',
         'is_report',
         'is_cancel',
-        'report_date'
+        'report_date',
     ];
 
     protected $casts = [
@@ -129,9 +132,5 @@ use Illuminate\Database\Eloquent\Model;
         'report_date' => 'date'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

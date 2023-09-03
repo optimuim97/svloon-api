@@ -37,3 +37,5 @@ Route::resource('salon-schedules', App\Http\Controllers\SalonScheduleController:
 Route::resource('salon-availabilies', App\Http\Controllers\SalonAvailabilyController::class);
 Route::resource('salon-un-availabilies', App\Http\Controllers\SalonUnAvailabilyController::class);
 Route::resource('extras', App\Http\Controllers\ExtraController::class);
+Route::resource('conversations', App\Http\Controllers\ConversationController::class);
+Route::resource('messages', App\Http\Controllers\MessageController::class);

@@ -27,12 +27,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-// Route::resource('quick-services', App\Http\Controllers\API\QuickServiceAPIController::class)
-//     ->except(['create', 'edit']);
-
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
-
 
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -94,4 +90,11 @@ Route::resource('salon-un-availabilies', App\Http\Controllers\API\SalonUnAvailab
 
 
 Route::resource('extras', App\Http\Controllers\API\ExtraAPIController::class)
+    ->except(['create', 'edit']);
+
+
+Route::resource('conversations', App\Http\Controllers\API\ConversationAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
     ->except(['create', 'edit']);

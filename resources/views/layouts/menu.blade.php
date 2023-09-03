@@ -167,3 +167,17 @@
         <p>Extras</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('conversations.index') }}" class="nav-link {{ Request::is('conversations*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Conversations</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('messages.index') }}" class="nav-link {{ Request::is('messages*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Messages</p>
+    </a>
+</li>

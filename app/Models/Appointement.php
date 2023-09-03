@@ -101,7 +101,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class Appointement extends Model
+ */
+class Appointement extends Model
 {
     use HasFactory;
     public $table = 'appointements';

@@ -13,9 +13,9 @@ class SignUpController extends Controller
 
     /**
      * @OA\Post(
-     * path="/sign-up", 
+     * path="/sign-up",
      * operationId="Register",
-     * tags={"Register"},   
+     * tags={"Register"},
      * summary="User Register",
      * description="User Register here",
      *     @OA\RequestBody(
@@ -90,20 +90,20 @@ class SignUpController extends Controller
             "password" => Hash::make($request->password),
             "user_type_id" => $request->user_type_id
         ]);
-        
-        if($user->userType->slug=="salon"){
 
-          //TODO add salon info
+        if ($user->userType->slug == "salon") {
+
+            //TODO add salon info
             $salon =  Salon::create([
                 "name" => $request->salon_name ?? $request->name,
                 "email" => $request->salon_email ?? $request->email,
-                "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname. $request->lastname,
+                "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname . $request->lastname,
                 "password" => Hash::make($request->password),
                 "scheduleStr" => $request->salon_scheduleStr ?? "",
                 "city" => $request->salon_city ?? "",
                 "dialCode" => $request->salon_dialCode ?? "+225",
                 "phoneNumber" => $request->salon_phoneNumber ?? "",
-                "phone" => $request->salon_phone. $request->phone_number,
+                "phone" => $request->salon_phone . $request->phone_number,
                 "postalCode" => $request->salon_postalCode ?? "",
                 "localNumber" => $request->salon_localNumber ?? "",
                 "bailDocument" => $request->salon_bailDocument ?? "",
@@ -111,12 +111,12 @@ class SignUpController extends Controller
             ]);
         }
 
-        if($user->userType->slug=="artist"){
+        if ($user->userType->slug == "artist") {
             //TODO add artist info
         }
 
-        if($user?->userType?->slug == "pro"){
-            
+        if ($user?->userType?->slug == "pro") {
+
             Salon::create([
                 "name" => $user->name,
                 "email" => $user->email,

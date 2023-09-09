@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dash', function () {
     return view('home');
 });
+Route::get('/', function () {
+    return view('landingPage');
+});
 
 Auth::routes();
 

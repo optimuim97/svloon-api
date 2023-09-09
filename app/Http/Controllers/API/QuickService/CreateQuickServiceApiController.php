@@ -51,7 +51,6 @@ class CreateQuickServiceApiController extends AppBaseController
      *              @OA\Property(property="is_cancel", type="string"),
      *              @OA\Property(property="payment_method_id", type="integer"),
      *              @OA\Property(property="payment_method_type_id", type="integer"),
-     *              @OA\Property(property="duration", type="string"),
      *              @OA\Property(property="is_confirmed", type="string"),
      *              @OA\Property(property="has_already_send_remeber", type="string")
      *          )

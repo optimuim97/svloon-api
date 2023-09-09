@@ -41,6 +41,6 @@
             Si vous avez besoin de nous contacter, vous pouvez toujours le faire, sinon nous serons de retour en ligne
             sous peu !
         </p>
-        <p>&mdash; Svloon (support@svloon.com)</p>
+        <p>&mdash; Svloon (contact@svloon.com)</p>
     </div>
 </article>

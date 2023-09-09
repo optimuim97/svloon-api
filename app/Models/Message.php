@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Message",
@@ -54,9 +55,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Message extends Model
+ */
+class Message extends Model
 {
-    use HasFactory;    public $table = 'messages';
+    use HasFactory;
+    public $table = 'messages';
 
     public $fillable = [
         'conversation_id',
@@ -72,9 +75,5 @@ use Illuminate\Database\Eloquent\Model;
         'has_edited' => 'boolean'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

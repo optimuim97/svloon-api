@@ -225,61 +225,279 @@
                 }
             }
         },
-        "/auth/quick-services": {
+        "/appointment-statuses": {
+            "get": {
+                "tags": [
+                    "AppointmentStatus"
+                ],
+                "summary": "getAppointmentStatusList",
+                "description": "Get all AppointmentStatuses",
+                "operationId": "ed671c1118429a7b95fb0c4f5fb03be7",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AppointmentStatus"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
-                    "QuickService"
+                    "AppointmentStatus"
                 ],
-                "summary": "createQuickService",
-                "description": "Create QuickService",
-                "operationId": "d49d2f3d2181634689202e09aabd06a2",
+                "summary": "createAppointmentStatus",
+                "description": "Create AppointmentStatus",
+                "operationId": "1e57ba052285f5bbf15eb8f06997d847",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentStatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/AppointmentStatus"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointment-statuses/{id}": {
+            "get": {
+                "tags": [
+                    "AppointmentStatus"
+                ],
+                "summary": "getAppointmentStatusItem",
+                "description": "Get AppointmentStatus",
+                "operationId": "ea47496192338064f3291c6ddbd7d9f2",
                 "parameters": [
                     {
-                        "name": "Authorization",
-                        "in": "header",
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of AppointmentStatus",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/AppointmentStatus"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "AppointmentStatus"
+                ],
+                "summary": "updateAppointmentStatus",
+                "description": "Update AppointmentStatus",
+                "operationId": "79a1270736d61471b801bd9183efda10",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of AppointmentStatus",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentStatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/AppointmentStatus"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "AppointmentStatus"
+                ],
+                "summary": "deleteAppointmentStatus",
+                "description": "Delete AppointmentStatus",
+                "operationId": "66237060aec47cdc18ed292f12289b01",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of AppointmentStatus",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/conversations": {
+            "get": {
+                "tags": [
+                    "Conversation"
+                ],
+                "summary": "getConversationList",
+                "description": "Get all Conversations",
+                "operationId": "340829f7207d66cb2a3a4071adf2314e",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Conversation"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Conversation"
+                ],
+                "summary": "createConversation",
+                "description": "Create Conversation",
+                "operationId": "06ffd74905e62edaa12613f6721aa085",
+                "requestBody": {
+                    "required": true,
+                    "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
+                                    "person_id,person1_id,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
                                 ],
                                 "properties": {
-                                    "service_id": {
-                                        "type": "string"
-                                    },
-                                    "address": {
-                                        "type": "string"
-                                    },
-                                    "lat": {
-                                        "type": "string"
-                                    },
-                                    "lon": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "string"
-                                    },
-                                    "payment_method_id": {
+                                    "person_id": {
                                         "type": "integer"
                                     },
-                                    "payment_method_type_id": {
+                                    "person1_id": {
                                         "type": "integer"
                                     },
-                                    "duration": {
-                                        "type": "string"
-                                    },
-                                    "is_confirmed": {
-                                        "type": "string"
-                                    },
-                                    "has_already_send_remeber": {
+                                    "user_types": {
                                         "type": "string"
                                     }
                                 },
@@ -304,7 +522,575 @@
                                             "type": "boolean"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/QuickService"
+                                            "$ref": "#/components/schemas/Conversation"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/conversations/{id}": {
+            "get": {
+                "tags": [
+                    "Conversation"
+                ],
+                "summary": "getConversationItem",
+                "description": "Get Conversation",
+                "operationId": "f1d7e1e2a37ce61140676048c92e4d35",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Conversation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Conversation"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Conversation"
+                ],
+                "summary": "updateConversation",
+                "description": "Update Conversation",
+                "operationId": "65231e6d3f5afb0bf9e88d6d7b1dbbe5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Conversation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Conversation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Conversation"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Conversation"
+                ],
+                "summary": "deleteConversation",
+                "description": "Delete Conversation",
+                "operationId": "b376bb21ae120d32e5a70d51554f0580",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Conversation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/extras": {
+            "get": {
+                "tags": [
+                    "Extra"
+                ],
+                "summary": "getExtraList",
+                "description": "Get all Extras",
+                "operationId": "95e767d1f9e102f29794776db3dc6b56",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Extra"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Extra"
+                ],
+                "summary": "createExtra",
+                "description": "Create Extra",
+                "operationId": "f2c5c78bd6945032095150d6aa6a2352",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Extra"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Extra"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/extras/{id}": {
+            "get": {
+                "tags": [
+                    "Extra"
+                ],
+                "summary": "getExtraItem",
+                "description": "Get Extra",
+                "operationId": "333ebd36fba6d9d34c7f61c18e121ca9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Extra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Extra"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Extra"
+                ],
+                "summary": "updateExtra",
+                "description": "Update Extra",
+                "operationId": "ea084fb8ad5f4605016fe63eab0ed5f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Extra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Extra"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Extra"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Extra"
+                ],
+                "summary": "deleteExtra",
+                "description": "Delete Extra",
+                "operationId": "e2defbb9390c66c576d07da67fd3b95c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Extra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/messages": {
+            "get": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "getMessageList",
+                "description": "Get all Messages",
+                "operationId": "7be80e1ae40e0744bfbe24b9a54a1919",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Message"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "createMessage",
+                "description": "Create Message",
+                "operationId": "37c8c31ac29ebd2ff088345db57febca",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Message"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Message"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/messages/{id}": {
+            "get": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "getMessageItem",
+                "description": "Get Message",
+                "operationId": "370e8672c0599b4e37b5673551f0a013",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Message",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Message"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "updateMessage",
+                "description": "Update Message",
+                "operationId": "7ec0b382a87c23ed53b50b663a90bff5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Message",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Message"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Message"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "deleteMessage",
+                "description": "Delete Message",
+                "operationId": "3ee6b61f3b8ffb70d16fb1ea63ddb724",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Message",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
                                         },
                                         "message": {
                                             "type": "string"
@@ -737,6 +1523,162 @@
                                         },
                                         "data": {
                                             "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/quick-services": {
+            "post": {
+                "tags": [
+                    "QuickService"
+                ],
+                "summary": "createQuickService",
+                "description": "Create QuickService",
+                "operationId": "cdfa43f82cabed330236598f29d86ca6",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "type": "string"
+                                    },
+                                    "lon": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "string"
+                                    },
+                                    "is_report": {
+                                        "type": "string"
+                                    },
+                                    "is_cancel": {
+                                        "type": "string"
+                                    },
+                                    "payment_method_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_method_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "is_confirmed": {
+                                        "type": "string"
+                                    },
+                                    "has_already_send_remeber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QuickService"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/QuickService"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "get-service-by-type/{id}": {
+            "get": {
+                "tags": [
+                    "serviceByType"
+                ],
+                "summary": "getserviceByType",
+                "description": "get serviceByType",
+                "operationId": "7e1bb6d5336fe23cfb61dc5ac38517b6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of serviceByType",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Service"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Service"
                                         },
                                         "message": {
                                             "type": "string"
@@ -2807,12 +3749,34 @@
                 "description": "Create SalonUnAvailabily",
                 "operationId": "f9f4c28aa999de2cac821a85e54ececb",
                 "requestBody": {
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/SalonUnAvailabily"
+                                "required": [
+                                    "date",
+                                    "hour_start",
+                                    "hour_end",
+                                    "raison"
+                                ],
+                                "properties": {
+                                    "date": {
+                                        "type": "text"
+                                    },
+                                    "hour_start": {
+                                        "type": "text"
+                                    },
+                                    "hour_end": {
+                                        "type": "text"
+                                    },
+                                    "raison": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
                             }
+                        },
+                        "application/json": {
+                            "schema": {}
                         }
                     }
                 },
@@ -2903,12 +3867,34 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/SalonUnAvailabily"
+                                "required": [
+                                    "date",
+                                    "hour_start",
+                                    "hour_end",
+                                    "raison"
+                                ],
+                                "properties": {
+                                    "date": {
+                                        "type": "text"
+                                    },
+                                    "hour_start": {
+                                        "type": "text"
+                                    },
+                                    "hour_end": {
+                                        "type": "text"
+                                    },
+                                    "raison": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
                             }
+                        },
+                        "application/json": {
+                            "schema": {}
                         }
                     }
                 },
@@ -4177,6 +5163,45 @@
                                     },
                                     "password": {
                                         "type": "password"
+                                    },
+                                    "salon_name": {
+                                        "type": "text"
+                                    },
+                                    "salon_email": {
+                                        "type": "text"
+                                    },
+                                    "salon_owner_fullname": {
+                                        "type": "text"
+                                    },
+                                    "salon_dialCode": {
+                                        "type": "text"
+                                    },
+                                    "salon_password": {
+                                        "type": "text"
+                                    },
+                                    "salon_scheduleStr": {
+                                        "type": "text"
+                                    },
+                                    "salon_city": {
+                                        "type": "text"
+                                    },
+                                    "salon_phoneNumber": {
+                                        "type": "text"
+                                    },
+                                    "salon_phone": {
+                                        "type": "text"
+                                    },
+                                    "salon_postalCode": {
+                                        "type": "text"
+                                    },
+                                    "salon_localNumber": {
+                                        "type": "text"
+                                    },
+                                    "salon_bailDocument": {
+                                        "type": "text"
+                                    },
+                                    "salon_salon_type_id": {
+                                        "type": "text"
                                     }
                                 },
                                 "type": "object"
@@ -4309,6 +5334,50 @@
                 },
                 "type": "object"
             },
+            "AppointmentStatus": {
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "color": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "image": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "Convenience": {
                 "required": [],
                 "properties": {
@@ -4327,6 +5396,129 @@
                     "description": {
                         "description": "",
                         "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Conversation": {
+                "required": [],
+                "properties": {
+                    "person_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "person1_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "user_types": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Extra": {
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "prix": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "ext_time": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Message": {
+                "required": [],
+                "properties": {
+                    "conversation_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "content": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "is_read": {
+                        "description": "",
+                        "type": "boolean",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "has_edited": {
+                        "description": "",
+                        "type": "boolean",
                         "readOnly": false,
                         "nullable": true
                     },

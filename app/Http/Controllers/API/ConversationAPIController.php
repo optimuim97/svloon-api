@@ -70,8 +70,17 @@ class ConversationAPIController extends AppBaseController
      *      description="Create Conversation",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Conversation")
-     *      ),
+     *        @OA\JsonContent(ref="#/components/schemas/QuickService"),
+     *        @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *          @OA\Schema(
+     *              required={"person_id,person2_id,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"},
+     *              @OA\Property(property="person_id", type="integer"),
+     *              @OA\Property(property="person2_id", type="integer"),
+     *              @OA\Property(property="user_types", type="string"),
+     *          )
+     *        )
+     *       ),
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -96,6 +105,16 @@ class ConversationAPIController extends AppBaseController
     public function store(CreateConversationAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+
+        if (empty($input['user_types'])) {
+            $input['user_types'] = "client";
+        }
+
+        $check = Conversation::where(['person_id' => $input['person_id'], 'person2_id' => $input['person2_id'], 'user_types' => 'client'])->first();
+
+        if (!empty($check)) {
+            return response()->json(["message" => "Conversation already exist", "data" => $check]);
+        }
 
         $conversation = $this->conversationRepository->create($input);
 

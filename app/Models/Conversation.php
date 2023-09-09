@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Conversation",
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="person_id",
+ *          property="person2_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -48,25 +49,31 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Conversation extends Model
+ */ class Conversation extends Model
 {
-    use HasFactory;    public $table = 'conversations';
+    use HasFactory;
+    public $table = 'conversations';
+
+    protected $appends = ['messages'];
 
     public $fillable = [
         'person_id',
-        'person_id',
+        'person2_id',
         'user_types'
     ];
 
     protected $casts = [
         'person_id' => 'integer',
-        'person_id' => 'integer',
+        'person2_id' => 'integer',
         'user_types' => 'string'
     ];
 
-    public static array $rules = [
-        
-    ];
+    public static array $rules = [];
 
-    
+
+    public function getMessagesAttribute()
+    {
+        $messages = Message::where("conversation_id", $this->id)->get();
+        return $messages;
+    }
 }

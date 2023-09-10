@@ -46,7 +46,7 @@ class AppointmentStatusController extends AppBaseController
 
         Flash::success('Appointment Status saved successfully.');
 
-        return redirect(route('appointmentStatuses.index'));
+        return redirect(route('appointment-statuses.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class AppointmentStatusController extends AppBaseController
         if (empty($appointmentStatus)) {
             Flash::error('Appointment Status not found');
 
-            return redirect(route('appointmentStatuses.index'));
+            return redirect(route('appointment-statuses.index'));
         }
 
         return view('appointment_statuses.show')->with('appointmentStatus', $appointmentStatus);
@@ -75,7 +75,7 @@ class AppointmentStatusController extends AppBaseController
         if (empty($appointmentStatus)) {
             Flash::error('Appointment Status not found');
 
-            return redirect(route('appointmentStatuses.index'));
+            return redirect(route('appointment-statuses.index'));
         }
 
         return view('appointment_statuses.edit')->with('appointmentStatus', $appointmentStatus);
@@ -91,14 +91,14 @@ class AppointmentStatusController extends AppBaseController
         if (empty($appointmentStatus)) {
             Flash::error('Appointment Status not found');
 
-            return redirect(route('appointmentStatuses.index'));
+            return redirect(route('appointment-statuses.index'));
         }
 
         $appointmentStatus = $this->appointmentStatusRepository->update($request->all(), $id);
 
         Flash::success('Appointment Status updated successfully.');
 
-        return redirect(route('appointmentStatuses.index'));
+        return redirect(route('appointment-statuses.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class AppointmentStatusController extends AppBaseController
         if (empty($appointmentStatus)) {
             Flash::error('Appointment Status not found');
 
-            return redirect(route('appointmentStatuses.index'));
+            return redirect(route('appointment-statuses.index'));
         }
 
         $this->appointmentStatusRepository->delete($id);
 
         Flash::success('Appointment Status deleted successfully.');
 
-        return redirect(route('appointmentStatuses.index'));
+        return redirect(route('appointment-statuses.index'));
     }
 }

@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Appointment Statuses
+                        Create Appointment Statuses
                     </h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'appointmentStatuses.store']) !!}
+            {!! Form::open(['route' => 'appointment-statuses.store']) !!}
 
             <div class="card-body">
 
@@ -31,7 +31,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('appointmentStatuses.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('appointment-statuses.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

@@ -488,13 +488,13 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "person_id,person1_id,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
+                                    "person_id,person2_id,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
                                 ],
                                 "properties": {
                                     "person_id": {
                                         "type": "integer"
                                     },
-                                    "person1_id": {
+                                    "person2_id": {
                                         "type": "integer"
                                     },
                                     "user_types": {
@@ -1560,7 +1560,7 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"
+                                    "service_id,address,lat,lon,duration,is_confirmed,has_already_send_remeber"
                                 ],
                                 "properties": {
                                     "service_id": {
@@ -1573,9 +1573,6 @@
                                         "type": "string"
                                     },
                                     "lon": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
                                         "type": "string"
                                     },
                                     "note": {
@@ -5426,7 +5423,7 @@
                         "readOnly": false,
                         "nullable": true
                     },
-                    "person1_id": {
+                    "person2_id": {
                         "description": "",
                         "type": "integer",
                         "format": "int32",

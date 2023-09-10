@@ -39,7 +39,7 @@ class CreateQuickServiceApiController extends AppBaseController
      *        @OA\MediaType(
      *          mediaType="multipart/form-data",
      *          @OA\Schema(
-     *              required={"service_id,address,lat,lon,user_id,duration,is_confirmed,has_already_send_remeber"},
+     *              required={"service_id,address,lat,lon,duration,is_confirmed,has_already_send_remeber"},
      *              @OA\Property(property="service_id", type="string"),
      *              @OA\Property(property="address", type="string"),
      *              @OA\Property(property="lat", type="string"),

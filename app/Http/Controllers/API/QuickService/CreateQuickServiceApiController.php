@@ -44,7 +44,6 @@ class CreateQuickServiceApiController extends AppBaseController
      *              @OA\Property(property="address", type="string"),
      *              @OA\Property(property="lat", type="string"),
      *              @OA\Property(property="lon", type="string"),
-     *              @OA\Property(property="user_id", type="string"),
      *              @OA\Property(property="note", type="string"),
      *              @OA\Property(property="duration", type="string"),
      *              @OA\Property(property="is_report", type="string"),

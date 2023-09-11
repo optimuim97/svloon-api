@@ -53,13 +53,13 @@ class AppointmentStatusAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $appointment - statuses = $this->appointmentStatusRepository->all(
+        $appointmentStatuses = $this->appointmentStatusRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($appointment - statuses->toArray(), 'Appointment Statuses retrieved successfully');
+        return $this->sendResponse($appointmentStatuses->toArray(), 'Appointment Statuses retrieved successfully');
     }
 
     /**

@@ -34,7 +34,7 @@ class SignUpController extends Controller
      *               @OA\Property(property="photo_url", type="text"),
      *               @OA\Property(property="is_active", type="text"),
      *               @OA\Property(property="is_professional", type="text"),
-     *               @OA\Property(property="user_type_id", type="integer"),
+     *               @OA\Property(property="user_types_id", type="integer"),
      *               @OA\Property(property="password", type="password"),
      *               @OA\Property(property="salon_name", type="text"),
      *               @OA\Property(property="salon_email", type="text"),
@@ -75,6 +75,8 @@ class SignUpController extends Controller
     {
         $request->validate(User::$rules);
 
+        // dd($request->user_types_id);
+
         $user = User::create([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
@@ -88,13 +90,14 @@ class SignUpController extends Controller
             "email" => $request->email,
             "email_verified_at" => $request->email_verified_at,
             "password" => Hash::make($request->password),
-            "user_type_id" => $request->user_type_id
+            "user_types_id" => $request->user_types_id
         ]);
 
-        if ($user->userType->slug == "salon") {
+        if ($user?->userType?->slug == "salon") {
 
             //TODO add salon info
             $salon =  Salon::create([
+                "user_id" => $user->id,
                 "name" => $request->salon_name ?? $request->name,
                 "email" => $request->salon_email ?? $request->email,
                 "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname . $request->lastname,
@@ -107,11 +110,19 @@ class SignUpController extends Controller
                 "postalCode" => $request->salon_postalCode ?? "",
                 "localNumber" => $request->salon_localNumber ?? "",
                 "bailDocument" => $request->salon_bailDocument ?? "",
-                "salon_type_id" => $request->salon_salon_type_id ?? ""
+                "salon_type_id" => $request->salon_salon_type_id ?? 1
             ]);
+
+
+            return response()->json([
+                "message" => "User Created",
+                "status_code" => Response::HTTP_CREATED,
+                "data" => $user,
+                "salon_data" => $salon
+            ], Response::HTTP_CREATED);
         }
 
-        if ($user->userType->slug == "artist") {
+        if ($user?->userType?->slug == "artist") {
             //TODO add artist info
         }
 

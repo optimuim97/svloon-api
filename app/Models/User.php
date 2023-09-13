@@ -33,7 +33,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'email_verified_at',
         'password',
-        "user_type_id"
+        "user_types_id"
     ];
 
     /**
@@ -67,7 +67,7 @@ class User extends Authenticatable implements JWTSubject
         'photo_url' => "nullable",
         'is_active' => "required",
         'is_professional' => "required",
-        'user_type_id'=> "required"
+        'user_types_id' => "required"
     ];
 
     // Rest omitted for brevity
@@ -99,7 +99,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function userType()
     {
-        return $this->belongsTo(UserType::class);
+        return $this->belongsTo(UserType::class, 'user_types_id');
     }
 
     /**
@@ -111,5 +111,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Salon::class);
     }
-    
 }

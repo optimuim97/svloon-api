@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="UserType",
@@ -46,9 +47,9 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class UserType extends Model
+ */ class UserType extends Model
 {
-    use HasFactory;    
+    use HasFactory;
     public $table = 'user_types';
 
     public $fillable = [
@@ -64,9 +65,7 @@ use Illuminate\Database\Eloquent\Model;
         'avantages' => 'string'
     ];
 
-    public static array $rules = [
-        
-    ];
+    public static array $rules = [];
 
     /**
      * Get all of the users for the UserType
@@ -77,5 +76,4 @@ use Illuminate\Database\Eloquent\Model;
     {
         return $this->hasMany(User::class);
     }
-    
 }

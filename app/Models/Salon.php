@@ -142,6 +142,7 @@ use Illuminate\Support\Collection;
     public $table = 'salons';
 
     public $fillable = [
+        'user_id',
         'name',
         'email',
         'owner_fullname',
@@ -160,6 +161,7 @@ use Illuminate\Support\Collection;
     ];
 
     protected $casts = [
+        'user_id' => 'integer',
         'name' => 'string',
         'email' => 'string',
         'owner_fullname' => 'string',

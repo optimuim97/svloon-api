@@ -16,34 +16,34 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $userTypes  = 
+        $userTypes  =
             [
                 [
-                    "label"=> 'Pro',
-                    "description"=> 'Pro',
-                    "avantages"=> 'Pro',
-                    "slug"=> 'pro',
+                    "label" => 'Client',
+                    "description" => 'Client',
+                    "avantages" => 'Client',
+                    "slug" => 'client',
                 ],
                 [
-                    "label"=> 'Client',
-                    "description"=> 'Client',
-                    "avantages"=> 'Client',
-                    "slug"=> 'client',
+                    "label" => 'Salon',
+                    "description" => 'Salon',
+                    "avantages" => 'salon',
+                    "slug" => 'salon',
                 ],
                 [
-                    "label"=> 'Artist',
-                    "description"=> 'Artist',
-                    "avantages"=> 'Artist',
-                    "slug"=> 'artist'
+                    "label" => 'Artist',
+                    "description" => 'Artist',
+                    "avantages" => 'Artist',
+                    "slug" => 'artist'
                 ]
             ];
 
         foreach ($userTypes as $key => $userType) {
-             UserType::factory()->create(
+            UserType::factory()->create(
                 $userType
             );
         }
-        
+
         // \App\Models\User::factory(10)->create();
 
         // UserType::factory()->create([

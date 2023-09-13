@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('salons', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('owner_fullname')->nullable();

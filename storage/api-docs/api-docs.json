@@ -5155,7 +5155,7 @@
                                     "is_professional": {
                                         "type": "text"
                                     },
-                                    "user_type_id": {
+                                    "user_types_id": {
                                         "type": "integer"
                                     },
                                     "password": {

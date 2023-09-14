@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\QuickService;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Appointement;
 use App\Models\QuickService;
+use App\Models\Salon;
 use App\Repositories\QuickServiceRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class CreateQuickServiceApiController extends AppBaseController
     {
         $this->quickServiceRepository = $quickServiceRepo;
     }
-
 
     /**
      * @OA\Post(
@@ -107,42 +107,49 @@ class CreateQuickServiceApiController extends AppBaseController
             $longtitude
         );
 
-        $salonAvailabilities = $nearlySalons->availabilities;
+        if (empty($nearlySalons?->toArray())) {
+            return $this->sendError("Pas de salon a proximite");
+        }
 
-        $check = $this->checkAvailability($salonAvailabilities, $input['date']);
+        // dd($nearlySalons?->toArray());
 
-        if ($check) {
-            if (!empty($nearlySalons)) {
+        foreach ($nearlySalons as $nearlySalon) {
+            $nearlySalon = Salon::find($nearlySalon->id);
+            $salonAvailabilities = $nearlySalon->availabilities;
+            // dd($salonAvailabilities);
+            $check = $this->checkAvailability($salonAvailabilities, $input['date']);
 
-                $quickService = $this->quickServiceRepository->create($input);
+            if ($check) {
+                if (!empty($nearlySalon)) {
 
-                $appointement = Appointement::create([
-                    'creator_id' => $user->id,
-                    'user_id' => $input["user_id"],
-                    'date' => $input["date"],
-                    'hour' => Carbon::parse($input["date"])->format('H:i:s'),
-                    'date_time' => Carbon::parse($input["date_time"])->format('Y-m-d H:i:s'),
-                    'reference' => Str::uuid(),
-                    'is_confirmed' => false,
-                    'is_report' => false,
-                    'is_cancel' => false,
-                    'report_date' => null,
-                    'appointment_status_id' => 1
-                ]);
+                    $quickService = $this->quickServiceRepository->create($input);
 
-                if ($quickService) {
-                    return $this->sendResponse([
-                        "service_rapide" => $quickService->toArray(),
-                        "details_rdv" => $appointement->toArray()
-                    ], 'Service Rapide enregister avec success');
-                    //TODO send Email
+                    $appointement = Appointement::create([
+                        'creator_id' => $user->id,
+                        'user_id' => $input["user_id"],
+                        'date' => Carbon::parse($input["date"]),
+                        'hour' => Carbon::parse($input["date"])->format('H:i:s'),
+                        'date_time' => Carbon::parse($input["date_time"])->format('Y-m-d H:i:s'),
+                        'reference' => Str::uuid(),
+                        'is_confirmed' => false,
+                        'is_report' => false,
+                        'is_cancel' => false,
+                        'report_date' => null,
+                        'appointment_status_id' => 1
+                    ]);
+
+                    if ($quickService) {
+                        return $this->sendResponse([
+                            "service_rapide" => $quickService->toArray(),
+                            "details_rdv" => $appointement->toArray()
+                        ], 'Service Rapide enregister avec success');
+                        //TODO send Email
+                    }
                 }
-
+            } else {
                 return $this->sendError("Reservation non pris en compte");
             }
         }
-
-        return $this->sendError("Pas de salon a proximite");
     }
 
     public function getSalon($latitude, $longtitude)
@@ -164,6 +171,7 @@ class CreateQuickServiceApiController extends AppBaseController
     public function checkAvailability($salonAvailabilities, $date)
     {
         foreach ($salonAvailabilities as $availability) {
+
             $check = Carbon::parse($date)
                 ->between(
                     Carbon::parse($availability->hour_start),

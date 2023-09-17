@@ -76,16 +76,17 @@ class SignUpController extends Controller
     {
         $request->validate(User::$rules);
 
-        if ($request->file('photo_url')) {
-            $image = $request->file('photo_url');
-            if ($image != null) {
-                $finalImage = Imgur::upload($image);
-                $finalImageLink = $finalImage->link();
-            }
-        } else {
-            $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
-        }
+        // if ($request->file('photo_url')) {
+        //     $image = $request->file('photo_url');
+        //     if ($image != null) {
+        //         $finalImage = Imgur::upload($image);
+        //         $finalImageLink = $finalImage->link();
+        //     }
+        // } else {
+        //     $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
+        // }
 
+        $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
 
         $user = User::create([
             "firstname" => $request->firstname,

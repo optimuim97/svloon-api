@@ -76,8 +76,6 @@ class SignUpController extends Controller
     {
         $request->validate(User::$rules);
 
-        // $this->checkIfUserExist($request->email);
-
         if ($request->file('photo_url')) {
             $image = $request->file('photo_url');
             if ($image != null) {

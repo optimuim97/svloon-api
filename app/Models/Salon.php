@@ -177,7 +177,11 @@ use Illuminate\Support\Collection;
         'salon_type_id' => 'integer'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        "user_id",
+        "name",
+        "email"
+    ];
 
     protected $appends = ['quick_service_list', "address", 'availabilities'];
 

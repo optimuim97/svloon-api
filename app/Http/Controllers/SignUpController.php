@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Imgur;
 
 class SignUpController extends Controller
 {
@@ -75,7 +76,18 @@ class SignUpController extends Controller
     {
         $request->validate(User::$rules);
 
-        // dd($request->user_types_id);
+        // $this->checkIfUserExist($request->email);
+
+        if ($request->file('photo_url')) {
+            $image = $request->file('photo_url');
+            if ($image != null) {
+                $finalImage = Imgur::upload($image);
+                $finalImageLink = $finalImage->link();
+            }
+        } else {
+            $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
+        }
+
 
         $user = User::create([
             "firstname" => $request->firstname,
@@ -84,7 +96,7 @@ class SignUpController extends Controller
             "dial_code" => $request->dial_code ?? "+225",
             "phone_number" => $request->phone_number,
             "profession" => $request->profession,
-            "photo_url" => "https://i.imgur.com/zCL2LAh.png",
+            "photo_url" => $finalImageLink,
             "is_active" => $request->is_active,
             "is_professional" => $request->is_professional,
             "email" => $request->email,
@@ -95,11 +107,12 @@ class SignUpController extends Controller
 
         if ($user?->userType?->slug == "salon") {
 
+            $request->validate(Salon::$rules);
             //TODO add salon info
             $salon =  Salon::create([
                 "user_id" => $user->id,
-                "name" => $request->salon_name ?? $request->name,
-                "email" => $request->salon_email ?? $request->email,
+                "name" => $request->salon_name ?? $user->name,
+                "email" => $request->salon_email ?? $user->email,
                 "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname . $request->lastname,
                 "password" => Hash::make($request->password),
                 "scheduleStr" => $request->salon_scheduleStr ?? "",
@@ -146,5 +159,14 @@ class SignUpController extends Controller
             "status_code" => Response::HTTP_CREATED,
             "data" => $user
         ], Response::HTTP_CREATED);
+    }
+
+    private function checkIfUserExist($email)
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!empty($user)) {
+            return response()->json(['message' => "Utilisateur existant"], 422);
+        }
     }
 }

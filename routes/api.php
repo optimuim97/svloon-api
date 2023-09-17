@@ -105,3 +105,6 @@ Route::resource('appointment-statuses', App\Http\Controllers\API\AppointmentStat
 
 Route::resource('salon-types', App\Http\Controllers\API\SalonTypeAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('services', App\Http\Controllers\API\ServiceAPIController::class)
+    ->except(['create', 'edit']);

@@ -3,14 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
  *      schema="Service",
  *      required={},
  *      @OA\Property(
- *          property="label",
+ *          property="title",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="slug",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -24,7 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="imageUrl",
+ *          property="price",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -36,6 +42,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          readOnly=false,
  *          nullable=true,
  *          type="boolean",
+ *      ),
+ *      @OA\Property(
+ *          property="imageUrl",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -54,41 +67,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */
-class Service extends Model
+ */class Service extends Model
 {
-    use HasFactory;
-    public $table = 'services';
+    use HasFactory;    public $table = 'services';
 
     public $fillable = [
         'title',
+        'slug',
         'description',
-        'imageUrl',
-        'isPromo',
-        'salon_id',
-        'service_type_id',
         'price',
+        'isPromo',
+        'imageUrl'
     ];
 
     protected $casts = [
-        'label' => 'string',
+        'title' => 'string',
+        'slug' => 'string',
         'description' => 'string',
-        'imageUrl' => 'string',
-        'isPromo' => 'boolean'
+        'price' => 'string',
+        'isPromo' => 'boolean',
+        'imageUrl' => 'string'
     ];
 
     public static array $rules = [
-        // 'label'=>  "required",
-        // 'salon_id'=> "required"
+        
     ];
 
-    /**
-     * The extra that belong to the Service
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function extras()
-    {
-        return $this->belongsToMany(Extra::class);
-    }
+    
 }

@@ -8,10 +8,12 @@ use App\Repositories\BaseRepository;
 class ServiceRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'label',
+        'title',
+        'slug',
         'description',
-        'imageUrl',
-        'isPromo'
+        'price',
+        'isPromo',
+        'imageUrl'
     ];
 
     public function getFieldsSearchable(): array

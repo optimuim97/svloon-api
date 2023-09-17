@@ -4,9 +4,10 @@ use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\testController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Imgur;
+// use Imgur;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,23 +31,8 @@ Route::group([
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
-
 Route::post('sign-up', [SignUpController::class, 'register']);
-
-Route::post('test', function (Request $request) {
-
-    if ($request->file('photo_url')) {
-        $image = $request->file('photo_url');
-        if ($image != null) {
-            $finalImage = Imgur::upload($image);
-            $finalImageLink = $finalImage->link();
-        }
-    } else {
-        $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
-    }
-
-    return $finalImageLink;
-});
+Route::post('test', [testController::class, 'test']);
 
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
     ->except(['create', 'edit']);

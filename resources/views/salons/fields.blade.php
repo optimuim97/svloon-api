@@ -31,7 +31,7 @@
 <!-- Schedulestart Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('scheduleStart', 'Schedulestart:') !!}
-    {!! Form::text('scheduleStart', null, ['class' => 'form-control','id'=>'scheduleStart']) !!}
+    {!! Form::text('scheduleStart', null, ['class' => 'form-control', 'id' => 'scheduleStart']) !!}
 </div>
 
 @push('page_scripts')
@@ -43,7 +43,7 @@
 <!-- Scheduleend Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('scheduleEnd', 'Scheduleend:') !!}
-    {!! Form::text('scheduleEnd', null, ['class' => 'form-control','id'=>'scheduleEnd']) !!}
+    {!! Form::text('scheduleEnd', null, ['class' => 'form-control', 'id' => 'scheduleEnd']) !!}
 </div>
 
 @push('page_scripts')
@@ -100,8 +100,11 @@
 </div>
 <div class="clearfix"></div>
 
+@php
+    $salons = App\Models\SalonType::all();
+@endphp
 <!-- Salon Type Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('salon_type_id', 'Salon Type Id:') !!}
-    {!! Form::select('salon_type_id', [], null, ['class' => 'form-control custom-select']) !!}
+    {!! Form::select('salon_type_id', [$salons], null, ['class' => 'form-control custom-select']) !!}
 </div>

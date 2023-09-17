@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\SalonType;
 use App\Models\UserType;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Seeder;
@@ -44,12 +45,24 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // \App\Models\User::factory(10)->create();
+        $salonTypes  =
+            [
+                [
+                    "label" => 'Femme',
+                    "description" => 'Femme',
+                    "slug" => 'femme'
+                ],
+                [
+                    "label" => 'Homme',
+                    "description" => 'Homme',
+                    "slug" => 'homme'
+                ]
+            ];
 
-        // UserType::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
+        foreach ($salonTypes as $key => $salonType) {
+            SalonType::factory()->create(
+                $salonType
+            );
+        }
     }
 }

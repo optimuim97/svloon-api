@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('id');
             $table->foreignId('service_id')->constrained()->nullable();
             $table->foreignId('user_id')->constrained()->nullable();
-            $table->foreignId('payment_method_id')->constrained()->nullable();
-            $table->foreignId('payment_type_id')->constrained()->nullable();
+            $table->foreignId('payment_method_id')->constrained()->nullable()->default(1);
+            $table->foreignId('payment_type_id')->constrained()->nullable()->default(1);
             $table->string('address');
             $table->date('date')->nullable();
             $table->string('lat');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('is_report')->nullable();
             $table->boolean('is_cancel')->nullable();
             $table->boolean('has_already_send_remeber')->default(0);
-            $table->timestamp('hour')->nullable();
+            $table->time('hour')->nullable();
             $table->timestamps();
         });
     }

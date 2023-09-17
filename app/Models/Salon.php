@@ -218,11 +218,12 @@ use Illuminate\Support\Collection;
     public function getAvailabilitiesAttribute()
     {
         $salonAvailabilities = SalonAvailabily::where("salon_id", $this->id)->get();
-        // return $salonAvailabilities;
         $valideDate = [];
 
-        foreach ($salonAvailabilities as $key => $item) {
-            $date = Carbon::parse($item->date)->isPast();
+        foreach ($salonAvailabilities as $item) {
+
+            $day = Carbon::parse($item->date)->format('Y-m-d');
+            $date = Carbon::parse("$day $item->hour_end")->isPast();
 
             if (!$date) {
                 array_push($valideDate, $item);

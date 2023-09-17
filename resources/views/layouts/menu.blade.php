@@ -200,3 +200,10 @@
         <p>Appointment Statuses</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('salon-types.index') }}" class="nav-link {{ Request::is('salon-types*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Salon Types</p>
+    </a>
+</li>

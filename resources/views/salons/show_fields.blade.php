@@ -99,4 +99,3 @@
     {!! Form::label('updated_at', 'Updated At:') !!}
     <p>{{ $salon->updated_at }}</p>
 </div>
-

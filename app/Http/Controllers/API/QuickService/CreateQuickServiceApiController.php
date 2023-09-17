@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Appointement;
 use App\Models\QuickService;
 use App\Models\Salon;
+use App\Models\Service;
 use App\Repositories\QuickServiceRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class CreateQuickServiceApiController extends AppBaseController
      *              @OA\Property(property="is_report", type="string"),
      *              @OA\Property(property="is_cancel", type="string"),
      *              @OA\Property(property="payment_method_id", type="integer"),
-     *              @OA\Property(property="payment_method_type_id", type="integer"),
+     *              @OA\Property(property="payment_type_id", type="integer"),
      *              @OA\Property(property="is_confirmed", type="string"),
      *              @OA\Property(property="has_already_send_remeber", type="string")
      *          )
@@ -86,18 +87,24 @@ class CreateQuickServiceApiController extends AppBaseController
         }
 
         $input["user_id"] = $user->id;
+
+        $input['payment_method_id'] = $input['payment_method_id'] ?? 1;
+        $input['payment_type_id'] = $input['payment_type_id'] ?? 1;
+
         $request->validate(QuickService::$rules);
         $currentDate = Carbon::now();
 
         // $hour = $input["hour"];
         $date = Carbon::parse($input["date"]);
         $checkDate = $currentDate->diffInHours($date, true);
+        // dd($checkDate);
 
         if ($checkDate <= 3) {
             return $this->sendError("Le RDV doit etre fixe avec 3 heures d'avances", 422);
         }
 
-        $input["date"] = $date;
+        $input["date"] = Carbon::parse($date)->format('Y-m-d');
+        $input["hour"] = Carbon::parse($input['hour'])->format('H:i:s');
 
         $latitude = $input["lat"];
         $longtitude = $input["lon"];
@@ -111,25 +118,28 @@ class CreateQuickServiceApiController extends AppBaseController
             return $this->sendError("Pas de salon a proximite");
         }
 
-        // dd($nearlySalons?->toArray());
-
         foreach ($nearlySalons as $nearlySalon) {
             $nearlySalon = Salon::find($nearlySalon->id);
+
             $salonAvailabilities = $nearlySalon->availabilities;
-            // dd($salonAvailabilities);
-            $check = $this->checkAvailability($salonAvailabilities, $input['date']);
+
+            //Check Service list
+            // $service = Service::find($input["service_id"]);
+            // $checkIfServiceIsAvailable = $this->checkService($nearlySalon->quick_service_list, $service);
+
+            $check = $this->checkAvailability($salonAvailabilities, $input['date'], $input["hour"]);
 
             if ($check) {
                 if (!empty($nearlySalon)) {
-
+                    $input["hour"] = Carbon::parse($input["hour"])->format('Y-m-d H:i:s');
                     $quickService = $this->quickServiceRepository->create($input);
 
                     $appointement = Appointement::create([
                         'creator_id' => $user->id,
                         'user_id' => $input["user_id"],
-                        'date' => Carbon::parse($input["date"]),
-                        'hour' => Carbon::parse($input["date"])->format('H:i:s'),
-                        'date_time' => Carbon::parse($input["date_time"])->format('Y-m-d H:i:s'),
+                        'date' => Carbon::parse($input["hour"]),
+                        'hour' => Carbon::parse($input["hour"]),
+                        'date_time' => Carbon::parse($input["date"])->format('Y-m-d H:i:s'),
                         'reference' => Str::uuid(),
                         'is_confirmed' => false,
                         'is_report' => false,
@@ -144,10 +154,12 @@ class CreateQuickServiceApiController extends AppBaseController
                             "details_rdv" => $appointement->toArray()
                         ], 'Service Rapide enregister avec success');
                         //TODO send Email
+                    } else {
+                        return $this->sendError("Reservation non pris en compte");
                     }
                 }
             } else {
-                return $this->sendError("Reservation non pris en compte");
+                return $this->sendError("Salon non disponible");
             }
         }
     }
@@ -168,19 +180,42 @@ class CreateQuickServiceApiController extends AppBaseController
             ->get();
     }
 
-    public function checkAvailability($salonAvailabilities, $date)
+    public function checkAvailability($salonAvailabilities, $date, $hour)
     {
+        $combinatedDateTime = Carbon::parse("$date $hour");
+
         foreach ($salonAvailabilities as $availability) {
 
-            $check = Carbon::parse($date)
+            $day = Carbon::parse($availability->date)->format('Y-m-d');
+
+            $start =   Carbon::parse("$day $availability->hour_start");
+            $end =   Carbon::parse("$day $availability->hour_end");
+
+            // dd([
+            //     "combine " => $combinatedDateTime,
+            //     "start" => $start,
+            //     "end" => $end
+            // ]);
+
+            $check = $combinatedDateTime
                 ->between(
-                    Carbon::parse($availability->hour_start),
-                    Carbon::parse($availability->hour_end)
+                    Carbon::parse($start),
+                    Carbon::parse($end)
                 );
+
+            // dd($check);
 
             if ($check == true) {
                 return true;
             }
         }
+    }
+
+    public function checkService($salonService, $service)
+    {
+        return response()->json([
+            "salonService" => $salonService,
+            "service" => $service
+        ]);
     }
 }

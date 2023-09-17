@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
         $userTypes  =
             [
                 [
@@ -39,7 +38,6 @@ class DatabaseSeeder extends Seeder
                     "slug" => 'artist'
                 ]
             ];
-
         foreach ($userTypes as $key => $userType) {
             UserType::factory()->create(
                 $userType
@@ -60,21 +58,29 @@ class DatabaseSeeder extends Seeder
                 ]
             ];
 
+        foreach ($salonTypes as $key => $salonType) {
+            SalonType::factory()->create(
+                $salonType
+            );
+        }
 
         $serviceType = [
             [
                 "label" => 'Coiffure',
                 "description" => 'Coiffure',
                 "slug" => 'coiffure'
-            ],    [
+            ],
+            [
                 "label" => 'Barbier',
                 "description" => 'Barbier',
                 "slug" => 'barbier'
-            ],   [
+            ],
+            [
                 "label" => 'Coiffure',
                 "description" => 'Coiffure',
                 "slug" => 'coiffure'
-            ], [
+            ],
+            [
                 "label" => 'Ongles',
                 "description" => 'Ongles',
                 "slug" => 'ongles'
@@ -82,6 +88,30 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($serviceType as $key => $serviceType) {
+            ServiceType::factory()->create(
+                $serviceType
+            );
+        }
+
+        $appointmentStatuses = [
+            [
+                "name" => 'waiting',
+                "description" => 'waiting',
+                "slug" => 'waiting'
+            ],
+            [
+                "name" => 'pending',
+                "description" => 'pending',
+                "slug" => 'pending'
+            ],
+            [
+                "name" => 'treated',
+                "description" => 'treated',
+                "slug" => 'treated'
+            ]
+        ];
+
+        foreach ($appointmentStatuses as $key => $appointmentStatuses) {
             ServiceType::factory()->create(
                 $serviceType
             );

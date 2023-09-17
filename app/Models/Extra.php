@@ -53,14 +53,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     public $table = 'extras';
 
     public $fillable = [
-        'service_id',
         'name',
         'prix',
         'ext_time'
     ];
 
     protected $casts = [
-        'service_id' => "integer",
         'name' => 'string',
         'prix' => 'string',
         'ext_time' => 'string'

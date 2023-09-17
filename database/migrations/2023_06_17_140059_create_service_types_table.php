@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('service_types', function (Blueprint $table) {
             $table->id('id');
             $table->string('label');
+            $table->string('slug');
             $table->string('image_url')->nullable();
             $table->text('description');
             $table->timestamps();

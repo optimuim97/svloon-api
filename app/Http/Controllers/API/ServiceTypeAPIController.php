@@ -97,6 +97,8 @@ class ServiceTypeAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        $url = (new ServiceType())->upload($request, 'photo_url');
+        $input['image_url'] = $url;
         $serviceType = $this->serviceTypeRepository->create($input);
 
         return $this->sendResponse($serviceType->toArray(), 'Service Type saved successfully');

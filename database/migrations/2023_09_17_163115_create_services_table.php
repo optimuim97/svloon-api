@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('title');
-            $table->string('slug');
-            $table->text('description');
-            $table->string('price');
-            $table->boolean('isPromo');
-            $table->string('imageUrl');
-            $table->timestamps();
-        });
+        // Schema::create('services', function (Blueprint $table) {
+        //     $table->id('id');
+        //     $table->string('title');
+        //     $table->string('slug');
+        //     $table->text('description');
+        //     $table->string('price');
+        //     $table->boolean('isPromo');
+        //     $table->string('imageUrl');
+        //     $table->timestamps();
+        // });
     }
 
     /**

@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Imgur;
 
 class SignUpController extends Controller
 {
@@ -76,18 +75,7 @@ class SignUpController extends Controller
     {
         $request->validate(User::$rules);
 
-        // if ($request->file('photo_url')) {
-        //     $image = $request->file('photo_url');
-        //     if ($image != null) {
-        //         $finalImage = Imgur::upload($image);
-        //         $finalImageLink = $finalImage->link();
-        //     }
-        // } else {
-        //     $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
-        // }
-
-        $finalImageLink = 'https://i.imgur.com/zCL2LAh.png';
-
+        $url = (new User)->upload($request, 'photo_url');
         $user = User::create([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
@@ -95,7 +83,7 @@ class SignUpController extends Controller
             "dial_code" => $request->dial_code ?? "+225",
             "phone_number" => $request->phone_number,
             "profession" => $request->profession,
-            "photo_url" => $finalImageLink,
+            "photo_url" => $url,
             "is_active" => $request->is_active,
             "is_professional" => $request->is_professional,
             "email" => $request->email,

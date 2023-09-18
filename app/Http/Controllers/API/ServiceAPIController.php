@@ -97,6 +97,9 @@ class ServiceAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        $url = (new Service)->upload($request, 'photo_url');
+        $input['imageUrl'] = $url;
+
         $service = $this->serviceRepository->create($input);
 
         return $this->sendResponse($service->toArray(), 'Service saved successfully');

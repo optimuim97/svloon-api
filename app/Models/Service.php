@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Service",
@@ -67,11 +69,15 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Service extends Model
+ */ class Service extends Model
 {
-    use HasFactory;    public $table = 'services';
+    use HasFactory;
+    use ImgurHelpers;
+
+    public $table = 'services';
 
     public $fillable = [
+        'service_id',
         'title',
         'slug',
         'description',
@@ -81,6 +87,7 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     protected $casts = [
+        'service_id' => 'integer',
         'title' => 'string',
         'slug' => 'string',
         'description' => 'string',
@@ -89,9 +96,5 @@ use Illuminate\Database\Eloquent\Model;
         'imageUrl' => 'string'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

@@ -46,7 +46,8 @@ class ServiceController extends AppBaseController
     public function store(CreateServiceRequest $request)
     {
         $input = $request->all();
-        // dd($input);
+        $url = (new Service)->upload($request, 'photo_url');
+        $input['imageUrl'] = $url;
 
         $service = $this->serviceRepository->create($input);
 

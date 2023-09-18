@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('imageUrl')->nullable();
             $table->timestamps();
             $table->foreignId('service_type_id')->constrained()->nullable();
-            $table->foreignId('salon_id')->constrained()->nullable();
+            // $table->foreignId('salon_id')->constrained()->nullable();
         });
     }
 

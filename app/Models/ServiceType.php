@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="ServiceType",
@@ -46,9 +48,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class ServiceType extends Model
+ */ class ServiceType extends Model
 {
-    use HasFactory;    public $table = 'service_types';
+    use HasFactory, ImgurHelpers;
+    public $table = 'service_types';
 
     public $fillable = [
         'label',
@@ -62,9 +65,5 @@ use Illuminate\Database\Eloquent\Model;
         'image_url' => 'string'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

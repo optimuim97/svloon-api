@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateServiceTypeRequest;
 use App\Http\Requests\UpdateServiceTypeRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\ServiceType;
 use App\Repositories\ServiceTypeRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -42,6 +43,8 @@ class ServiceTypeController extends AppBaseController
     {
         $input = $request->all();
 
+        $url = (new ServiceType())->upload($request, 'photo_url');
+        $input['image_url'] = $url;
         $serviceType = $this->serviceTypeRepository->create($input);
 
         Flash::success('Service Type saved successfully.');

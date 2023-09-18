@@ -97,6 +97,9 @@ class SalonPictureAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        $url = (new SalonPicture())->upload($request, 'photo_url');
+        $input['path'] = $url;
+
         $salonPicture = $this->salonPictureRepository->create($input);
 
         return $this->sendResponse($salonPicture->toArray(), 'Salon Picture saved successfully');

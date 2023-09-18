@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\AppointmentStatus;
 use App\Models\SalonType;
 use App\Models\ServiceType;
 use App\Models\UserType;
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
                     "slug" => 'artist'
                 ]
             ];
+
         foreach ($userTypes as $key => $userType) {
             UserType::factory()->create(
                 $userType
@@ -47,14 +49,14 @@ class DatabaseSeeder extends Seeder
         $salonTypes  =
             [
                 [
-                    "label" => 'Femme',
+                    "name" => 'Femme',
                     "description" => 'Femme',
-                    "slug" => 'femme'
+                    // "slug" => 'femme'
                 ],
                 [
-                    "label" => 'Homme',
+                    "name" => 'Homme',
                     "description" => 'Homme',
-                    "slug" => 'homme'
+                    // "slug" => 'homme'
                 ]
             ];
 
@@ -64,56 +66,56 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        $serviceType = [
+        $serviceTypes =
             [
-                "label" => 'Coiffure',
-                "description" => 'Coiffure',
-                "slug" => 'coiffure'
-            ],
-            [
-                "label" => 'Barbier',
-                "description" => 'Barbier',
-                "slug" => 'barbier'
-            ],
-            [
-                "label" => 'Coiffure',
-                "description" => 'Coiffure',
-                "slug" => 'coiffure'
-            ],
-            [
-                "label" => 'Ongles',
-                "description" => 'Ongles',
-                "slug" => 'ongles'
-            ],
-        ];
-
-        foreach ($serviceType as $key => $serviceType) {
+                [
+                    "label" => 'Coiffure',
+                    "description" => 'Coiffure',
+                    "slug" => 'coiffure'
+                ],
+                [
+                    "label" => 'Barbier',
+                    "description" => 'Barbier',
+                    "slug" => 'barbier'
+                ],
+                [
+                    "label" => 'Tatouage',
+                    "description" => 'Tatouage',
+                    "slug" => 'tatouage'
+                ],
+                [
+                    "label" => 'Ongles',
+                    "description" => 'Ongles',
+                    "slug" => 'ongles'
+                ],
+            ];
+        foreach ($serviceTypes as $key => $serviceType) {
             ServiceType::factory()->create(
                 $serviceType
             );
         }
 
-        $appointmentStatuses = [
+        $appointmentStatuses =
             [
-                "name" => 'waiting',
-                "description" => 'waiting',
-                "slug" => 'waiting'
-            ],
-            [
-                "name" => 'pending',
-                "description" => 'pending',
-                "slug" => 'pending'
-            ],
-            [
-                "name" => 'treated',
-                "description" => 'treated',
-                "slug" => 'treated'
-            ]
-        ];
-
-        foreach ($appointmentStatuses as $key => $appointmentStatuses) {
-            ServiceType::factory()->create(
-                $serviceType
+                [
+                    "name" => 'waiting',
+                    "description" => 'waiting',
+                    // "slug" => 'waiting'
+                ],
+                [
+                    "name" => 'pending',
+                    "description" => 'pending',
+                    // "slug" => 'pending'
+                ],
+                [
+                    "name" => 'treated',
+                    "description" => 'treated',
+                    // "slug" => 'treated'
+                ]
+            ];
+        foreach ($appointmentStatuses as $key => $appointmentStatus) {
+            AppointmentStatus::factory()->create(
+                $appointmentStatus
             );
         }
     }

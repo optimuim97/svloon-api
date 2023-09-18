@@ -16,243 +16,244 @@ use App\Http\Controllers\AppBaseController;
 
 class SalonServiceAPIController extends AppBaseController
 {
-    private SalonServiceRepository $salonServiceRepository;
+    // private SalonServiceRepository $salonServiceRepository;
 
-    public function __construct(SalonServiceRepository $salonServiceRepo)
-    {
-        $this->salonServiceRepository = $salonServiceRepo;
-    }
+    // public function __construct(SalonServiceRepository $salonServiceRepo)
+    // {
+    //     $this->salonServiceRepository = $salonServiceRepo;
+    // }
 
-    /**
-     * @OA\Get(
-     *      path="/salon-services",
-     *      summary="getSalonServiceList",
-     *      tags={"SalonService"},
-     *      description="Get all SalonServices",
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/SalonService")
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function index(Request $request): JsonResponse
-    {
-        $salonServices = $this->salonServiceRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+    // /**
+    //  * @OA\Get(
+    //  *      path="/salon-services",
+    //  *      summary="getSalonServiceList",
+    //  *      tags={"SalonService"},
+    //  *      description="Get all SalonServices",
+    //  *      @OA\Response(
+    //  *          response=200,
+    //  *          description="successful operation",
+    //  *          @OA\JsonContent(
+    //  *              type="object",
+    //  *              @OA\Property(
+    //  *                  property="success",
+    //  *                  type="boolean"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="data",
+    //  *                  type="array",
+    //  *                  @OA\Items(ref="#/components/schemas/SalonService")
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="message",
+    //  *                  type="string"
+    //  *              )
+    //  *          )
+    //  *      )
+    //  * )
+    //  */
+    // public function index(Request $request): JsonResponse
+    // {
+    //     $salonServices = $this->salonServiceRepository->all(
+    //         $request->except(['skip', 'limit']),
+    //         $request->get('skip'),
+    //         $request->get('limit')
+    //     );
 
-        return $this->sendResponse($salonServices->toArray(), 'Salon Services retrieved successfully');
-    }
+    //     return $this->sendResponse($salonServices->toArray(), 'Salon Services retrieved successfully');
+    // }
 
-    /**
-     * @OA\Post(
-     *      path="/salon-services",
-     *      summary="createSalonService",
-     *      tags={"SalonService"},
-     *      description="Create SalonService",
-     *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function store(CreateSalonServiceAPIRequest $request): JsonResponse
-    {
-        $input = $request->all();
+    // /**
+    //  * @OA\Post(
+    //  *      path="/salon-services",
+    //  *      summary="createSalonService",
+    //  *      tags={"SalonService"},
+    //  *      description="Create SalonService",
+    //  *      @OA\RequestBody(
+    //  *        required=true,
+    //  *        @OA\JsonContent(ref="#/components/schemas/SalonService")
+    //  *      ),
+    //  *      @OA\Response(
+    //  *          response=200,
+    //  *          description="successful operation",
+    //  *          @OA\JsonContent(
+    //  *              type="object",
+    //  *              @OA\Property(
+    //  *                  property="success",
+    //  *                  type="boolean"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="data",
+    //  *                  ref="#/components/schemas/SalonService"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="message",
+    //  *                  type="string"
+    //  *              )
+    //  *          )
+    //  *      )
+    //  * )
+    //  */
+    // public function store(CreateSalonServiceAPIRequest $request): JsonResponse
+    // {
 
-        $salonService = $this->salonServiceRepository->create($input);
+    //     $input = $request->all();
 
-        return $this->sendResponse($salonService->toArray(), 'Salon Service saved successfully');
-    }
+    //     $salonService = $this->salonServiceRepository->create($input);
 
-    /**
-     * @OA\Get(
-     *      path="/salon-services/{id}",
-     *      summary="getSalonServiceItem",
-     *      tags={"SalonService"},
-     *      description="Get SalonService",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="id of SalonService",
-     *           @OA\Schema(
-     *             type="integer"
-     *          ),
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id): JsonResponse
-    {
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+    //     return $this->sendResponse($salonService->toArray(), 'Salon Service saved successfully');
+    // }
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
-        }
+    // /**
+    //  * @OA\Get(
+    //  *      path="/salon-services/{id}",
+    //  *      summary="getSalonServiceItem",
+    //  *      tags={"SalonService"},
+    //  *      description="Get SalonService",
+    //  *      @OA\Parameter(
+    //  *          name="id",
+    //  *          description="id of SalonService",
+    //  *           @OA\Schema(
+    //  *             type="integer"
+    //  *          ),
+    //  *          required=true,
+    //  *          in="path"
+    //  *      ),
+    //  *      @OA\Response(
+    //  *          response=200,
+    //  *          description="successful operation",
+    //  *          @OA\JsonContent(
+    //  *              type="object",
+    //  *              @OA\Property(
+    //  *                  property="success",
+    //  *                  type="boolean"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="data",
+    //  *                  ref="#/components/schemas/SalonService"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="message",
+    //  *                  type="string"
+    //  *              )
+    //  *          )
+    //  *      )
+    //  * )
+    //  */
+    // public function show($id): JsonResponse
+    // {
+    //     /** @var SalonService $salonService */
+    //     $salonService = $this->salonServiceRepository->find($id);
 
-        return $this->sendResponse($salonService->toArray(), 'Salon Service retrieved successfully');
-    }
+    //     if (empty($salonService)) {
+    //         return $this->sendError('Salon Service not found');
+    //     }
 
-    /**
-     * @OA\Put(
-     *      path="/salon-services/{id}",
-     *      summary="updateSalonService",
-     *      tags={"SalonService"},
-     *      description="Update SalonService",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="id of SalonService",
-     *           @OA\Schema(
-     *             type="integer"
-     *          ),
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function update($id, UpdateSalonServiceAPIRequest $request): JsonResponse
-    {
-        $input = $request->all();
+    //     return $this->sendResponse($salonService->toArray(), 'Salon Service retrieved successfully');
+    // }
 
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+    // /**
+    //  * @OA\Put(
+    //  *      path="/salon-services/{id}",
+    //  *      summary="updateSalonService",
+    //  *      tags={"SalonService"},
+    //  *      description="Update SalonService",
+    //  *      @OA\Parameter(
+    //  *          name="id",
+    //  *          description="id of SalonService",
+    //  *           @OA\Schema(
+    //  *             type="integer"
+    //  *          ),
+    //  *          required=true,
+    //  *          in="path"
+    //  *      ),
+    //  *      @OA\RequestBody(
+    //  *        required=true,
+    //  *        @OA\JsonContent(ref="#/components/schemas/SalonService")
+    //  *      ),
+    //  *      @OA\Response(
+    //  *          response=200,
+    //  *          description="successful operation",
+    //  *          @OA\JsonContent(
+    //  *              type="object",
+    //  *              @OA\Property(
+    //  *                  property="success",
+    //  *                  type="boolean"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="data",
+    //  *                  ref="#/components/schemas/SalonService"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="message",
+    //  *                  type="string"
+    //  *              )
+    //  *          )
+    //  *      )
+    //  * )
+    //  */
+    // public function update($id, UpdateSalonServiceAPIRequest $request): JsonResponse
+    // {
+    //     $input = $request->all();
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
-        }
+    //     /** @var SalonService $salonService */
+    //     $salonService = $this->salonServiceRepository->find($id);
 
-        $salonService = $this->salonServiceRepository->update($input, $id);
+    //     if (empty($salonService)) {
+    //         return $this->sendError('Salon Service not found');
+    //     }
 
-        return $this->sendResponse($salonService->toArray(), 'SalonService updated successfully');
-    }
+    //     $salonService = $this->salonServiceRepository->update($input, $id);
 
-    /**
-     * @OA\Delete(
-     *      path="/salon-services/{id}",
-     *      summary="deleteSalonService",
-     *      tags={"SalonService"},
-     *      description="Delete SalonService",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="id of SalonService",
-     *           @OA\Schema(
-     *             type="integer"
-     *          ),
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  type="string"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function destroy($id): JsonResponse
-    {
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+    //     return $this->sendResponse($salonService->toArray(), 'SalonService updated successfully');
+    // }
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
-        }
+    // /**
+    //  * @OA\Delete(
+    //  *      path="/salon-services/{id}",
+    //  *      summary="deleteSalonService",
+    //  *      tags={"SalonService"},
+    //  *      description="Delete SalonService",
+    //  *      @OA\Parameter(
+    //  *          name="id",
+    //  *          description="id of SalonService",
+    //  *           @OA\Schema(
+    //  *             type="integer"
+    //  *          ),
+    //  *          required=true,
+    //  *          in="path"
+    //  *      ),
+    //  *      @OA\Response(
+    //  *          response=200,
+    //  *          description="successful operation",
+    //  *          @OA\JsonContent(
+    //  *              type="object",
+    //  *              @OA\Property(
+    //  *                  property="success",
+    //  *                  type="boolean"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="data",
+    //  *                  type="string"
+    //  *              ),
+    //  *              @OA\Property(
+    //  *                  property="message",
+    //  *                  type="string"
+    //  *              )
+    //  *          )
+    //  *      )
+    //  * )
+    //  */
+    // public function destroy($id): JsonResponse
+    // {
+    //     /** @var SalonService $salonService */
+    //     $salonService = $this->salonServiceRepository->find($id);
 
-        $salonService->delete();
+    //     if (empty($salonService)) {
+    //         return $this->sendError('Salon Service not found');
+    //     }
 
-        return $this->sendSuccess('Salon Service deleted successfully');
-    }
+    //     $salonService->delete();
+
+    //     return $this->sendSuccess('Salon Service deleted successfully');
+    // }
 }

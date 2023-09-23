@@ -189,7 +189,7 @@ class CreateQuickServiceApiController extends AppBaseController
                 + sin(radians(" . $latitude . "))
                 * sin(radians(salon_addresses.lat))) AS distance")
             )
-            ->groupBy("salon_addresses.id")
+            // ->groupBy("salon_addresses.id")
             ->get();
     }
 

@@ -9,7 +9,7 @@ trait ImgurHelpers
 {
     public function upload(Request $request, $key)
     {
-        if ($request->file('photo_url')) {
+        if ($request->file($key)) {
             $image = $request->file($key);
             if ($image != null) {
                 $finalImage = Imgur::upload($image);

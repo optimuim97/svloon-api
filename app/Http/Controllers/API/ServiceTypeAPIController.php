@@ -97,8 +97,11 @@ class ServiceTypeAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $url = (new ServiceType())->upload($request, 'photo_url');
-        $input['image_url'] = $url;
+        if (!empty($input['image_url'])) {
+            $url = (new ServiceType())->upload($request, 'image_url');
+            $input['image_url'] = $url;
+        }
+
         $serviceType = $this->serviceTypeRepository->create($input);
 
         return $this->sendResponse($serviceType->toArray(), 'Service Type saved successfully');
@@ -202,6 +205,14 @@ class ServiceTypeAPIController extends AppBaseController
         if (empty($serviceType)) {
             return $this->sendError('Service Type not found');
         }
+
+        if (!empty($input['image_url'])) {
+            $url = (new ServiceType())->upload($request, 'image_url');
+            $input['image_url'] = $url;
+        } else {
+            $input['image_url'] = $serviceType->image_url;
+        }
+
 
         $serviceType = $this->serviceTypeRepository->update($input, $id);
 

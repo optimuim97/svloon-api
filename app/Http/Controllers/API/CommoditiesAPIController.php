@@ -97,6 +97,11 @@ class CommoditiesAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        if (empty($input['imageUrl'])) {
+            $url = (new Commodities())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
+
         $commodities = $this->commoditiesRepository->create($input);
 
         return $this->sendResponse($commodities->toArray(), 'Commodities saved successfully');
@@ -199,6 +204,11 @@ class CommoditiesAPIController extends AppBaseController
 
         if (empty($commodities)) {
             return $this->sendError('Commodities not found');
+        }
+
+        if (empty($input['imageUrl'])) {
+            $url = (new Commodities())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
         }
 
         $commodities = $this->commoditiesRepository->update($input, $id);

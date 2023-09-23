@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Commodities",
@@ -46,9 +48,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Commodities extends Model
+ */ class Commodities extends Model
 {
-    use HasFactory;    public $table = 'commodities';
+    use HasFactory, ImgurHelpers;
+
+    public $table = 'commodities';
 
     public $fillable = [
         'label',
@@ -62,9 +66,5 @@ use Illuminate\Database\Eloquent\Model;
         'imageUrl' => 'string'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

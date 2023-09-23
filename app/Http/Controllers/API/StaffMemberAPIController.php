@@ -97,6 +97,11 @@ class StaffMemberAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        if (empty($input['imageUrl'])) {
+            $url = (new StaffMember())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
+
         $staffMember = $this->staffMemberRepository->create($input);
 
         return $this->sendResponse($staffMember->toArray(), 'Staff Member saved successfully');
@@ -199,6 +204,13 @@ class StaffMemberAPIController extends AppBaseController
 
         if (empty($staffMember)) {
             return $this->sendError('Staff Member not found');
+        }
+
+        if (empty($input['imageUrl']) && empty($staffMember)) {
+            $url = (new StaffMember())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $staffMember->imageUrl;
         }
 
         $staffMember = $this->staffMemberRepository->update($input, $id);

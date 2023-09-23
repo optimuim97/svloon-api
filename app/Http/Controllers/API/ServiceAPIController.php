@@ -97,8 +97,10 @@ class ServiceAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $url = (new Service)->upload($request, 'photo_url');
-        $input['imageUrl'] = $url;
+        if (empty($input['imageUrl'])) {
+            $url = (new Service)->upload($request, 'photo_url');
+            $input['imageUrl'] = $url;
+        }
 
         $service = $this->serviceRepository->create($input);
 
@@ -202,6 +204,13 @@ class ServiceAPIController extends AppBaseController
 
         if (empty($service)) {
             return $this->sendError('Service not found');
+        }
+
+        if (empty($input['imageUrl'])) {
+            $url = (new Service)->upload($request, 'photo_url');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $service->imageUrl;
         }
 
         $service = $this->serviceRepository->update($input, $id);

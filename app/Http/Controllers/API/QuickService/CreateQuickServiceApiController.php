@@ -24,7 +24,7 @@ class CreateQuickServiceApiController extends AppBaseController
 
     /**
      * @OA\Post(
-     *      path="/auth/quick-services",
+     *      path="/auth/request-quick-service",
      *      summary="createQuickService",
      *      tags={"QuickService"},
      *      description="Create QuickService",

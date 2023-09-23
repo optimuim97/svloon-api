@@ -94,11 +94,11 @@ class CommoditiesAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateCommoditiesAPIRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $input = $request->all();
 
-        if (empty($input['imageUrl'])) {
+        if (!empty($input['imageUrl'])) {
             $url = (new Commodities())->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
         }
@@ -209,7 +209,7 @@ class CommoditiesAPIController extends AppBaseController
             return $this->sendError('Commodities not found');
         }
 
-        if (empty($input['imageUrl'])) {
+        if (!empty($input['imageUrl'])) {
             $url = (new Commodities())->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
         }

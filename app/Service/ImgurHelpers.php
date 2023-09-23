@@ -11,6 +11,7 @@ trait ImgurHelpers
     {
         if ($request->file($key)) {
             $image = $request->file($key);
+
             if ($image != null) {
                 $finalImage = Imgur::upload($image);
                 $finalImageLink = $finalImage->link();

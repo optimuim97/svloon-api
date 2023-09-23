@@ -97,7 +97,7 @@ class ServiceAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        if (empty($input['imageUrl'])) {
+        if (!empty($input['imageUrl'])) {
             $url = (new Service)->upload($request, 'photo_url');
             $input['imageUrl'] = $url;
         }
@@ -206,7 +206,7 @@ class ServiceAPIController extends AppBaseController
             return $this->sendError('Service not found');
         }
 
-        if (empty($input['imageUrl'])) {
+        if (!empty($input['imageUrl'])) {
             $url = (new Service)->upload($request, 'photo_url');
             $input['imageUrl'] = $url;
         } else {

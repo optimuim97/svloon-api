@@ -2396,14 +2396,14 @@
                 }
             }
         },
-        "/auth/quick-services": {
+        "/auth/request-quick-service": {
             "post": {
                 "tags": [
                     "QuickService"
                 ],
                 "summary": "createQuickService",
                 "description": "Create QuickService",
-                "operationId": "cdfa43f82cabed330236598f29d86ca6",
+                "operationId": "8888b76a4d9ef5fe509431750ea7f0b1",
                 "parameters": [
                     {
                         "name": "Authorization",

@@ -2,23 +2,14 @@
 
 namespace App\Models;
 
-use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Service",
+ *      schema="Portfolio",
  *      required={},
  *      @OA\Property(
- *          property="title",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="slug",
+ *          property="label",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -32,25 +23,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="price",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="isPromo",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="boolean",
- *      ),
- *      @OA\Property(
  *          property="imageUrl",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="creator_name",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="salon_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -69,35 +61,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */
-class Service extends Model
+ */class Portfolio extends Model
 {
-    use HasFactory;
-    use ImgurHelpers;
-
-    public $table = 'services';
+    use HasFactory;    public $table = 'portfolios';
 
     public $fillable = [
-        'service_id',
-        'service_type_id',
-        'title',
-        'slug',
+        'label',
         'description',
-        'price',
-        'isPromo',
-        'imageUrl'
+        'imageUrl',
+        'creator_name',
+        'salon_id'
     ];
 
     protected $casts = [
-        'service_id' => 'integer',
-        'service_type_id' => 'integer',
-        'title' => 'string',
-        'slug' => 'string',
+        'label' => 'string',
         'description' => 'string',
-        'price' => 'string',
-        'isPromo' => 'boolean',
-        'imageUrl' => 'string'
+        'imageUrl' => 'string',
+        'creator_name' => 'string',
+        'salon_id' => 'integer'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        
+    ];
+
+    
 }

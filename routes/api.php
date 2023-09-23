@@ -110,3 +110,16 @@ Route::resource('salon-types', App\Http\Controllers\API\SalonTypeAPIController::
 
 Route::resource('services', App\Http\Controllers\API\ServiceAPIController::class)
     ->except(['create', 'edit']);
+
+
+Route::resource('commodities', App\Http\Controllers\API\CommoditiesAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('commodity-salons', App\Http\Controllers\API\CommoditySalonAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('staff-members', App\Http\Controllers\API\StaffMemberAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('portfolios', App\Http\Controllers\API\PortfolioAPIController::class)
+    ->except(['create', 'edit']);

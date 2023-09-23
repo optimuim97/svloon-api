@@ -183,7 +183,7 @@ use Illuminate\Support\Collection;
         "email"
     ];
 
-    protected $appends = ['quick_service_list', "address", 'availabilities'];
+    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff'];
 
     /**
      * Get the user that owns the Salon
@@ -197,7 +197,6 @@ use Illuminate\Support\Collection;
 
     public function getQuickServiceListAttribute()
     {
-
         $serviceList = new Collection();
         $servicesSalon = ServicesSalon::where(["salon_id" => $this->id, "is_active" => true])->get();
 
@@ -217,6 +216,22 @@ use Illuminate\Support\Collection;
     {
         $address = SalonAddress::where("salon_id", $this->id)->get();
         return $address;
+    }
+
+    public function getStaffAttribute()
+    {
+        return StaffMember::where('salon_id', $this->id)->get();
+    }
+
+    public function getPorfolioAttribute()
+    {
+        return Portfolio::where('salon_id', $this->id)->get();
+    }
+
+    public function getCommoditiesAttribute()
+    {
+        $commodities = CommoditySalon::where("salon_id", $this->id)->get();
+        return $commodities;
     }
 
     public function getAvailabilitiesAttribute()

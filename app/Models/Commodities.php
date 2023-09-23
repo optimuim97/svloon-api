@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Service",
+ *      schema="Commodities",
  *      required={},
  *      @OA\Property(
- *          property="title",
+ *          property="label",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -23,27 +21,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
- *      ),
- *      @OA\Property(
- *          property="description",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="price",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="isPromo",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="boolean",
  *      ),
  *      @OA\Property(
  *          property="imageUrl",
@@ -69,35 +46,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */
-class Service extends Model
+ */class Commodities extends Model
 {
-    use HasFactory;
-    use ImgurHelpers;
-
-    public $table = 'services';
+    use HasFactory;    public $table = 'commodities';
 
     public $fillable = [
-        'service_id',
-        'service_type_id',
-        'title',
+        'label',
         'slug',
-        'description',
-        'price',
-        'isPromo',
         'imageUrl'
     ];
 
     protected $casts = [
-        'service_id' => 'integer',
-        'service_type_id' => 'integer',
-        'title' => 'string',
+        'label' => 'string',
         'slug' => 'string',
-        'description' => 'string',
-        'price' => 'string',
-        'isPromo' => 'boolean',
         'imageUrl' => 'string'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        
+    ];
+
+    
 }

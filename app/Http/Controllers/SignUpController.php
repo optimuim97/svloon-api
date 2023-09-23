@@ -76,6 +76,7 @@ class SignUpController extends Controller
         $request->validate(User::$rules);
 
         $url = (new User)->upload($request, 'photo_url');
+        
         $user = User::create([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,

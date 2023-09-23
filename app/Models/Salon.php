@@ -183,7 +183,7 @@ use Illuminate\Support\Collection;
         "email"
     ];
 
-    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff'];
+    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff', 'pictures'];
 
     /**
      * Get the user that owns the Salon
@@ -250,5 +250,10 @@ use Illuminate\Support\Collection;
         }
 
         return $valideDate;
+    }
+    public function getPicturesAttribute()
+    {
+        $salonPictures = SalonPicture::where("salon_id", $this->id)->get();
+        return $salonPictures;
     }
 }

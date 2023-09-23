@@ -166,6 +166,19 @@ class CreateQuickServiceApiController extends AppBaseController
 
     public function getSalon($latitude, $longtitude)
     {
+        // return DB::table("salons")
+        //     ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
+        //     ->select(
+        //         "*",
+        //         DB::raw("55555 * acos(cos(radians(" . $latitude . "))
+        //         * cos(radians(salon_addresses.lat))
+        //         * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
+        //         + sin(radians(" . $latitude . "))
+        //         * sin(radians(salon_addresses.lat))) AS distance")
+        //     )
+        //     ->groupBy("salon_addresses.id")
+        //     ->get();
+
         return DB::table("salons")
             ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
             ->select(

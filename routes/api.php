@@ -123,3 +123,6 @@ Route::resource('staff-members', App\Http\Controllers\API\StaffMemberAPIControll
 
 Route::resource('portfolios', App\Http\Controllers\API\PortfolioAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('artists', App\Http\Controllers\API\ArtistAPIController::class)
+    ->except(['create', 'edit']);

@@ -207,3 +207,10 @@
         <p>Salon Types</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('artists.index') }}" class="nav-link {{ Request::is('artists*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artists</p>
+    </a>
+</li>

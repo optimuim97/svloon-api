@@ -8,6 +8,7 @@ use App\Models\Commodities;
 use App\Repositories\CommoditiesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\AppBaseController;
 
 /**
@@ -101,6 +102,8 @@ class CommoditiesAPIController extends AppBaseController
             $url = (new Commodities())->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
         }
+
+        $input['slug'] = Str::slug($input['label']);
 
         $commodities = $this->commoditiesRepository->create($input);
 

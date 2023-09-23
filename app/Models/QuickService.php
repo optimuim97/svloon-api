@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="QuickService",
@@ -83,9 +84,9 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class QuickService extends Model
+ */ class QuickService extends Model
 {
-    use HasFactory;    
+    use HasFactory;
     public $table = 'quick_services';
 
     protected $guarded = [];
@@ -105,7 +106,7 @@ use Illuminate\Database\Eloquent\Model;
 
     public static array $rules = [
         'service_id' => "required",
-        'user_id' => "required",
+        // 'user_id' => "required",
         'address' => "required",
         'hour' => "required",
         'lat' => "required",
@@ -119,9 +120,9 @@ use Illuminate\Database\Eloquent\Model;
         // 'has_already_send_remeber' => "required"
     ];
 
-    public function getServiceAttribute(){
+    public function getServiceAttribute()
+    {
         $service = Service::where("id", $this->service_id)->first();
         return $service;
     }
-    
 }

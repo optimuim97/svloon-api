@@ -48,7 +48,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class ServiceType extends Model
+ */
+class ServiceType extends Model
 {
     use HasFactory, ImgurHelpers;
     public $table = 'service_types';

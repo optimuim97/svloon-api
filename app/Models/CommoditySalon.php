@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="CommoditySalon",
@@ -48,9 +49,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class CommoditySalon extends Model
+ */ class CommoditySalon extends Model
 {
-    use HasFactory;    public $table = 'commodity_salons';
+    use HasFactory;
+    public $table = 'commodity_salons';
 
     public $fillable = [
         'commodity_id',
@@ -64,9 +66,5 @@ use Illuminate\Database\Eloquent\Model;
         'isActice' => 'boolean'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

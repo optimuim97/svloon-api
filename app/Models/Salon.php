@@ -230,7 +230,15 @@ use Illuminate\Support\Collection;
 
     public function getCommoditiesAttribute()
     {
-        $commodities = CommoditySalon::where("salon_id", $this->id)->get();
+        $commoditySalon = CommoditySalon::where("salon_id", $this->id)->get();
+        $commodities = [];
+
+        foreach ($commoditySalon as  $value) {
+            $x = $value->commodity_id;
+            $commodity = Commodities::find('id', $x);
+            array_push($commodities, $commodity);
+        }
+
         return $commodities;
     }
 

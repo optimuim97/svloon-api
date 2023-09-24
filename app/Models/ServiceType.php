@@ -70,6 +70,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public function getServicesAttribute()
     {
-        return Service::where('service_id', $this->id)->get();
+        return Service::where('id', $this->service_type_id)->get();
     }
 }

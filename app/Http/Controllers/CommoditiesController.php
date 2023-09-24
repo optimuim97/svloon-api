@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCommoditiesRequest;
 use App\Http\Requests\UpdateCommoditiesRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Commodities;
 use App\Repositories\CommoditiesRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -41,6 +42,11 @@ class CommoditiesController extends AppBaseController
     public function store(CreateCommoditiesRequest $request)
     {
         $input = $request->all();
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new Commodities())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
 
         $commodities = $this->commoditiesRepository->create($input);
 
@@ -92,6 +98,13 @@ class CommoditiesController extends AppBaseController
             Flash::error('Commodities not found');
 
             return redirect(route('commodities.index'));
+        }
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new Commodities())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $commodities->imageUrl;
         }
 
         $commodities = $this->commoditiesRepository->update($request->all(), $id);

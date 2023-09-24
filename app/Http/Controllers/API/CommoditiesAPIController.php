@@ -212,6 +212,8 @@ class CommoditiesAPIController extends AppBaseController
         if (!empty($input['imageUrl'])) {
             $url = (new Commodities())->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $commodities->imageUrl;
         }
 
         $commodities = $this->commoditiesRepository->update($input, $id);

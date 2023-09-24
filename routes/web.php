@@ -46,3 +46,4 @@ Route::resource('appointment-statuses', App\Http\Controllers\AppointmentStatusCo
 
 Route::resource('salon-types', App\Http\Controllers\SalonTypeController::class);
 Route::resource('artists', App\Http\Controllers\ArtistController::class);
+Route::resource('commodities', App\Http\Controllers\CommoditiesController::class);

@@ -214,3 +214,10 @@
         <p>Artists</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('commodities.index') }}" class="nav-link {{ Request::is('commodities*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Commodities</p>
+    </a>
+</li>

@@ -97,8 +97,10 @@ class SalonPictureAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $url = (new SalonPicture())->upload($request, 'path');
-        $input['path'] = $url;
+        if (!empty($input['path'])) {
+            $url = (new SalonPicture())->upload($request, 'path');
+            $input['path'] = $url;
+        }
 
         $salonPicture = $this->salonPictureRepository->create($input);
 
@@ -202,6 +204,11 @@ class SalonPictureAPIController extends AppBaseController
 
         if (empty($salonPicture)) {
             return $this->sendError('Salon Picture not found');
+        }
+
+        if (!empty($input['path'])) {
+            $url = (new SalonPicture())->upload($request, 'path');
+            $input['path'] = $url;
         }
 
         $salonPicture = $this->salonPictureRepository->update($input, $id);

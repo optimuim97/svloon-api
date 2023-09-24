@@ -183,7 +183,7 @@ use Illuminate\Support\Collection;
         "email"
     ];
 
-    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff', 'pictures'];
+    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff', 'pictures', 'porfolio'];
 
     /**
      * Get the user that owns the Salon

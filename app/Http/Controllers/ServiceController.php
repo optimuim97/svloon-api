@@ -101,6 +101,13 @@ class ServiceController extends AppBaseController
             return redirect(route('services.index'));
         }
 
+        if (!empty($input['imageUrl'])) {
+            $url = (new Service)->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $service->imageUrl;
+        }
+
         $service = $this->serviceRepository->update($request->all(), $id);
 
         Flash::success('Service updated successfully.');

@@ -233,9 +233,9 @@ use Illuminate\Support\Collection;
         $commoditySalon = CommoditySalon::where("salon_id", $this->id)->get();
         $commodities = [];
 
-        foreach ($commoditySalon as  $value) {
+        foreach ($commoditySalon as $value) {
             $x = $value->commodity_id;
-            $commodity = Commodities::find('id', $x);
+            $commodity = Commodities::find($x);
             array_push($commodities, $commodity);
         }
 

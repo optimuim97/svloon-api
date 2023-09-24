@@ -98,7 +98,7 @@ class ServiceAPIController extends AppBaseController
         $input = $request->all();
 
         if (!empty($input['imageUrl'])) {
-            $url = (new Service)->upload($request, 'photo_url');
+            $url = (new Service)->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
         }
 

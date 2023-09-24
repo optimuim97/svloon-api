@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 {
     use HasFactory, ImgurHelpers;
     public $table = 'service_types';
+    protected $appends = ['services'];
 
     public $fillable = [
         'label',
@@ -66,4 +67,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     public static array $rules = [];
+
+    public function getServicesAttribute()
+    {
+        return Service::where('service', $this->id)->get();
+    }
 }

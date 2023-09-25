@@ -2,34 +2,34 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateArtistAPIRequest;
-use App\Http\Requests\API\UpdateArtistAPIRequest;
-use App\Models\Artist;
-use App\Repositories\ArtistRepository;
+use App\Http\Requests\API\CreateArtistPorfolioAPIRequest;
+use App\Http\Requests\API\UpdateArtistPorfolioAPIRequest;
+use App\Models\ArtistPorfolio;
+use App\Repositories\ArtistPorfolioRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\ArtistPicture;
 
 /**
- * Class ArtistController
+ * Class ArtistPorfolioController
  */
 
-class ArtistAPIController extends AppBaseController
+class ArtistPorfolioAPIController extends AppBaseController
 {
-    private ArtistRepository $artistRepository;
+    private ArtistPorfolioRepository $artistPorfolioRepository;
 
-    public function __construct(ArtistRepository $artistRepo)
+    public function __construct(ArtistPorfolioRepository $artistPorfolioRepo)
     {
-        $this->artistRepository = $artistRepo;
+        $this->artistPorfolioRepository = $artistPorfolioRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/artists",
-     *      summary="getArtistList",
-     *      tags={"Artist"},
-     *      description="Get all Artists",
+     *      path="/artist-porfolios",
+     *      summary="getArtistPorfolioList",
+     *      tags={"ArtistPorfolio"},
+     *      description="Get all ArtistPorfolios",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -42,7 +42,7 @@ class ArtistAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Artist")
+     *                  @OA\Items(ref="#/components/schemas/ArtistPorfolio")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -54,24 +54,24 @@ class ArtistAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $artists = $this->artistRepository->all(
+        $artistPorfolios = $this->artistPorfolioRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($artists->toArray(), 'Artists retrieved successfully');
+        return $this->sendResponse($artistPorfolios->toArray(), 'Artist Porfolios retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/artists",
-     *      summary="createArtist",
-     *      tags={"Artist"},
-     *      description="Create Artist",
+     *      path="/artist-porfolios",
+     *      summary="createArtistPorfolio",
+     *      tags={"ArtistPorfolio"},
+     *      description="Create ArtistPorfolio",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Artist")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistPorfolio")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -84,7 +84,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPorfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -94,24 +94,29 @@ class ArtistAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateArtistAPIRequest $request): JsonResponse
+    public function store(CreateArtistPorfolioAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $artist = $this->artistRepository->create($input);
+        if (empty($input['imageUrl'])) {
+            $url = (new ArtistPorfolio())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
 
-        return $this->sendResponse($artist->toArray(), 'Artist saved successfully');
+        $artistPorfolio = $this->artistPorfolioRepository->create($input);
+
+        return $this->sendResponse($artistPorfolio->toArray(), 'Artist Porfolio saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/artists/{id}",
-     *      summary="getArtistItem",
-     *      tags={"Artist"},
-     *      description="Get Artist",
+     *      path="/artist-porfolios/{id}",
+     *      summary="getArtistPorfolioItem",
+     *      tags={"ArtistPorfolio"},
+     *      description="Get ArtistPorfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPorfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -129,7 +134,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPorfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -141,25 +146,25 @@ class ArtistAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPorfolio $artistPorfolio */
+        $artistPorfolio = $this->artistPorfolioRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPorfolio)) {
+            return $this->sendError('Artist Porfolio not found');
         }
 
-        return $this->sendResponse($artist->toArray(), 'Artist retrieved successfully');
+        return $this->sendResponse($artistPorfolio->toArray(), 'Artist Porfolio retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/artists/{id}",
-     *      summary="updateArtist",
-     *      tags={"Artist"},
-     *      description="Update Artist",
+     *      path="/artist-porfolios/{id}",
+     *      summary="updateArtistPorfolio",
+     *      tags={"ArtistPorfolio"},
+     *      description="Update ArtistPorfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPorfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -168,7 +173,7 @@ class ArtistAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Artist")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistPorfolio")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -181,7 +186,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPorfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -191,31 +196,38 @@ class ArtistAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateArtistAPIRequest $request): JsonResponse
+    public function update($id, UpdateArtistPorfolioAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPorfolio $artistPorfolio */
+        $artistPorfolio = $this->artistPorfolioRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPorfolio)) {
+            return $this->sendError('Artist Porfolio not found');
         }
 
-        $artist = $this->artistRepository->update($input, $id);
+        if (empty($input['imageUrl'])) {
+            $url = (new ArtistPorfolio())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }esle{
+            $input['imageUrl'] = $artistPorfolio->imageUrl;
+        }
 
-        return $this->sendResponse($artist->toArray(), 'Artist updated successfully');
+        $artistPorfolio = $this->artistPorfolioRepository->update($input, $id);
+
+        return $this->sendResponse($artistPorfolio->toArray(), 'ArtistPorfolio updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/artists/{id}",
-     *      summary="deleteArtist",
-     *      tags={"Artist"},
-     *      description="Delete Artist",
+     *      path="/artist-porfolios/{id}",
+     *      summary="deleteArtistPorfolio",
+     *      tags={"ArtistPorfolio"},
+     *      description="Delete ArtistPorfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPorfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -245,15 +257,15 @@ class ArtistAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPorfolio $artistPorfolio */
+        $artistPorfolio = $this->artistPorfolioRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPorfolio)) {
+            return $this->sendError('Artist Porfolio not found');
         }
 
-        $artist->delete();
+        $artistPorfolio->delete();
 
-        return $this->sendSuccess('Artist deleted successfully');
+        return $this->sendSuccess('Artist Porfolio deleted successfully');
     }
 }

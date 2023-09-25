@@ -126,3 +126,9 @@ Route::resource('portfolios', App\Http\Controllers\API\PortfolioAPIController::c
 
 Route::resource('artists', App\Http\Controllers\API\ArtistAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('artist-pictures', App\Http\Controllers\API\ArtistPictureAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('artist-porfolios', App\Http\Controllers\API\ArtistPorfolioAPIController::class)
+    ->except(['create', 'edit']);

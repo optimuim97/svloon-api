@@ -47,3 +47,5 @@ Route::resource('appointment-statuses', App\Http\Controllers\AppointmentStatusCo
 Route::resource('salon-types', App\Http\Controllers\SalonTypeController::class);
 Route::resource('artists', App\Http\Controllers\ArtistController::class);
 Route::resource('commodities', App\Http\Controllers\CommoditiesController::class);
+Route::resource('artist-pictures', App\Http\Controllers\ArtistPictureController::class);
+Route::resource('artist-porfolios', App\Http\Controllers\ArtistPorfolioController::class);

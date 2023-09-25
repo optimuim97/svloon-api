@@ -2,34 +2,33 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateArtistAPIRequest;
-use App\Http\Requests\API\UpdateArtistAPIRequest;
-use App\Models\Artist;
-use App\Repositories\ArtistRepository;
+use App\Http\Requests\API\CreateArtistPictureAPIRequest;
+use App\Http\Requests\API\UpdateArtistPictureAPIRequest;
+use App\Models\ArtistPicture;
+use App\Repositories\ArtistPictureRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Models\ArtistPicture;
 
 /**
- * Class ArtistController
+ * Class ArtistPictureController
  */
 
-class ArtistAPIController extends AppBaseController
+class ArtistPictureAPIController extends AppBaseController
 {
-    private ArtistRepository $artistRepository;
+    private ArtistPictureRepository $artistPictureRepository;
 
-    public function __construct(ArtistRepository $artistRepo)
+    public function __construct(ArtistPictureRepository $artistPictureRepo)
     {
-        $this->artistRepository = $artistRepo;
+        $this->artistPictureRepository = $artistPictureRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/artists",
-     *      summary="getArtistList",
-     *      tags={"Artist"},
-     *      description="Get all Artists",
+     *      path="/artist-pictures",
+     *      summary="getArtistPictureList",
+     *      tags={"ArtistPicture"},
+     *      description="Get all ArtistPictures",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -42,7 +41,7 @@ class ArtistAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Artist")
+     *                  @OA\Items(ref="#/components/schemas/ArtistPicture")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -54,24 +53,24 @@ class ArtistAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $artists = $this->artistRepository->all(
+        $artistPictures = $this->artistPictureRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($artists->toArray(), 'Artists retrieved successfully');
+        return $this->sendResponse($artistPictures->toArray(), 'Artist Pictures retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/artists",
-     *      summary="createArtist",
-     *      tags={"Artist"},
-     *      description="Create Artist",
+     *      path="/artist-pictures",
+     *      summary="createArtistPicture",
+     *      tags={"ArtistPicture"},
+     *      description="Create ArtistPicture",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Artist")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistPicture")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -84,7 +83,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPicture"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -94,24 +93,29 @@ class ArtistAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateArtistAPIRequest $request): JsonResponse
+    public function store(CreateArtistPictureAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $artist = $this->artistRepository->create($input);
+        if (empty($input['imageUrl'])) {
+            $url = (new ArtistPicture())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
 
-        return $this->sendResponse($artist->toArray(), 'Artist saved successfully');
+        $artistPicture = $this->artistPictureRepository->create($input);
+
+        return $this->sendResponse($artistPicture->toArray(), 'Artist Picture saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/artists/{id}",
-     *      summary="getArtistItem",
-     *      tags={"Artist"},
-     *      description="Get Artist",
+     *      path="/artist-pictures/{id}",
+     *      summary="getArtistPictureItem",
+     *      tags={"ArtistPicture"},
+     *      description="Get ArtistPicture",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPicture",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -129,7 +133,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPicture"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -141,25 +145,25 @@ class ArtistAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPicture $artistPicture */
+        $artistPicture = $this->artistPictureRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPicture)) {
+            return $this->sendError('Artist Picture not found');
         }
 
-        return $this->sendResponse($artist->toArray(), 'Artist retrieved successfully');
+        return $this->sendResponse($artistPicture->toArray(), 'Artist Picture retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/artists/{id}",
-     *      summary="updateArtist",
-     *      tags={"Artist"},
-     *      description="Update Artist",
+     *      path="/artist-pictures/{id}",
+     *      summary="updateArtistPicture",
+     *      tags={"ArtistPicture"},
+     *      description="Update ArtistPicture",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPicture",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -168,7 +172,7 @@ class ArtistAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Artist")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistPicture")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -181,7 +185,7 @@ class ArtistAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Artist"
+     *                  ref="#/components/schemas/ArtistPicture"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -191,31 +195,38 @@ class ArtistAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateArtistAPIRequest $request): JsonResponse
+    public function update($id, UpdateArtistPictureAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPicture $artistPicture */
+        $artistPicture = $this->artistPictureRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPicture)) {
+            return $this->sendError('Artist Picture not found');
         }
 
-        $artist = $this->artistRepository->update($input, $id);
+        if (empty($input['imageUrl'])) {
+            $url = (new ArtistPicture())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $artistPicture->imageUrl;
+        }
 
-        return $this->sendResponse($artist->toArray(), 'Artist updated successfully');
+        $artistPicture = $this->artistPictureRepository->update($input, $id);
+
+        return $this->sendResponse($artistPicture->toArray(), 'ArtistPicture updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/artists/{id}",
-     *      summary="deleteArtist",
-     *      tags={"Artist"},
-     *      description="Delete Artist",
+     *      path="/artist-pictures/{id}",
+     *      summary="deleteArtistPicture",
+     *      tags={"ArtistPicture"},
+     *      description="Delete ArtistPicture",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Artist",
+     *          description="id of ArtistPicture",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -245,15 +256,15 @@ class ArtistAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Artist $artist */
-        $artist = $this->artistRepository->find($id);
+        /** @var ArtistPicture $artistPicture */
+        $artistPicture = $this->artistPictureRepository->find($id);
 
-        if (empty($artist)) {
-            return $this->sendError('Artist not found');
+        if (empty($artistPicture)) {
+            return $this->sendError('Artist Picture not found');
         }
 
-        $artist->delete();
+        $artistPicture->delete();
 
-        return $this->sendSuccess('Artist deleted successfully');
+        return $this->sendSuccess('Artist Picture deleted successfully');
     }
 }

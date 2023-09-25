@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('commodities', function (Blueprint $table) {
+        Schema::create('artist_pictures', function (Blueprint $table) {
             $table->id('id');
-            $table->string('label');
-            $table->string('slug');
-            $table->string('imageUrl');
+            $table->string('name');
+            $table->string('path');
+            $table->string('original_name');
+            $table->bigInteger('artist_id')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('commodities');
+        Schema::drop('artist_pictures');
     }
 };

@@ -8,18 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
- *      schema="Artist",
+ *      schema="ArtistPorfolio",
  *      required={},
  *      @OA\Property(
- *          property="user_id",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="fonction",
+ *          property="label",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -31,6 +23,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="imageUrl",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="creator_name",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="artist_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -49,33 +63,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class Artist extends Model
+ */ class ArtistPorfolio extends Model
 {
     use HasFactory, ImgurHelpers;
-    public $table = 'artists';
-    protected $appends = ['pictures', 'porfolio'];
+    public $table = 'artist_porfolios';
 
     public $fillable = [
-        'user_id',
-        'fonction',
-        'description'
+        'label',
+        'description',
+        'imageUrl',
+        'creator_name',
+        'artist_id'
     ];
 
     protected $casts = [
-        'user_id' => 'integer',
-        'fonction' => 'string',
-        'description' => 'string'
+        'label' => 'string',
+        'description' => 'string',
+        'imageUrl' => 'string',
+        'creator_name' => 'string',
+        'artist_id' => 'integer'
     ];
 
     public static array $rules = [];
-
-    public function getPicturesAttribute()
-    {
-        return ArtistPicture::where('artist_id', $this->id)->get();
-    }
-
-    public function getPorfolioAttribute()
-    {
-        return ArtistPorfolio::where('artist_id', $this->id)->get();
-    }
 }

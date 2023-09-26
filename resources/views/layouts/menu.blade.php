@@ -235,3 +235,10 @@
         <p>Artist Porfolios</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('artistAddresses.index') }}" class="nav-link {{ Request::is('artistAddresses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artist Addresses</p>
+    </a>
+</li>

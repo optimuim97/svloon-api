@@ -2,35 +2,40 @@
 
 namespace App\Models;
 
-use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="Artist",
+ *      schema="ArtistAddress",
  *      required={},
  *      @OA\Property(
- *          property="user_id",
+ *          property="address_name",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="lat",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="lon",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="artist_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="integer",
  *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="fonction",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="description",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -49,38 +54,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class Artist extends Model
+ */class ArtistAddress extends Model
 {
-    use HasFactory, ImgurHelpers;
-    public $table = 'artists';
-    protected $appends = ['pictures', 'porfolio', 'address'];
+    use HasFactory;    public $table = 'artist_addresses';
 
     public $fillable = [
-        'user_id',
-        'fonction',
-        'description'
+        'address_name',
+        'lat',
+        'lon',
+        'artist_id'
     ];
 
     protected $casts = [
-        'user_id' => 'integer',
-        'fonction' => 'string',
-        'description' => 'string'
+        'address_name' => 'string',
+        'lat' => 'string',
+        'lon' => 'string',
+        'artist_id' => 'integer'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        
+    ];
 
-    public function getPicturesAttribute()
-    {
-        return ArtistPicture::where('artist_id', $this->id)->get();
-    }
-
-    public function getPorfolioAttribute()
-    {
-        return ArtistPorfolio::where('artist_id', $this->id)->get();
-    }
-
-    public function getAddressAttribute()
-    {
-        return ArtistAddress::where('artist_id', $this->id)->get();
-    }
+    
 }

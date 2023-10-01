@@ -210,7 +210,7 @@ class ArtistPorfolioAPIController extends AppBaseController
         if (empty($input['imageUrl'])) {
             $url = (new ArtistPorfolio())->upload($request, 'imageUrl');
             $input['imageUrl'] = $url;
-        }esle{
+        } else {
             $input['imageUrl'] = $artistPorfolio->imageUrl;
         }
 

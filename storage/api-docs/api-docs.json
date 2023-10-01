@@ -655,6 +655,651 @@
                 }
             }
         },
+        "/artist-addresses": {
+            "get": {
+                "tags": [
+                    "ArtistAddress"
+                ],
+                "summary": "getArtistAddressList",
+                "description": "Get all ArtistAddresses",
+                "operationId": "2ec46a709ed698566b662d97316d4c95",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ArtistAddress"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ArtistAddress"
+                ],
+                "summary": "createArtistAddress",
+                "description": "Create ArtistAddress",
+                "operationId": "0c960b62799ea357d00290975d800eac",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistAddress"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artist-addresses/{id}": {
+            "get": {
+                "tags": [
+                    "ArtistAddress"
+                ],
+                "summary": "getArtistAddressItem",
+                "description": "Get ArtistAddress",
+                "operationId": "03a47cea577f9288b6d16a11ba2f4b81",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ArtistAddress"
+                ],
+                "summary": "updateArtistAddress",
+                "description": "Update ArtistAddress",
+                "operationId": "c7432c39df1564d820895a8a7541d2e3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistAddress"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistAddress"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ArtistAddress"
+                ],
+                "summary": "deleteArtistAddress",
+                "description": "Delete ArtistAddress",
+                "operationId": "4750c62d542a9692510305d2b4eddfb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistAddress",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artist-pictures": {
+            "get": {
+                "tags": [
+                    "ArtistPicture"
+                ],
+                "summary": "getArtistPictureList",
+                "description": "Get all ArtistPictures",
+                "operationId": "ae518d7a330e65814a81d335c81d56ad",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ArtistPicture"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ArtistPicture"
+                ],
+                "summary": "createArtistPicture",
+                "description": "Create ArtistPicture",
+                "operationId": "a91eee9acb06ef793dc38d70b9d1e5d6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistPicture"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPicture"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artist-pictures/{id}": {
+            "get": {
+                "tags": [
+                    "ArtistPicture"
+                ],
+                "summary": "getArtistPictureItem",
+                "description": "Get ArtistPicture",
+                "operationId": "64dcdf09dbaa9e759f3ac715391d4921",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPicture",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPicture"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ArtistPicture"
+                ],
+                "summary": "updateArtistPicture",
+                "description": "Update ArtistPicture",
+                "operationId": "d821e1bcc51911801187d024e07db865",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPicture",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistPicture"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPicture"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ArtistPicture"
+                ],
+                "summary": "deleteArtistPicture",
+                "description": "Delete ArtistPicture",
+                "operationId": "38dddf7e259791081ae84e256b715103",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPicture",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artist-porfolios": {
+            "get": {
+                "tags": [
+                    "ArtistPorfolio"
+                ],
+                "summary": "getArtistPorfolioList",
+                "description": "Get all ArtistPorfolios",
+                "operationId": "4a9cc12f924d60636a7cbb5437cf643c",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ArtistPorfolio"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ArtistPorfolio"
+                ],
+                "summary": "createArtistPorfolio",
+                "description": "Create ArtistPorfolio",
+                "operationId": "a5246d7694379dd11cf04a9f0fe3d729",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistPorfolio"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPorfolio"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artist-porfolios/{id}": {
+            "get": {
+                "tags": [
+                    "ArtistPorfolio"
+                ],
+                "summary": "getArtistPorfolioItem",
+                "description": "Get ArtistPorfolio",
+                "operationId": "1824f3ed7a15e3075e54ea2e84e4e61c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPorfolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPorfolio"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ArtistPorfolio"
+                ],
+                "summary": "updateArtistPorfolio",
+                "description": "Update ArtistPorfolio",
+                "operationId": "517aee9e6039da33e8476d6d7387bfe1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPorfolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistPorfolio"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ArtistPorfolio"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ArtistPorfolio"
+                ],
+                "summary": "deleteArtistPorfolio",
+                "description": "Delete ArtistPorfolio",
+                "operationId": "9d38bede4f9249536e11117220cd74f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ArtistPorfolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/commodities": {
             "get": {
                 "tags": [
@@ -6704,6 +7349,12 @@
                                     },
                                     "salon_salon_type_id": {
                                         "type": "text"
+                                    },
+                                    "artist_fonction": {
+                                        "type": "text"
+                                    },
+                                    "artist_description": {
+                                        "type": "text"
                                     }
                                 },
                                 "type": "object"
@@ -6899,6 +7550,147 @@
                     "description": {
                         "description": "",
                         "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ArtistAddress": {
+                "required": [],
+                "properties": {
+                    "address_name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "lat": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "lon": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "artist_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ArtistPicture": {
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "path": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "original_name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "artist_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ArtistPorfolio": {
+                "required": [],
+                "properties": {
+                    "label": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "imageUrl": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "creator_name": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "artist_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
                         "readOnly": false,
                         "nullable": true
                     },

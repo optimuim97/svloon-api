@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
 use App\Models\Salon;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,6 +50,8 @@ class SignUpController extends Controller
      *               @OA\Property(property="salon_localNumber", type="text"),
      *               @OA\Property(property="salon_bailDocument", type="text"),
      *               @OA\Property(property="salon_salon_type_id", type="text"),
+     *               @OA\Property(property="artist_fonction", type="text"),
+     *               @OA\Property(property="artist_description", type="text"),
      *            ),
      *        ),
      *    ),
@@ -76,7 +79,7 @@ class SignUpController extends Controller
         $request->validate(User::$rules);
 
         $url = (new User)->upload($request, 'photo_url');
-        
+
         $user = User::create([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
@@ -124,21 +127,10 @@ class SignUpController extends Controller
         }
 
         if ($user?->userType?->slug == "artist") {
-            //TODO add artist info
-        }
-
-        if ($user?->userType?->slug == "pro") {
-
-            Salon::create([
-                "name" => $user->name,
-                "email" => $user->email,
-                "owner_fullname" => $user->owner_fullname,
-                "dialCode" => "+225",
-                "phoneNumber" => $user->phone_number,
-                "phone" => $user->phone,
-                "postalCode" => $user->postalCode,
-                "localNumber" => $user->localNumber,
-                "salon_type_id" => $user->salon_type_id,
+            Artist::create([
+                "user_id" => $user->id,
+                "fonction" => $request->artist_fonction,
+                "description" => $request->artist_description
             ]);
         }
 

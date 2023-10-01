@@ -97,10 +97,13 @@ class ArtistPictureAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        if (empty($input['imageUrl'])) {
-            $url = (new ArtistPicture())->upload($request, 'imageUrl');
-            $input['imageUrl'] = $url;
+        if (!empty($input['path'])) {
+            $url = (new ArtistPicture())->upload($request, 'path');
+            $input['path'] = $url;
         }
+
+        $input['name'] =  $input['path'];
+        $input['original_name'] =  $input['path'];
 
         $artistPicture = $this->artistPictureRepository->create($input);
 

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="ArtistPicture",
@@ -54,9 +56,10 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class ArtistPicture extends Model
+ */ class ArtistPicture extends Model
 {
-    use HasFactory;    public $table = 'artist_pictures';
+    use HasFactory, ImgurHelpers;
+    public $table = 'artist_pictures';
 
     public $fillable = [
         'name',
@@ -72,9 +75,5 @@ use Illuminate\Database\Eloquent\Model;
         'artist_id' => 'integer'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

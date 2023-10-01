@@ -74,7 +74,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'imageUrl',
         'price',
         'time',
-        'salon_id'
+        'salon_id',
+        'service_type_id',
+        'service_place_type_id'
     ];
 
     protected $casts = [

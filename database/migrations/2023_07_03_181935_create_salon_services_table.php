@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id('id');
             $table->string('name');
             $table->string('price');
-            $table->timestamp('time');
+            // $table->string('imageUrl');
+            $table->string('time');
             $table->bigInteger('salon_id')->unsigned();
             $table->bigInteger('service_type_id')->unsigned();
             $table->bigInteger('service_place_type_id')->unsigned();

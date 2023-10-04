@@ -42,7 +42,7 @@ class ArtistPicturesTable extends DataTableComponent
                 ->searchable(),
             Column::make("Actions", 'id')
                 ->format(
-                    fn($value, $row, Column $column) => view('common.livewire-tables.actions', [
+                    fn ($value, $row, Column $column) => view('common.livewire-tables.actions', [
                         'showUrl' => route('artist-pictures.show', $row->id),
                         'editUrl' => route('artist-pictures.edit', $row->id),
                         'recordId' => $row->id,

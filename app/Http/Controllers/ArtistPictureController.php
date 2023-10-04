@@ -46,7 +46,7 @@ class ArtistPictureController extends AppBaseController
 
         Flash::success('Artist Picture saved successfully.');
 
-        return redirect(route('artistPictures.index'));
+        return redirect(route('artist-pictures.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArtistPictureController extends AppBaseController
         if (empty($artistPicture)) {
             Flash::error('Artist Picture not found');
 
-            return redirect(route('artistPictures.index'));
+            return redirect(route('artist-pictures.index'));
         }
 
         return view('artist_pictures.show')->with('artistPicture', $artistPicture);
@@ -75,7 +75,7 @@ class ArtistPictureController extends AppBaseController
         if (empty($artistPicture)) {
             Flash::error('Artist Picture not found');
 
-            return redirect(route('artistPictures.index'));
+            return redirect(route('artist-pictures.index'));
         }
 
         return view('artist_pictures.edit')->with('artistPicture', $artistPicture);
@@ -91,14 +91,14 @@ class ArtistPictureController extends AppBaseController
         if (empty($artistPicture)) {
             Flash::error('Artist Picture not found');
 
-            return redirect(route('artistPictures.index'));
+            return redirect(route('artist-pictures.index'));
         }
 
         $artistPicture = $this->artistPictureRepository->update($request->all(), $id);
 
         Flash::success('Artist Picture updated successfully.');
 
-        return redirect(route('artistPictures.index'));
+        return redirect(route('artist-pictures.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ArtistPictureController extends AppBaseController
         if (empty($artistPicture)) {
             Flash::error('Artist Picture not found');
 
-            return redirect(route('artistPictures.index'));
+            return redirect(route('artist-pictures.index'));
         }
 
         $this->artistPictureRepository->delete($id);
 
         Flash::success('Artist Picture deleted successfully.');
 
-        return redirect(route('artistPictures.index'));
+        return redirect(route('artist-pictures.index'));
     }
 }

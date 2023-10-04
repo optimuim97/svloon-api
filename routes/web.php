@@ -15,7 +15,7 @@ Auth::routes();
 Route::prefix("dash")->group(
     function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('conveniences', App\Http\Controllers\ConvenienceController::class);
+        
         Route::resource('service-types', App\Http\Controllers\ServiceTypeController::class);
         Route::resource('services', App\Http\Controllers\ServiceController::class);
         Route::resource('salons', App\Http\Controllers\SalonController::class);

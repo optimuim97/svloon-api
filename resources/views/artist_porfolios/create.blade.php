@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Artist Porfolios
+                        Create Artist Porfolios
                     </h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'artistPorfolios.store']) !!}
+            {!! Form::open(['route' => 'artist-porfolios.store']) !!}
 
             <div class="card-body">
 
@@ -31,7 +31,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('artistPorfolios.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('artist-porfolios.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

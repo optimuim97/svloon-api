@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Artist Pictures
+                        Create Artist Pictures
                     </h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'artistPictures.store']) !!}
+            {!! Form::open(['route' => 'artist-pictures.store']) !!}
 
             <div class="card-body">
 
@@ -31,7 +31,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('artistPictures.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('artist-pictures.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

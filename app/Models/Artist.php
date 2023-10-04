@@ -67,7 +67,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'description' => 'string'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        "user_id" => "required",
+        "fonction" => "required",
+        "description" => "required"
+    ];
 
     public function getPicturesAttribute()
     {

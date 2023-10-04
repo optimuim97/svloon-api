@@ -77,6 +77,8 @@ class SignUpController extends Controller
     public function register(Request $request)
     {
         $request->validate(User::$rules);
+        // $request->validate(Salon::$rules);
+        // $request->validate(Artist::$rules);
 
         $url = (new User)->upload($request, 'photo_url');
 
@@ -98,7 +100,7 @@ class SignUpController extends Controller
 
         if ($user?->userType?->slug == "salon") {
 
-            $request->validate(Salon::$rules);
+            // $request->validate(Salon::$rules);
             //TODO add salon info
             $salon =  Salon::create([
                 "user_id" => $user->id,
@@ -127,6 +129,8 @@ class SignUpController extends Controller
         }
 
         if ($user?->userType?->slug == "artist") {
+
+            // $request->validate(Artist::$rules);
             Artist::create([
                 "user_id" => $user->id,
                 "fonction" => $request->artist_fonction,

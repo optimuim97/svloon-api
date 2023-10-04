@@ -46,7 +46,7 @@ class ArtistPorfolioController extends AppBaseController
 
         Flash::success('Artist Porfolio saved successfully.');
 
-        return redirect(route('artistPorfolios.index'));
+        return redirect(route('artist-porfolios.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArtistPorfolioController extends AppBaseController
         if (empty($artistPorfolio)) {
             Flash::error('Artist Porfolio not found');
 
-            return redirect(route('artistPorfolios.index'));
+            return redirect(route('artist-porfolios.index'));
         }
 
         return view('artist_porfolios.show')->with('artistPorfolio', $artistPorfolio);
@@ -75,7 +75,7 @@ class ArtistPorfolioController extends AppBaseController
         if (empty($artistPorfolio)) {
             Flash::error('Artist Porfolio not found');
 
-            return redirect(route('artistPorfolios.index'));
+            return redirect(route('artist-porfolios.index'));
         }
 
         return view('artist_porfolios.edit')->with('artistPorfolio', $artistPorfolio);
@@ -91,14 +91,14 @@ class ArtistPorfolioController extends AppBaseController
         if (empty($artistPorfolio)) {
             Flash::error('Artist Porfolio not found');
 
-            return redirect(route('artistPorfolios.index'));
+            return redirect(route('artist-porfolios.index'));
         }
 
         $artistPorfolio = $this->artistPorfolioRepository->update($request->all(), $id);
 
         Flash::success('Artist Porfolio updated successfully.');
 
-        return redirect(route('artistPorfolios.index'));
+        return redirect(route('artist-porfolios.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ArtistPorfolioController extends AppBaseController
         if (empty($artistPorfolio)) {
             Flash::error('Artist Porfolio not found');
 
-            return redirect(route('artistPorfolios.index'));
+            return redirect(route('artist-porfolios.index'));
         }
 
         $this->artistPorfolioRepository->delete($id);
 
         Flash::success('Artist Porfolio deleted successfully.');
 
-        return redirect(route('artistPorfolios.index'));
+        return redirect(route('artist-porfolios.index'));
     }
 }

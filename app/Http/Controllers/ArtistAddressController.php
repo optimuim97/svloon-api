@@ -46,7 +46,7 @@ class ArtistAddressController extends AppBaseController
 
         Flash::success('Artist Address saved successfully.');
 
-        return redirect(route('artistAddresses.index'));
+        return redirect(route('artist-addresses.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArtistAddressController extends AppBaseController
         if (empty($artistAddress)) {
             Flash::error('Artist Address not found');
 
-            return redirect(route('artistAddresses.index'));
+            return redirect(route('artist-addresses.index'));
         }
 
         return view('artist_addresses.show')->with('artistAddress', $artistAddress);
@@ -75,7 +75,7 @@ class ArtistAddressController extends AppBaseController
         if (empty($artistAddress)) {
             Flash::error('Artist Address not found');
 
-            return redirect(route('artistAddresses.index'));
+            return redirect(route('artist-addresses.index'));
         }
 
         return view('artist_addresses.edit')->with('artistAddress', $artistAddress);
@@ -91,14 +91,14 @@ class ArtistAddressController extends AppBaseController
         if (empty($artistAddress)) {
             Flash::error('Artist Address not found');
 
-            return redirect(route('artistAddresses.index'));
+            return redirect(route('artist-addresses.index'));
         }
 
         $artistAddress = $this->artistAddressRepository->update($request->all(), $id);
 
         Flash::success('Artist Address updated successfully.');
 
-        return redirect(route('artistAddresses.index'));
+        return redirect(route('artist-addresses.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ArtistAddressController extends AppBaseController
         if (empty($artistAddress)) {
             Flash::error('Artist Address not found');
 
-            return redirect(route('artistAddresses.index'));
+            return redirect(route('artist-addresses.index'));
         }
 
         $this->artistAddressRepository->delete($id);
 
         Flash::success('Artist Address deleted successfully.');
 
-        return redirect(route('artistAddresses.index'));
+        return redirect(route('artist-addresses.index'));
     }
 }

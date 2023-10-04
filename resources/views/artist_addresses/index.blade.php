@@ -8,8 +8,7 @@
                     <h1>Artist Addresses</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('artistAddresses.create') }}">
+                    <a class="btn btn-primary float-right" href="{{ route('artist-addresses.create') }}">
                         Add New
                     </a>
                 </div>
@@ -29,5 +28,4 @@
             </div>
         </div>
     </div>
-
 @endsection

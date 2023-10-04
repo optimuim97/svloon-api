@@ -40,6 +40,7 @@ Route::get('users/info_by_phone_number', [UserSearchController::class, 'searchBy
 
 Route::get('salons/search_by_name', [SearchSalonController::class, 'searchByName']);
 Route::get('salons/search_by_address_name', [SearchSalonController::class, 'searchByAddressName']);
+Route::get('salons/search_by_type', [SearchSalonController::class, 'searchByAddressName']);
 
 
 Route::post('test', [testController::class, 'test']);

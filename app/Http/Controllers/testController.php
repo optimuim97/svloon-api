@@ -20,4 +20,8 @@ class testController extends Controller
 
         return $finalImageLink;
     }
+
+    public function callBack(Request $request){
+        return $this->json($request->all());
+    }
 }

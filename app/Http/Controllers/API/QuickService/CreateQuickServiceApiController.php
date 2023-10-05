@@ -198,25 +198,16 @@ class CreateQuickServiceApiController extends AppBaseController
         $combinatedDateTime = Carbon::parse("$date $hour");
 
         foreach ($salonAvailabilities as $availability) {
-
             $day = Carbon::parse($availability->date)->format('Y-m-d');
 
             $start =   Carbon::parse("$day $availability->hour_start");
             $end =   Carbon::parse("$day $availability->hour_end");
-
-            // dd([
-            //     "combine " => $combinatedDateTime,
-            //     "start" => $start,
-            //     "end" => $end
-            // ]);
 
             $check = $combinatedDateTime
                 ->between(
                     Carbon::parse($start),
                     Carbon::parse($end)
                 );
-
-            // dd($check);
 
             if ($check == true) {
                 return true;

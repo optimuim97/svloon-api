@@ -34,6 +34,9 @@ Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
 Route::post('sign-up', [SignUpController::class, 'register']);
 Route::post('test', [testController::class, 'test']);
 
+
+Route::post('callback', [testController::class, 'callBack']);
+
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
     ->except(['create', 'edit']);
 

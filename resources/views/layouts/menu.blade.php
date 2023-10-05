@@ -6,12 +6,6 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('conveniences.index') }}" class="nav-link {{ Request::is('conveniences*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Conveniences</p>
-    </a>
-</li>
 
 <li class="nav-item">
     <a href="{{ route('service-types.index') }}" class="nav-link {{ Request::is('service-types*') ? 'active' : '' }}">
@@ -219,5 +213,29 @@
     <a href="{{ route('commodities.index') }}" class="nav-link {{ Request::is('commodities*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Commodities</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('artist-pictures.index') }}"
+        class="nav-link {{ Request::is('artist-ictures*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artist Pictures</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('artist-porfolios.index') }}"
+        class="nav-link {{ Request::is('artist-porfolios*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artist Porfolios</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('artist-addresses.index') }}"
+        class="nav-link {{ Request::is('artist-addresses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artist Addresses</p>
     </a>
 </li>

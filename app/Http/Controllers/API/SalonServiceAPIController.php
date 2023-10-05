@@ -95,8 +95,12 @@ class SalonServiceAPIController extends AppBaseController
      */
     public function store(CreateSalonServiceAPIRequest $request): JsonResponse
     {
-
         $input = $request->all();
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new SalonService())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
 
         $salonService = $this->salonServiceRepository->create($input);
 
@@ -200,6 +204,15 @@ class SalonServiceAPIController extends AppBaseController
 
         if (empty($salonService)) {
             return $this->sendError('Salon Service not found');
+        }
+
+        $input = $request->all();
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new SalonService())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $salonService->imageUrl;
         }
 
         $salonService = $this->salonServiceRepository->update($input, $id);

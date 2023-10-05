@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="Artist",
@@ -47,9 +49,11 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Artist extends Model
+ */ class Artist extends Model
 {
-    use HasFactory;    public $table = 'artists';
+    use HasFactory, ImgurHelpers;
+    public $table = 'artists';
+    protected $appends = ['pictures', 'porfolio', 'address'];
 
     public $fillable = [
         'user_id',
@@ -64,8 +68,23 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+        "user_id" => "required",
+        "fonction" => "required",
+        "description" => "required"
     ];
 
-    
+    public function getPicturesAttribute()
+    {
+        return ArtistPicture::where('artist_id', $this->id)->get();
+    }
+
+    public function getPorfolioAttribute()
+    {
+        return ArtistPorfolio::where('artist_id', $this->id)->get();
+    }
+
+    public function getAddressAttribute()
+    {
+        return ArtistAddress::where('artist_id', $this->id)->get();
+    }
 }

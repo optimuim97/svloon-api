@@ -15,7 +15,7 @@ Auth::routes();
 Route::prefix("dash")->group(
     function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('conveniences', App\Http\Controllers\ConvenienceController::class);
+        
         Route::resource('service-types', App\Http\Controllers\ServiceTypeController::class);
         Route::resource('services', App\Http\Controllers\ServiceController::class);
         Route::resource('salons', App\Http\Controllers\SalonController::class);
@@ -47,3 +47,6 @@ Route::resource('appointment-statuses', App\Http\Controllers\AppointmentStatusCo
 Route::resource('salon-types', App\Http\Controllers\SalonTypeController::class);
 Route::resource('artists', App\Http\Controllers\ArtistController::class);
 Route::resource('commodities', App\Http\Controllers\CommoditiesController::class);
+Route::resource('artist-pictures', App\Http\Controllers\ArtistPictureController::class);
+Route::resource('artist-porfolios', App\Http\Controllers\ArtistPorfolioController::class);
+Route::resource('artist-addresses', App\Http\Controllers\ArtistAddressController::class);

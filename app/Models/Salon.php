@@ -178,9 +178,9 @@ use Illuminate\Support\Collection;
     ];
 
     public static array $rules = [
-        "user_id",
-        "name",
-        "email"
+        "user_id" => "required",
+        "name" => "required",
+        "email" => "required|unique:email"
     ];
 
     protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff', 'pictures', 'porfolio'];

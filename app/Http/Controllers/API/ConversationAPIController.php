@@ -110,7 +110,13 @@ class ConversationAPIController extends AppBaseController
             $input['user_types'] = "client";
         }
 
-        $check = Conversation::where(['person_id' => $input['person_id'], 'person2_id' => $input['person2_id'], 'user_types' => 'client'])->first();
+        $check = Conversation::where(
+            [
+                'person_id' => $input['person_id'],
+                'person2_id' => $input['person2_id'],
+                'user_types' => 'client'
+            ]
+        )->first();
 
         if (!empty($check)) {
             return response()->json(["message" => "Conversation already exist", "data" => $check]);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,6 +19,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      ),
  *      @OA\Property(
  *          property="price",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *       @OA\Property(
+ *          property="imageUrl",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -58,18 +66,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * )
  */ class SalonService extends Model
 {
-    use HasFactory;
+    use HasFactory, ImgurHelpers;
     public $table = 'salon_services';
 
     public $fillable = [
         'name',
+        'imageUrl',
         'price',
         'time',
-        'salon_id'
+        'salon_id',
+        'service_type_id',
+        'service_place_type_id'
     ];
 
     protected $casts = [
         'name' => 'string',
+        'imageUrl' => 'string',
         'price' => 'string',
         'salon_id' => 'integer'
     ];

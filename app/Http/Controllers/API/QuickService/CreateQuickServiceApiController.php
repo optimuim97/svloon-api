@@ -94,10 +94,8 @@ class CreateQuickServiceApiController extends AppBaseController
         $request->validate(QuickService::$rules);
         $currentDate = Carbon::now();
 
-        // $hour = $input["hour"];
         $date = Carbon::parse($input["date"]);
         $checkDate = $currentDate->diffInHours($date, true);
-        // dd($checkDate);
 
         if ($checkDate <= 3) {
             return $this->sendError("Le RDV doit etre fixe avec 3 heures d'avances", 422);

@@ -9,6 +9,7 @@ use App\Repositories\ArtistRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Models\ArtistPicture;
 
 /**
  * Class ArtistController

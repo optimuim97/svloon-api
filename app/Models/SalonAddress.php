@@ -83,4 +83,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     public static array $rules = [];
+
+    protected $appends = ["pictures"];
+
+    public function getPicturesAttribute()
+    {
+        return SalonPicture::where("id", $this->salon_id)->get();
+    }
 }

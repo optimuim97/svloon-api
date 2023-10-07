@@ -12,13 +12,13 @@ class SearchServiceController extends Controller
     public function searchSalonServiceByName(Request $request)
     {
         $service_name = $request->query('word');
-        $service = SalonService::where('service_type_id', "like", "%$service_name%")->get();
+        $services = SalonService::where('name', "like", "%$service_name%")->get();
 
-        if (!empty($user)) {
+        if (!empty($services)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $service
+                "data" => $services
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([
@@ -31,10 +31,9 @@ class SearchServiceController extends Controller
     public function searchSalonServiceByType(Request $request)
     {
         $serviceType = $request->query('service_type_id');
-
         $service = SalonService::where('service_type_id', $serviceType)->first();
 
-        if (!empty($user)) {
+        if (!empty($service)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
@@ -51,10 +50,9 @@ class SearchServiceController extends Controller
     public function searchServiceByType(Request $request)
     {
         $serviceType = $request->query('service_type_id');
-
         $service = Service::where('service_type_id', $serviceType)->first();
 
-        if (!empty($user)) {
+        if (!empty($service)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,

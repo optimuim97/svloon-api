@@ -41,12 +41,12 @@ Route::get('users/info_by_phone_number', [UserSearchController::class, 'searchBy
 
 Route::get('salons/search_by_name', [SearchSalonController::class, 'searchByName']);
 Route::get('salons/search_by_address_name', [SearchSalonController::class, 'searchByAddressName']);
+//Route::get('salons/search_by_type', [SearchSalonController::class, 'searchByType']);
 
-Route::get('salons/search_by_type', [SearchSalonController::class, 'searchByAddressName']);
-
-Route::get('search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
-Route::get('search_salon_service_by_type', [SearchServiceController::class, 'searchSalonServiceByType']);
-Route::get('search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
+Route::get('service/search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
+Route::get('service/search_salon_service_by_type', [SearchServiceController::class, 'searchSalonServiceByType']);
+Route::get('service/search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
+Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
 
 
 Route::post('test', [testController::class, 'test']);

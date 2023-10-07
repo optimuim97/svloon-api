@@ -32,17 +32,20 @@ class SearchSalonController extends Controller
 
     public function searchByAddressName(Request $request)
     {
-
+        $salons = [];
         $address_name = $request->query('address_name');
-        $salonAddress = SalonAddress::where('address_name', "like", "%$address_name%")->first();
+        $salonAddresses = SalonAddress::where('address_name', "like", "%$address_name%")->get();
 
-        return response()->json($salonAddress);
+        foreach ($salonAddresses as $key => $salonAddresse) {
+            $salon = Salon::where('salon_id', $salonAddresse->salon_id)->first();
+            array_push($salons, $salon);
+        }
 
-        if (!empty($user)) {
+        if (!empty($salons)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $salon
+                "data" => $salons
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

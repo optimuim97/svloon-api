@@ -69,8 +69,21 @@ class SalonAddressAPIController extends AppBaseController
      *      tags={"SalonAddress"},
      *      description="Create SalonAddress",
      *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonAddress")
+     *         @OA\JsonContent(),
+     *         @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *               required={"lat", "lon","address_name","batiment_name","number_local","indications","bail"},
+     *               @OA\Property(property="lat", type="text"),
+     *               @OA\Property(property="lon", type="text"),
+     *               @OA\Property(property="address_name", type="text"),
+     *               @OA\Property(property="batiment_name", type="text"),
+     *               @OA\Property(property="number_local", type="text"),
+     *               @OA\Property(property="indications", type="text"),
+     *               @OA\Property(property="bail", type="text"),
+     *            ),
+     *        ),
      *      ),
      *      @OA\Response(
      *          response=200,

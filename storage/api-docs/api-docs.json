@@ -3640,12 +3640,46 @@
                 "description": "Create SalonAddress",
                 "operationId": "6c2ba6048eb07e3a130da548a2725075",
                 "requestBody": {
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/SalonAddress"
+                                "required": [
+                                    "lat",
+                                    "lon",
+                                    "address_name",
+                                    "batiment_name",
+                                    "number_local",
+                                    "indications",
+                                    "bail"
+                                ],
+                                "properties": {
+                                    "lat": {
+                                        "type": "text"
+                                    },
+                                    "lon": {
+                                        "type": "text"
+                                    },
+                                    "address_name": {
+                                        "type": "text"
+                                    },
+                                    "batiment_name": {
+                                        "type": "text"
+                                    },
+                                    "number_local": {
+                                        "type": "text"
+                                    },
+                                    "indications": {
+                                        "type": "text"
+                                    },
+                                    "bail": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
                             }
+                        },
+                        "application/json": {
+                            "schema": {}
                         }
                     }
                 },

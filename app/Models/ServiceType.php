@@ -75,6 +75,6 @@ class ServiceType extends Model
 
     public function getServicesAttribute()
     {
-        return Service::where('id', $this->service_type_id)->get();
+        return Service::where('service_type_id', $this->service_type_id)->get();
     }
 }

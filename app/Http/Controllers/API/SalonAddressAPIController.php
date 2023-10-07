@@ -74,7 +74,7 @@ class SalonAddressAPIController extends AppBaseController
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"lat", "lon","address_name","batiment_name","number_local","indications","bail"},
+     *               required={"lat","lon","address_name","batiment_name","number_local","indications","bail"},
      *               @OA\Property(property="lat", type="text"),
      *               @OA\Property(property="lon", type="text"),
      *               @OA\Property(property="address_name", type="text"),

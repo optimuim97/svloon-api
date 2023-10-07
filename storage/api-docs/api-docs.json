@@ -6576,45 +6576,78 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/staff-member": {
             "post": {
                 "tags": [
                     "StaffMember"
                 ],
-                "summary": "createStaffMember",
-                "description": "Create StaffMember",
-                "operationId": "9c8e56bc1e0b80657caac1222e3f0e56",
+                "summary": "User StaffMember",
+                "description": "User StaffMember here",
+                "operationId": "StaffMember",
                 "requestBody": {
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffMember"
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "firstname",
+                                    "lastname",
+                                    "dial_code",
+                                    "phone_number",
+                                    "profession",
+                                    "is_active",
+                                    "is_professional",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "salon_id": {
+                                        "type": "text"
+                                    },
+                                    "artist_id": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
                             }
+                        },
+                        "application/json": {
+                            "schema": {}
                         }
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "successful operation",
+                    "201": {
+                        "description": "Register Successfully",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/StaffMember"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
+                                "schema": {}
                             }
                         }
+                    },
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }
@@ -7789,44 +7822,6 @@
                 },
                 "type": "object"
             },
-            "Convenience": {
-                "required": [],
-                "properties": {
-                    "label": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "icon": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "description": {
-                        "description": "",
-                        "type": "string",
-                        "readOnly": false,
-                        "nullable": true
-                    },
-                    "created_at": {
-                        "description": "",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true,
-                        "nullable": true
-                    },
-                    "updated_at": {
-                        "description": "",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true,
-                        "nullable": true
-                    }
-                },
-                "type": "object"
-            },
             "Conversation": {
                 "required": [],
                 "properties": {
@@ -8454,6 +8449,12 @@
                         "readOnly": false,
                         "nullable": true
                     },
+                    "imageUrl": {
+                        "description": "",
+                        "type": "string",
+                        "readOnly": false,
+                        "nullable": true
+                    },
                     "time": {
                         "description": "",
                         "type": "string",
@@ -8814,6 +8815,13 @@
                         "nullable": true
                     },
                     "salon_id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": false,
+                        "nullable": true
+                    },
+                    "artist_id": {
                         "description": "",
                         "type": "integer",
                         "format": "int32",

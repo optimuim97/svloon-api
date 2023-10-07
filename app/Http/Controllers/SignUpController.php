@@ -77,8 +77,6 @@ class SignUpController extends Controller
     public function register(Request $request)
     {
         $request->validate(User::$rules);
-        // $request->validate(Salon::$rules);
-        // $request->validate(Artist::$rules);
 
         $url = (new User)->upload($request, 'photo_url');
 
@@ -138,11 +136,14 @@ class SignUpController extends Controller
             ]);
         }
 
-        return response()->json([
-            "message" => "User Created",
-            "status_code" => Response::HTTP_CREATED,
-            "data" => $user
-        ], Response::HTTP_CREATED);
+        return response()->json(
+            [
+                "message" => "User Created",
+                "status_code" => Response::HTTP_CREATED,
+                "data" => $user
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     private function checkIfUserExist($email)

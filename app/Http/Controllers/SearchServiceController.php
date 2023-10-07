@@ -49,7 +49,7 @@ class SearchServiceController extends Controller
 
     public function searchServiceByType(Request $request)
     {
-        return $serviceType = $request->query('service_type_id');
+        dd($serviceType = $request->query('service_type_id'));
         $service = Service::where('service_type_id', $serviceType)->first();
 
         if (!empty($service)) {

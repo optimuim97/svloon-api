@@ -68,7 +68,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'number_local',
         'indications',
         'bail',
-        'salon_id'
+        'salon_id',
+        'is_valid',
+        'is_active'
     ];
 
     protected $casts = [
@@ -80,7 +82,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'bail' => 'string',
         'address_name' => 'string',
         'salon_id' => 'integer',
-        'is_valid' => 'integer'
+        'is_valid' => 'integer',
+        'is_active' => 'integer'
     ];
 
     public static array $rules = [];

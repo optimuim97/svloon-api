@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('indications')->nullable();
             $table->string('bail')->nullable();
             $table->boolean('is_valid')->nullable();
+            $table->boolean('is_active')->nullable();
             $table->timestamp('validate_at')->nullable();
             $table->timestamps();
             $table->foreignId('salon_id')->constrained();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salon;
+use App\Models\SalonAddress;
 use App\Models\SalonService;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -32,7 +33,9 @@ class SearchSalonController extends Controller
     public function searchByAddressName(Request $request)
     {
         $address_name = $request->query('address_name');
-        $salon = Salon::where('address_name', "like", "%$address_name%")->first();
+        $salonAddress = SalonAddress::where('address_name', "like", "%$address_name%")->first();
+
+        return $this->json($salonAddress);
 
         if (!empty($user)) {
             return response()->json([

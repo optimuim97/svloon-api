@@ -37,7 +37,7 @@ class SearchSalonController extends Controller
         $salonAddresses = SalonAddress::where('address_name', "like", "%$address_name%")->get();
 
         foreach ($salonAddresses as $key => $salonAddresse) {
-            $salon = Salon::where('salon_id', $salonAddresse->salon_id)->first();
+            $salon = Salon::where('id', $salonAddresse->salon_id)->first();
             array_push($salons, $salon);
         }
 

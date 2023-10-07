@@ -79,7 +79,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'indications' => 'string',
         'bail' => 'string',
         'address_name' => 'string',
-        'salon_id' => 'integer'
+        'salon_id' => 'integer',
+        'is_valid' => 'integer'
     ];
 
     public static array $rules = [];

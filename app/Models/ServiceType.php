@@ -52,19 +52,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ServiceType extends Model
 {
     use HasFactory, ImgurHelpers;
+
     public $table = 'service_types';
+
     protected $appends = ['services'];
 
     public $fillable = [
         'label',
         'description',
-        'image_url'
+        'image_url',
+        'service_type_id'
     ];
 
     protected $casts = [
         'label' => 'string',
         'description' => 'string',
-        'image_url' => 'string'
+        'image_url' => 'string',
+        "service_type_id" => "integer"
     ];
 
     public static array $rules = [];

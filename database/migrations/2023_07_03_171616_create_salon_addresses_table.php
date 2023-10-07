@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('number_local')->nullable();
             $table->text('indications')->nullable();
             $table->string('bail')->nullable();
+            $table->boolean('is_valid')->nullable();
+            $table->timestamp('validate_at')->nullable();
             $table->timestamps();
             $table->foreignId('salon_id')->constrained();
         });

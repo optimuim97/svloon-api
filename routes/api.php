@@ -7,8 +7,8 @@ use App\Http\Controllers\SearchSalonController;
 use App\Http\Controllers\SearchServiceController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\testController;
+use App\Http\Controllers\UserActionController;
 use App\Http\Controllers\UserSearchController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use Imgur;
 /*

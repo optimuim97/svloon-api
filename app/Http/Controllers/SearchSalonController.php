@@ -16,7 +16,7 @@ class SearchSalonController extends Controller
         $name = $request->query('name');
         $salon = Salon::where('name', 'like', "%$name%")->get();
 
-        if (!empty($salon)) {
+        if (!empty($salon) && count($salon) >= 1) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_OK,

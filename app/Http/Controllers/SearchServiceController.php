@@ -69,7 +69,7 @@ class SearchServiceController extends Controller
     public function searchServiceByName(Request $request)
     {
         $name = $request->query('word');
-        $service = Service::where('title', "like", "%$name%")->first();
+        $service = Service::where('title', "like", "%$name%")->get();
 
         if (!empty($user)) {
             return response()->json([

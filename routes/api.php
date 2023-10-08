@@ -45,6 +45,7 @@ Route::get('salons/search_by_address_name', [SearchSalonController::class, 'sear
 
 Route::get('service/search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
 Route::get('service/search_salon_service_by_type', [SearchServiceController::class, 'searchSalonServiceByType']);
+
 Route::get('service/search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
 Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
 

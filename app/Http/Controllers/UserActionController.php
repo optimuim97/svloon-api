@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserActionController extends Controller
+class UserActionController extends AppBaseController
 {
     public function updateUser(Request $request)
     {
@@ -33,5 +33,7 @@ class UserActionController extends Controller
         // $user->phone_number = $request->user_types_id == "" ? $user->user_types_id : $request->user_types_id;
 
         $user->save();
+
+        return $this->sendResponse($user, "updated");
     }
 }

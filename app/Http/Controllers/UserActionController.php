@@ -8,6 +8,7 @@ class UserActionController extends AppBaseController
 {
     public function updateUser(Request $request)
     {
+        dd($request->all());
         $user = auth("api")->user();
 
         if (empty($user)) {

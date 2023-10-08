@@ -64,7 +64,7 @@ class ConversationAPIController extends AppBaseController
 
     /**
      * @OA\Post(
-     *      path="/conversations",
+     *      path="/auth/conversations",
      *      summary="createConversation",
      *      tags={"Conversation"},
      *      description="Create Conversation",
@@ -104,13 +104,21 @@ class ConversationAPIController extends AppBaseController
      */
     public function store(CreateConversationAPIRequest $request): JsonResponse
     {
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse($user, 'User must be connected');
+        }
+
         $input = $request->all();
 
         if (empty($input['user_types'])) {
             $input['user_types'] = "client";
         }
 
-        $check = Conversation::where(
+        $input['person_id'] = $user->id;
+
+        $checkIfConversationExist = Conversation::where(
             [
                 'person_id' => $input['person_id'],
                 'person2_id' => $input['person2_id'],
@@ -118,8 +126,13 @@ class ConversationAPIController extends AppBaseController
             ]
         )->first();
 
-        if (!empty($check)) {
-            return response()->json(["message" => "Conversation already exist", "data" => $check]);
+        if (!empty($checkIfConversationExist)) {
+            return response()->json(
+                [
+                    "message" => "Conversation already exist",
+                    "data" => $checkIfConversationExist
+                ]
+            );
         }
 
         $conversation = $this->conversationRepository->create($input);

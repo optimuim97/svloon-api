@@ -19,9 +19,9 @@ class SearchSalonController extends Controller
         if (!empty($salon)) {
             return response()->json([
                 "message" => "retreived",
-                "status_code" => Response::HTTP_FOUND,
+                "status_code" => Response::HTTP_OK,
                 "data" => $salon
-            ], Response::HTTP_FOUND);
+            ], Response::HTTP_OK);
         } else {
             return response()->json([
                 "message" => "Not found",

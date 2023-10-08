@@ -63,6 +63,7 @@ class Message extends Model
 
     public $fillable = [
         'conversation_id',
+        'sender_id',
         'content',
         'is_read',
         'has_edited'
@@ -70,6 +71,7 @@ class Message extends Model
 
     protected $casts = [
         'conversation_id' => 'integer',
+        'sender_id' => "integer",
         'content' => 'string',
         'is_read' => 'boolean',
         'has_edited' => 'boolean'

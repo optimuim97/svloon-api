@@ -104,17 +104,16 @@ Route::resource('salon-availabilies', App\Http\Controllers\API\SalonAvailabilyAP
 
 Route::get("get-salon-availabilies/{salonId}", [App\Http\Controllers\API\SalonAvailabilyAPIController::class, "getSalonAvailabilityById"]);
 
-
 Route::resource('salon-un-availabilies', App\Http\Controllers\API\SalonUnAvailabilyAPIController::class)
     ->except(['create', 'edit']);
-
 
 Route::resource('extras', App\Http\Controllers\API\ExtraAPIController::class)
     ->except(['create', 'edit']);
 
-
 Route::resource('conversations', App\Http\Controllers\API\ConversationAPIController::class)
     ->except(['create', 'edit']);
+
+Route::post('auth/conversations', [App\Http\Controllers\API\ConversationAPIController::class, 'store']);
 
 Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
     ->except(['create', 'edit']);

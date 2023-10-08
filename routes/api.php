@@ -33,6 +33,8 @@ Route::group([
 });
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
+Route::post('auth/update-user-info', CreateQuickServiceApiController::class);
+
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
 Route::post('sign-up', [SignUpController::class, 'register']);
 

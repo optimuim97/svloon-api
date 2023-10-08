@@ -71,7 +71,7 @@ class SearchServiceController extends Controller
         $name = $request->query('word');
         $service = Service::where('title', "like", "%$name%")->get();
 
-        if (!empty($user)) {
+        if (!empty($service)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,

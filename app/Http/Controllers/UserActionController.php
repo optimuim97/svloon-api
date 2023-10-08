@@ -27,7 +27,7 @@ class UserActionController extends Controller
         $user->phone_number = $request->is_professional == "" ? $user->is_professional : $request->is_professional;
         $user->phone_number = $request->email == "" ? $user->email : $request->email;
 
-        return $this->sendResponse($user);
+        dd($user);
         // $user->phone_number = $request->email_verified_at == "" ? $user->email_verified_at : $request->email_verified_at;
         // $user->phone_number = $request->password == "" ? $user->password : $request->password;
         // $user->phone_number = $request->user_types_id == "" ? $user->user_types_id : $request->user_types_id;

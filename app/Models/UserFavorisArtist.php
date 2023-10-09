@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserFavorisArtist extends Model
 {
     use HasFactory;
-    protected $table = "user_favoris_artist";
+    protected $table = "user_favoris_artists";
 
     protected $fillable = [
         "user_id",

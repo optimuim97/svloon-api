@@ -35,6 +35,9 @@ Route::group([
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::post('auth/update-user-info', [UserActionController::class, 'updateUser']);
 
+Route::get('auth/add-salon-favorite/{salonId}', [UserActionController::class, 'addSalonFavorite']);
+Route::get('auth/add-artist-favorite/{artistId}', [UserActionController::class, 'addArtistFavorite']);
+
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -43,7 +46,6 @@ Route::get('users/info_by_phone_number', [UserSearchController::class, 'searchBy
 
 Route::get('salons/search_by_name', [SearchSalonController::class, 'searchByName']);
 Route::get('salons/search_by_address_name', [SearchSalonController::class, 'searchByAddressName']);
-//Route::get('salons/search_by_type', [SearchSalonController::class, 'searchByType']);
 
 Route::get('service/search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
 Route::get('service/search_salon_service_by_type', [SearchServiceController::class, 'searchSalonServiceByType']);

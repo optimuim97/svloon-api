@@ -49,14 +49,11 @@ class UserActionController extends AppBaseController
         $user = auth("api")->user();
         $salon = Salon::find($salonId);
 
-        $user = auth("api")->user();
-
         if (empty($user)) {
             return $this->sendError('User must be connected');
         }
 
         if (!empty($salon)) {
-
 
             $check = UserFavorisSalon::where(
                 [

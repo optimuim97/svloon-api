@@ -62,7 +62,7 @@ class UserActionController extends AppBaseController
                 ]
             )->first();
 
-            if (!empty($check) && count($check) >= 1) {
+            if (!empty($check) && $check->count()) {
                 $check->is_fav = !($check->is_fav);
                 $check->save();
             } else {
@@ -104,8 +104,6 @@ class UserActionController extends AppBaseController
                     "artist_id" => $artistId
                 ]
             )->first();
-
-            // return response()->json($check->is_fav);
 
             if (!empty($check) && $check->count()) {
                 $check->is_fav = !($check->is_fav);

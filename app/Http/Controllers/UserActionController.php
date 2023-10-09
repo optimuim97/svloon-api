@@ -52,7 +52,7 @@ class UserActionController extends AppBaseController
         $user = auth("api")->user();
 
         if (empty($user)) {
-            return $this->sendError($user,'User must be connected');
+            return $this->sendError('User must be connected');
         }
 
         if (!empty($salon)) {

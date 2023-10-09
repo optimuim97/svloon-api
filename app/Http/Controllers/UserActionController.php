@@ -101,7 +101,7 @@ class UserActionController extends AppBaseController
             $check = UserFavorisArtist::where(
                 [
                     "user_id" => $user->id,
-                    "salon_id" => $artistId
+                    "artist_id" => $artistId
                 ]
             )->get();
 

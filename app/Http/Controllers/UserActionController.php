@@ -52,17 +52,30 @@ class UserActionController extends AppBaseController
 
         if (!empty($salon)) {
 
-            UserFavorisSalon::create([
-                "user_id" => $user->id,
-                "salon_id" => $salonId,
-                "is_fav" => 1
-            ]);
+
+            $check = UserFavorisSalon::where(
+                [
+                    "user_id" => $user->id,
+                    "salon_id" => $salonId
+                ]
+            );
+
+            if (!empty($check) && count($check) >= 1) {
+                $check->is_fav = !($check->is_fav);
+                $check->save();
+            } else {
+                UserFavorisSalon::create([
+                    "user_id" => $user->id,
+                    "salon_id" => $salonId,
+                    "is_fav" => 1
+                ]);
+            }
 
             return response()->json([
-                "message" => "user retreived",
+                "message" => "update",
                 "status_code" => Response::HTTP_FOUND,
                 "data" => $salon
-            ], Response::HTTP_FOUND);
+            ], Response::HTTP_OK);
         } else {
 
             return response()->json([
@@ -79,11 +92,23 @@ class UserActionController extends AppBaseController
 
         if (!empty($artist)) {
 
-            UserFavorisArtist::create([
-                "user_id" => $user->id,
-                "artist_id" => $artistId,
-                "is_fav" => 1
-            ]);
+            $check = UserFavorisArtist::where(
+                [
+                    "user_id" => $user->id,
+                    "salon_id" => $artistId
+                ]
+            );
+
+            if (!empty($check) && count($check) >= 1) {
+                $check->is_fav = !($check->is_fav);
+                $check->save();
+            } else {
+                UserFavorisArtist::create([
+                    "user_id" => $user->id,
+                    "artist_id" => $artistId,
+                    "is_fav" => 1
+                ]);
+            }
 
             return response()->json([
                 "message" => "user retreived",

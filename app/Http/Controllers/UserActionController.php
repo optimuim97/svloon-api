@@ -13,7 +13,6 @@ class UserActionController extends AppBaseController
 {
     public function updateUser(Request $request)
     {
-        // dd($request->all());
         $user = auth("api")->user();
 
         if (empty($user)) {
@@ -49,6 +48,12 @@ class UserActionController extends AppBaseController
     {
         $user = auth("api")->user();
         $salon = Salon::find($salonId);
+
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse($user, 'User must be connected');
+        }
 
         if (!empty($salon)) {
 
@@ -89,6 +94,10 @@ class UserActionController extends AppBaseController
     {
         $user = auth("api")->user();
         $artist = Artist::find($artistId);
+
+        if (empty($user)) {
+            return $this->sendResponse($user, 'User must be connected');
+        }
 
         if (!empty($artist)) {
 

@@ -107,7 +107,7 @@ class UserActionController extends AppBaseController
 
             // return response()->json($check->is_fav);
 
-            if (!empty($check) && count($check) >= 1) {
+            if (!empty($check) && $check->count()) {
                 $check->is_fav = !($check->is_fav);
                 $check->save();
             } else {

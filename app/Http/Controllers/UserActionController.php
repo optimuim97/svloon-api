@@ -60,7 +60,7 @@ class UserActionController extends AppBaseController
                     "user_id" => $user->id,
                     "salon_id" => $salonId
                 ]
-            )->get();
+            )->first();
 
             if (!empty($check) && count($check) >= 1) {
                 $check->is_fav = !($check->is_fav);
@@ -103,7 +103,7 @@ class UserActionController extends AppBaseController
                     "user_id" => $user->id,
                     "artist_id" => $artistId
                 ]
-            )->get();
+            )->first();
 
             if (!empty($check) && count($check) >= 1) {
                 $check->is_fav = !($check->is_fav);

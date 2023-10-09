@@ -64,33 +64,40 @@ class StaffMemberAPIController extends AppBaseController
 
     /**
      * @OA\Post(
-     *      path="/staff-members",
-     *      summary="createStaffMember",
-     *      tags={"StaffMember"},
-     *      description="Create StaffMember",
-     *      @OA\RequestBody(
-     *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/StaffMember")
-     *      ),
+     * path="/staff-member",
+     * operationId="StaffMember",
+     * tags={"StaffMember"},
+     * summary="User StaffMember",
+     * description="User StaffMember here",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(),
+     *         @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *               required={"email", "password","firstname","lastname","dial_code","phone_number","profession","is_active","is_professional","password"},
+     *               @OA\Property(property="salon_id", type="text"),
+     *               @OA\Property(property="artist_id", type="text"),
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Register Successfully",
+     *          @OA\JsonContent()
+     *       ),
      *      @OA\Response(
      *          response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="data",
-     *                  ref="#/components/schemas/StaffMember"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
+     *          description="Register Successfully",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
     public function store(CreateStaffMemberAPIRequest $request): JsonResponse

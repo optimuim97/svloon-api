@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('staff_members', function (Blueprint $table) {
             $table->id('id');
-            $table->string('fullname');
-            $table->string('imageUrl');
+            $table->string('fullname')->nullable();
+            $table->string('imageUrl')->nullable();
             $table->string('fonction')->nullable();
             $table->foreignId('salon_id')->constrained();
+            $table->foreignId('artist_id')->constrained();
             $table->timestamps();
         });
     }

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="SalonAddress",
@@ -54,27 +55,43 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class SalonAddress extends Model
+ */ class SalonAddress extends Model
 {
-    use HasFactory;    public $table = 'salon_addresses';
+    use HasFactory;
+    public $table = 'salon_addresses';
 
     public $fillable = [
         'lat',
         'lon',
         'address_name',
-        'salon_id'
+        'batiment_name',
+        'number_local',
+        'indications',
+        'bail',
+        'salon_id',
+        'is_valid',
+        'is_active'
     ];
 
     protected $casts = [
         'lat' => 'string',
         'lon' => 'string',
+        'batiment_name' => 'string',
+        'number_local' => 'string',
+        'indications' => 'string',
+        'bail' => 'string',
         'address_name' => 'string',
-        'salon_id' => 'integer'
+        'salon_id' => 'integer',
+        'is_valid' => 'integer',
+        'is_active' => 'integer'
     ];
 
-    public static array $rules = [
-        
-    ];
+    public static array $rules = [];
 
-    
+    protected $appends = ["pictures"];
+
+    public function getPicturesAttribute()
+    {
+        return SalonPicture::where("id", $this->salon_id)->get();
+    }
 }

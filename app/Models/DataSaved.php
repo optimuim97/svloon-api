@@ -10,5 +10,7 @@ class DataSaved extends Model
     use HasFactory;
 
     protected $table = "data_saved";
-    protected $fillable  = ["received_data"];
+    public $fillable = [
+        "received_data"    
+    ];
 }

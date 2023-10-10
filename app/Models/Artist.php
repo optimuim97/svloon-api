@@ -87,4 +87,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     {
         return ArtistAddress::where('artist_id', $this->id)->get();
     }
+
+    /**
+     * Get the user associated with the Artist
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

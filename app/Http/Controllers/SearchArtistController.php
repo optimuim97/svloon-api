@@ -15,16 +15,17 @@ class SearchArtistController extends Controller
 {
     public function searchByName()
     {
-        $artists = Artist::whereHas('artists',
-        function (Builder $query, Request $request) {
-            $query->where('firstname', 'LIKE', "%{$request->query('name')}%") 
-            ->orWhere('lastname', 'LIKE', "%{$request->query('name')}%");
-        })
-        ->get();
+        $artists = Artist::whereHas(
+            'user',
+            function (Builder $query, Request $request) {
+                $query->where('firstname', 'LIKE', "%{$request->query('name')}%")
+                    ->orWhere('lastname', 'LIKE', "%{$request->query('name')}%");
+            }
+        )->get();
 
-        if (!empty($artists) ) {
+        if (!empty($artists)) {
 
-            if($artists->count() >= 1){
+            if ($artists->count() >= 1) {
                 return response()->json([
                     "message" => "Not found",
                     "status_code" => Response::HTTP_NOT_FOUND,
@@ -36,8 +37,7 @@ class SearchArtistController extends Controller
                 "status_code" => Response::HTTP_OK,
                 "data" => $artists
             ], Response::HTTP_OK);
-        } 
-
+        }
     }
 
     public function searchByAddressName(Request $request)

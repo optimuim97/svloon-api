@@ -112,4 +112,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Salon::class);
     }
+
+    /**
+     * Get the artist associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function artist()
+    {
+        return $this->belongsTo(Artist::class);
+    }
 }

@@ -54,7 +54,7 @@ Route::get('service/search_service_by_type', [SearchServiceController::class, 's
 Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
 
 // Route::post('test', [testController::class, 'test']);
-//Route::post('callback', [testController::class, 'callBack']);
+Route::post('callback', [testController::class, 'callBack']);
 
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
     ->except(['create', 'edit']);
@@ -155,4 +155,8 @@ Route::resource('artist-porfolios', App\Http\Controllers\API\ArtistPorfolioAPICo
     ->except(['create', 'edit']);
 
 Route::resource('artist-addresses', App\Http\Controllers\API\ArtistAddressAPIController::class)
+    ->except(['create', 'edit']);
+
+
+Route::resource('artist-services', App\Http\Controllers\API\ArtistServiceAPIController::class)
     ->except(['create', 'edit']);

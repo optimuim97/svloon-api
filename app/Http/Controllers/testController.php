@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataSaved;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class testController extends Controller
@@ -22,6 +24,11 @@ class testController extends Controller
     }
 
     public function callBack(Request $request){
-        return $this->json($request->all());
+        $input = json_encode($request->all());
+        $input['create_at'] = Carbon::now()->toString();
+
+        DataSaved::create([
+            "received_data"=> $input
+        ]);
     }
 }

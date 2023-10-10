@@ -239,3 +239,10 @@
         <p>Artist Addresses</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('artistServices.index') }}" class="nav-link {{ Request::is('artistServices*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Artist Services</p>
+    </a>
+</li>

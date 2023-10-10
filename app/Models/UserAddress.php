@@ -38,6 +38,14 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
+ *          property="is_active",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @OA\Property(
  *          property="created_at",
  *          description="",
  *          readOnly=true,
@@ -62,14 +70,16 @@ use Illuminate\Database\Eloquent\Model;
         'lat',
         'lon',
         'address_name',
-        'user_id'
+        'user_id',
+        'is_active'
     ];
 
     protected $casts = [
         'lat' => 'string',
         'lon' => 'string',
         'address_name' => 'string',
-        'user_id' => 'integer'
+        'user_id' => 'integer',
+        'is_active' => 'integer'
     ];
 
     public static array $rules = [

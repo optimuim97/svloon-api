@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('lat');
             $table->string('lon');
             $table->string('address_name');
+            $table->string('is_active')->nullable();
             $table->timestamps();
             $table->foreignId('user_id')->constrained();
         });

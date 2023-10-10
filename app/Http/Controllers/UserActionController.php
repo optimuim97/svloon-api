@@ -55,18 +55,18 @@ class UserActionController extends AppBaseController
 
         if (!empty($salon)) {
 
-            $check = UserFavorisSalon::where(
+            $userFav = UserFavorisSalon::where(
                 [
                     "user_id" => $user->id,
                     "salon_id" => $salonId
                 ]
             )->first();
 
-            if (!empty($check) && $check->count()) {
-                $check->is_fav = !($check->is_fav);
-                $check->save();
+            if (!empty($userFav) && $userFav->count()) {
+                $userFav->is_fav = !($userFav->is_fav);
+                $userFav->save();
             } else {
-                UserFavorisSalon::create([
+                $userFav = UserFavorisSalon::create([
                     "user_id" => $user->id,
                     "salon_id" => $salonId,
                     "is_fav" => 1
@@ -76,7 +76,7 @@ class UserActionController extends AppBaseController
             return response()->json([
                 "message" => "update",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $salon
+                "data" => $userFav
             ], Response::HTTP_OK);
         } else {
 
@@ -98,16 +98,16 @@ class UserActionController extends AppBaseController
 
         if (!empty($artist)) {
 
-            $check = UserFavorisArtist::where(
+            $userFav = UserFavorisArtist::where(
                 [
                     "user_id" => $user->id,
                     "artist_id" => $artistId
                 ]
             )->first();
 
-            if (!empty($check) && $check->count()) {
-                $check->is_fav = !($check->is_fav);
-                $check->save();
+            if (!empty($userFav) && $userFav->count()) {
+                $userFav->is_fav = !($userFav->is_fav);
+                $userFav->save();
             } else {
                 UserFavorisArtist::create([
                     "user_id" => $user->id,
@@ -119,7 +119,7 @@ class UserActionController extends AppBaseController
             return response()->json([
                 "message" => "user retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $artist
+                "data" => $userFav
             ], Response::HTTP_OK);
         } else {
 

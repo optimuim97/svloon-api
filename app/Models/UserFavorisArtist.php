@@ -15,4 +15,10 @@ class UserFavorisArtist extends Model
         "artist_id",
         "is_fav"
     ];
+
+    protected $appends = ['artist'];
+
+    public function getArtistAttribute(){
+        return Artist::find($this->artist_id);
+    }
 }

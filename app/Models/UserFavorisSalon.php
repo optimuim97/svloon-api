@@ -14,4 +14,11 @@ class UserFavorisSalon extends Model
         "salon_id",
         "is_fav",
     ];
+
+    protected $appends = ['salon_id'];
+
+    public function getSalonAttribute(){
+        return Artist::find($this->salon_id);
+    }
+
 }

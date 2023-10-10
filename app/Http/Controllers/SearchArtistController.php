@@ -42,20 +42,20 @@ class SearchArtistController extends Controller
 
     public function searchByAddressName(Request $request)
     {
-        $salons = [];
+        $artist = [];
         $address_name = $request->query('address_name');
         $salonAddresses = ArtistAddress::where('address_name', "like", "%$address_name%")->get();
 
         foreach ($salonAddresses as  $salonAddresse) {
             $artist = Artist::where('id', $salonAddresse->artist_id)->first();
-            array_push($salons, $artist);
+            array_push($artist, $artist);
         }
 
-        if (!empty($salons)) {
+        if (!empty($artist)) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $salons
+                "data" => $artist
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

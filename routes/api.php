@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SearchArtistController;
 use App\Http\Controllers\SearchSalonController;
 use App\Http\Controllers\SearchServiceController;
 use App\Http\Controllers\SignUpController;
@@ -46,6 +47,9 @@ Route::get('users/info_by_phone_number', [UserSearchController::class, 'searchBy
 
 Route::get('salons/search_by_name', [SearchSalonController::class, 'searchByName']);
 Route::get('salons/search_by_address_name', [SearchSalonController::class, 'searchByAddressName']);
+
+Route::get('artist/search_by_name', [SearchArtistController::class, 'searchByName']);
+Route::get('artist/search_by_address_name', [SearchArtistController::class, 'searchByAddressName']);
 
 Route::get('service/search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
 Route::get('service/search_salon_service_by_type', [SearchServiceController::class, 'searchSalonServiceByType']);

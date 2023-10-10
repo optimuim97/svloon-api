@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class DataSaved extends Model
 {
     use HasFactory;
-
     protected $table = "data_saved";
+
     public $fillable = [
-        "received_data"    
+        "data_saved"    
     ];
 }

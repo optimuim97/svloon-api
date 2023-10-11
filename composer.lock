@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0204082621ca4d0a5bf3e4501162f730",
+    "content-hash": "be94a72c7cf143b33f4a0689226a7b12",
     "packages": [
         {
             "name": "brick/math",
@@ -1837,17 +1837,79 @@
             "time": "2023-01-30T20:31:40+00:00"
         },
         {
-            "name": "laravel/framework",
-            "version": "v10.27.0",
+            "name": "laravel/breeze",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "616f81bd6dd8aa2e26a9fc21d9c95e98bd30803b"
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "d62371252246d45417d077ca8019b6abd679343c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/616f81bd6dd8aa2e26a9fc21d9c95e98bd30803b",
-                "reference": "616f81bd6dd8aa2e26a9fc21d9c95e98bd30803b",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/d62371252246d45417d077ca8019b6abd679343c",
+                "reference": "d62371252246d45417d077ca8019b6abd679343c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^10.17",
+                "illuminate/filesystem": "^10.17",
+                "illuminate/support": "^10.17",
+                "illuminate/validation": "^10.17",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2023-10-06T13:24:19+00:00"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "v10.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "09137f50f715c1efc649788a26092dcb1ec4ab6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/09137f50f715c1efc649788a26092dcb1ec4ab6e",
+                "reference": "09137f50f715c1efc649788a26092dcb1ec4ab6e",
                 "shasum": ""
             },
             "require": {
@@ -2034,7 +2096,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-10-09T15:15:28+00:00"
+            "time": "2023-10-10T13:01:37+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2425,20 +2487,20 @@
         },
         {
             "name": "lcobucci/clock",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/clock.git",
-                "reference": "039ef98c6b57b101d10bd11d8fdfda12cbd996dc"
+                "reference": "30a854ceb22bd87d83a7a4563b3f6312453945fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/clock/zipball/039ef98c6b57b101d10bd11d8fdfda12cbd996dc",
-                "reference": "039ef98c6b57b101d10bd11d8fdfda12cbd996dc",
+                "url": "https://api.github.com/repos/lcobucci/clock/zipball/30a854ceb22bd87d83a7a4563b3f6312453945fc",
+                "reference": "30a854ceb22bd87d83a7a4563b3f6312453945fc",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.1.0 || ~8.2.0",
+                "php": "~8.2.0",
                 "psr/clock": "^1.0"
             },
             "provide": {
@@ -2446,13 +2508,13 @@
             },
             "require-dev": {
                 "infection/infection": "^0.26",
-                "lcobucci/coding-standard": "^9.0",
+                "lcobucci/coding-standard": "^10.0.0",
                 "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "^1.9.4",
-                "phpstan/phpstan-deprecation-rules": "^1.1.1",
-                "phpstan/phpstan-phpunit": "^1.3.2",
-                "phpstan/phpstan-strict-rules": "^1.4.4",
-                "phpunit/phpunit": "^9.5.27"
+                "phpstan/phpstan": "^1.10.7",
+                "phpstan/phpstan-deprecation-rules": "^1.1.3",
+                "phpstan/phpstan-phpunit": "^1.3.10",
+                "phpstan/phpstan-strict-rules": "^1.5.0",
+                "phpunit/phpunit": "^10.0.17"
             },
             "type": "library",
             "autoload": {
@@ -2473,7 +2535,7 @@
             "description": "Yet another clock abstraction",
             "support": {
                 "issues": "https://github.com/lcobucci/clock/issues",
-                "source": "https://github.com/lcobucci/clock/tree/3.0.0"
+                "source": "https://github.com/lcobucci/clock/tree/3.1.0"
             },
             "funding": [
                 {
@@ -2485,7 +2547,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-12-19T15:00:24+00:00"
+            "time": "2023-03-20T19:12:25+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -7855,16 +7917,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.13.2",
+            "version": "v1.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "bbb13460d7f8c5c0cd9a58109beedd79cd7331ff"
+                "reference": "93b2d0d49719bc6e444ba21cd4dbbccec935413d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/bbb13460d7f8c5c0cd9a58109beedd79cd7331ff",
-                "reference": "bbb13460d7f8c5c0cd9a58109beedd79cd7331ff",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/93b2d0d49719bc6e444ba21cd4dbbccec935413d",
+                "reference": "93b2d0d49719bc6e444ba21cd4dbbccec935413d",
                 "shasum": ""
             },
             "require": {
@@ -7875,7 +7937,7 @@
                 "php": "^8.1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.26.1",
+                "friendsofphp/php-cs-fixer": "^3.34.1",
                 "illuminate/view": "^10.23.1",
                 "laravel-zero/framework": "^10.1.2",
                 "mockery/mockery": "^1.6.6",
@@ -7917,7 +7979,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-09-19T15:55:02+00:00"
+            "time": "2023-10-10T15:39:09+00:00"
         },
         {
             "name": "laravel/sail",

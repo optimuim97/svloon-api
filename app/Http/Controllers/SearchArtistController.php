@@ -16,6 +16,7 @@ class SearchArtistController extends Controller
     public function searchByName(Request $request)
     {
         $word = $request->query("name");
+        return $word;
 
         $artists = Artist::whereHas(
             'user',

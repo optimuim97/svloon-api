@@ -120,6 +120,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function artist()
     {
-        return $this->belongsTo(Artist::class);
+        return $this->hasOne(Artist::class);
     }
 }

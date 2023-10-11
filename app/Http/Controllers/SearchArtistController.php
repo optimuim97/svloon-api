@@ -16,7 +16,6 @@ class SearchArtistController extends Controller
     public function searchByName(Request $request)
     {
         $word = $request->query("name");
-        return $word;
 
         $artists = Artist::whereHas(
             'user',
@@ -25,6 +24,7 @@ class SearchArtistController extends Controller
                     ->orWhere('lastname', 'LIKE', "%{$word}%");
             }
         )->get();
+        return $artists;
 
         if (!empty($artists)) {
 

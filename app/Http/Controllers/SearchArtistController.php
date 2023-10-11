@@ -20,7 +20,6 @@ class SearchArtistController extends Controller
         $artists = Artist::whereHas(
             'user',
             function (Builder $query) use ($word) {
-                dd($word);
                 $query->where('firstname', 'LIKE', "%$word%")
                     ->orWhere('lastname', 'LIKE', "%{$word}%");
             }

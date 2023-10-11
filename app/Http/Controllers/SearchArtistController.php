@@ -13,13 +13,15 @@ use Illuminate\Http\Response;
 
 class SearchArtistController extends Controller
 {
-    public function searchByName()
+    public function searchByName(Request $request)
     {
+        $word = $request->query("name");
+
         $artists = Artist::whereHas(
             'user',
-            function (Builder $query, Request $request) {
-                $query->where('firstname', 'LIKE', "%{$request->query('name')}%")
-                    ->orWhere('lastname', 'LIKE', "%{$request->query('name')}%");
+            function (Builder $query) use ($word) {
+                $query->where('firstname', 'LIKE', "%$word%")
+                    ->orWhere('lastname', 'LIKE', "%{$word}%");
             }
         )->get();
 

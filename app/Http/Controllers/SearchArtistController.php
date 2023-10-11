@@ -29,17 +29,23 @@ class SearchArtistController extends Controller
 
             if ($artists->count() >= 1) {
                 return response()->json([
-                    "message" => "Not found",
-                    "status_code" => Response::HTTP_NOT_FOUND,
+                    "message" => "retreived",
+                    "status_code" => Response::HTTP_OK,
+                    "data" => $artists
                 ], Response::HTTP_OK);
             }
 
             return response()->json([
-                "message" => "retreived",
-                "status_code" => Response::HTTP_OK,
-                "data" => $artists
+                "message" => "Not found",
+                "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
+
         }
+
+        return response()->json([
+            "message" => "Not found",
+            "status_code" => Response::HTTP_NOT_FOUND,
+        ], Response::HTTP_OK);
     }
 
     public function searchByAddressName(Request $request)

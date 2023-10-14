@@ -16,15 +16,17 @@ class SearchArtistController extends Controller
     public function searchByName(Request $request)
     {
         $word = $request->query("name");
+        $artists = [];
 
         $artists = Artist::whereHas(
             'user',
             function (Builder $query) use ($word) {
-                $query->where('firstname', 'LIKE', "%$word%")
+                $query
+                    // ->join('artists', 'artists.user_id', '=', 'users.id')
+                    ->where('firstname', 'LIKE', "%$word%")
                     ->orWhere('lastname', 'LIKE', "%{$word}%");
             }
         )->get();
-
 
         if (!empty($artists)) {
 
@@ -40,7 +42,6 @@ class SearchArtistController extends Controller
                 "message" => "Not found",
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
-
         }
 
         return response()->json([

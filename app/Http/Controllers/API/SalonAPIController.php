@@ -155,7 +155,7 @@ class SalonAPIController extends AppBaseController
 
         // $salon->staff = $staffMembers->toArray();
 
-        return response()->json($salon->staff);
+        // return response()->json($salon->staff);
         // = $staffMembers;
         if (empty($salon)) {
             return $this->sendError('Salon not found');

@@ -82,7 +82,6 @@ class SearchArtistController extends Controller
         $serviceType = $request->query('service_type_id');
         $artistServices =  ArtistService::all();
 
-        dd($artistServices);
         foreach ($artistServices as $key => $value) {
             dd("Okay");
 

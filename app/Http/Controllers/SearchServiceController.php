@@ -32,6 +32,7 @@ class SearchServiceController extends Controller
     {
         $serviceType = $request->query('service_type_id');
         $services = SalonService::where('service_type_id', $serviceType)->get();
+        return $this->json($services);
 
         if (!empty($services) && $services?->count()) {
             return response()->json([

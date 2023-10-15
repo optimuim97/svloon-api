@@ -100,4 +100,14 @@ class Service extends Model
     ];
 
     public static array $rules = [];
+
+    /**
+     * Get the artistService that owns the Service
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function artistService()
+    {
+        return $this->belongsTo(ArtistService::class);
+    }
 }

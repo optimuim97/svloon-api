@@ -88,6 +88,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         return ArtistAddress::where('artist_id', $this->id)->get();
     }
 
+    public function getUserAttribute()
+    {
+        return User::where('id', $this->user_id)->first();
+    }
+
     /**
      * Get the user associated with the Artist
      *

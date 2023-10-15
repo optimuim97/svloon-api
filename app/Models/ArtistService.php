@@ -65,8 +65,17 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
+    /**
+     * Get all of the services for the ArtistService
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
 }

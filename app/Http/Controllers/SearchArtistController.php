@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Nette\Iterators\Mapper;
 
 class SearchArtistController extends Controller
 {
@@ -22,7 +23,6 @@ class SearchArtistController extends Controller
             'user',
             function (Builder $query) use ($word) {
                 $query
-                    // ->join('artists', 'artists.user_id', '=', 'users.id')
                     ->where('firstname', 'LIKE', "%$word%")
                     ->orWhere('lastname', 'LIKE', "%{$word}%");
             }
@@ -72,6 +72,42 @@ class SearchArtistController extends Controller
                 "message" => "Not found",
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
+        }
+    }
+
+    public function searchArtistServiceByType(Request $request)
+    {
+        $allServices = [];
+
+        $serviceType = $request->query('service_type_id');
+        $artistServices =  ArtistService::all();
+
+        dd($artistServices);
+        foreach ($artistServices as $key => $value) {
+            dd("Okay");
+
+            $value->map(function($x){
+                dd($x);
+            });
+        }
+
+        // ?->where('service_type_id', $serviceType)?->first();
+
+        if (!empty($allServices)) {
+
+            return response()->json([
+                "message" => "retreived",
+                "status_code" => Response::HTTP_FOUND,
+                "data" => $allServices
+            ], Response::HTTP_FOUND);
+
+        } else {
+
+            return response()->json([
+                "message" => "Not found",
+                "status_code" => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_OK);
+
         }
     }
 }

@@ -83,11 +83,7 @@ class SearchArtistController extends Controller
         $artistServices =  ArtistService::all();
 
         foreach ($artistServices as $key => $value) {
-            dd("Okay");
-
-            $value->map(function($x){
-                dd($x);
-            });
+            dd($value->services);
         }
 
         // ?->where('service_type_id', $serviceType)?->first();

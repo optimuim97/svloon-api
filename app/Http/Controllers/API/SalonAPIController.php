@@ -9,6 +9,7 @@ use App\Repositories\SalonRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -59,7 +60,6 @@ class SalonAPIController extends AppBaseController
             $request->get('skip'),
             $request->get('limit')
         );
-
         return $this->sendResponse($salons->toArray(), 'Salons retrieved successfully');
     }
 
@@ -142,6 +142,21 @@ class SalonAPIController extends AppBaseController
         /** @var Salon $salon */
         $salon = $this->salonRepository->find($id);
 
+        // return response()->json($salon->staff);
+        // $staffMembers = new Collection();
+        // foreach ($salon->staff as $value) {
+        //     if($value->artist != null){
+
+        //         return response()->json($value);
+
+        //         $staffMembers->add($value->artist);
+        //     }
+        // }
+
+        // $salon->staff = $staffMembers->toArray();
+
+        return response()->json($salon->staff);
+        // = $staffMembers;
         if (empty($salon)) {
             return $this->sendError('Salon not found');
         }
@@ -209,11 +224,11 @@ class SalonAPIController extends AppBaseController
         // $fileTemp = $request->file("bailDocument");
 
         // dd([$input, $fileTemp]);
-        
+
         // if($fileTemp->isValid()){
         //     $fileExtension = $fileTemp->getClientOriginalExtension();
         //     $fileName = Str::random(4). '.'. $fileExtension;
-           
+
         //     $fileTemp->storeAs(
         //         'public/documents', $fileName
         //     );

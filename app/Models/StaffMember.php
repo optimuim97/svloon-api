@@ -89,9 +89,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     public static array $rules = [];
 
     protected $hidden = [
+        "id",
         "fullname",
         "imageUrl",
-        "fonction"
+        "fonction",
+        "salon_id",
+        "artist_id",
+        "created_at",
+        "updated_at"
     ];
 
     public function getArtistAttribute()

@@ -220,7 +220,9 @@ use Illuminate\Support\Collection;
 
     public function getStaffAttribute()
     {
-        return StaffMember::where('salon_id', $this->id)->get();
+        $staffMember = StaffMember::where('salon_id', $this->id)->get();
+
+        return $staffMember;
     }
 
     public function getPorfolioAttribute()

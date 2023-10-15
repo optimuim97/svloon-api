@@ -31,7 +31,7 @@ class SearchServiceController extends Controller
     public function searchSalonServiceByType(Request $request)
     {
         $serviceType = $request->query('service_type_id');
-        $service = SalonService::where('service_type_id', $serviceType)->first();
+        $service = SalonService::where('service_type_id', $serviceType)->get();
 
         if (!empty($service)) {
             return response()->json([
@@ -50,7 +50,7 @@ class SearchServiceController extends Controller
     public function searchServiceByType(Request $request)
     {
         $serviceType = $request->query('service_type_id');
-        $service = Service::where('service_type_id', $serviceType)->first();
+        $service = Service::where('service_type_id', $serviceType)->get();
 
         if (!empty($service)) {
             return response()->json([

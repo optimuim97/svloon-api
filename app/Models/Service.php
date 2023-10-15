@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @OA\Schema(
@@ -76,6 +77,7 @@ class Service extends Model
     use ImgurHelpers;
 
     public $table = 'services';
+    protected $appends = ["extras"];
 
     public $fillable = [
         'service_id',
@@ -110,4 +112,21 @@ class Service extends Model
     {
         return $this->belongsTo(ArtistService::class);
     }
+
+    public function getExtrasAttribute(){
+
+        $extraServices = DB::table('extra_service')->where('service_id', $this->id)->get();
+        $extras = [];
+
+        foreach ($extraServices as $extraService) {
+            $extra = Extra::where('id', $extraService->extra_id)->first();
+            if(!empty($extra)){
+                array_push($extras, $extra);
+            }
+        }
+
+        return $extras;
+
+    }
+
 }

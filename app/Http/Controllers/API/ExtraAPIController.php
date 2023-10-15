@@ -9,6 +9,7 @@ use App\Repositories\ExtraRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ExtraController
@@ -254,5 +255,15 @@ class ExtraAPIController extends AppBaseController
         $extra->delete();
 
         return $this->sendSuccess('Extra deleted successfully');
+    }
+
+    public function addExtraToService(Request $request)
+    {
+        DB::table('extra_service')->insert([
+            'extra_id' =>  $request->extra_id,
+            'service_id' =>  $request->service_id,
+        ]);
+
+        return $this->sendSuccess('Extra add successfully');
     }
 }

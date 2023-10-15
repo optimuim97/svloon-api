@@ -147,7 +147,6 @@ class ServiceAPIController extends AppBaseController
     {
         /** @var Service $service */
         $service = $this->serviceRepository->find($id);
-
         if (empty($service)) {
             return $this->sendError('Service not found');
         }

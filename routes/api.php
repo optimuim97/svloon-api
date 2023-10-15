@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
 use App\Http\Controllers\AuthController;
@@ -50,6 +51,7 @@ Route::get('salons/search_by_address_name', [SearchSalonController::class, 'sear
 
 Route::get('artist/search_by_name', [SearchArtistController::class, 'searchByName']);
 Route::get('artist/search_by_address_name', [SearchArtistController::class, 'searchByAddressName']);
+
 Route::get('artist/search_by_service_type', [SearchArtistController::class, 'searchArtistServiceByType']);
 
 Route::get('service/search_salon_service_by_name', [SearchServiceController::class, 'searchSalonServiceByName']);
@@ -57,6 +59,7 @@ Route::get('service/search_salon_service_by_type', [SearchServiceController::cla
 
 Route::get('service/search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
 Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
+
 
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
@@ -165,3 +168,5 @@ Route::resource('artist-addresses', App\Http\Controllers\API\ArtistAddressAPICon
 
 Route::resource('artist-services', App\Http\Controllers\API\ArtistServiceAPIController::class)
     ->except(['create', 'edit']);
+
+Route::post('add-extra-to-service', [ExtraAPIController::class, 'addExtraToService']);

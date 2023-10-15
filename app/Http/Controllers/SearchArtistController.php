@@ -28,7 +28,7 @@ class SearchArtistController extends Controller
             }
         )->get();
 
-        if (!empty($artists)) {
+        if (!empty($artists) && $artists?->count()) {
 
             if ($artists->count() >= 1) {
                 return response()->json([

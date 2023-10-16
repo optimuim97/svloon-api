@@ -40,6 +40,9 @@ Route::post('auth/update-user-info', [UserActionController::class, 'updateUser']
 Route::get('auth/add-salon-favorite/{salonId}', [UserActionController::class, 'addSalonFavorite']);
 Route::get('auth/add-artist-favorite/{artistId}', [UserActionController::class, 'addArtistFavorite']);
 
+Route::get('auth/favorite/artist', [UserActionController::class, 'getFavoriteArtist']);
+Route::get('auth/favorite/salon', [UserActionController::class, 'getFavoriteSalon']);
+
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
 Route::post('sign-up', [SignUpController::class, 'register']);
 
@@ -59,7 +62,6 @@ Route::get('service/search_salon_service_by_type', [SearchServiceController::cla
 
 Route::get('service/search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
 Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
-
 
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
@@ -164,7 +166,6 @@ Route::resource('artist-porfolios', App\Http\Controllers\API\ArtistPorfolioAPICo
 
 Route::resource('artist-addresses', App\Http\Controllers\API\ArtistAddressAPIController::class)
     ->except(['create', 'edit']);
-
 
 Route::resource('artist-services', App\Http\Controllers\API\ArtistServiceAPIController::class)
     ->except(['create', 'edit']);

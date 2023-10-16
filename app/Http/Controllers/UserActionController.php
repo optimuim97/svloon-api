@@ -129,4 +129,50 @@ class UserActionController extends AppBaseController
             ], Response::HTTP_OK);
         }
     }
+
+    public function getFavoriteArtist(){
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse($user, 'User must be connected');
+        }
+
+        $userFav = UserFavorisArtist::where([
+            "user_id" => $user->id,
+            "is_fav" => 1
+        ])->get();
+
+        if($userFav?->count() < 1){
+            return $this->sendError('not favorite Artist');
+        }
+
+        return response()->json([
+            "message" => "user retreived",
+            "status_code" => Response::HTTP_FOUND,
+            "data" => $userFav
+        ], Response::HTTP_OK);
+    }
+
+    public function getFavoriteSalon(){
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse($user, 'User must be connected');
+        }
+
+        $userFav = UserFavorisSalon::where([
+            "user_id" => $user->id,
+            "is_fav" => 1
+        ])->get();
+
+        if($userFav?->count() < 1){
+            return $this->sendError('not favorite Salon');
+        }
+
+        return response()->json([
+            "message" => "user retreived",
+            "status_code" => Response::HTTP_FOUND,
+            "data" => $userFav
+        ], Response::HTTP_OK);
+    }
 }

@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Model;
     use HasFactory;    public $table = 'salon_un_availabilies';
 
     public $fillable = [
+        'salon_id',
         'date',
         'hour_start',
         'hour_end',
@@ -57,8 +58,8 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
+
 }

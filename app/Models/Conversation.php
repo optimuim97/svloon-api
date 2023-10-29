@@ -70,10 +70,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public static array $rules = [];
 
-
     public function getMessagesAttribute()
     {
         $messages = Message::where("conversation_id", $this->id)->get();
         return $messages;
+    }
+
+    /**
+     * Get all of the messages for the Conversation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

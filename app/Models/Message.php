@@ -78,4 +78,14 @@ class Message extends Model
     ];
 
     public static array $rules = [];
+
+    /**
+     * Get the conversation that owns the Message
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class, 'conversation_id');
+    }
 }

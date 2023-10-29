@@ -16,7 +16,7 @@ class UserActionController extends AppBaseController
         $user = auth("api")->user();
 
         if (empty($user)) {
-            return $this->sendResponse($user, 'User must be connected');
+            return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
         }
 
         $user->email = $request->email == "" ? $user->email : $request->email;
@@ -50,7 +50,7 @@ class UserActionController extends AppBaseController
         $salon = Salon::find($salonId);
 
         if (empty($user)) {
-            return $this->sendError('User must be connected');
+            return $this->sendError('L\'utilisateur doit être connecté');
         }
 
         if (!empty($salon)) {
@@ -93,7 +93,7 @@ class UserActionController extends AppBaseController
         $artist = Artist::find($artistId);
 
         if (empty($user)) {
-            return $this->sendResponse($user, 'User must be connected');
+            return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
         }
 
         if (!empty($artist)) {
@@ -134,7 +134,7 @@ class UserActionController extends AppBaseController
         $user = auth("api")->user();
 
         if (empty($user)) {
-            return $this->sendResponse($user, 'User must be connected');
+            return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
         }
 
         $userFav = UserFavorisArtist::where([
@@ -157,7 +157,7 @@ class UserActionController extends AppBaseController
         $user = auth("api")->user();
 
         if (empty($user)) {
-            return $this->sendResponse($user, 'User must be connected');
+            return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
         }
 
         $userFav = UserFavorisSalon::where([

@@ -11,7 +11,7 @@ Artist Service Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('artistServices.index') }}">
+                       href="{{ route('artist-services.index') }}">
                                                     Back
                                             </a>
                 </div>

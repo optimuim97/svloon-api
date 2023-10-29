@@ -9,6 +9,9 @@ use App\Repositories\AppointementRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * Class AppointementController
@@ -64,7 +67,7 @@ class AppointementAPIController extends AppBaseController
 
     /**
      * @OA\Post(
-     *      path="/appointements",
+     *      path="/auth/appointements",
      *      summary="createAppointement",
      *      tags={"Appointement"},
      *      description="Create Appointement",
@@ -96,10 +99,42 @@ class AppointementAPIController extends AppBaseController
     public function store(CreateAppointementAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $creator = auth("api")->user();
+        $user_id = $input["user_id"];
 
+        $user = User::find($user_id);
+
+        if(empty($user)){
+            return $this->sendResponse([],'L\'utilisateur n\'existe pas');
+        }
+
+        $input["user_id"] =$user->id;
+
+        if (empty($creator)) {
+            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        $date = $input['date'];
+        $hour = $input['hour'];
+
+        $combinatedDateTime = Carbon::parse("$date $hour");
+
+        if($combinatedDateTime->isPast()){
+            return $this->sendError('Vous ne pouvez pas choisir une date passé');
+        }
+
+        if($user->id == $creator->id){
+            return $this->sendError('Vous ne pouvez pas de rendez-vous avec vous même');
+        }
+
+        $input['creator_id'] = auth("api")->user()?->id;
+        $input['datetime'] = $combinatedDateTime;
+        $input['hour'] = $combinatedDateTime;
+        $input['reference'] = Str::uuid();
+        $input['appointment_status_id'] = 1;
         $appointement = $this->appointementRepository->create($input);
 
-        return $this->sendResponse($appointement->toArray(), 'Appointement saved successfully');
+        return $this->sendResponse($appointement->toArray(), 'RDV ajouté');
     }
 
     /**
@@ -254,5 +289,28 @@ class AppointementAPIController extends AppBaseController
         $appointement->delete();
 
         return $this->sendSuccess('Appointement deleted successfully');
+    }
+
+    public function getUserRdv(){
+
+        $user = auth("api")->user();
+
+        if(empty($user)){
+            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        $all =[];
+        $appointments = Appointement::where('creator_id',$user->id)
+                            ->orWhere('user_id',$user->id)
+                            ->get();
+
+        foreach($appointments as $appointment){
+            if(!Carbon::parse($appointment->hour)->isPast()){
+                array_push($all, $appointment);
+            }
+        }
+
+        return $this->sendResponse($all, 'RDV ajouté');
+
     }
 }

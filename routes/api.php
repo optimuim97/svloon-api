@@ -32,6 +32,8 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
+    Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
 });
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
@@ -65,7 +67,6 @@ Route::get('service/search_service_by_name', [SearchServiceController::class, 's
 
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
-
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
     ->except(['create', 'edit']);
 
@@ -76,7 +77,6 @@ Route::resource('salon-addresses', App\Http\Controllers\API\SalonAddressAPIContr
     ->except(['create', 'edit']);
 
 Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class);
-
 Route::resource('user-types', App\Http\Controllers\API\UserTypeAPIController::class)
     ->except(['create', 'edit']);
 

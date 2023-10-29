@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('appointment_statuses', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('appointment_status_id')->nullable();
             $table->string('name');
-            $table->text('description');
-            $table->string('color');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->string('color')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

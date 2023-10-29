@@ -46,7 +46,7 @@ class ArtistServiceController extends AppBaseController
 
         Flash::success('Artist Service saved successfully.');
 
-        return redirect(route('artistServices.index'));
+        return redirect(route('artist-services.index'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArtistServiceController extends AppBaseController
         if (empty($artistService)) {
             Flash::error('Artist Service not found');
 
-            return redirect(route('artistServices.index'));
+            return redirect(route('artist-services.index'));
         }
 
         return view('artist_services.show')->with('artistService', $artistService);
@@ -75,7 +75,7 @@ class ArtistServiceController extends AppBaseController
         if (empty($artistService)) {
             Flash::error('Artist Service not found');
 
-            return redirect(route('artistServices.index'));
+            return redirect(route('artist-services.index'));
         }
 
         return view('artist_services.edit')->with('artistService', $artistService);
@@ -91,14 +91,14 @@ class ArtistServiceController extends AppBaseController
         if (empty($artistService)) {
             Flash::error('Artist Service not found');
 
-            return redirect(route('artistServices.index'));
+            return redirect(route('artist-services.index'));
         }
 
         $artistService = $this->artistServiceRepository->update($request->all(), $id);
 
         Flash::success('Artist Service updated successfully.');
 
-        return redirect(route('artistServices.index'));
+        return redirect(route('artist-services.index'));
     }
 
     /**
@@ -113,13 +113,13 @@ class ArtistServiceController extends AppBaseController
         if (empty($artistService)) {
             Flash::error('Artist Service not found');
 
-            return redirect(route('artistServices.index'));
+            return redirect(route('artist-services.index'));
         }
 
         $this->artistServiceRepository->delete($id);
 
         Flash::success('Artist Service deleted successfully.');
 
-        return redirect(route('artistServices.index'));
+        return redirect(route('artist-services.index'));
     }
 }

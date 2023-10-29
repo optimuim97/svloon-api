@@ -9,6 +9,7 @@ use App\Repositories\ConversationRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Models\User;
 
 /**
  * Class ConversationController
@@ -107,13 +108,30 @@ class ConversationAPIController extends AppBaseController
         $user = auth("api")->user();
 
         if (empty($user)) {
-            return $this->sendResponse($user, 'User must be connected');
+            return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
         }
 
         $input = $request->all();
 
-        if (empty($input['user_types'])) {
-            $input['user_types'] = "client";
+        if($input['person2_id'] == $user->id){
+            return response()->json(
+                [
+                    "status_code"=> 404,
+                    "message" => "Not possible to chat with you-self"
+                ]
+            );
+        }
+
+        // $person1 = User::find($input['person_id']);
+        $person2_id = User::find($input['person2_id']);
+
+        if(empty($person2_id)){
+            return response()->json(
+                [
+                    "status_code"=> 404,
+                    "message" => "Some find wrong"
+                ]
+            );
         }
 
         $input['person_id'] = $user->id;
@@ -129,6 +147,7 @@ class ConversationAPIController extends AppBaseController
         if (!empty($checkIfConversationExist)) {
             return response()->json(
                 [
+                    "status_code"=> 404,
                     "message" => "Conversation already exist",
                     "data" => $checkIfConversationExist
                 ]

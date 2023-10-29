@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Service\ImgurHelpers;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -121,5 +122,22 @@ class User extends Authenticatable implements JWTSubject
     public function artist()
     {
         return $this->hasOne(Artist::class);
+    }
+
+    public function getAppointementsAttribute(){
+
+        $all =[];
+        $appointments = Appointement::where('creator_id',$this->id)
+                            ->orWhere('user_id',$this->id)
+                            ->get();
+
+        foreach($appointments as $appointment){
+            if(!Carbon::parse($appointment->hour)->isPast()){
+                array_push($all, $appointment);
+            }
+        }
+
+        return $all;
+
     }
 }

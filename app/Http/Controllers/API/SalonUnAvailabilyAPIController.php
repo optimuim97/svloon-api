@@ -9,6 +9,7 @@ use App\Repositories\SalonUnAvailabilyRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 
 /**
  * Class SalonUnAvailabilyController
@@ -105,11 +106,33 @@ class SalonUnAvailabilyAPIController extends AppBaseController
      */
     public function store(CreateSalonUnAvailabilyAPIRequest $request): JsonResponse
     {
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        if (!$user?->userType?->slug =="salon") {
+            return $this->sendResponse([],'Doit être un salon');
+        }
+
         $input = $request->all();
+
+        $date =$input['date'];
+        $hour =$input['hour_start'];
+
+        $input["salon_id"] = $user->salons->first()->id;
+
+        $combinatedDateTime = Carbon::parse("$date $hour");
+
+        if($combinatedDateTime->isPast()){
+            return $this->sendError('Vous ne pouvez pas choisir une date passé');
+        }
+
 
         $salonUnAvailabily = $this->salonUnAvailabilyRepository->create($input);
 
-        return $this->sendResponse($salonUnAvailabily->toArray(), 'Salon Un Availabily saved successfully');
+        return $this->sendResponse($salonUnAvailabily->toArray(), 'Indisponibilité ajouté avec succès');
     }
 
     /**

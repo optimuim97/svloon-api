@@ -241,7 +241,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('artistServices.index') }}" class="nav-link {{ Request::is('artistServices*') ? 'active' : '' }}">
+    <a href="{{ route('artist-services.index') }}" class="nav-link {{ Request::is('artist-services*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Artist Services</p>
     </a>

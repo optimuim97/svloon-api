@@ -302,6 +302,7 @@ class AppointementAPIController extends AppBaseController
         $all =[];
         $appointments = Appointement::where('creator_id',$user->id)
                             ->orWhere('user_id',$user->id)
+                            ->orderBy(['created_at','DESC'])
                             ->get();
 
         foreach($appointments as $appointment){
@@ -310,7 +311,11 @@ class AppointementAPIController extends AppBaseController
             }
         }
 
-        return $this->sendResponse($all, 'RDV ajouté');
+        if(empty($all)){
+            return $this->sendError("Aucun rendez-vous");
+        }
+
+        return $this->sendResponse($all, 'Liste des rendez-vous');
 
     }
 }

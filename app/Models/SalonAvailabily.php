@@ -52,5 +52,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'date' => 'date'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+        'date'  =>  'required|date',
+        // 'hour_start'=>'required|date|date_format:H:i',
+        //'hour_end'=>'required|date|after_or_equal:hour_start|date_format:H:i'
+    ];
 }

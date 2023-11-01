@@ -64,7 +64,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         );
 
         foreach($salonAvailabilies as $item){
-            
+
         }
 
         return $this->sendResponse($availabilies, 'Salon Availabilies retrieved successfully');
@@ -115,10 +115,36 @@ class SalonAvailabilyAPIController extends AppBaseController
     public function store(CreateSalonAvailabilyAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        
+
+        // $date = Carbon::parse($input['date'])->format('Y/m/d');
+        $date = Carbon::parse($input['date'])->format('Y/m/d');
+        $hour_start = $input['hour_start'];
+        $hour_end = $input['hour_end'];
+
+        $combinatedDateTimeStart = Carbon::parse("$date $hour_start");
+        $combinatedDateTimeEnd = Carbon::parse("$date $hour_end");
+
+        if($combinatedDateTimeStart->isPast()){
+            return $this->sendError('Vous ne pouvez pas choisir une date de début passé');
+        }
+
+        // if($date->isPast($combinatedDateTimeStart)){
+        //     return $this->sendError('Vous ne pouvez pas choisir une heure passé');
+        // }
+
+        if($combinatedDateTimeEnd->isPast()){
+            return $this->sendError('Vous ne pouvez pas choisir une date de fin passé');
+        }
+
+
+        if($combinatedDateTimeStart > $combinatedDateTimeEnd){
+            return $this->sendError('La date de début doit être inferieur à la date fin ');
+        }
+
+
         $salonAvailabily = $this->salonAvailabilyRepository->create($input);
 
-        return $this->sendResponse($salonAvailabily->toArray(), 'Salon Availabily saved successfully');
+        return $this->sendResponse($salonAvailabily->toArray(), 'Disponibilité ajouté');
     }
 
     /**
@@ -287,9 +313,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         return $this->sendSuccess('Salon Availabily deleted successfully');
     }
 
-
-
-     /**
+    /**
      * @OA\Get(
      *      path="get-salon-availabilies/{id}",
      *      summary="updateSalonAvailabily",

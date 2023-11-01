@@ -371,4 +371,34 @@ class SalonAvailabilyAPIController extends AppBaseController
         return $this->sendResponse($availabilitiesActive, 'SalonAvailabily updated successfully');
 
     }
+
+    public function getUserAvailabilities(){
+
+        $user = auth("api")->user();
+
+        if(empty($user)){
+            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        if($user->userType == "salon"){
+            return $this->sendResponse([],'L\'utilisateur doit être de type salon');
+        }
+
+        $all =[];
+        $availabilies = SalonAvailabily::where('salon_id',$user->id)
+                            ->get();
+
+        foreach($availabilies as $salon_availabiltie){
+            if(!Carbon::parse($salon_availabiltie->hour_start)->isPast()){
+                array_push($all, $salon_availabiltie);
+            }
+        }
+
+        if(empty($all)){
+            return $this->sendError("Aucune disponibilité enregistré");
+        }
+
+        return $this->sendResponse($all, 'Liste des disponibilité enregistré');
+
+    }
 }

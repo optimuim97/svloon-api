@@ -34,6 +34,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
     Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
+    Route::post('add-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'store']);
+    Route::get('get-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
 });
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);

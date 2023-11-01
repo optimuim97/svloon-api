@@ -396,8 +396,9 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendError("L'utilisateur a plusieurs salon, choisissez par le nom du Salon");
         }
 
+
         $all =[];
-        $availabilies = SalonAvailabily::where('salon_id',$user->id)
+        $availabilies = SalonAvailabily::where('salon_id',$salons->first()->id)
                             ->get();
 
         foreach($availabilies as $salon_availabiltie){

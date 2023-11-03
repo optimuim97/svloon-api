@@ -392,11 +392,10 @@ class SalonAvailabilyAPIController extends AppBaseController
 
         //TODO salon must have unqiue names
         $salons = $user->salons;
+
         if(count($salons) > 1){
             return $this->sendError("L'utilisateur a plusieurs salon, choisissez par le nom du Salon");
         }
-
-        // dd($salons->first());
 
         $all =[];
         $availabilies = SalonAvailabily::where('salon_id',$salons->first()->id)

@@ -63,7 +63,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class ArtistPorfolio extends Model
+ */
+ class ArtistPorfolio extends Model
 {
     use HasFactory, ImgurHelpers;
     public $table = 'artist_porfolios';

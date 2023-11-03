@@ -33,6 +33,7 @@ class User extends Authenticatable implements JWTSubject
         'is_active',
         'is_professional',
         'email',
+        'birthday',
         'email_verified_at',
         'password',
         "user_types_id"
@@ -68,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
         'profession_id' => "nullable",
         'photo_url' => "nullable",
         'is_active' => "required",
-        'is_professional' => "required",
+        // 'is_professional' => "required",
         'user_types_id' => "required"
     ];
 

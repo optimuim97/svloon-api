@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Artist;
 use App\Models\Salon;
 use App\Models\User;
+use App\Service\ImgurHelpers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
-class SignUpController extends Controller
+class SignUpController extends AppBaseController
 {
+    use ImgurHelpers;
 
     /**
      * @OA\Post(
@@ -154,4 +156,103 @@ class SignUpController extends Controller
             return response()->json(['message' => "Utilisateur existant"], 422);
         }
     }
+
+    public function registerClient(Request $request){
+
+        $request->validate(User::$rules);
+        $imageUrl = $this->upload($request, "photo_url");
+
+        $user = User::create([
+            "email"=> $request->email,
+            "password"=> Hash::make($request->password),
+            "firstname"=> $request->firstname,
+            "lastname"=> $request->lastname,
+            "dial_code"=> $request->dial_code,
+            "phone_number"=> $request->phone_number,
+            "photo_url"=> $request->photo_url,
+            "is_professional"=> false,
+            "user_types_id"=> 1,
+            "profession_id"=> 1,
+            "photo_url"=> $imageUrl
+        ]);
+
+        return $this->sendResponse($user, "Compte créer avec succès");
+
+    }
+
+    public function registerSalon(Request $request){
+        // Creation artiste.
+        // Voici tous les éléments obligatoires:
+        // -type de compte (artiste)
+        // -email
+        // -nom et prenoms
+        // -numero de telephone
+        // -date de naissance
+        // -mot de passe
+        // -preuve d’autorisation de travail (a confirmé par saloon)
+        // -catégorie professionnelle
+        // -preuve ou certification professionnelle (a confirmé par saloon)
+        // -informations bancaires
+        // -vérification des antécédents criminels
+        $request->validate(Salon::$rules);
+
+        $imageUrl = $this->upload($request, "photo_url");
+
+        $user = User::create([
+            "email"=> $request->email,
+            "password"=> Hash::make($request->password),
+            "firstname"=> $request->firstname,
+            "lastname"=> $request->lastname,
+            "dial_code"=> $request->dial_code,
+            "phone_number"=> $request->phone_number,
+            "photo_url"=> $request->photo_url,
+            "is_professional"=> true,
+            "user_types_id"=> 2,
+            "profession_id"=> 1,
+            "photo_url"=> $imageUrl
+        ]);
+
+
+    }
+
+    public function registerArtist(Request $request){
+        // Creation artiste.
+        // Voici tous les éléments obligatoires:
+        // -type de compte (artiste)
+        //-email
+        // -nom et prenoms
+        // -numero de telephone
+        // -date de naissance
+        // -mot de passe
+        // -preuve d’autorisation de travail (a confirmé par saloon)
+        // -catégorie professionnelle
+        // -preuve ou certification professionnelle (a confirmé par saloon)
+        // -informations bancaires
+        // -vérification des antécédents criminels
+        $request->validate(User::$rules);
+        $imageUrl = $this->upload($request, "photo_url");
+
+        $user = User::create([
+            "email"=> $request->email,
+            "password"=> Hash::make($request->password),
+            "firstname"=> $request->firstname,
+            "lastname"=> $request->lastname,
+            "dial_code"=> $request->dial_code,
+            "phone_number"=> $request->phone_number,
+            "photo_url"=> $request->photo_url,
+            "is_professional"=> false,
+            "user_types_id"=> 1,
+            "profession_id"=> 1,
+            "photo_url"=> $imageUrl
+        ]);
+
+        $artist = Artist::create(
+            [
+                "user_id"=> $user->id,
+                "fonction"=> $request->fonction,
+                "description"=> $user->description,
+            ]
+        );
+    }
+
 }

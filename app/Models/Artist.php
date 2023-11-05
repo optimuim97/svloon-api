@@ -57,6 +57,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public $fillable = [
         'user_id',
+        'category_pro_id',
         'fonction',
         'description'
     ];

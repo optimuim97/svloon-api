@@ -246,3 +246,38 @@
         <p>Artist Services</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('type-pieces.index') }}" class="nav-link {{ Request::is('type-pieces*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Type Pieces</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('user-pieces.index') }}" class="nav-link {{ Request::is('*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>User Pieces</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('category-pros.index') }}" class="nav-link {{ Request::is('category-pros*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Category Pros</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('certification-pros.index') }}" class="nav-link {{ Request::is('certification-pros*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Certification Pros</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('bank-infos.index') }}" class="nav-link {{ Request::is('bank-infos*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Bank Infos</p>
+    </a>
+</li>

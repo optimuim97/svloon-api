@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SalonCollection;
+use App\Http\Resources\SalonResource;
 use App\Models\Salon;
 use App\Models\SalonAddress;
 use App\Models\SalonService;
@@ -15,6 +17,9 @@ class SearchSalonController extends Controller
     {
         $name = $request->query('name');
         $salon = Salon::where('name', 'like', "%$name%")->get();
+        $salon = Salon::where('name', 'like', "%$name%")->first();
+
+        return new SalonResource($salon);
 
         if (!empty($salon) && count($salon) >= 1) {
             return response()->json([

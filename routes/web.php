@@ -51,3 +51,8 @@ Route::resource('artist-pictures', App\Http\Controllers\ArtistPictureController:
 Route::resource('artist-porfolios', App\Http\Controllers\ArtistPorfolioController::class);
 Route::resource('artist-addresses', App\Http\Controllers\ArtistAddressController::class);
 Route::resource('artist-services', App\Http\Controllers\ArtistServiceController::class);
+Route::resource('type-pieces', App\Http\Controllers\TypePieceController::class);
+Route::resource('user-pieces', App\Http\Controllers\UserPieceController::class);
+Route::resource('category-pros', App\Http\Controllers\CategoryProController::class);
+Route::resource('certification-pros', App\Http\Controllers\CertificationProController::class);
+Route::resource('bank-infos', App\Http\Controllers\BankInfoController::class);

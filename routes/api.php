@@ -38,11 +38,9 @@ Route::group([
     Route::get('get-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
 });
 
-
-Route::post('sign-up-client', [SignUpController::class, 'register']);
-Route::post('sign-up-salon', [SignUpController::class, 'register']);
-Route::post('sign-up-artist', [SignUpController::class, 'register']);
-
+Route::post('sign-up-client', [SignUpController::class, 'registerClient']);
+Route::post('sign-up-salon', [SignUpController::class, 'registerSalon']);
+Route::post('sign-up-artist', [SignUpController::class, 'registerArtist']);
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::post('auth/update-user-info', [UserActionController::class, 'updateUser']);

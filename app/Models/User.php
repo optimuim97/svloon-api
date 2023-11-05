@@ -61,7 +61,6 @@ class User extends Authenticatable implements JWTSubject
 
     public static array $rules = [
         'email' => ["required", "unique:users"],
-        'password' => "required",
         'firstname' => "required",
         'lastname' => "required",
         'dial_code' => "required",
@@ -69,8 +68,9 @@ class User extends Authenticatable implements JWTSubject
         'profession_id' => "nullable",
         'photo_url' => "nullable",
         'is_active' => "required",
+        'user_types_id' => "required",
+        'password' => "required"
         // 'is_professional' => "required",
-        'user_types_id' => "required"
     ];
 
     // Rest omitted for brevity
@@ -141,4 +141,13 @@ class User extends Authenticatable implements JWTSubject
         return $all;
 
     }
+
+    // public function getInfosAttribute(){
+    //     return $this->userType;
+    // }
+
+    // public function getTypeAttribute(){
+    //     return $this->userType;
+    // }
+
 }

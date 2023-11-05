@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,7 +19,7 @@ class UserSearchController extends AppBaseController
             return response()->json([
                 "message" => "user retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $user
+                "data" => new UserResource($user)
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

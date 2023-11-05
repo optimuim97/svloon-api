@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_pro_id')->constrained();
             $table->string('fonction')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

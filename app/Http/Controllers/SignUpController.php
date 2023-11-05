@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\BankInfo;
+use App\Models\CertificationPro;
 use App\Models\Salon;
+use App\Models\SalonAddress;
 use App\Models\User;
+use App\Models\UserPiece;
 use App\Service\ImgurHelpers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class SignUpController extends AppBaseController
 {
@@ -76,183 +81,220 @@ class SignUpController extends AppBaseController
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function register(Request $request)
+
+     // Creation Salon.
+    public function registerSalon(Request $request)
     {
-        $request->validate(User::$rules);
 
-        $url = (new User)->upload($request, 'photo_url');
-
-        $user = User::create([
-            "firstname" => $request->firstname,
-            "lastname" => $request->lastname,
-            "name" => $request->firstname . '' . $request->lastname,
-            "dial_code" => $request->dial_code ?? "+225",
-            "phone_number" => $request->phone_number,
-            "profession" => $request->profession,
-            "photo_url" => $url,
-            "is_active" => $request->is_active,
-            "is_professional" => $request->is_professional,
-            "email" => $request->email,
-            "email_verified_at" => $request->email_verified_at,
-            "password" => Hash::make($request->password),
-            "user_types_id" => $request->user_types_id
+        $validator = Validator::make($request->all(), [
+            "salon_name" => "required",
+            "email" => "required",
+            "firstname" => "required",
+            "lastname" => "required",
+            "city" => "required",
+            "birthday" => "required|date",
+            "dial_code" => "required",
+            "password" => "required",
+            "phone_number" => "required",
+            "photo_url" => "required|file",
+            "piece" => "required|file",
+            "category_pro_id" => "required",
+            "certification_pro" => "required|file",
+            // "fonction" => "required",
+            "description" => "required",
+            "number_surccusale" => "required",
+            "numero_company" => "required",
+            "numero_compte" => "required",
+            "lat" => "required",
+            "lon" => "required",
+            "address_name" => "required",
+            "batiment_name" => "required",
+            "number_local" => "required",
+            "indications" => "required",
+            "bail" => "required|file",
+            // "scheduleStart" => "date",
+            // "scheduleEnd" => "date"
         ]);
 
-        if ($user?->userType?->slug == "salon") {
+        $validator->validate();
 
-            // $request->validate(Salon::$rules);
-            //TODO add salon info
-            $salon =  Salon::create([
-                "user_id" => $user->id,
-                "name" => $request->salon_name ?? $user->name,
-                "email" => $request->salon_email ?? $user->email,
-                "owner_fullname" => $request->salon_owner_fullname ?? $request->firstname . $request->lastname,
-                "password" => Hash::make($request->password),
-                "scheduleStr" => $request->salon_scheduleStr ?? "",
-                "city" => $request->salon_city ?? "",
-                "dialCode" => $request->salon_dialCode ?? "+225",
-                "phoneNumber" => $request->salon_phoneNumber ?? "",
-                "phone" => $request->salon_phone . $request->phone_number,
-                "postalCode" => $request->salon_postalCode ?? "",
-                "localNumber" => $request->salon_localNumber ?? "",
-                "bailDocument" => $request->salon_bailDocument ?? "",
-                "salon_type_id" => $request->salon_salon_type_id ?? 1
-            ]);
+        $imageUrl = $this->upload($request, "photo_url");
+        $piece = $this->upload($request, "piece");
+        $certificatPro = $this->upload($request, "certification_pro");
+        $bail = $this->upload($request, "bail");
 
+        $user = User::create([
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "firstname" => $request->firstname,
+            "name"=> $request->firstname." ".$request->lastname,
+            "lastname" => $request->lastname,
+            "dial_code" => $request->dial_code,
+            "phone_number" => $request->phone_number,
+            "photo_url" => $request->photo_url,
+            "is_professional" => true,
+            "user_types_id" => 2,
+            "profession_id" => 1,
+            "photo_url" => $imageUrl
+        ]);
 
-            return response()->json([
-                "message" => "User Created",
-                "status_code" => Response::HTTP_CREATED,
-                "data" => $user,
-                "salon_data" => $salon
-            ], Response::HTTP_CREATED);
-        }
+        UserPiece::create([
+            "user_id" => $user->id,
+            "user_type_piece_id" => 1,
+            "file" => $piece
+        ]);
 
-        if ($user?->userType?->slug == "artist") {
+        $salon = Salon::create([
+            "user_id"=> $user->id,
+            "name"=> $request->salon_name,
+            "email"=> $request->email,
+            "owner_fullname"=> $request->firstname." ".$request->lastname,
+            "dialCode"=> $request->dial_code,
+            // "scheduleStart"=> $request->scheduleStart ?? "",
+            // "scheduleEnd"=> $request->scheduleEnd ?? "",
+            "scheduleStr"=> $request->scheduleStr ?? "",
+            "city"=> $request->city,
+            "phoneNumber"=> $request->phone_number,
+            "phone"=> $request->phone,
+            "postalCode"=> $request->postal_code,
+            "localNumber"=> $request->local_number,
+            "bailDocument"=> $request->bail_document,
+            "salon_type_id"=> $request->salon_type_id
+        ]);
 
-            // $request->validate(Artist::$rules);
-            Artist::create([
-                "user_id" => $user->id,
-                "fonction" => $request->artist_fonction,
-                "description" => $request->artist_description
-            ]);
-        }
+        CertificationPro::create([
+            "user_id"=> $user->id,
+            "file"=> $certificatPro
+        ]);
 
-        return response()->json(
-            [
-                "message" => "User Created",
-                "status_code" => Response::HTTP_CREATED,
-                "data" => $user
-            ],
-            Response::HTTP_CREATED
-        );
+        BankInfo::create([
+            "user_id" => $user->id,
+            "number_surccusale" => $request->number_surccusale,
+            "numero_company" => $request->numero_company,
+            "numero_compte" => $request->numero_compte
+        ]);
+
+        SalonAddress::create([
+            "salon_id"=> $salon->id,
+            "lat"=> $request->lat,
+            "lon"=> $request->lon,
+            "address_name"=> $request->address_name,
+            "batiment_name"=> $request->batiment_name,
+            "number_local"=> $request->number_local,
+            "indications"=> $request->indications,
+            "bail"=>$bail,
+            "is_valid"=> false,
+            "is_active"=> false
+        ]);
+
+        return $this->sendResponse($user, "Création de compte salon éffectué");
     }
-
-    private function checkIfUserExist($email)
+    //Creation Client
+    public function registerClient(Request $request)
     {
-        $user = User::where('email', $email)->first();
-
-        if (!empty($user)) {
-            return response()->json(['message' => "Utilisateur existant"], 422);
-        }
-    }
-
-    public function registerClient(Request $request){
 
         $request->validate(User::$rules);
         $imageUrl = $this->upload($request, "photo_url");
 
         $user = User::create([
-            "email"=> $request->email,
-            "password"=> Hash::make($request->password),
-            "firstname"=> $request->firstname,
-            "lastname"=> $request->lastname,
-            "dial_code"=> $request->dial_code,
-            "phone_number"=> $request->phone_number,
-            "photo_url"=> $request->photo_url,
-            "is_professional"=> false,
-            "user_types_id"=> 1,
-            "profession_id"=> 1,
-            "photo_url"=> $imageUrl
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "firstname" => $request->firstname,
+            "lastname" => $request->lastname,
+            "dial_code" => $request->dial_code,
+            "phone_number" => $request->phone_number,
+            "photo_url" => $request->photo_url,
+            "is_professional" => false,
+            "user_types_id" => 1,
+            "profession_id" => 1,
+            "photo_url" => $imageUrl
         ]);
 
         return $this->sendResponse($user, "Compte créer avec succès");
-
     }
 
-    public function registerSalon(Request $request){
-        // Creation artiste.
-        // Voici tous les éléments obligatoires:
-        // -type de compte (artiste)
-        // -email
-        // -nom et prenoms
-        // -numero de telephone
-        // -date de naissance
-        // -mot de passe
-        // -preuve d’autorisation de travail (a confirmé par saloon)
-        // -catégorie professionnelle
-        // -preuve ou certification professionnelle (a confirmé par saloon)
-        // -informations bancaires
-        // -vérification des antécédents criminels
-        $request->validate(Salon::$rules);
+    // Creation Artiste.
+    public function registerArtist(Request $request)
+    {
 
-        $imageUrl = $this->upload($request, "photo_url");
-
-        $user = User::create([
-            "email"=> $request->email,
-            "password"=> Hash::make($request->password),
-            "firstname"=> $request->firstname,
-            "lastname"=> $request->lastname,
-            "dial_code"=> $request->dial_code,
-            "phone_number"=> $request->phone_number,
-            "photo_url"=> $request->photo_url,
-            "is_professional"=> true,
-            "user_types_id"=> 2,
-            "profession_id"=> 1,
-            "photo_url"=> $imageUrl
+        $validator = Validator::make($request->all(), [
+            "email" => "required|unique:users",
+            "firstname" => "required",
+            "lastname" => "required",
+            "birthday" => "required|date",
+            "dial_code" => "required",
+            "password" => "required",
+            "phone_number" => "required",
+            // "user_types_id" => "required",
+            "photo_url" => "required|file",
+            "piece" => "required|file",
+            "category_pro_id" => "required",
+            "certification_pro" => "required|file",
+            "fonction" => "required",
+            "description" => "required",
+            "number_surccusale" => "required",
+            "numero_company" => "required",
+            "numero_compte" => "required"
         ]);
 
+        // $errors = $validator->errors();
+        $validator->validate();
 
-    }
-
-    public function registerArtist(Request $request){
-        // Creation artiste.
-        // Voici tous les éléments obligatoires:
-        // -type de compte (artiste)
-        //-email
-        // -nom et prenoms
-        // -numero de telephone
-        // -date de naissance
-        // -mot de passe
-        // -preuve d’autorisation de travail (a confirmé par saloon)
-        // -catégorie professionnelle
-        // -preuve ou certification professionnelle (a confirmé par saloon)
-        // -informations bancaires
-        // -vérification des antécédents criminels
-        $request->validate(User::$rules);
         $imageUrl = $this->upload($request, "photo_url");
+        $piece = $this->upload($request, "piece");
+        $certificatPro = $this->upload($request, "certification_pro");
 
         $user = User::create([
-            "email"=> $request->email,
-            "password"=> Hash::make($request->password),
-            "firstname"=> $request->firstname,
-            "lastname"=> $request->lastname,
-            "dial_code"=> $request->dial_code,
-            "phone_number"=> $request->phone_number,
-            "photo_url"=> $request->photo_url,
-            "is_professional"=> false,
-            "user_types_id"=> 1,
-            "profession_id"=> 1,
-            "photo_url"=> $imageUrl
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "firstname" => $request->firstname,
+            "lastname" => $request->lastname,
+            "name"=> $request->firstname." ".$request->lastname,
+            "dial_code" => $request->dial_code,
+            "phone_number" => $request->phone_number,
+            "photo_url" => $request->photo_url,
+            "is_professional" => true,
+            "user_types_id" => 3,
+            "profession_id" => 1,
+            "photo_url" => $imageUrl
+        ]);
+
+        $piece = UserPiece::create([
+            "user_id" => $user->id,
+            "user_type_piece_id" => 1,
+            "file" => $piece
         ]);
 
         $artist = Artist::create(
             [
-                "user_id"=> $user->id,
-                "fonction"=> $request->fonction,
-                "description"=> $user->description,
+                "user_id" => $user->id,
+                "category_pro_id" => $request->category_pro_id,
+                "fonction" => $request->fonction,
+                "description" => $user->description,
             ]
         );
+
+        $userCertificatPro = CertificationPro::create([
+            "user_id"=> $user->id,
+            "file"=> $certificatPro
+        ]);
+
+        $bankInfo = BankInfo::create([
+            "user_id" => $user->id,
+            "number_surccusale" => $request->number_surccusale,
+            "numero_company" => $request->numero_company,
+            "numero_compte" => $request->numero_compte
+        ]);
+
+        return $this->sendResponse($user, "Création de compte artiste éffectué");
     }
 
+    // private function checkIfUserExist($email)
+    // {
+    //     $user = User::where('email', $email)->first();
+
+    //     if (!empty($user)) {
+    //         return response()->json(['message' => "Utilisateur existant"], 422);
+    //     }
+    // }
 }

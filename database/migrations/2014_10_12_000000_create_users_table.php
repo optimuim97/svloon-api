@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->boolean('is_professional')->default(true);
             $table->string('email')->unique();
+            $table->date('birthday')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('user_types_id')->constrained();

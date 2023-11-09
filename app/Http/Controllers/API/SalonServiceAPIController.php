@@ -9,6 +9,7 @@ use App\Repositories\SalonServiceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class SalonServiceController
@@ -96,6 +97,12 @@ class SalonServiceAPIController extends AppBaseController
     public function store(CreateSalonServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            "imageUrl" => "required",
+        ]);
+
+        $validator->validate();
 
         if (!empty($input['imageUrl'])) {
             $url = (new SalonService())->upload($request, 'imageUrl');

@@ -17,6 +17,10 @@ class SalonResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
+        $salon_pictures = [];
+        foreach($this->pictures as $picture){
+            array_push($salon_pictures, $picture['path']);
+        }
 
         return [
             "id"=> $this->id,
@@ -25,7 +29,7 @@ class SalonResource extends JsonResource
             "dialCode" => $this->dialCode,
             "phoneNumber" => $this->phoneNumber,
             "cover_picture" => $this->cover_picture,
-            "bailDocument" => $this->bailDocument,
+            // "bailDocument" => $this->bailDocument,
             // "password" => $this->password,
             // "scheduleStart" => $this->scheduleStart,
             // "scheduleEnd" => $this->scheduleEnd,
@@ -33,7 +37,7 @@ class SalonResource extends JsonResource
             "city" => $this->city,
             // "owner" => User::where("id", $this->id)->first(),
             "adresse"=> new SalonAddressResource(SalonAddress::where("salon_id", $this->id)->first()),
-            "pictures"=> $this->pictures,
+            "pictures"=> $salon_pictures,
             // "postalCode" => $this->postal_code,
             "availabilities"=> $this->availabilities,
             "commodities"=> $this->commodities,

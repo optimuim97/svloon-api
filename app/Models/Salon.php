@@ -157,7 +157,8 @@ use Illuminate\Support\Collection;
         'postalCode',
         'localNumber',
         'bailDocument',
-        'salon_type_id'
+        'salon_type_id',
+        'cover_picture',
     ];
 
     protected $casts = [
@@ -221,7 +222,6 @@ use Illuminate\Support\Collection;
     public function getStaffAttribute()
     {
         $staffMember = StaffMember::where('salon_id', $this->id)->get();
-
         return $staffMember;
     }
 

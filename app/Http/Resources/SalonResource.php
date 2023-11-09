@@ -24,6 +24,8 @@ class SalonResource extends JsonResource
             "email" => $this->email,
             "dialCode" => $this->dialCode,
             "phoneNumber" => $this->phoneNumber,
+            "cover_picture" => $this->cover_picture,
+            "bailDocument" => $this->bailDocument,
             // "password" => $this->password,
             // "scheduleStart" => $this->scheduleStart,
             // "scheduleEnd" => $this->scheduleEnd,
@@ -31,11 +33,11 @@ class SalonResource extends JsonResource
             "city" => $this->city,
             // "owner" => User::where("id", $this->id)->first(),
             "adresse"=> new SalonAddressResource(SalonAddress::where("salon_id", $this->id)->first()),
+            "pictures"=> $this->pictures,
             // "postalCode" => $this->postal_code,
             "availabilities"=> $this->availabilities,
             "commodities"=> $this->commodities,
             "staff"=> $this->staff,
-            "pictures"=> $this->pictures,
             "porfolio"=> $this->porfolio
         ];
     }

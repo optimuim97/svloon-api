@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('postalCode')->nullable();
             $table->string('localNumber')->nullable();
             $table->text('bailDocument')->nullable();
+            $table->text('cover_picture')->nullable();
             $table->bigInteger('salon_type_id')->unsigned()->nullable();
             $table->timestamps();
         });

@@ -66,7 +66,7 @@ class UserResource extends JsonResource
                 "email"=> $this->email,
                 "birthday"=> $this->birthday,
                 "type"=> new UserTypeResource(UserType::find($this->user_types_id)),
-                // "salon"=> new SalonResource(Salon::where("user_id",$this->user_id))
+                "salon"=> new SalonResource(Salon::where("user_id",$this->id)->first())
                 // "password"=> $this->password,
                 // "is_active"=> $this->is_active,
                 // "is_professional"=> $this->is_professional,

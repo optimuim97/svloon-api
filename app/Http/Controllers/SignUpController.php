@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\Artist;
 use App\Models\BankInfo;
 use App\Models\CertificationPro;
 use App\Models\Salon;
 use App\Models\SalonAddress;
+use App\Models\SalonPicture;
 use App\Models\User;
 use App\Models\UserPiece;
 use App\Service\ImgurHelpers;
@@ -14,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Imgur;
+use Illuminate\Support\Str;
 
 class SignUpController extends AppBaseController
 {
@@ -82,13 +86,45 @@ class SignUpController extends AppBaseController
      * )
      */
 
-     // Creation Salon.
+
+    //Creation Client
+    public function registerClient(Request $request)
+    {
+
+        $request->validate(User::$rules);
+        $imageUrl = $this->upload($request, "photo_url");
+        // $piece = $this->upload($request, "piece");
+
+        $user = User::create([
+            "email" => $request->email,
+            "firstname" => $request->firstname,
+            "lastname" => $request->lastname,
+            "name" => $request->firstname . " " . $request->lastname,
+            "dial_code" => $request->dial_code,
+            "phone_number" => $request->phone_number,
+            "password" => Hash::make($request->password),
+            "is_professional" => false,
+            "user_types_id" => 1,
+            "profession_id" => 1,
+            "photo_url" => $imageUrl
+        ]);
+
+        // $piece = UserPiece::create([
+        //     "user_id" => $user->id,
+        //     "user_type_piece_id" => 1,
+        //     "file" => $piece
+        // ]);
+
+        return $this->sendResponse(new UserResource($user), "Compte créer avec succès");
+    }
+
+    // Creation Salon.
     public function registerSalon(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             "salon_name" => "required",
-            "email" => "required",
+            "email" => "required|unique:users",
             "firstname" => "required",
             "lastname" => "required",
             "city" => "required",
@@ -112,22 +148,44 @@ class SignUpController extends AppBaseController
             "number_local" => "required",
             "indications" => "required",
             "bail" => "required|file",
+            "cover_picture" => "required|file",
+            // "salon_pictures" => "required|file",
             // "scheduleStart" => "date",
             // "scheduleEnd" => "date"
         ]);
 
         $validator->validate();
 
+
+        $files = $request->file('salon_pictures');
+        $pictures = [];
+
+        if ($files) {
+            foreach ($files as $key => $file) {
+
+                if ($file != null) {
+                    $finalImage = Imgur::upload($file);
+                    $finalImageLink = $finalImage->link();
+                }
+
+                array_push($pictures, $finalImageLink);
+                // $name=$file->getClientOriginalName();
+                // $file->move('image',$name);
+                // $images[]=$name;
+            }
+        }
+
         $imageUrl = $this->upload($request, "photo_url");
         $piece = $this->upload($request, "piece");
         $certificatPro = $this->upload($request, "certification_pro");
         $bail = $this->upload($request, "bail");
+        $cover_picture = $this->upload($request, "cover_picture");
 
         $user = User::create([
             "email" => $request->email,
             "password" => Hash::make($request->password),
             "firstname" => $request->firstname,
-            "name"=> $request->firstname." ".$request->lastname,
+            "name" => $request->firstname . " " . $request->lastname,
             "lastname" => $request->lastname,
             "dial_code" => $request->dial_code,
             "phone_number" => $request->phone_number,
@@ -138,34 +196,46 @@ class SignUpController extends AppBaseController
             "photo_url" => $imageUrl
         ]);
 
-        UserPiece::create([
+
+        $salon = Salon::create([
+            "user_id" => $user->id,
+            "name" => $request->salon_name,
+            "email" => $request->email,
+            "owner_fullname" => $request->firstname . " " . $request->lastname,
+            "dialCode" => $request->dial_code,
+            // "scheduleStart"=> $request->scheduleStart ?? "",
+            // "scheduleEnd"=> $request->scheduleEnd ?? "",
+            "scheduleStr" => $request->scheduleStr ?? "",
+            "city" => $request->city,
+            "phoneNumber" => $request->phone_number,
+            "phone" => $request->phone,
+            "postalCode" => $request->postal_code,
+            "localNumber" => $request->local_number,
+            "bailDocument" => $bail,
+            "cover_picture" => $cover_picture,
+            "salon_type_id" => $request->salon_type_id
+        ]);
+
+        $piece = UserPiece::create([
             "user_id" => $user->id,
             "user_type_piece_id" => 1,
             "file" => $piece
         ]);
 
-        $salon = Salon::create([
-            "user_id"=> $user->id,
-            "name"=> $request->salon_name,
-            "email"=> $request->email,
-            "owner_fullname"=> $request->firstname." ".$request->lastname,
-            "dialCode"=> $request->dial_code,
-            // "scheduleStart"=> $request->scheduleStart ?? "",
-            // "scheduleEnd"=> $request->scheduleEnd ?? "",
-            "scheduleStr"=> $request->scheduleStr ?? "",
-            "city"=> $request->city,
-            "phoneNumber"=> $request->phone_number,
-            "phone"=> $request->phone,
-            "postalCode"=> $request->postal_code,
-            "localNumber"=> $request->local_number,
-            "bailDocument"=> $request->bail_document,
-            "salon_type_id"=> $request->salon_type_id
+        CertificationPro::create([
+            "user_id" => $user->id,
+            "file" => $certificatPro
         ]);
 
-        CertificationPro::create([
-            "user_id"=> $user->id,
-            "file"=> $certificatPro
-        ]);
+        if (count($pictures) > 1) {
+            foreach ($pictures as $value) {
+                SalonPicture::create([
+                    "salon_id" => $salon->id,
+                    "path" => $value,
+                    "original_name" => Str::slug($salon->name).Str::random(12)
+                ]);
+            }
+        }
 
         BankInfo::create([
             "user_id" => $user->id,
@@ -175,42 +245,19 @@ class SignUpController extends AppBaseController
         ]);
 
         SalonAddress::create([
-            "salon_id"=> $salon->id,
-            "lat"=> $request->lat,
-            "lon"=> $request->lon,
-            "address_name"=> $request->address_name,
-            "batiment_name"=> $request->batiment_name,
-            "number_local"=> $request->number_local,
-            "indications"=> $request->indications,
-            "bail"=>$bail,
-            "is_valid"=> false,
-            "is_active"=> false
+            "salon_id" => $salon->id,
+            "lat" => $request->lat,
+            "lon" => $request->lon,
+            "address_name" => $request->address_name,
+            "batiment_name" => $request->batiment_name,
+            "number_local" => $request->number_local,
+            "indications" => $request->indications,
+            "bail" => $bail,
+            "is_valid" => false,
+            "is_active" => false
         ]);
 
-        return $this->sendResponse($user, "Création de compte salon éffectué");
-    }
-    //Creation Client
-    public function registerClient(Request $request)
-    {
-
-        $request->validate(User::$rules);
-        $imageUrl = $this->upload($request, "photo_url");
-
-        $user = User::create([
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "firstname" => $request->firstname,
-            "lastname" => $request->lastname,
-            "dial_code" => $request->dial_code,
-            "phone_number" => $request->phone_number,
-            "photo_url" => $request->photo_url,
-            "is_professional" => false,
-            "user_types_id" => 1,
-            "profession_id" => 1,
-            "photo_url" => $imageUrl
-        ]);
-
-        return $this->sendResponse($user, "Compte créer avec succès");
+        return $this->sendResponse(new UserResource($user), "Création de compte salon éffectué");
     }
 
     // Creation Artiste.
@@ -249,7 +296,7 @@ class SignUpController extends AppBaseController
             "password" => Hash::make($request->password),
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
-            "name"=> $request->firstname." ".$request->lastname,
+            "name" => $request->firstname . " " . $request->lastname,
             "dial_code" => $request->dial_code,
             "phone_number" => $request->phone_number,
             "photo_url" => $request->photo_url,
@@ -275,8 +322,8 @@ class SignUpController extends AppBaseController
         );
 
         $userCertificatPro = CertificationPro::create([
-            "user_id"=> $user->id,
-            "file"=> $certificatPro
+            "user_id" => $user->id,
+            "file" => $certificatPro
         ]);
 
         $bankInfo = BankInfo::create([
@@ -286,7 +333,7 @@ class SignUpController extends AppBaseController
             "numero_compte" => $request->numero_compte
         ]);
 
-        return $this->sendResponse($user, "Création de compte artiste éffectué");
+        return $this->sendResponse(new UserResource($user), "Création de compte artiste éffectué");
     }
 
     // private function checkIfUserExist($email)

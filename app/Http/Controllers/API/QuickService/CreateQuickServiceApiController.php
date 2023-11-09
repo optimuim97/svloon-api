@@ -33,7 +33,7 @@ class CreateQuickServiceApiController extends AppBaseController
      *          in="header",
      *          required=true,
      *          @OA\Schema(type="string")
-     *        ),
+     *      ),
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/QuickService"),

@@ -67,8 +67,8 @@ class User extends Authenticatable implements JWTSubject
         'phone_number' => "required",
         'profession_id' => "nullable",
         'photo_url' => "nullable",
-        'is_active' => "required",
-        'user_types_id' => "required",
+        // 'is_active' => "required",
+        // 'user_types_id' => "required",
         'password' => "required"
         // 'is_professional' => "required",
     ];

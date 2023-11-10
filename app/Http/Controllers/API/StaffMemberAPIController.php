@@ -103,6 +103,7 @@ class StaffMemberAPIController extends AppBaseController
     public function store(CreateStaffMemberAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        // dd($input);
 
         if (!empty($input['imageUrl'])) {
             $url = (new StaffMember())->upload($request, 'imageUrl');

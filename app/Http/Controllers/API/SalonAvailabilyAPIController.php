@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Salon;
+use App\Models\StaffMember;
 use Carbon\Carbon;
 
 /**
@@ -413,5 +414,23 @@ class SalonAvailabilyAPIController extends AppBaseController
 
         return $this->sendResponse($all, 'Liste des disponibilité enregistré');
 
+    }
+
+    public function getStaffMembers(){
+
+        $user = auth("api")->user();
+
+        if(empty($user)){
+            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        if($user->userType == "salon"){
+            return $this->sendResponse([],'L\'utilisateur doit être de type salon');
+        }
+
+        dd($user->salons);
+
+        $staffMember = StaffMember::where('salon_id', $this->id)->get();
+        return $staffMember;
     }
 }

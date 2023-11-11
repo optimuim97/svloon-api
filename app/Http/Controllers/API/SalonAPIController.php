@@ -9,6 +9,7 @@ use App\Repositories\SalonRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -55,12 +56,21 @@ class SalonAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
+        $all = [];
         $salons = $this->salonRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
-        return $this->sendResponse($salons->toArray(), 'Salons retrieved successfully');
+
+        if (count($salons) > 1) {
+
+            foreach ($salons as $value) {
+                array_push($all, new UserResource($value->user));
+            }
+        }
+
+        return $this->sendResponse($all, 'Salons retrieved successfully');
     }
 
     /**

@@ -20,8 +20,8 @@ class ArtistResource extends JsonResource
         $category =  new CategoryProResource(CategoryPro::find($this->category_pro_id));
 
         return [
-            "category_pro"=> $category->label,
-            "fonction"=> $this->fonction,
+            "category_pro"=> $category?->label ?? "",
+            "fonction"=> $this?->fonction ?? "",
             "images"=> ArtistPicture::where('artist_id', $this->id)->get(),
             "portfolio"=> ArtistPorfolio::where('artist_id', $this->id)->get(),
             // "description"=> $this->description ?? ""

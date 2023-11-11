@@ -128,7 +128,9 @@ class CreateQuickServiceApiController extends AppBaseController
             $check = $this->checkAvailability($salonAvailabilities, $input['date'], $input["hour"]);
 
             if ($check) {
+
                 if (!empty($nearlySalon)) {
+
                     $input["hour"] = Carbon::parse($input["hour"])->format('Y-m-d H:i:s');
                     $quickService = $this->quickServiceRepository->create($input);
 
@@ -155,27 +157,37 @@ class CreateQuickServiceApiController extends AppBaseController
                     } else {
                         return $this->sendError("Reservation non pris en compte");
                     }
+
                 }
+
             } else {
+
                 return $this->sendError("Salon non disponible");
+
             }
         }
     }
 
     public function getSalon($latitude, $longtitude)
     {
+
+        // SELECT latitude, longitude, SQRT(
+        //     POW(69.1 * (latitude - [startlat]), 2) +
+        //     POW(69.1 * ([startlng] - longitude) * COS(latitude / 57.3), 2)) AS distance
+        // FROM salon_addresses HAVING distance < 25 ORDER BY distance;
+
         return DB::table("salons")
-            ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
-            ->select(
-                "*",
-                DB::raw("55555 * acos(cos(radians(" . $latitude . "))
-                * cos(radians(salon_addresses.lat))
-                * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
-                + sin(radians(" . $latitude . "))
-                * sin(radians(salon_addresses.lat))) AS distance")
-            )
-            // ->groupBy("salon_addresses.id")
-            ->get();
+                    ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
+                    ->select(
+                        "*",
+                        DB::raw("55555 * acos(cos(radians(" . $latitude . "))
+                        * cos(radians(salon_addresses.lat))
+                        * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
+                        + sin(radians(" . $latitude . "))
+                        * sin(radians(salon_addresses.lat))) AS distance")
+                    )
+                    // ->groupBy("salon_addresses.id")
+                    ->get();
 
         // return DB::table("salons")
         //     ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
@@ -187,7 +199,7 @@ class CreateQuickServiceApiController extends AppBaseController
         //         + sin(radians(" . $latitude . "))
         //         * sin(radians(salon_addresses.lat))) AS distance")
         //     )
-        //     // ->groupBy("salon_addresses.id")
+        //     ->groupBy("salon_addresses.id")
         //     ->get();
     }
 

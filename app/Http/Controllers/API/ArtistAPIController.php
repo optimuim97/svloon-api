@@ -9,7 +9,9 @@ use App\Repositories\ArtistRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\UserResource;
 use App\Models\ArtistPicture;
+use App\Models\User;
 
 /**
  * Class ArtistController
@@ -54,13 +56,20 @@ class ArtistAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
+        $artistsAll = [];
         $artists = $this->artistRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($artists->toArray(), 'Artists retrieved successfully');
+        if (count($artists) > 1) {
+
+            foreach ($artists as $value) {
+                array_push($artistsAll, new UserResource($value->user));
+            }
+        }
+        return $this->sendResponse($artistsAll, 'Artists retrieved successfully');
     }
 
     /**

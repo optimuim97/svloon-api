@@ -17,9 +17,8 @@ class SearchSalonController extends Controller
     {
         $name = $request->query('name');
         $salon = Salon::where('name', 'like', "%$name%")->get();
-        $salon = Salon::where('name', 'like', "%$name%")->first();
-
-        return new SalonResource($salon);
+        // $salon = Salon::where('name', 'like', "%$name%")->first();
+        // return new SalonResource($salon);
 
         if (!empty($salon) && count($salon) >= 1) {
             return response()->json([

@@ -64,8 +64,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        foreach($salonAvailabilies as $item){
-
+        foreach ($salonAvailabilies as $item) {
         }
 
         return $this->sendResponse($availabilies, 'Salon Availabilies retrieved successfully');
@@ -117,8 +116,8 @@ class SalonAvailabilyAPIController extends AppBaseController
     {
         $user = auth("api")->user();
 
-        if(empty($user)){
-            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
         $input = $request->all();
@@ -131,7 +130,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         $combinatedDateTimeStart = Carbon::parse("$date $hour_start");
         $combinatedDateTimeEnd = Carbon::parse("$date $hour_end");
 
-        if($combinatedDateTimeStart->isPast()){
+        if ($combinatedDateTimeStart->isPast()) {
             return $this->sendError('Vous ne pouvez pas choisir une date de début passé');
         }
 
@@ -139,12 +138,12 @@ class SalonAvailabilyAPIController extends AppBaseController
         //     return $this->sendError('Vous ne pouvez pas choisir une heure passé');
         // }
 
-        if($combinatedDateTimeEnd->isPast()){
+        if ($combinatedDateTimeEnd->isPast()) {
             return $this->sendError('Vous ne pouvez pas choisir une date de fin passé');
         }
 
 
-        if($combinatedDateTimeStart > $combinatedDateTimeEnd){
+        if ($combinatedDateTimeStart > $combinatedDateTimeEnd) {
             return $this->sendError('La date de début doit être inferieur à la date fin ');
         }
 
@@ -360,7 +359,8 @@ class SalonAvailabilyAPIController extends AppBaseController
      *      )
      * )
      */
-    public function getSalonAvailabilityById($salonId){
+    public function getSalonAvailabilityById($salonId)
+    {
         $availabilitiesActive  = [];
 
         $availabilities = SalonAvailabily::where("salon_id", $salonId)->first();
@@ -370,67 +370,78 @@ class SalonAvailabilyAPIController extends AppBaseController
         }
 
         foreach ($availabilities as $key => $value) {
-            if(!(Carbon::parse($value->hour_end)->isPast()) && !(Carbon::parse($value->date)->isPast())){
+            if (!(Carbon::parse($value->hour_end)->isPast()) && !(Carbon::parse($value->date)->isPast())) {
                 array_push($availabilitiesActive, $value);
             }
         }
 
         return $this->sendResponse($availabilitiesActive, 'SalonAvailabily updated successfully');
-
     }
 
-    public function getUserAvailabilities(){
+    public function getUserAvailabilities()
+    {
 
         $user = auth("api")->user();
 
-        if(empty($user)){
-            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if($user->userType == "salon"){
-            return $this->sendResponse([],'L\'utilisateur doit être de type salon');
+        if ($user->userType == "salon") {
+            return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
         //TODO salon must have unqiue names
         $salons = $user->salons;
 
-        if(count($salons) > 1){
+        if (count($salons) > 1) {
             return $this->sendError("L'utilisateur a plusieurs salon, choisissez par le nom du Salon");
         }
 
-        $all =[];
-        $availabilies = SalonAvailabily::where('salon_id',$salons->first()->id)
-                            ->get();
+        $all = [];
+        $availabilies = SalonAvailabily::where('salon_id', $salons->first()->id)
+            ->get();
 
-        foreach($availabilies as $salon_availabiltie){
-            if(!Carbon::parse($salon_availabiltie->hour_start)->isPast()){
+        foreach ($availabilies as $salon_availabiltie) {
+            if (!Carbon::parse($salon_availabiltie->hour_start)->isPast()) {
                 array_push($all, $salon_availabiltie);
             }
         }
 
-        if(empty($all)){
+        if (empty($all)) {
             return $this->sendError("Aucune disponibilité enregistré");
         }
 
         return $this->sendResponse($all, 'Liste des disponibilité enregistré');
-
     }
 
-    public function getStaffMembers(){
+    public function getStaffMembers()
+    {
 
         $user = auth("api")->user();
+        $staffMember = [];
 
-        if(empty($user)){
-            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if($user->userType == "salon"){
-            return $this->sendResponse([],'L\'utilisateur doit être de type salon');
+        if ($user->userType == "salon") {
+            return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
-        dd($user->salons);
+        $salons = $user->salons;
 
-        $staffMember = StaffMember::where('salon_id', $this->id)->get();
-        return $staffMember;
+        if($salons->count() > 1){
+            foreach ($salons as $salon) {
+                // dd($salon);
+                array_push($staffMember,$salon->staff);
+            }
+
+            return $this->sendResponse($staffMember, "Liste de membre du staff");
+        }
+
+        // dd($salons->first()->staff);
+
+        return $this->sendResponse($salons->first()->staff, "Liste de membre du staff");
     }
 }

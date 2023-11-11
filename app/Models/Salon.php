@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\StaffMemberResource;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -221,8 +222,16 @@ use Illuminate\Support\Collection;
 
     public function getStaffAttribute()
     {
-        $staffMember = StaffMember::where('salon_id', $this->id)->get();
-        return $staffMember;
+        
+        $all = [];
+        $staffMembers = StaffMember::where('salon_id', $this->id)->get();
+        
+        foreach ($staffMembers as $staffMember) {
+            array_push($all, new StaffMemberResource($staffMember));
+        }
+
+        return $all;
+
     }
 
     public function getPorfolioAttribute()

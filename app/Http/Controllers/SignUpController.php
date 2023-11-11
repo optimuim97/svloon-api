@@ -338,10 +338,10 @@ class SignUpController extends AppBaseController
 
     // private function checkIfUserExist($email)
     // {
-    //     $user = User::where('email', $email)->first();
+        //     $user = User::where('email', $email)->first();
 
-    //     if (!empty($user)) {
-    //         return response()->json(['message' => "Utilisateur existant"], 422);
-    //     }
+        //     if (!empty($user)) {
+        //         return response()->json(['message' => "Utilisateur existant"], 422);
+        //     }
     // }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SalonService;
 use App\Models\Service;
+use App\Models\ServicesSalon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -70,6 +71,26 @@ class SearchServiceController extends Controller
     {
         $name = $request->query('word');
         $service = Service::where('title', "like", "%$name%")->get();
+
+        if (!empty($service)) {
+            return response()->json([
+                "message" => "retreived",
+                "status_code" => Response::HTTP_FOUND,
+                "data" => $service
+            ], Response::HTTP_FOUND);
+        } else {
+            return response()->json([
+                "message" => "Not found",
+                "status_code" => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_OK);
+        }
+    }
+
+
+    //Salon-Service
+    function getSalonServiceById($id)
+    {
+        $service = SalonService::where("salon_id",$id)->get();
 
         if (!empty($service)) {
             return response()->json([

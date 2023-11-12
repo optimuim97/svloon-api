@@ -72,6 +72,8 @@ Route::get('service/search_salon_service_by_type', [SearchServiceController::cla
 Route::get('service/search_service_by_type', [SearchServiceController::class, 'searchServiceByType']);
 Route::get('service/search_service_by_name', [SearchServiceController::class, 'searchServiceByName']);
 
+Route::get('get-salon-service/{id}', [SearchServiceController::class, 'getSalonServiceById']);
+
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
 Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)

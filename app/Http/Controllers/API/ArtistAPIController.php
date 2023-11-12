@@ -153,11 +153,12 @@ class ArtistAPIController extends AppBaseController
         /** @var Artist $artist */
         $artist = $this->artistRepository->find($id);
 
+
         if (empty($artist)) {
             return $this->sendError('Artist not found');
         }
 
-        return $this->sendResponse($artist->toArray(), 'Artist retrieved successfully');
+        return $this->sendResponse(new UserResource($artist->user), 'Artist retrieved successfully');
     }
 
     /**

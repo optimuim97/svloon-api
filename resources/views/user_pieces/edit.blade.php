@@ -20,7 +20,7 @@
         <div class="card">
 
             {!! Form::model($userPiece, ['route' => ['.update', $userPiece->id], 'method' => 'patch']) !!}
-
+c
             <div class="card-body">
                 <div class="row">
                     @include('user_pieces.fields')
@@ -31,7 +31,7 @@
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('user-pieces.index') }}" class="btn btn-default"> Cancel </a>
             </div>
-
+            
             {!! Form::close() !!}
 
         </div>

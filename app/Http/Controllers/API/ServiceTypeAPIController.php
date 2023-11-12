@@ -9,7 +9,7 @@ use App\Repositories\ServiceTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-
+use Illuminate\Support\Str;
 /**
  * Class ServiceTypeController
  */
@@ -100,6 +100,7 @@ class ServiceTypeAPIController extends AppBaseController
         if (!empty($input['image_url'])) {
             $url = (new ServiceType())->upload($request, 'image_url');
             $input['image_url'] = $url;
+            $input['slug'] = Str::slug($input['label']);
         }
 
         $serviceType = $this->serviceTypeRepository->create($input);

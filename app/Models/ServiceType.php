@@ -59,6 +59,7 @@ class ServiceType extends Model
 
     public $fillable = [
         'label',
+        'slug',
         'description',
         'image_url',
         'service_type_id'

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\Artist;
 use App\Models\Salon;
+use App\Models\User;
 use App\Models\UserFavorisArtist;
 use App\Models\UserFavorisSalon;
 use Illuminate\Http\Request;
@@ -48,6 +50,7 @@ class UserActionController extends AppBaseController
     {
         $user = auth("api")->user();
         $salon = Salon::find($salonId);
+        $artist = null;
 
         if (empty($user)) {
             return $this->sendError('L\'utilisateur doit être connecté');
@@ -65,28 +68,30 @@ class UserActionController extends AppBaseController
             if (!empty($userFav) && $userFav->count()) {
                 $userFav->is_fav = !($userFav->is_fav);
                 $userFav->save();
+                $artist = new UserResource(User::find($userFav->user_id));
             } else {
                 $userFav = UserFavorisSalon::create([
                     "user_id" => $user->id,
                     "salon_id" => $salonId,
                     "is_fav" => 1
                 ]);
+
+                $artist = new UserResource(User::find($userFav->user_id));
             }
 
             if (!empty($userFav)) {
                 return response()->json([
                     "message" => "update",
                     "status_code" => Response::HTTP_FOUND,
-                    "data" => $userFav
+                    "data" => $artist
                 ], Response::HTTP_OK);
             } else {
                 return response()->json([
-                    "message" => "user retreived",
+                    "message" => "salon not retreived",
                     "status_code" => Response::HTTP_FOUND,
-                    "data" => $userFav
+                    "data" => []
                 ], Response::HTTP_OK);
             }
-
         } else {
 
             return response()->json([
@@ -114,15 +119,20 @@ class UserActionController extends AppBaseController
                 ]
             )->first();
 
+
             if (!empty($userFav) && $userFav->count()) {
                 $userFav->is_fav = !($userFav->is_fav);
                 $userFav->save();
+
+                $artist = new UserResource(User::find($userFav->user_id));
             } else {
-                UserFavorisArtist::create([
+                $userFav = UserFavorisArtist::create([
                     "user_id" => $user->id,
                     "artist_id" => $artistId,
                     "is_fav" => 1
                 ]);
+
+                $artist = new UserResource(User::find($userFav->user_id));
             }
 
             if (!empty($userFav)) {
@@ -130,14 +140,15 @@ class UserActionController extends AppBaseController
                 return response()->json([
                     "message" => "artist retreived",
                     "status_code" => Response::HTTP_FOUND,
-                    "data" => $userFav
+                    "data" => $artist
                 ], Response::HTTP_OK);
+
             } else {
 
                 return response()->json([
                     "message" => "artist not retreived",
                     "status_code" => Response::HTTP_FOUND,
-                    "data" => $userFav
+                    "data" => []
                 ], Response::HTTP_OK);
             }
         } else {
@@ -152,6 +163,7 @@ class UserActionController extends AppBaseController
     public function getFavoriteArtist()
     {
         $user = auth("api")->user();
+        $artist = null;
 
         if (empty($user)) {
             return $this->sendResponse($user, 'L\'utilisateur doit être connecté');

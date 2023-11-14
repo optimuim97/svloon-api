@@ -95,14 +95,12 @@ class SearchArtistController extends Controller
                 "status_code" => Response::HTTP_FOUND,
                 "data" => $allServices
             ], Response::HTTP_FOUND);
-
         } else {
 
             return response()->json([
                 "message" => "Not found",
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
-
         }
     }
 }

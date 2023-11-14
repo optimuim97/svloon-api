@@ -73,11 +73,20 @@ class UserActionController extends AppBaseController
                 ]);
             }
 
-            return response()->json([
-                "message" => "update",
-                "status_code" => Response::HTTP_FOUND,
-                "data" => $userFav
-            ], Response::HTTP_OK);
+            if (!empty($userFav)) {
+                return response()->json([
+                    "message" => "update",
+                    "status_code" => Response::HTTP_FOUND,
+                    "data" => $userFav
+                ], Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    "message" => "user retreived",
+                    "status_code" => Response::HTTP_FOUND,
+                    "data" => $userFav
+                ], Response::HTTP_OK);
+            }
+
         } else {
 
             return response()->json([
@@ -116,11 +125,21 @@ class UserActionController extends AppBaseController
                 ]);
             }
 
-            return response()->json([
-                "message" => "user retreived",
-                "status_code" => Response::HTTP_FOUND,
-                "data" => $userFav
-            ], Response::HTTP_OK);
+            if (!empty($userFav)) {
+
+                return response()->json([
+                    "message" => "artist retreived",
+                    "status_code" => Response::HTTP_FOUND,
+                    "data" => $userFav
+                ], Response::HTTP_OK);
+            } else {
+
+                return response()->json([
+                    "message" => "artist not retreived",
+                    "status_code" => Response::HTTP_FOUND,
+                    "data" => $userFav
+                ], Response::HTTP_OK);
+            }
         } else {
 
             return response()->json([
@@ -130,7 +149,8 @@ class UserActionController extends AppBaseController
         }
     }
 
-    public function getFavoriteArtist(){
+    public function getFavoriteArtist()
+    {
         $user = auth("api")->user();
 
         if (empty($user)) {
@@ -142,7 +162,7 @@ class UserActionController extends AppBaseController
             "is_fav" => 1
         ])->get();
 
-        if($userFav?->count() < 1){
+        if ($userFav?->count() < 1) {
             return $this->sendError('not favorite Artist');
         }
 
@@ -153,7 +173,8 @@ class UserActionController extends AppBaseController
         ], Response::HTTP_OK);
     }
 
-    public function getFavoriteSalon(){
+    public function getFavoriteSalon()
+    {
         $user = auth("api")->user();
 
         if (empty($user)) {
@@ -165,7 +186,7 @@ class UserActionController extends AppBaseController
             "is_fav" => 1
         ])->get();
 
-        if($userFav?->count() < 1){
+        if ($userFav?->count() < 1) {
             return $this->sendError('not favorite Salon');
         }
 

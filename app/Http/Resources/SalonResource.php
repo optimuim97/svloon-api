@@ -18,8 +18,11 @@ class SalonResource extends JsonResource
     {
         // return parent::toArray($request);
         $salon_pictures = [];
-        foreach($this->pictures as $picture){
-            array_push($salon_pictures, $picture['path']);
+
+        if(!empty($this->pictures)){
+            foreach($this->pictures as $picture){
+                array_push($salon_pictures, $picture['path']);
+            }
         }
 
         return [

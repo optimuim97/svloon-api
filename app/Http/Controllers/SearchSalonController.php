@@ -19,6 +19,7 @@ class SearchSalonController extends Controller
         $all = [];
         $name = $request->query('name');
         $salons = Salon::where('name', 'like', "%$name%")->get();
+        dd($salons);
 
         foreach ($salons as $value) {
             array_push($all, new UserResource($value->user));

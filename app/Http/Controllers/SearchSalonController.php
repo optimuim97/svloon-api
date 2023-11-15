@@ -19,13 +19,12 @@ class SearchSalonController extends Controller
         $all = [];
         $name = $request->query('name');
         $salons = Salon::where('name', 'like', "%$name%")->get();
-        dd($salons);
 
         foreach ($salons as $value) {
             array_push($all, new UserResource($value->user));
         }
 
-        if (!empty($salon) && count($salon) >= 1) {
+        if (!empty($salons) && count($salons) >= 1) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_OK,

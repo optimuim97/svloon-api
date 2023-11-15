@@ -16,16 +16,39 @@ class SalonCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
 
-        $data = parent::toArray($request);
+        // $data = parent::toArray($request);
 
-        $all = [];
+        // $all = [];
 
-        foreach ($data as $value) {
-            $x  = new SalonResource( (object) $value);
+        // foreach ($data as $value) {
+        //     $x  = new SalonResource( (object) $value);
 
-            array_push($all, $x);
-        }
+        //     array_push($all, $x);
+        // }
 
-        return $all;
+        // return $all;
+
+        return $this->collection->map(function ($item) {
+            return [
+                "user_id"=> $item->user_id,
+                "name"=> $item->name,
+                "email"=> $item->email,
+                "owner_fullname"=> $item->owner_fullname,
+                "dialCode"=> $item->dialCode,
+                "password"=> $item->password,
+                "scheduleStart"=> $item->scheduleStart,
+                "scheduleEnd"=> $item->scheduleEnd,
+                "scheduleStr"=> $item->scheduleStr,
+                "city"=> $item->city,
+                "phoneNumber"=> $item->phoneNumber,
+                "phone"=> $item->phone,
+                "postalCode"=> $item->postalCode,
+                "localNumber"=> $item->localNumber,
+                "bailDocument"=> $item->bailDocument,
+                "salon_type_id"=> $item->salon_type_id,
+                "cover_picture"=> $item->cover_picture
+            ];
+        });
+
     }
 }

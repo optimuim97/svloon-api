@@ -38,7 +38,7 @@ class UserSearchController extends AppBaseController
             return response()->json([
                 "message" => "user retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $user
+                "data" =>  new UserResource($user)
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

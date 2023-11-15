@@ -28,7 +28,7 @@ class SearchSalonController extends Controller
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_OK,
-                "data" => $all
+                "data" => new SalonCollection($all)
             ], Response::HTTP_OK);
         } else {
             return response()->json([
@@ -57,7 +57,7 @@ class SearchSalonController extends Controller
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => $all
+                "data" => new SalonCollection($all)
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

@@ -17,6 +17,7 @@ class UserFavorisArtist extends Model
     ];
 
     protected $appends = ['artist'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function getArtistAttribute(){
         return Artist::find($this->artist_id);

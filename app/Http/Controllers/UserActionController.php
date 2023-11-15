@@ -142,7 +142,6 @@ class UserActionController extends AppBaseController
                     "status_code" => Response::HTTP_FOUND,
                     "data" => $artist
                 ], Response::HTTP_OK);
-
             } else {
 
                 return response()->json([
@@ -163,7 +162,7 @@ class UserActionController extends AppBaseController
     public function getFavoriteArtist()
     {
         $user = auth("api")->user();
-        $artist = null;
+        $artists = [];
 
         if (empty($user)) {
             return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
@@ -174,20 +173,26 @@ class UserActionController extends AppBaseController
             "is_fav" => 1
         ])->get();
 
+        foreach ($userFav as $value) {
+            $artist = new UserResource(Artist::find($value->artist_id)?->user);
+            array_push($artists, $artist);
+        }
+
         if ($userFav?->count() < 1) {
             return $this->sendError('not favorite Artist');
         }
 
         return response()->json([
-            "message" => "user retreived",
+            "message" => "Retreived",
             "status_code" => Response::HTTP_FOUND,
-            "data" => $userFav
+            "data" => $artists
         ], Response::HTTP_OK);
     }
 
     public function getFavoriteSalon()
     {
         $user = auth("api")->user();
+        $salons = [];
 
         if (empty($user)) {
             return $this->sendResponse($user, 'L\'utilisateur doit être connecté');
@@ -198,14 +203,19 @@ class UserActionController extends AppBaseController
             "is_fav" => 1
         ])->get();
 
+        foreach ($userFav as  $value) {
+            $salon = new UserResource(Salon::find($value->salon_id)?->user);
+            array_push($salons, $salon);
+        }
+
         if ($userFav?->count() < 1) {
             return $this->sendError('not favorite Salon');
         }
 
         return response()->json([
-            "message" => "user retreived",
+            "message" => "Retreived",
             "status_code" => Response::HTTP_FOUND,
-            "data" => $userFav
+            "data" => $salons
         ], Response::HTTP_OK);
     }
 }

@@ -41,6 +41,7 @@ class SearchSalonController extends Controller
     public function searchByAddressName(Request $request)
     {
         $salons = [];
+        $all = [];
         $address_name = $request->query('address_name');
         $salonAddresses = SalonAddress::where('address_name', "like", "%$address_name%")->get();
 

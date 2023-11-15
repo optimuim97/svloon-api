@@ -46,7 +46,9 @@ class SearchSalonController extends Controller
 
         foreach ($salonAddresses as $salonAddresse) {
             $salon = Salon::where('id', $salonAddresse->salon_id)->first();
-            array_push($salons, $salon);
+            if(!empty($salon)){
+                array_push($salons, $salon);
+            }
         }
 
         foreach ($salons as $value) {

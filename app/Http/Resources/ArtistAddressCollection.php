@@ -21,6 +21,6 @@ class ArtistAddressCollection extends ResourceCollection
                 "lon" => $item->lon,
                 // "artist_id" => $this->artist_id
             ];
-        });;
+        });
     }
 }

@@ -142,6 +142,7 @@ class UserActionController extends AppBaseController
                     "status_code" => Response::HTTP_FOUND,
                     "data" => $artist
                 ], Response::HTTP_OK);
+
             } else {
 
                 return response()->json([

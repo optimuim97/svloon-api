@@ -137,7 +137,8 @@ use Illuminate\Support\Collection;
  *          format="date-time"
  *      )
  * )
- */ class Salon extends Model
+ */
+class Salon extends Model
 {
     use HasFactory;
     public $table = 'salons';
@@ -222,10 +223,10 @@ use Illuminate\Support\Collection;
 
     public function getStaffAttribute()
     {
-        
+
         $all = [];
         $staffMembers = StaffMember::where('salon_id', $this->id)->get();
-        
+
         foreach ($staffMembers as $staffMember) {
             array_push($all, new StaffMemberResource($staffMember));
         }
@@ -276,4 +277,5 @@ use Illuminate\Support\Collection;
         $salonPictures = SalonPicture::where("salon_id", $this->id)->get();
         return $salonPictures;
     }
+
 }

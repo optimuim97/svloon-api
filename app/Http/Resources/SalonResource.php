@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Models\SalonAddress;
+use App\Models\SalonService;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +18,6 @@ class SalonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
         $salon_pictures = [];
 
         if(!empty($this->pictures)){
@@ -24,6 +25,8 @@ class SalonResource extends JsonResource
                 array_push($salon_pictures, $picture['path']);
             }
         }
+
+        $salonServices = SalonService::where(["salon_id"=> $this->id])->get();
 
         return [
             "id"=> $this->id,
@@ -45,7 +48,9 @@ class SalonResource extends JsonResource
             "availabilities"=> $this->availabilities,
             "commodities"=> $this->commodities,
             "staff"=> $this->staff,
-            "porfolio"=> $this->porfolio
+            "porfolio"=> $this->porfolio,
+            "services" => $salonServices
         ];
+
     }
 }

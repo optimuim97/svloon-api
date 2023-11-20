@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\User;
 
 use App\Http\Requests\CreateUserAddressRequest;
 use App\Http\Requests\UpdateUserAddressRequest;

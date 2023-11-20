@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\User;
 
 use App\Http\Requests\CreateUserTypeRequest;
 use App\Http\Requests\UpdateUserTypeRequest;

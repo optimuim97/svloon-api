@@ -13,7 +13,7 @@ class SalonCollection extends ResourceCollection
      *
      * @return array<int|string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
 
         // $data = parent::toArray($request);

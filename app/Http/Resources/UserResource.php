@@ -6,6 +6,7 @@ use App\Models\Artist;
 use App\Models\BankInfo;
 use App\Models\CertificationPro;
 use App\Models\Salon;
+use App\Models\ServicesSalon;
 use App\Models\UserPiece;
 use App\Models\UserType;
 use Illuminate\Http\Request;
@@ -53,7 +54,9 @@ class UserResource extends JsonResource
             ];
         }
 
+        //Salon
         if($this->user_types_id == 2){
+
             $this->format = [
                 "email"=> $this->email,
                 "firstname"=> $this->firstname,
@@ -66,8 +69,7 @@ class UserResource extends JsonResource
                 "email"=> $this->email,
                 "birthday"=> $this->birthday,
                 "type"=> new UserTypeResource(UserType::find($this->user_types_id)),
-                "salon"=> new SalonResource(Salon::where("user_id",$this->id)->first())
-                // "password"=> $this->password,
+                "salon"=> new SalonResource(Salon::where("user_id",$this->id)->first()),                // "password"=> $this->password,
                 // "is_active"=> $this->is_active,
                 // "is_professional"=> $this->is_professional,
                 // "email_verified_at"=> $this->email_verified_at,

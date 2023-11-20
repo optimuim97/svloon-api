@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Salon;
 
 use App\Http\Requests\API\CreateSalonAvailabilyAPIRequest;
 use App\Http\Requests\API\UpdateSalonAvailabilyAPIRequest;

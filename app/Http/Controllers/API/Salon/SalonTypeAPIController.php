@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Salon;
 
-use App\Http\Requests\API\CreateSalonTypeAccountAPIRequest;
-use App\Http\Requests\API\UpdateSalonTypeAccountAPIRequest;
-use App\Models\SalonTypeAccount;
-use App\Repositories\SalonTypeAccountRepository;
+use App\Http\Requests\API\CreateSalonTypeAPIRequest;
+use App\Http\Requests\API\UpdateSalonTypeAPIRequest;
+use App\Models\SalonType;
+use App\Repositories\SalonTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class SalonTypeAccountController
+ * Class SalonTypeController
  */
 
-class SalonTypeAccountAPIController extends AppBaseController
+class SalonTypeAPIController extends AppBaseController
 {
-    private SalonTypeAccountRepository $salonTypeAccountRepository;
+    private SalonTypeRepository $salonTypeRepository;
 
-    public function __construct(SalonTypeAccountRepository $salonTypeAccountRepo)
+    public function __construct(SalonTypeRepository $salonTypeRepo)
     {
-        $this->salonTypeAccountRepository = $salonTypeAccountRepo;
+        $this->salonTypeRepository = $salonTypeRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-type-accounts",
-     *      summary="getSalonTypeAccountList",
-     *      tags={"SalonTypeAccount"},
-     *      description="Get all SalonTypeAccounts",
+     *      path="/salon-types",
+     *      summary="getSalonTypeList",
+     *      tags={"SalonType"},
+     *      description="Get all SalonTypes",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class SalonTypeAccountAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/SalonTypeAccount")
+     *                  @OA\Items(ref="#/components/schemas/SalonType")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class SalonTypeAccountAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salonTypeAccounts = $this->salonTypeAccountRepository->all(
+        $salonTypes = $this->salonTypeRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salonTypeAccounts->toArray(), 'Salon Type Accounts retrieved successfully');
+        return $this->sendResponse($salonTypes->toArray(), 'Salon Types retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salon-type-accounts",
-     *      summary="createSalonTypeAccount",
-     *      tags={"SalonTypeAccount"},
-     *      description="Create SalonTypeAccount",
+     *      path="/salon-types",
+     *      summary="createSalonType",
+     *      tags={"SalonType"},
+     *      description="Create SalonType",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonTypeAccount")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class SalonTypeAccountAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonTypeAccount"
+     *                  ref="#/components/schemas/SalonType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,24 +93,24 @@ class SalonTypeAccountAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonTypeAccountAPIRequest $request): JsonResponse
+    public function store(CreateSalonTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $salonTypeAccount = $this->salonTypeAccountRepository->create($input);
+        $salonType = $this->salonTypeRepository->create($input);
 
-        return $this->sendResponse($salonTypeAccount->toArray(), 'Salon Type Account saved successfully');
+        return $this->sendResponse($salonType->toArray(), 'Salon Type saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-type-accounts/{id}",
-     *      summary="getSalonTypeAccountItem",
-     *      tags={"SalonTypeAccount"},
-     *      description="Get SalonTypeAccount",
+     *      path="/salon-types/{id}",
+     *      summary="getSalonTypeItem",
+     *      tags={"SalonType"},
+     *      description="Get SalonType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonTypeAccount",
+     *          description="id of SalonType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -128,7 +128,7 @@ class SalonTypeAccountAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonTypeAccount"
+     *                  ref="#/components/schemas/SalonType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -140,25 +140,25 @@ class SalonTypeAccountAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var SalonTypeAccount $salonTypeAccount */
-        $salonTypeAccount = $this->salonTypeAccountRepository->find($id);
+        /** @var SalonType $salonType */
+        $salonType = $this->salonTypeRepository->find($id);
 
-        if (empty($salonTypeAccount)) {
-            return $this->sendError('Salon Type Account not found');
+        if (empty($salonType)) {
+            return $this->sendError('Salon Type not found');
         }
 
-        return $this->sendResponse($salonTypeAccount->toArray(), 'Salon Type Account retrieved successfully');
+        return $this->sendResponse($salonType->toArray(), 'Salon Type retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salon-type-accounts/{id}",
-     *      summary="updateSalonTypeAccount",
-     *      tags={"SalonTypeAccount"},
-     *      description="Update SalonTypeAccount",
+     *      path="/salon-types/{id}",
+     *      summary="updateSalonType",
+     *      tags={"SalonType"},
+     *      description="Update SalonType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonTypeAccount",
+     *          description="id of SalonType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -167,7 +167,7 @@ class SalonTypeAccountAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonTypeAccount")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonType")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -180,7 +180,7 @@ class SalonTypeAccountAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonTypeAccount"
+     *                  ref="#/components/schemas/SalonType"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -190,31 +190,31 @@ class SalonTypeAccountAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateSalonTypeAccountAPIRequest $request): JsonResponse
+    public function update($id, UpdateSalonTypeAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var SalonTypeAccount $salonTypeAccount */
-        $salonTypeAccount = $this->salonTypeAccountRepository->find($id);
+        /** @var SalonType $salonType */
+        $salonType = $this->salonTypeRepository->find($id);
 
-        if (empty($salonTypeAccount)) {
-            return $this->sendError('Salon Type Account not found');
+        if (empty($salonType)) {
+            return $this->sendError('Salon Type not found');
         }
 
-        $salonTypeAccount = $this->salonTypeAccountRepository->update($input, $id);
+        $salonType = $this->salonTypeRepository->update($input, $id);
 
-        return $this->sendResponse($salonTypeAccount->toArray(), 'SalonTypeAccount updated successfully');
+        return $this->sendResponse($salonType->toArray(), 'SalonType updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salon-type-accounts/{id}",
-     *      summary="deleteSalonTypeAccount",
-     *      tags={"SalonTypeAccount"},
-     *      description="Delete SalonTypeAccount",
+     *      path="/salon-types/{id}",
+     *      summary="deleteSalonType",
+     *      tags={"SalonType"},
+     *      description="Delete SalonType",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonTypeAccount",
+     *          description="id of SalonType",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -244,15 +244,15 @@ class SalonTypeAccountAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var SalonTypeAccount $salonTypeAccount */
-        $salonTypeAccount = $this->salonTypeAccountRepository->find($id);
+        /** @var SalonType $salonType */
+        $salonType = $this->salonTypeRepository->find($id);
 
-        if (empty($salonTypeAccount)) {
-            return $this->sendError('Salon Type Account not found');
+        if (empty($salonType)) {
+            return $this->sendError('Salon Type not found');
         }
 
-        $salonTypeAccount->delete();
+        $salonType->delete();
 
-        return $this->sendSuccess('Salon Type Account deleted successfully');
+        return $this->sendSuccess('Salon Type deleted successfully');
     }
 }

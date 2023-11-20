@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Salon;
 
-use App\Http\Requests\API\CreateSalonPictureAPIRequest;
-use App\Http\Requests\API\UpdateSalonPictureAPIRequest;
-use App\Models\SalonPicture;
-use App\Repositories\SalonPictureRepository;
+use App\Http\Requests\API\CreateSalonServiceAPIRequest;
+use App\Http\Requests\API\UpdateSalonServiceAPIRequest;
+use App\Models\SalonService;
+use App\Repositories\SalonServiceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Validator;
 
 /**
- * Class SalonPictureController
+ * Class SalonServiceController
  */
 
-class SalonPictureAPIController extends AppBaseController
+class SalonServiceAPIController extends AppBaseController
 {
-    private SalonPictureRepository $salonPictureRepository;
+    private SalonServiceRepository $salonServiceRepository;
 
-    public function __construct(SalonPictureRepository $salonPictureRepo)
+    public function __construct(SalonServiceRepository $salonServiceRepo)
     {
-        $this->salonPictureRepository = $salonPictureRepo;
+        $this->salonServiceRepository = $salonServiceRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-pictures",
-     *      summary="getSalonPictureList",
-     *      tags={"SalonPicture"},
-     *      description="Get all SalonPictures",
+     *      path="/salon-services",
+     *      summary="getSalonServiceList",
+     *      tags={"SalonService"},
+     *      description="Get all SalonServices",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +42,7 @@ class SalonPictureAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/SalonPicture")
+     *                  @OA\Items(ref="#/components/schemas/SalonService")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +54,24 @@ class SalonPictureAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salonPictures = $this->salonPictureRepository->all(
+        $salonServices = $this->salonServiceRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salonPictures->toArray(), 'Salon Pictures retrieved successfully');
+        return $this->sendResponse($salonServices->toArray(), 'Salon Services retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salon-pictures",
-     *      summary="createSalonPicture",
-     *      tags={"SalonPicture"},
-     *      description="Create SalonPicture",
+     *      path="/salon-services",
+     *      summary="createSalonService",
+     *      tags={"SalonService"},
+     *      description="Create SalonService",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonPicture")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +84,7 @@ class SalonPictureAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonPicture"
+     *                  ref="#/components/schemas/SalonService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,29 +94,35 @@ class SalonPictureAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonPictureAPIRequest $request): JsonResponse
+    public function store(CreateSalonServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        if (!empty($input['path'])) {
-            $url = (new SalonPicture())->upload($request, 'path');
-            $input['path'] = $url;
+        $validator = Validator::make($request->all(), [
+            "imageUrl" => "required",
+        ]);
+
+        $validator->validate();
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new SalonService())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
         }
 
-        $salonPicture = $this->salonPictureRepository->create($input);
+        $salonService = $this->salonServiceRepository->create($input);
 
-        return $this->sendResponse($salonPicture->toArray(), 'Salon Picture saved successfully');
+        return $this->sendResponse($salonService->toArray(), 'Salon Service saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-pictures/{id}",
-     *      summary="getSalonPictureItem",
-     *      tags={"SalonPicture"},
-     *      description="Get SalonPicture",
+     *      path="/salon-services/{id}",
+     *      summary="getSalonServiceItem",
+     *      tags={"SalonService"},
+     *      description="Get SalonService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonPicture",
+     *          description="id of SalonService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -133,7 +140,7 @@ class SalonPictureAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonPicture"
+     *                  ref="#/components/schemas/SalonService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -145,25 +152,25 @@ class SalonPictureAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var SalonPicture $salonPicture */
-        $salonPicture = $this->salonPictureRepository->find($id);
+        /** @var SalonService $salonService */
+        $salonService = $this->salonServiceRepository->find($id);
 
-        if (empty($salonPicture)) {
-            return $this->sendError('Salon Picture not found');
+        if (empty($salonService)) {
+            return $this->sendError('Salon Service not found');
         }
 
-        return $this->sendResponse($salonPicture->toArray(), 'Salon Picture retrieved successfully');
+        return $this->sendResponse($salonService->toArray(), 'Salon Service retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salon-pictures/{id}",
-     *      summary="updateSalonPicture",
-     *      tags={"SalonPicture"},
-     *      description="Update SalonPicture",
+     *      path="/salon-services/{id}",
+     *      summary="updateSalonService",
+     *      tags={"SalonService"},
+     *      description="Update SalonService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonPicture",
+     *          description="id of SalonService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -172,7 +179,7 @@ class SalonPictureAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonPicture")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -185,7 +192,7 @@ class SalonPictureAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonPicture"
+     *                  ref="#/components/schemas/SalonService"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -195,36 +202,40 @@ class SalonPictureAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateSalonPictureAPIRequest $request): JsonResponse
+    public function update($id, UpdateSalonServiceAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var SalonPicture $salonPicture */
-        $salonPicture = $this->salonPictureRepository->find($id);
+        /** @var SalonService $salonService */
+        $salonService = $this->salonServiceRepository->find($id);
 
-        if (empty($salonPicture)) {
-            return $this->sendError('Salon Picture not found');
+        if (empty($salonService)) {
+            return $this->sendError('Salon Service not found');
         }
 
-        if (!empty($input['path'])) {
-            $url = (new SalonPicture())->upload($request, 'path');
-            $input['path'] = $url;
+        $input = $request->all();
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new SalonService())->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $salonService->imageUrl;
         }
 
-        $salonPicture = $this->salonPictureRepository->update($input, $id);
+        $salonService = $this->salonServiceRepository->update($input, $id);
 
-        return $this->sendResponse($salonPicture->toArray(), 'SalonPicture updated successfully');
+        return $this->sendResponse($salonService->toArray(), 'SalonService updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salon-pictures/{id}",
-     *      summary="deleteSalonPicture",
-     *      tags={"SalonPicture"},
-     *      description="Delete SalonPicture",
+     *      path="/salon-services/{id}",
+     *      summary="deleteSalonService",
+     *      tags={"SalonService"},
+     *      description="Delete SalonService",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonPicture",
+     *          description="id of SalonService",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -254,15 +265,15 @@ class SalonPictureAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var SalonPicture $salonPicture */
-        $salonPicture = $this->salonPictureRepository->find($id);
+        /** @var SalonService $salonService */
+        $salonService = $this->salonServiceRepository->find($id);
 
-        if (empty($salonPicture)) {
-            return $this->sendError('Salon Picture not found');
+        if (empty($salonService)) {
+            return $this->sendError('Salon Service not found');
         }
 
-        $salonPicture->delete();
+        $salonService->delete();
 
-        return $this->sendSuccess('Salon Picture deleted successfully');
+        return $this->sendSuccess('Salon Service deleted successfully');
     }
 }

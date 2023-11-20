@@ -1,35 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Salon;
 
-use App\Http\Requests\API\CreateSalonServiceAPIRequest;
-use App\Http\Requests\API\UpdateSalonServiceAPIRequest;
-use App\Models\SalonService;
-use App\Repositories\SalonServiceRepository;
+use App\Http\Requests\API\CreateSalonScheduleAPIRequest;
+use App\Http\Requests\API\UpdateSalonScheduleAPIRequest;
+use App\Models\SalonSchedule;
+use App\Repositories\SalonScheduleRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Validator;
 
 /**
- * Class SalonServiceController
+ * Class SalonScheduleController
  */
 
-class SalonServiceAPIController extends AppBaseController
+class SalonScheduleAPIController extends AppBaseController
 {
-    private SalonServiceRepository $salonServiceRepository;
+    private SalonScheduleRepository $salonScheduleRepository;
 
-    public function __construct(SalonServiceRepository $salonServiceRepo)
+    public function __construct(SalonScheduleRepository $salonScheduleRepo)
     {
-        $this->salonServiceRepository = $salonServiceRepo;
+        $this->salonScheduleRepository = $salonScheduleRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-services",
-     *      summary="getSalonServiceList",
-     *      tags={"SalonService"},
-     *      description="Get all SalonServices",
+     *      path="/salon-schedules",
+     *      summary="getSalonScheduleList",
+     *      tags={"SalonSchedule"},
+     *      description="Get all SalonSchedules",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -42,7 +41,7 @@ class SalonServiceAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/SalonService")
+     *                  @OA\Items(ref="#/components/schemas/SalonSchedule")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -54,24 +53,24 @@ class SalonServiceAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $salonServices = $this->salonServiceRepository->all(
+        $salonSchedules = $this->salonScheduleRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($salonServices->toArray(), 'Salon Services retrieved successfully');
+        return $this->sendResponse($salonSchedules->toArray(), 'Salon Schedules retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/salon-services",
-     *      summary="createSalonService",
-     *      tags={"SalonService"},
-     *      description="Create SalonService",
+     *      path="/salon-schedules",
+     *      summary="createSalonSchedule",
+     *      tags={"SalonSchedule"},
+     *      description="Create SalonSchedule",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonSchedule")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -84,7 +83,7 @@ class SalonServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
+     *                  ref="#/components/schemas/SalonSchedule"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -94,35 +93,24 @@ class SalonServiceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateSalonServiceAPIRequest $request): JsonResponse
+    public function store(CreateSalonScheduleAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $validator = Validator::make($request->all(), [
-            "imageUrl" => "required",
-        ]);
+        $salonSchedule = $this->salonScheduleRepository->create($input);
 
-        $validator->validate();
-
-        if (!empty($input['imageUrl'])) {
-            $url = (new SalonService())->upload($request, 'imageUrl');
-            $input['imageUrl'] = $url;
-        }
-
-        $salonService = $this->salonServiceRepository->create($input);
-
-        return $this->sendResponse($salonService->toArray(), 'Salon Service saved successfully');
+        return $this->sendResponse($salonSchedule->toArray(), 'Salon Schedule saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/salon-services/{id}",
-     *      summary="getSalonServiceItem",
-     *      tags={"SalonService"},
-     *      description="Get SalonService",
+     *      path="/salon-schedules/{id}",
+     *      summary="getSalonScheduleItem",
+     *      tags={"SalonSchedule"},
+     *      description="Get SalonSchedule",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonService",
+     *          description="id of SalonSchedule",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -140,7 +128,7 @@ class SalonServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
+     *                  ref="#/components/schemas/SalonSchedule"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -152,25 +140,25 @@ class SalonServiceAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+        /** @var SalonSchedule $salonSchedule */
+        $salonSchedule = $this->salonScheduleRepository->find($id);
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
+        if (empty($salonSchedule)) {
+            return $this->sendError('Salon Schedule not found');
         }
 
-        return $this->sendResponse($salonService->toArray(), 'Salon Service retrieved successfully');
+        return $this->sendResponse($salonSchedule->toArray(), 'Salon Schedule retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/salon-services/{id}",
-     *      summary="updateSalonService",
-     *      tags={"SalonService"},
-     *      description="Update SalonService",
+     *      path="/salon-schedules/{id}",
+     *      summary="updateSalonSchedule",
+     *      tags={"SalonSchedule"},
+     *      description="Update SalonSchedule",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonService",
+     *          description="id of SalonSchedule",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -179,7 +167,7 @@ class SalonServiceAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/SalonService")
+     *        @OA\JsonContent(ref="#/components/schemas/SalonSchedule")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -192,7 +180,7 @@ class SalonServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/SalonService"
+     *                  ref="#/components/schemas/SalonSchedule"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -202,40 +190,31 @@ class SalonServiceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateSalonServiceAPIRequest $request): JsonResponse
+    public function update($id, UpdateSalonScheduleAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+        /** @var SalonSchedule $salonSchedule */
+        $salonSchedule = $this->salonScheduleRepository->find($id);
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
+        if (empty($salonSchedule)) {
+            return $this->sendError('Salon Schedule not found');
         }
 
-        $input = $request->all();
+        $salonSchedule = $this->salonScheduleRepository->update($input, $id);
 
-        if (!empty($input['imageUrl'])) {
-            $url = (new SalonService())->upload($request, 'imageUrl');
-            $input['imageUrl'] = $url;
-        } else {
-            $input['imageUrl'] = $salonService->imageUrl;
-        }
-
-        $salonService = $this->salonServiceRepository->update($input, $id);
-
-        return $this->sendResponse($salonService->toArray(), 'SalonService updated successfully');
+        return $this->sendResponse($salonSchedule->toArray(), 'SalonSchedule updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/salon-services/{id}",
-     *      summary="deleteSalonService",
-     *      tags={"SalonService"},
-     *      description="Delete SalonService",
+     *      path="/salon-schedules/{id}",
+     *      summary="deleteSalonSchedule",
+     *      tags={"SalonSchedule"},
+     *      description="Delete SalonSchedule",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of SalonService",
+     *          description="id of SalonSchedule",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -265,15 +244,15 @@ class SalonServiceAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var SalonService $salonService */
-        $salonService = $this->salonServiceRepository->find($id);
+        /** @var SalonSchedule $salonSchedule */
+        $salonSchedule = $this->salonScheduleRepository->find($id);
 
-        if (empty($salonService)) {
-            return $this->sendError('Salon Service not found');
+        if (empty($salonSchedule)) {
+            return $this->sendError('Salon Schedule not found');
         }
 
-        $salonService->delete();
+        $salonSchedule->delete();
 
-        return $this->sendSuccess('Salon Service deleted successfully');
+        return $this->sendSuccess('Salon Schedule deleted successfully');
     }
 }

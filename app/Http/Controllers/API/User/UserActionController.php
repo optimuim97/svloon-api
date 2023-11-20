@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\User;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\UserResource;
 use App\Models\Artist;
 use App\Models\Salon;
@@ -219,4 +220,5 @@ class UserActionController extends AppBaseController
             "data" => $salons
         ], Response::HTTP_OK);
     }
+
 }

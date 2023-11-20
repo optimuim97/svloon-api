@@ -9,6 +9,8 @@ use App\Models\Salon;
 use App\Models\SalonAddress;
 use App\Models\SalonService;
 use App\Models\Service;
+use App\Models\StaffMember;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -68,5 +70,33 @@ class SearchSalonController extends Controller
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
         }
+    }
+
+    public function findSalonByArtist($artistId){
+
+        $staff = StaffMember::where(['artist_id'=> $artistId])->first();
+
+        if(empty($staff)){
+            return response()->json([
+                "message" => "L'artiste n'est dans aucun staff",
+                "status_code" => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_OK);
+        }
+
+        $salon = Salon::find($staff->salon_id);
+
+        if (!empty($salon)) {
+            return response()->json([
+                "message" => "retreived",
+                "status_code" => Response::HTTP_FOUND,
+                "data" => new UserResource(User::find($salon->user_id))
+            ], Response::HTTP_FOUND);
+        } else {
+            return response()->json([
+                "message" => "Not found",
+                "status_code" => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_OK);
+        }
+
     }
 }

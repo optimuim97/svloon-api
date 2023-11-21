@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
@@ -167,7 +168,7 @@ Route::resource('staff-members', App\Http\Controllers\API\StaffMemberAPIControll
 Route::resource('portfolios', App\Http\Controllers\API\PortfolioAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('artists', App\Http\Controllers\API\ArtistAPIController::class)
+Route::resource('artists', ArtistAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('artist-pictures', App\Http\Controllers\API\ArtistPictureAPIController::class)

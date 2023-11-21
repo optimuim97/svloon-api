@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SalonCollection;
-use App\Http\Resources\SalonResource;
+// use App\Http\Resources\SalonResource;
 use App\Http\Resources\UserResource;
 use App\Models\Salon;
 use App\Models\SalonAddress;
-use App\Models\SalonService;
-use App\Models\Service;
+// use App\Models\SalonService;
+// use App\Models\Service;
 use App\Models\StaffMember;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,7 +49,7 @@ class SearchSalonController extends Controller
 
         foreach ($salonAddresses as $salonAddresse) {
             $salon = Salon::where('id', $salonAddresse->salon_id)->first();
-            if(!empty($salon)){
+            if (!empty($salon)) {
                 array_push($salons, $salon);
             }
         }
@@ -72,11 +72,12 @@ class SearchSalonController extends Controller
         }
     }
 
-    public function findSalonByArtist($artistId){
+    public function findSalonByArtist($artistId)
+    {
 
-        $staff = StaffMember::where(['artist_id'=> $artistId])->first();
+        $staff = StaffMember::where(['artist_id' => $artistId])->first();
 
-        if(empty($staff)){
+        if (empty($staff)) {
             return response()->json([
                 "message" => "L'artiste n'est dans aucun staff",
                 "status_code" => Response::HTTP_NOT_FOUND,
@@ -99,4 +100,5 @@ class SearchSalonController extends Controller
         }
 
     }
+
 }

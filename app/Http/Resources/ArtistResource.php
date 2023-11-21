@@ -19,7 +19,7 @@ class ArtistResource extends JsonResource
     public function toArray(Request $request): array
     {
         $category =  new CategoryProResource(CategoryPro::find($this->category_pro_id));
-        $artistAddress  = ArtistAddress::where(["artist_id" => $this->i])->get();
+        $artistAddress  = ArtistAddress::where(["artist_id" => $this->id])->orderBy('created_at',"DESC")->get()->take(3);
 
         return [
             "id"=> $this->id,

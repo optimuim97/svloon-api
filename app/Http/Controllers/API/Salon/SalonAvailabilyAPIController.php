@@ -453,6 +453,8 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
+        dd($user->userType);
+
         if ($user->userType == "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }

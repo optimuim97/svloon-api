@@ -432,10 +432,10 @@ class SalonAvailabilyAPIController extends AppBaseController
 
         $salons = $user->salons;
 
-        if($salons->count() > 1){
+        if ($salons->count() > 1) {
             foreach ($salons as $salon) {
                 // dd($salon);
-                array_push($staffMember,$salon->staff);
+                array_push($staffMember, $salon->staff);
             }
 
             return $this->sendResponse($staffMember, "Liste de membre du staff");
@@ -444,8 +444,9 @@ class SalonAvailabilyAPIController extends AppBaseController
         return $this->sendResponse($salons->first()->staff, "Liste de membre du staff");
     }
 
-    public function getServices(){
-        
+    public function getServices()
+    {
+
         $user = auth("api")->user();
         $services = [];
 
@@ -460,14 +461,15 @@ class SalonAvailabilyAPIController extends AppBaseController
 
         $salons = $user->salons;
 
-        if($salons->count() > 1){
+        if ($salons->count() > 1) {
             foreach ($salons as $salon) {
-                $salonService = SalonService::where(["salon_id"=> $salon->id])->first();
+                $salonService = SalonService::where(["salon_id" => $salon->id])->first();
                 array_push($services, $salonService);
             }
-        }else{
-            dd($salons);
-            $salonService = SalonService::where(["salon_id"=> $salons->id])->first();
+        } else {
+
+            $salon = $salons["0"];
+            $salonService = SalonService::where(["salon_id" => $salon->id])->first();
         }
 
         return $this->sendResponse($services, "Liste des services du salon");

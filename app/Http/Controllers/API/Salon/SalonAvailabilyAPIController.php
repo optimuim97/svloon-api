@@ -388,7 +388,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if ($user->userType == "salon") {
+        if ($user->userType?->slug != "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
@@ -426,7 +426,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if ($user->userType == "salon") {
+        if ($user->userType?->slug != "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
@@ -453,13 +453,14 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        dd($user->userType);
 
-        if ($user->userType == "salon") {
+        if ($user->userType?->slug != "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
         $salons = $user->salons;
+
+        dd($salons);
 
         if($salons->count() > 1){
             foreach ($salons as $salon) {

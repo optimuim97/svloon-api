@@ -6,6 +6,8 @@ use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
 use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
+use App\Http\Controllers\API\Salon\SalonPictureAPIController;
+use App\Http\Controllers\API\Salon\SalonServiceAPIController;
 use App\Http\Controllers\API\User\UserSearchController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchArtistController;
@@ -108,10 +110,10 @@ Route::resource('salon-service-types', App\Http\Controllers\API\SalonServiceType
 Route::resource('service-place-types', App\Http\Controllers\API\ServicePlaceTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIController::class)
+Route::resource('salon-services', SalonServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
+Route::resource('salon-pictures', SalonPictureAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)

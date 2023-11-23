@@ -463,8 +463,12 @@ class SalonAvailabilyAPIController extends AppBaseController
 
         if ($salons->count() > 1) {
             foreach ($salons as $salon) {
-                $salonService = SalonService::where(["salon_id" => $salon->id])->first();
-                array_push($services, $salonService);
+                $salonService = SalonService::where(["salon_id" => $salon->id])->get();
+
+                foreach ($salonService as $value) {
+                    array_push($services, $value);
+                }
+
             }
         } else {
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
+use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\User\UserSearchController;
 use App\Http\Controllers\AuthController;
@@ -83,7 +84,7 @@ Route::post('add-extra-to-service', [ExtraAPIController::class, 'addExtraToServi
 
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
-Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
+Route::resource('salons', SalonAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('user-addresses', App\Http\Controllers\API\UserAddressAPIController::class)

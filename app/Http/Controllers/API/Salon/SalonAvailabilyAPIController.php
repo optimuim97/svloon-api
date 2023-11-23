@@ -459,8 +459,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         }
 
         $salons = $user->salons;
-
-        dd($salons);
+        dd($salons->count());
 
         if($salons->count() > 1){
             foreach ($salons as $salon) {

@@ -475,7 +475,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             $salon = $salons["0"];
             $salonService = SalonService::where(["salon_id" => $salon->id])->get();
 
-            foreach ($services as $value) {
+            foreach ($salonService as $value) {
                 array_push($services, $value);
             }
             

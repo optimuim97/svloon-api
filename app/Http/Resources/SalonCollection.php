@@ -30,6 +30,7 @@ class SalonCollection extends ResourceCollection
 
         return $this->collection->map(function ($item) {
             return [
+                "id"=> $item->id,
                 "user_id"=> $item->user_id,
                 "name"=> $item->name,
                 "email"=> $item->email,

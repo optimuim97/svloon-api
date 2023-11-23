@@ -459,10 +459,10 @@ class SalonAvailabilyAPIController extends AppBaseController
         }
 
         $salons = $user->salons;
-        dd($salons->count());
 
         if($salons->count() > 1){
             foreach ($salons as $salon) {
+                dd($salon);
                 $salonService = SalonService::where(["salon_id"=> $salon->id])->first();
                 array_push($services, $salonService);
             }

@@ -9,6 +9,7 @@ use App\Repositories\AppointementRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Models\SalonService;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -112,6 +113,14 @@ class AppointementAPIController extends AppBaseController
 
         if (empty($creator)) {
             return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        }
+
+        $service_id = $input["salon_service_id"];
+
+        $salonService = SalonService::find($service_id);
+        
+        if(empty($salonService)){
+            return $this->sendResponse([],'Ce service n\'existe pas');
         }
 
         $date = $input['date'];

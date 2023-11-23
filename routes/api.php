@@ -41,6 +41,8 @@ Route::group([
     Route::post('add-salon-availabilies', [SalonAvailabilyAPIController::class, 'store']);
     Route::get('get-salon-availabilies', [SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
     Route::get('get-salon-staff-members', [SalonAvailabilyAPIController::class, 'getStaffMembers']);
+    
+    Route::get('get-salon-service', [SalonAvailabilyAPIController::class, 'getServices']);
 });
 
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);

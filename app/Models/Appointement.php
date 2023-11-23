@@ -109,6 +109,7 @@ class Appointement extends Model
 
     public $fillable = [
         'creator_id',
+        'salon_service_id',
         'user_id',
         'appointment_status_id',
         'date',

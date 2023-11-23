@@ -37,9 +37,9 @@ Route::group([
     Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
     Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
 
-    Route::post('add-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'store']);
-    Route::get('get-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
-    Route::get('get-salon-staff-members', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getStaffMembers']);
+    Route::post('add-salon-availabilies', [SalonAvailabilyAPIController::class, 'store']);
+    Route::get('get-salon-availabilies', [SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
+    Route::get('get-salon-staff-members', [SalonAvailabilyAPIController::class, 'getStaffMembers']);
 });
 
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);

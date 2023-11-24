@@ -119,7 +119,7 @@ class CreateQuickServiceApiController extends AppBaseController
         foreach ($nearlySalons as $nearlySalon) {
             $nearlySalon = Salon::find($nearlySalon->id);
 
-            return $this->json($nearlySalon);
+            return response()->json($nearlySalon);
 
             $salonAvailabilities = $nearlySalon->availabilities;
 

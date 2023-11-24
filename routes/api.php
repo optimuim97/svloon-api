@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
+use App\Http\Controllers\API\Salon\SalonAddressAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\User\UserSearchController;
 use App\Http\Controllers\AuthController;
@@ -89,7 +90,7 @@ Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
 Route::resource('user-addresses', App\Http\Controllers\API\UserAddressAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-addresses', App\Http\Controllers\API\SalonAddressAPIController::class)
+Route::resource('salon-addresses', SalonAddressAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class);

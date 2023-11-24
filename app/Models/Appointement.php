@@ -126,6 +126,7 @@ class Appointement extends Model
     protected $casts = [
         'creator_id' => 'integer',
         'user_id' => 'integer',
+        'artist_id' => 'integer',
         'date' => 'date',
         'date_time' => 'string',
         'reference' => 'string',

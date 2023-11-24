@@ -118,7 +118,7 @@ class AppointementAPIController extends AppBaseController
         $service_id = $input["salon_service_id"];
 
         $salonService = SalonService::find($service_id);
-        
+
         if(empty($salonService)){
             return $this->sendResponse([],'Ce service n\'existe pas');
         }

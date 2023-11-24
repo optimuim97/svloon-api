@@ -111,6 +111,7 @@ class Appointement extends Model
         'creator_id',
         'salon_service_id',
         'user_id',
+        'artist_id',
         'appointment_status_id',
         'date',
         'hour',

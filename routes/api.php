@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
+use App\Http\Controllers\API\Salon\SalonAddressAPIController;
 use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\Salon\SalonPictureAPIController;

@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Salon;
+use App\Models\SalonService;
 use App\Models\StaffMember;
 use Carbon\Carbon;
 
@@ -387,7 +388,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if ($user->userType == "salon") {
+        if ($user->userType?->slug != "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
@@ -425,23 +426,61 @@ class SalonAvailabilyAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if ($user->userType == "salon") {
+        if ($user->userType?->slug != "salon") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 
         $salons = $user->salons;
 
-        if($salons->count() > 1){
+        if ($salons->count() > 1) {
             foreach ($salons as $salon) {
                 // dd($salon);
-                array_push($staffMember,$salon->staff);
+                array_push($staffMember, $salon->staff);
             }
 
             return $this->sendResponse($staffMember, "Liste de membre du staff");
         }
 
-        // dd($salons->first()->staff);
-
         return $this->sendResponse($salons->first()->staff, "Liste de membre du staff");
+    }
+
+    public function getServices()
+    {
+
+        $user = auth("api")->user();
+        $services = [];
+
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
+        }
+
+
+        if ($user->userType?->slug != "salon") {
+            return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
+        }
+
+        $salons = $user->salons;
+
+        if ($salons->count() > 1) {
+            foreach ($salons as $salon) {
+                $salonService = SalonService::where(["salon_id" => $salon->id])->get();
+
+                foreach ($salonService as $value) {
+                    array_push($services, $value);
+                }
+
+            }
+        } else {
+
+            $salon = $salons["0"];
+            $salonService = SalonService::where(["salon_id" => $salon->id])->get();
+
+            foreach ($salonService as $value) {
+                array_push($services, $value);
+            }
+            
+        }
+
+        return $this->sendResponse($services, "Liste des services du salon");
     }
 }

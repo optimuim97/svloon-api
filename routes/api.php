@@ -4,8 +4,10 @@ use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
-use App\Http\Controllers\API\Salon\SalonAddressAPIController;
+use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
+use App\Http\Controllers\API\Salon\SalonPictureAPIController;
+use App\Http\Controllers\API\Salon\SalonServiceAPIController;
 use App\Http\Controllers\API\User\UserSearchController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchArtistController;
@@ -38,9 +40,11 @@ Route::group([
     Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
     Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
 
-    Route::post('add-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'store']);
-    Route::get('get-salon-availabilies', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
-    Route::get('get-salon-staff-members', [App\Http\Controllers\API\SalonAvailabilyAPIController::class, 'getStaffMembers']);
+    Route::post('add-salon-availabilies', [SalonAvailabilyAPIController::class, 'store']);
+    Route::get('get-salon-availabilies', [SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
+    Route::get('get-salon-staff-members', [SalonAvailabilyAPIController::class, 'getStaffMembers']);
+
+    Route::get('get-salon-service', [SalonAvailabilyAPIController::class, 'getServices']);
 });
 
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);
@@ -84,7 +88,7 @@ Route::post('add-extra-to-service', [ExtraAPIController::class, 'addExtraToServi
 
 // Route::post('test', [testController::class, 'test']);
 Route::post('callback', [testController::class, 'callBack']);
-Route::resource('salons', App\Http\Controllers\API\SalonAPIController::class)
+Route::resource('salons', SalonAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('user-addresses', App\Http\Controllers\API\UserAddressAPIController::class)
@@ -106,10 +110,10 @@ Route::resource('salon-service-types', App\Http\Controllers\API\SalonServiceType
 Route::resource('service-place-types', App\Http\Controllers\API\ServicePlaceTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-services', App\Http\Controllers\API\SalonServiceAPIController::class)
+Route::resource('salon-services', SalonServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-pictures', App\Http\Controllers\API\SalonPictureAPIController::class)
+Route::resource('salon-pictures', SalonPictureAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)

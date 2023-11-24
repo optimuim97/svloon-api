@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('creator_id')->nullable();
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('appointment_status_id')->nullable();
+            $table->bigInteger('salon_service_id')->nullable();
             $table->date('date')->nullable();
             $table->timestamp('hour')->nullable();
             $table->string('date_time')->nullable();

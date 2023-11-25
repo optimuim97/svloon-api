@@ -9,6 +9,7 @@ use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\Salon\SalonPictureAPIController;
 use App\Http\Controllers\API\Salon\SalonServiceAPIController;
+use App\Http\Controllers\API\User\UserActionController;
 use App\Http\Controllers\API\User\UserSearchController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchArtistController;
@@ -16,7 +17,6 @@ use App\Http\Controllers\SearchSalonController;
 use App\Http\Controllers\SearchServiceController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\testController;
-use App\Http\Controllers\UserActionController;
 use Illuminate\Support\Facades\Route;
 // use Imgur;
 /*

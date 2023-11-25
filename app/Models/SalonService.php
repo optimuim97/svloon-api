@@ -71,6 +71,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public $fillable = [
         'name',
+        'description',
         'imageUrl',
         'price',
         'time',

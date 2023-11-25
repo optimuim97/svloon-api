@@ -472,13 +472,14 @@ class SalonAvailabilyAPIController extends AppBaseController
             }
         } else {
 
+            return response()->json($salons);
             $salon = $salons["0"];
             $salonService = SalonService::where(["salon_id" => $salon->id])->get();
 
             foreach ($salonService as $value) {
                 array_push($services, $value);
             }
-            
+
         }
 
         return $this->sendResponse($services, "Liste des services du salon");

@@ -472,10 +472,7 @@ class SalonAvailabilyAPIController extends AppBaseController
             }
         } else {
 
-            if(count($salons)){
-                return $this->sendError('Pas de service définir pour');
-            }
-
+            return response()->json($salons);
             $salon = $salons["0"];
             $salonService = SalonService::where(["salon_id" => $salon->id])->get();
 

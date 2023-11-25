@@ -472,8 +472,8 @@ class SalonAvailabilyAPIController extends AppBaseController
             }
         } else {
 
-            if(empty($salons)){
-                return $this->sendError('Pas de service définir pour se salon');
+            if(count($salons)){
+                return $this->sendError('Pas de service définir pour');
             }
 
             $salon = $salons["0"];

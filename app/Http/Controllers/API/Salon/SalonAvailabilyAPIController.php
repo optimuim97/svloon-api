@@ -473,7 +473,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         } else {
 
             // return response()->json($salons);
-            if( ! count($salons) >= 1){
+            if(count($salons) < 1){
                 return $this->sendResponse($services, "Liste des services du salon");
             }
 

@@ -199,6 +199,6 @@ Route::resource('artist-addresses', ArtistAddressAPIController::class)
 Route::resource('artist-services', ArtistServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('service-artists', ServiceArtistAPIController::class)
-    ->except(['create', 'edit']);
+// Route::resource('service-artists', ServiceArtistAPIController::class)
+//     ->except(['create', 'edit']);
 Route::post('add-artist-service', [ServiceArtistAPIController::class, 'store']);

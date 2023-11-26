@@ -97,6 +97,7 @@ class ServiceArtistAPIController extends AppBaseController
     public function store(CreateServiceArtistAPIRequest $request): JsonResponse
     {
         $user = auth("api")->user();
+        dd($user);
 
         if (empty($user)) {
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');

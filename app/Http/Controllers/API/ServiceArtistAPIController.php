@@ -96,6 +96,16 @@ class ServiceArtistAPIController extends AppBaseController
      */
     public function store(CreateServiceArtistAPIRequest $request): JsonResponse
     {
+        $user = auth("api")->user();
+
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
+        }
+
+        if ($user->userType?->slug != "artist") {
+            return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
+        }
+
         $input = $request->all();
 
         $validator = Validator::make($request->all(), [

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
@@ -87,22 +88,26 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */class ServiceArtist extends Model
 {
-    use HasFactory;    public $table = 'service_artists';
+    use HasFactory;  use ImgurHelpers;
+    public $table = 'service_artists';
 
     public $fillable = [
         'name',
         'description',
         'price',
+        'imageUrl',
         'time',
         'artist_id',
         'service_type_id',
         'service_place_type_id'
     ];
 
+
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
         'price' => 'string',
+        'imageUrl' => 'string',
         'time' => 'string',
         'artist_id' => 'integer',
         'service_type_id' => 'integer',

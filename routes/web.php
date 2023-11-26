@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\User\UserAddressController;
+use App\Http\Controllers\API\User\UserPieceController;
+use App\Http\Controllers\API\User\UserTypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,14 +18,14 @@ Auth::routes();
 Route::prefix("dash")->group(
     function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        
+
         Route::resource('service-types', App\Http\Controllers\ServiceTypeController::class);
         Route::resource('services', App\Http\Controllers\ServiceController::class);
         Route::resource('salons', App\Http\Controllers\SalonController::class);
-        Route::resource('user-addresses', App\Http\Controllers\UserAddressController::class);
+        Route::resource('user-addresses', UserAddressController::class);
         Route::resource('salon-addresses', App\Http\Controllers\SalonAddressController::class);
         Route::resource('appointements', App\Http\Controllers\AppointementController::class);
-        Route::resource('user-types', App\Http\Controllers\UserTypeController::class);
+        Route::resource('user-types', UserTypeController::class);
 
         Route::resource('salon-type-accounts', App\Http\Controllers\SalonTypeAccountController::class);
         Route::resource('salon-service-types', App\Http\Controllers\SalonServiceTypeController::class);
@@ -52,7 +55,7 @@ Route::resource('artist-porfolios', App\Http\Controllers\ArtistPorfolioControlle
 Route::resource('artist-addresses', App\Http\Controllers\ArtistAddressController::class);
 Route::resource('artist-services', App\Http\Controllers\ArtistServiceController::class);
 Route::resource('type-pieces', App\Http\Controllers\TypePieceController::class);
-Route::resource('user-pieces', App\Http\Controllers\UserPieceController::class);
+Route::resource('user-pieces', UserPieceController::class);
 Route::resource('category-pros', App\Http\Controllers\CategoryProController::class);
 Route::resource('certification-pros', App\Http\Controllers\CertificationProController::class);
 Route::resource('bank-infos', App\Http\Controllers\BankInfoController::class);

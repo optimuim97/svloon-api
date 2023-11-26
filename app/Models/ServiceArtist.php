@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="salon_id",
+ *          property="artist_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,

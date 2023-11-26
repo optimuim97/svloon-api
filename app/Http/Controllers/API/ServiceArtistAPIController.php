@@ -94,7 +94,7 @@ class ServiceArtistAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateServiceArtistAPIRequest $request): JsonResponse
+    public function add(CreateServiceArtistAPIRequest $request): JsonResponse
     {
         $user = auth("api")->user();
         dd($user);

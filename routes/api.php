@@ -202,6 +202,6 @@ Route::resource('artist-services', ArtistServiceAPIController::class)
 Route::resource('service-artists', ServiceArtistAPIController::class);
 // Route::post('add-artist-service', [ServiceArtistAPIController::class, 'store']);
 
-Route::post('ok', function(){
+Route::get('ok', function(){
     return 'ok';
 });

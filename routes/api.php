@@ -56,7 +56,7 @@ Route::group([
     Route::get('get-salon-staff-members', [SalonAvailabilyAPIController::class, 'getStaffMembers']);
 
     Route::get('get-salon-service', [SalonAvailabilyAPIController::class, 'getServices']);
-    Route::get('add-artist-service', [ServiceArtistAPIController::class, 'store']);
+    Route::post('add-artist-service', [ServiceArtistAPIController::class, 'store']);
 });
 
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);

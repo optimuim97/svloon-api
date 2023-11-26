@@ -56,6 +56,10 @@ Route::group([
     Route::get('get-salon-staff-members', [SalonAvailabilyAPIController::class, 'getStaffMembers']);
 
     Route::get('get-salon-service', [SalonAvailabilyAPIController::class, 'getServices']);
+    Route::post(
+        'add-artist-service',
+        [ServiceArtistAPIController::class, 'add']
+    );
 });
 
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);
@@ -200,10 +204,7 @@ Route::resource('artist-services', ArtistServiceAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('service-artists', ServiceArtistAPIController::class);
-Route::post(
-    'add-artist-service',
-    [ServiceArtistAPIController::class, 'add']
-);
+
 
 Route::get('ok', function () {
     return 'ok';

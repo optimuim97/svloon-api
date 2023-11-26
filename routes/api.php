@@ -189,3 +189,5 @@ Route::resource('artist-addresses', App\Http\Controllers\API\ArtistAddressAPICon
 Route::resource('artist-services', App\Http\Controllers\API\ArtistServiceAPIController::class)
     ->except(['create', 'edit']);
 
+Route::resource('service-artists', App\Http\Controllers\API\ServiceArtistAPIController::class)
+    ->except(['create', 'edit']);

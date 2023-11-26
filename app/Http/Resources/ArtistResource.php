@@ -7,6 +7,7 @@ use App\Models\ArtistPicture;
 use App\Models\ArtistPorfolio;
 use App\Models\ArtistService;
 use App\Models\CategoryPro;
+use App\Models\ServiceArtist;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class ArtistResource extends JsonResource
     {
         $category =  new CategoryProResource(CategoryPro::find($this->category_pro_id));
         $artistAddress  = ArtistAddress::where(["artist_id" => $this->id])->orderBy('created_at', "DESC")->get()->take(3);
-        $services = ArtistService::where(["artist_id" => $this->id])->get();
+        $services = ServiceArtist::where(["artist_id" => $this->id])->get();
 
         return [
             "id" => $this->id,

@@ -8,9 +8,11 @@ use App\Http\Controllers\API\Salon\SalonAddressAPIController;
 use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\Salon\SalonPictureAPIController;
+use App\Http\Controllers\API\Salon\SalonScheduleAPIController;
 use App\Http\Controllers\API\Salon\SalonServiceAPIController;
 use App\Http\Controllers\API\Salon\SalonServiceTypeAPIController;
 use App\Http\Controllers\API\Salon\SalonTypeAccountAPIController;
+use App\Http\Controllers\API\Salon\SalonUnAvailabilyAPIController;
 use App\Http\Controllers\API\ServiceArtistAPIController;
 use App\Http\Controllers\API\User\UserActionController;
 use App\Http\Controllers\API\User\UserSearchController;
@@ -136,17 +138,17 @@ Route::resource('service-types', App\Http\Controllers\API\ServiceTypeAPIControll
 Route::resource('services-salons', App\Http\Controllers\API\ServicesSalonAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-schedules', App\Http\Controllers\API\SalonScheduleAPIController::class)
+Route::resource('salon-schedules', SalonScheduleAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-availabilies', App\Http\Controllers\API\SalonAvailabilyAPIController::class)
+Route::resource('salon-availabilies', SalonAvailabilyAPIController::class)
     ->except(['create', 'edit']);
 
 
-Route::resource('salon-un-availabilies', App\Http\Controllers\API\SalonUnAvailabilyAPIController::class)
+Route::resource('salon-un-availabilies', SalonUnAvailabilyAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('extras', App\Http\Controllers\API\ExtraAPIController::class)
+Route::resource('extras', ExtraAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('conversations', App\Http\Controllers\API\ConversationAPIController::class)

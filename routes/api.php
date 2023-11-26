@@ -200,8 +200,14 @@ Route::resource('artist-services', ArtistServiceAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('service-artists', ServiceArtistAPIController::class);
-// Route::post('add-artist-service', [ServiceArtistAPIController::class, 'store']);
+Route::get(
+    'add-artist-service',
+    function () {
+        return 'ok';
+    }
+    // [ServiceArtistAPIController::class, 'store']
+);
 
-Route::get('ok', function(){
+Route::get('ok', function () {
     return 'ok';
 });

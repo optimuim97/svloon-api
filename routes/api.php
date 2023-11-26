@@ -9,6 +9,7 @@ use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
 use App\Http\Controllers\API\Salon\SalonPictureAPIController;
 use App\Http\Controllers\API\Salon\SalonServiceAPIController;
+use App\Http\Controllers\API\Salon\SalonTypeAccountAPIController;
 use App\Http\Controllers\API\ServiceArtistAPIController;
 use App\Http\Controllers\API\User\UserActionController;
 use App\Http\Controllers\API\User\UserSearchController;
@@ -104,7 +105,7 @@ Route::resource('appointements', App\Http\Controllers\API\AppointementAPIControl
 Route::resource('user-types', App\Http\Controllers\API\UserTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('salon-type-accounts', App\Http\Controllers\API\SalonTypeAccountAPIController::class)
+Route::resource('salon-type-accounts', SalonTypeAccountAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-service-types', App\Http\Controllers\API\SalonServiceTypeAPIController::class)

@@ -45,6 +45,14 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
+ *          property="imageUrl",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @OA\Property(
  *          property="service_type_id",
  *          description="",
  *          readOnly=false,

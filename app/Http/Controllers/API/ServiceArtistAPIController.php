@@ -99,7 +99,10 @@ class ServiceArtistAPIController extends AppBaseController
         $input = $request->all();
 
         $validator = Validator::make($request->all(), [
-            "imageUrl" => "required",
+            "name" => "required",
+            "description" => "required",
+            "description" => "required",
+            "imageUrl" => "required"
         ]);
 
         $validator->validate();
@@ -111,7 +114,7 @@ class ServiceArtistAPIController extends AppBaseController
 
         $serviceArtist = $this->serviceArtistRepository->create($input);
 
-        return $this->sendResponse($serviceArtist->toArray(), 'Service Artist saved successfully');
+        return $this->sendResponse($serviceArtist->toArray(), 'Service ajouté');
     }
 
     /**

@@ -38,7 +38,6 @@ class testController extends Controller
 
         $input = json_encode($input);
 
-        // }
         file_put_contents("dump.txt", ob_get_flush());
 
         $data = new DataSaved();

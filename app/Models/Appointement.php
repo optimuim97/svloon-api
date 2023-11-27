@@ -111,6 +111,7 @@ class Appointement extends Model
         'creator_id',
         'salon_service_id',
         'user_id',
+        'artist_id',
         'appointment_status_id',
         'date',
         'hour',
@@ -125,6 +126,7 @@ class Appointement extends Model
     protected $casts = [
         'creator_id' => 'integer',
         'user_id' => 'integer',
+        'artist_id' => 'integer',
         'date' => 'date',
         'date_time' => 'string',
         'reference' => 'string',

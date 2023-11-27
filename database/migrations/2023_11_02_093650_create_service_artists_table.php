@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('salon_services', function (Blueprint $table) {
+        Schema::create('service_artists', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description');
             $table->string('price');
-            // $table->string('imageUrl');
             $table->string('time');
-            $table->bigInteger('salon_id')->unsigned();
-            $table->bigInteger('service_type_id')->unsigned();
-            $table->bigInteger('service_place_type_id')->unsigned();
+            $table->bigInteger('artist_id');
+            $table->bigInteger('service_type_id');
+            $table->bigInteger('service_place_type_id')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('salon_services');
+        Schema::drop('service_artists');
     }
 };

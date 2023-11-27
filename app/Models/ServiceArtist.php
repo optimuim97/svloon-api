@@ -4,14 +4,20 @@ namespace App\Models;
 
 use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="SalonService",
+ *      schema="ServiceArtist",
  *      required={},
  *      @OA\Property(
  *          property="name",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="description",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -24,23 +30,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          nullable=true,
  *          type="string",
  *      ),
- *       @OA\Property(
- *          property="imageUrl",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
  *      @OA\Property(
  *          property="time",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
- *          format="date-time"
  *      ),
  *      @OA\Property(
- *          property="salon_id",
+ *          property="artist_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @OA\Property(
+ *          property="imageUrl",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @OA\Property(
+ *          property="service_type_id",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @OA\Property(
+ *          property="service_place_type_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
@@ -64,28 +86,37 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */ class SalonService extends Model
+ */class ServiceArtist extends Model
 {
-    use HasFactory, ImgurHelpers;
-    public $table = 'salon_services';
+    use HasFactory;  use ImgurHelpers;
+    public $table = 'service_artists';
 
     public $fillable = [
         'name',
         'description',
-        'imageUrl',
         'price',
+        'imageUrl',
         'time',
-        'salon_id',
+        'artist_id',
         'service_type_id',
         'service_place_type_id'
     ];
 
+
     protected $casts = [
         'name' => 'string',
-        'imageUrl' => 'string',
+        'description' => 'string',
         'price' => 'string',
-        'salon_id' => 'integer'
+        'imageUrl' => 'string',
+        'time' => 'string',
+        'artist_id' => 'integer',
+        'service_type_id' => 'integer',
+        'service_place_type_id' => 'integer'
     ];
 
-    public static array $rules = [];
+    public static array $rules = [
+
+    ];
+
+
 }

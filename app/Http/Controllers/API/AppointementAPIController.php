@@ -109,7 +109,7 @@ class AppointementAPIController extends AppBaseController
             return $this->sendResponse([],'L\'utilisateur n\'existe pas');
         }
 
-        $input["user_id"] =$user->id;
+        $input["user_id"] = $user->id;
 
         if (empty($creator)) {
             return $this->sendResponse([],'L\'utilisateur doit être connecté');

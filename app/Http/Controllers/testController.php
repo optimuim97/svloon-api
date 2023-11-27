@@ -23,14 +23,26 @@ class testController extends Controller
         return $finalImageLink;
     }
 
-    public  function callBack(Request $request){
+    public  function callBack(Request $request)
+    {
         $input = $request->all();
         $input['created_at'] = Carbon::now()->toString();
+
+        ob_flush();
+        ob_start();
+        // while ($row = mysql_fetch_assoc($result)) {
+
+        foreach ($input as $key => $value) {
+            var_dump($value);
+        }
+
         $input = json_encode($input);
+
+        // }
+        file_put_contents("dump.txt", ob_get_flush());
 
         $data = new DataSaved();
         $data->received_data = $input;
         $data->save();
-
     }
 }

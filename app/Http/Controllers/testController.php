@@ -23,14 +23,14 @@ class testController extends Controller
         return $finalImageLink;
     }
 
-    public  function callBack(Request $request)
-    {
+    public  function callBack(Request $request){
         $input = $request->all();
-        // $input['created_at'] = Carbon::now()->toString();
-
+        $input['created_at'] = Carbon::now()->toString();
         $input = json_encode($input);
+
         $data = new DataSaved();
         $data->received_data = $input;
         $data->save();
+
     }
 }

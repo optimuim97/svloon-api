@@ -68,6 +68,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 {
     use HasFactory, ImgurHelpers;
     public $table = 'salon_services';
+    protected $happends = ['extras'];
 
     public $fillable = [
         'name',
@@ -88,4 +89,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     ];
 
     public static array $rules = [];
+
+    public function getExtraAttribute(){
+
+    }
 }

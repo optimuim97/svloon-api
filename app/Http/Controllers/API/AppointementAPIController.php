@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\Appointement;
+use App\Models\SalonService;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\AppBaseController;
+use App\Repositories\AppointementRepository;
 use App\Http\Requests\API\CreateAppointementAPIRequest;
 use App\Http\Requests\API\UpdateAppointementAPIRequest;
-use App\Models\Appointement;
-use App\Repositories\AppointementRepository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Models\SalonService;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 
 /**
  * Class AppointementController
@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 
 class AppointementAPIController extends AppBaseController
 {
+
     private AppointementRepository $appointementRepository;
 
     public function __construct(AppointementRepository $appointementRepo)
@@ -105,22 +106,22 @@ class AppointementAPIController extends AppBaseController
 
         $user = User::find($user_id);
 
-        if(empty($user)){
-            return $this->sendResponse([],'L\'utilisateur n\'existe pas');
+        if (empty($user)) {
+            return $this->sendResponse([], "L'utilisateur n'existe pas");
         }
 
         $input["user_id"] = $user->id;
 
         if (empty($creator)) {
-            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+            return $this->sendResponse([], "L'utilisateur doit être connecté");
         }
 
         $service_id = $input["salon_service_id"];
 
         $salonService = SalonService::find($service_id);
 
-        if(empty($salonService)){
-            return $this->sendResponse([],'Ce service n\'existe pas');
+        if (empty($salonService)) {
+            return $this->sendResponse([], "Ce service n'existe pas");
         }
 
         $date = $input['date'];
@@ -128,11 +129,11 @@ class AppointementAPIController extends AppBaseController
 
         $combinatedDateTime = Carbon::parse("$date $hour");
 
-        if($combinatedDateTime->isPast()){
+        if ($combinatedDateTime->isPast()) {
             return $this->sendError('Vous ne pouvez pas choisir une date passé');
         }
 
-        if($user->id == $creator->id){
+        if ($user->id == $creator->id) {
             return $this->sendError('Vous ne pouvez pas de rendez-vous avec vous même');
         }
 
@@ -300,31 +301,32 @@ class AppointementAPIController extends AppBaseController
         return $this->sendSuccess('Appointement deleted successfully');
     }
 
-    public function getUserRdv(){
+    public function getUserRdv()
+    {
 
         $user = auth("api")->user();
 
-        if(empty($user)){
-            return $this->sendResponse([],'L\'utilisateur doit être connecté');
+        if (empty($user)) {
+            return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        $all =[];
-        $appointments = Appointement::where('creator_id',$user->id)
-                            ->orWhere('user_id',$user->id)
-                            // ->orderBy(['created_at','DESC'])
-                            ->get();
+        $all = [];
+        $appointments = Appointement::where('creator_id', $user->id)
+            ->orWhere('user_id', $user->id)
+            // ->orderBy(['created_at','DESC'])
+            ->get();
 
-        foreach($appointments as $appointment){
-            if(!Carbon::parse($appointment->hour)->isPast()){
+        foreach ($appointments as $appointment) {
+            if (!Carbon::parse($appointment->hour)->isPast()) {
                 array_push($all, $appointment);
             }
         }
 
-        if(empty($all)){
+        if (empty($all)) {
             return $this->sendError("Aucun rendez-vous");
         }
 
         return $this->sendResponse($all, 'Liste des rendez-vous');
-
     }
+
 }

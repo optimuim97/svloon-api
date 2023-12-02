@@ -17,7 +17,6 @@ class AppointmentResource extends JsonResource
     {
         return [
             "creator_id" => $this->creator_id,
-            "services" => SalonService::where(["id" => $this->salon_service_id])->get(),
             "user_id" => $this->user_id,
             "artist_id" => $this->artist_id,
             "appointment_status_id" => $this->appointment_status_id,
@@ -28,6 +27,7 @@ class AppointmentResource extends JsonResource
             "is_confirmed" => $this->is_confirmed,
             "is_report" => $this->is_report,
             "is_cancel" => $this->is_cancel,
+            "services" => SalonService::where(["id" => $this->salon_service_id])->get(),
             "report_date" => $this->report_date,
         ];
     }

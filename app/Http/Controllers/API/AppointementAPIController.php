@@ -13,6 +13,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\AppointementRepository;
 use App\Http\Requests\API\CreateAppointementAPIRequest;
 use App\Http\Requests\API\UpdateAppointementAPIRequest;
+use App\Http\Resources\AppointmentResource;
 
 /**
  * Class AppointementController
@@ -318,7 +319,7 @@ class AppointementAPIController extends AppBaseController
 
         foreach ($appointments as $appointment) {
             if (!Carbon::parse($appointment->hour)->isPast()) {
-                array_push($all, $appointment);
+                array_push($all, new AppointmentResource($appointment));
             }
         }
 

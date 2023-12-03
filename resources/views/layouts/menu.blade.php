@@ -281,3 +281,17 @@
         <p>Bank Infos</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('orders.index') }}" class="nav-link {{ Request::is('orders*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Orders</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('orderStatuses.index') }}" class="nav-link {{ Request::is('orderStatuses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Order Statuses</p>
+    </a>
+</li>

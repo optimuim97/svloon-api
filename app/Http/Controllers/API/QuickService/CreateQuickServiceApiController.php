@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API\QuickService;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Appointement;
+use App\Models\Order;
 use App\Models\QuickService;
 use App\Models\Salon;
+use App\Models\SalonService;
 use App\Models\Service;
 use App\Repositories\QuickServiceRepository;
 use Carbon\Carbon;
@@ -120,10 +122,9 @@ class CreateQuickServiceApiController extends AppBaseController
             $nearlySalon = Salon::find($nearlySalon->id);
             $salonAvailabilities = $nearlySalon?->availabilities;
 
-            if(!$salonAvailabilities){
+            if (!$salonAvailabilities) {
                 return $this->sendError("Pas de Salon à proximité");
             }
-
 
             //Check Service list
             // $service = Service::find($input["service_id"]);
@@ -152,22 +153,40 @@ class CreateQuickServiceApiController extends AppBaseController
                         'appointment_status_id' => 1
                     ]);
 
+
+                    if(!empty($input["salon_service_id"])){
+                        $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;
+                    }elseif(!empty($input["service_id"])){
+                        $input['total_price'] = (Service::find($input['service_id']))->price;
+                    }
+
+                    $order = Order::create(
+                        [
+                            'salon_id' => $input['salon_id'] ?? null,
+                            'artist_id' => $input['artist_id'] ?? null,
+                            'details' => $input['details'],
+                            'instructions' => $input['instructions'],
+                            'total_price' => $input['total_price'],
+                            'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s')
+                        ]
+                    );
+
                     if ($quickService) {
+
                         return $this->sendResponse([
                             "service_rapide" => $quickService->toArray(),
-                            "details_rdv" => $appointement->toArray()
+                            "details_rdv" => $appointement->toArray(),
+                            "commande" => $order->toArray(),
                         ], 'Service Rapide enregister avec success');
+
                         //TODO send Email
                     } else {
                         return $this->sendError("Reservation non pris en compte");
                     }
-
                 }
-
             } else {
 
                 return $this->sendError("Salon non disponible");
-
             }
         }
     }
@@ -181,17 +200,17 @@ class CreateQuickServiceApiController extends AppBaseController
         // FROM salon_addresses HAVING distance < 25 ORDER BY distance;
 
         return DB::table("salons")
-                    ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
-                    ->select(
-                        "*",
-                        DB::raw("55555 * acos(cos(radians(" . $latitude . "))
+            ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")
+            ->select(
+                "*",
+                DB::raw("55555 * acos(cos(radians(" . $latitude . "))
                         * cos(radians(salon_addresses.lat))
                         * cos(radians(salon_addresses.lon) - radians(" . $longtitude . "))
                         + sin(radians(" . $latitude . "))
                         * sin(radians(salon_addresses.lat))) AS distance")
-                    )
-                    // ->groupBy("salon_addresses.id")
-                    ->get();
+            )
+            // ->groupBy("salon_addresses.id")
+            ->get();
 
         // return DB::table("salons")
         //     ->join("salon_addresses", "salons.id", "=", "salon_addresses.salon_id")

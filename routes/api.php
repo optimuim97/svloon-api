@@ -209,3 +209,10 @@ Route::resource('service-artists', ServiceArtistAPIController::class);
 Route::get('ok', function () {
     return 'ok';
 });
+
+
+Route::resource('orders', App\Http\Controllers\API\OrderAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIController::class)
+    ->except(['create', 'edit']);

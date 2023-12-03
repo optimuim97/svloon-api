@@ -14,6 +14,7 @@ use App\Repositories\AppointementRepository;
 use App\Http\Requests\API\CreateAppointementAPIRequest;
 use App\Http\Requests\API\UpdateAppointementAPIRequest;
 use App\Http\Resources\AppointmentResource;
+use App\Models\Order;
 
 /**
  * Class AppointementController
@@ -145,7 +146,23 @@ class AppointementAPIController extends AppBaseController
         $input['appointment_status_id'] = 1;
         $appointement = $this->appointementRepository->create($input);
 
-        return $this->sendResponse($appointement->toArray(), 'RDV ajouté');
+        // $fees = $this->calculateFee($this->percent);
+
+        $order = Order::create(
+            [
+                'salon_id' => $input['salon_id'] ?? null,
+                'artist_id' => $input['artist_id'] ?? null,
+                'details' => $input['details'],
+                'instructions' => $input['instructions'],
+                'total_price' => floatval($input['total_price']) + ($fees ?? 0 ),
+                'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s')
+            ]
+        );
+
+        return $this->sendResponse([
+            "appointement" => $appointement->toArray(),
+            "order" => $order->toArray(),
+        ], 'RDV ajouté');
     }
 
     /**
@@ -328,6 +345,10 @@ class AppointementAPIController extends AppBaseController
         }
 
         return $this->sendResponse($all, 'Liste des rendez-vous');
+    }
+
+    public function calculateFee($price){
+
     }
 
 }

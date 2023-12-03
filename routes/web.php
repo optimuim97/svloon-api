@@ -59,3 +59,6 @@ Route::resource('user-pieces', UserPieceController::class);
 Route::resource('category-pros', App\Http\Controllers\CategoryProController::class);
 Route::resource('certification-pros', App\Http\Controllers\CertificationProController::class);
 Route::resource('bank-infos', App\Http\Controllers\BankInfoController::class);
+
+Route::resource('orders', App\Http\Controllers\OrderController::class);
+Route::resource('order-statuses', App\Http\Controllers\OrderStatusController::class);

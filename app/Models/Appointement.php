@@ -120,7 +120,7 @@ class Appointement extends Model
         'is_confirmed',
         'is_report',
         'is_cancel',
-        'report_date',
+        'report_date'
     ];
 
     protected $casts = [

@@ -175,8 +175,8 @@ class CreateQuickServiceApiController extends AppBaseController
 
                         return $this->sendResponse([
                             "service_rapide" => $quickService->toArray(),
-                            "details_rdv" => $appointement->toArray(),
-                            "commande" => $order->toArray(),
+                            "appointement" => $appointement->toArray(),
+                            "order" => $order->toArray(),
                         ], 'Service Rapide enregister avec success');
 
                         //TODO send Email

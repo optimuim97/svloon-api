@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_pieces', function (Blueprint $table) {
-            $table->id('id');
-            $table->bigInteger('user_id');
-            $table->string('file');
-            $table->boolean('is_valid')->default(false);
-            $table->timestamps();
-        });
+        // Schema::create('user_pieces', function (Blueprint $table) {
+        //     $table->id('id');
+        //     $table->bigInteger('user_id');
+        //     $table->string('file');
+        //     $table->boolean('is_valid')->default(false);
+        //     $table->timestamps();
+        // });
     }
 
     /**

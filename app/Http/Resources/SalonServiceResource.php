@@ -20,7 +20,7 @@ class SalonServiceResource extends JsonResource
         // $extras = Extra::where(['service_id'=> $this->id])->get();
         $extras = DB::table('extra_service')->where([
             // 'extra_id' =>  $request->extra_id,
-            'service_id' =>  $request->id,
+            'service_id' =>  $this->id,
         ])->get();
 
         foreach ($extras as $key => $value) {

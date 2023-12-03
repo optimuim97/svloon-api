@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bank_infos', function (Blueprint $table) {
-            $table->id('id');
-            $table->bigInteger('user_id');
-            $table->text('number_surccusale');
-            $table->text('numero_company');
-            $table->text('numero_compte');
-            $table->timestamps();
-        });
+        // Schema::create('bank_infos', function (Blueprint $table) {
+        //     $table->id('id');
+        //     $table->bigInteger('user_id');
+        //     $table->text('number_surccusale');
+        //     $table->text('numero_company');
+        //     $table->text('numero_compte');
+        //     $table->timestamps();
+        // });
     }
 
     /**

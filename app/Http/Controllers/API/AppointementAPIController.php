@@ -15,6 +15,7 @@ use App\Http\Requests\API\CreateAppointementAPIRequest;
 use App\Http\Requests\API\UpdateAppointementAPIRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Order;
+use App\Models\Service;
 
 /**
  * Class AppointementController
@@ -105,7 +106,6 @@ class AppointementAPIController extends AppBaseController
         $input = $request->all();
         $creator = auth("api")->user();
         $user_id = $input["user_id"];
-
         $user = User::find($user_id);
 
         if (empty($user)) {
@@ -139,6 +139,12 @@ class AppointementAPIController extends AppBaseController
             return $this->sendError('Vous ne pouvez pas de rendez-vous avec vous même');
         }
 
+        if(!empty($input["salon_service_id"])){
+            $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;
+        }elseif(!empty($input["service_id"])){
+            $input['total_price'] = (Service::find($input['service_id']))->price;
+        }
+
         $input['creator_id'] = auth("api")->user()?->id;
         $input['datetime'] = $combinatedDateTime;
         $input['hour'] = $combinatedDateTime;
@@ -152,6 +158,7 @@ class AppointementAPIController extends AppBaseController
             [
                 'salon_id' => $input['salon_id'] ?? null,
                 'artist_id' => $input['artist_id'] ?? null,
+                'order_status_id' => 1,
                 'details' => $input['details'],
                 'instructions' => $input['instructions'],
                 'total_price' => floatval($input['total_price']) + ($fees ?? 0 ),
@@ -160,8 +167,8 @@ class AppointementAPIController extends AppBaseController
         );
 
         return $this->sendResponse([
-            "appointement" => $appointement->toArray(),
-            "order" => $order->toArray(),
+            "appointement" => new AppointmentResource($appointement->toArray()),
+            "order" => new OrderResource($order->toArray())
         ], 'RDV ajouté');
     }
 

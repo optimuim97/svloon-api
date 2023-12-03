@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('type_pieces', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('label')->nullable();
-            $table->text('description');
-            $table->timestamps();
-        });
+        // Schema::create('type_pieces', function (Blueprint $table) {
+        //     $table->id('id');
+        //     $table->string('label')->nullable();
+        //     $table->text('description');
+        //     $table->timestamps();
+        // });
     }
 
     /**

@@ -14,6 +14,7 @@ use App\Repositories\AppointementRepository;
 use App\Http\Requests\API\CreateAppointementAPIRequest;
 use App\Http\Requests\API\UpdateAppointementAPIRequest;
 use App\Http\Resources\AppointmentResource;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Service;
 
@@ -166,9 +167,11 @@ class AppointementAPIController extends AppBaseController
             ]
         );
 
+
+        // dd($order->toArray());
         return $this->sendResponse([
-            "appointement" => new AppointmentResource($appointement->toArray()),
-            "order" => new OrderResource($order->toArray())
+            "appointement" => new AppointmentResource($appointement),
+            "order" => new OrderResource($order)
         ], 'RDV ajouté');
     }
 

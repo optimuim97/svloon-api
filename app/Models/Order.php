@@ -75,6 +75,7 @@ use Illuminate\Database\Eloquent\Model;
     use HasFactory;    public $table = 'orders';
 
     public $fillable = [
+        'appointement_id',
         'salon_id',
         'artist_id',
         'order_status_id',
@@ -85,6 +86,7 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     protected $casts = [
+        'appointement_id' => 'integer',
         'salon_id' => 'integer',
         'artist_id' => 'integer',
         'order_status_id' => 'integer',

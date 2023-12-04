@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('id');
+            $table->bigInteger('appointement_id')->nullable();
             $table->bigInteger('salon_id')->nullable();
             $table->bigInteger('artist_id');
             $table->bigInteger('order_status_id');

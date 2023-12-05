@@ -121,10 +121,10 @@ class AppointementAPIController extends AppBaseController
 
         $service_id = $input["salon_service_id"];
 
-        $salonService = SalonService::find($service_id);
+        $salonService = SalonService::where(["salon_service_id"=>$service_id, "salon_id" => $user->id]);
 
         if (empty($salonService)) {
-            return $this->sendResponse([], "Ce service n'existe pas");
+            return $this->sendResponse([], "Ce service n'existe");
         }
 
         $date = $input['date'];
@@ -141,7 +141,7 @@ class AppointementAPIController extends AppBaseController
         }
 
         if(!empty($input["salon_service_id"])){
-            $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;
+            $input['total_price'] = (SalonService::find($input['salon_service_id']))?->price;
         }elseif(!empty($input["service_id"])){
             $input['total_price'] = (Service::find($input['service_id']))->price;
         }

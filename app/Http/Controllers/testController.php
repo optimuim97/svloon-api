@@ -23,7 +23,9 @@ class testController extends Controller
     //     return $finalImageLink;
     // }
 
-    public  function callBack(Request $request){
+    // $URL = "http://svloon.com/api/callback";
+    public function callBack(Request $request){
+
         $input = $request->all();
         $input['created_at'] = Carbon::now()->toString();
         $input = json_encode($input);

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('category_pros', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('label');
-            $table->text('description');
-            $table->timestamps();
-        });
+        // Schema::create('category_pros', function (Blueprint $table) {
+        //     $table->id('id');
+        //     $table->string('label');
+        //     $table->text('description');
+        //     $table->timestamps();
+        // });
     }
 
     /**

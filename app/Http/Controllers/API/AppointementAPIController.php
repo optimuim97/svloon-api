@@ -157,6 +157,7 @@ class AppointementAPIController extends AppBaseController
 
         $order = Order::create(
             [
+                "appointement_id"=> $appointement->id,
                 'salon_id' => $input['salon_id'] ?? null,
                 'artist_id' => $input['artist_id'] ?? null,
                 'order_status_id' => 1,
@@ -166,7 +167,6 @@ class AppointementAPIController extends AppBaseController
                 'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s')
             ]
         );
-
 
         // dd($order->toArray());
         return $this->sendResponse([

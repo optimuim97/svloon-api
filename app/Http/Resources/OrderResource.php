@@ -17,6 +17,7 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         $salon = Salon::find($this->salon_id);
+
         if(!empty($salon)){
             $salon = new SalonResource($salon);
         }
@@ -29,8 +30,8 @@ class OrderResource extends JsonResource
         $orderStatus = OrderStatus::find($this->order_status_id);
 
         return [
-            "salon" => $salon,
-            "artist" => $artist,
+            // "salon" => $salon,
+            // "artist" => $artist,
             "order_status" => $orderStatus ? $orderStatus->label : "En attente",
             "details" => $this->details,
             "instructions" => $this->instructions,

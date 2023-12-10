@@ -9,6 +9,7 @@ use App\Repositories\SalonRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\SalonResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -171,7 +172,7 @@ class SalonAPIController extends AppBaseController
             return $this->sendError('Salon not found');
         }
 
-        return $this->sendResponse($salon->toArray(), 'Salon retrieved successfully');
+        return $this->sendResponse(new SalonResource($salon), 'Salon retrieved successfully');
     }
 
     /**

@@ -30,8 +30,8 @@ class UserResource extends JsonResource
             $userPiece = UserPiece::where("user_id", $this->id)->first();
             $certificatPro = CertificationPro::where("user_id", $this->id)->first();
 
-
             $this->format = [
+                "id"=> $this->id,
                 "email"=> $this->email,
                 "firstname"=> $this->firstname,
                 "lastname"=> $this->lastname,
@@ -58,6 +58,7 @@ class UserResource extends JsonResource
         if($this->user_types_id == 2){
 
             $this->format = [
+                "id"=> $this->id,
                 "email"=> $this->email,
                 "firstname"=> $this->firstname,
                 "lastname"=> $this->lastname,
@@ -79,6 +80,7 @@ class UserResource extends JsonResource
         if($this->user_types_id == 1 ){
 
             $this->format = [
+                "id"=> $this->id,
                 "email"=> $this->email,
                 "firstname"=> $this->firstname,
                 "lastname"=> $this->lastname,

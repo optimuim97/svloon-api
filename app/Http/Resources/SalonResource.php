@@ -49,7 +49,7 @@ class SalonResource extends JsonResource
             "commodities"=> $this->commodities,
             "staff"=> $this->staff,
             "porfolio"=> $this->porfolio,
-            "services" => $salonServices
+            "services" => new SalonServiceCollection($salonServices)
         ];
 
     }

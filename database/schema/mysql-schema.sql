@@ -22,6 +22,9 @@ CREATE TABLE `appointements` (
   `report_date` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `artist_id` bigint unsigned DEFAULT NULL,
+  `salon_service_id` bigint DEFAULT NULL,
+  `service_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -250,6 +253,23 @@ CREATE TABLE `failed_jobs` (
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `invoices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `invoices` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `quantity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price_ht` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_ht` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tva` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -271,6 +291,37 @@ CREATE TABLE `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `order_statuses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_statuses` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `salon_id` bigint DEFAULT NULL,
+  `artist_id` bigint NOT NULL,
+  `order_status_id` bigint NOT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci,
+  `instructions` text COLLATE utf8mb4_unicode_ci,
+  `total_price` text COLLATE utf8mb4_unicode_ci,
+  `date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `appointement_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -819,3 +870,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (45,'2023_10_10_163
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (46,'2023_10_01_204037_create_category_pros_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (47,'2023_11_03_202256_create_type_pieces_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (48,'2023_11_02_093650_create_service_artists_table',2);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (49,'2023_11_03_211023_create_bank_infos_table',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (50,'2023_12_03_100046_create_orders_table',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (51,'2023_12_03_115323_create_order_statuses_table',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (52,'2023_12_03_123930_add_artist_id_fields',3);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (53,'2023_12_04_202256_create_type_pieces_table',4);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (54,'2023_12_04_204723_create_certification_pros_table',5);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (55,'2024_11_03_202751_create_user_pieces_table',6);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (56,'2023_12_03_124442_add_salon_service_id_and_service_id_fields',7);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (57,'2023_12_09_144656_add_appointmen_id_to_order',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (58,'2023_12_09_195743_create_invoices_table',9);

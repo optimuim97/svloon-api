@@ -2,50 +2,47 @@
 
 namespace App\Models;
 
-use App\Service\ImgurHelpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
- *      schema="SalonService",
+ *      schema="Invoice",
  *      required={},
  *      @OA\Property(
- *          property="name",
+ *          property="invoice_number",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="price",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *       @OA\Property(
- *          property="imageUrl",
+ *          property="description",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
  *      ),
  *      @OA\Property(
- *          property="time",
+ *          property="quantity",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
  *          type="string",
- *          format="date-time"
  *      ),
  *      @OA\Property(
- *          property="salon_id",
+ *          property="unit",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="integer",
- *          format="int32"
+ *          type="string",
+ *      ),
+ *      @OA\Property(
+ *          property="price_ht",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -65,33 +62,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      )
  * )
  */
-class SalonService extends Model
+class Invoice extends Model
 {
-    use HasFactory, ImgurHelpers;
-    public $table = 'salon_services';
-    protected $happends = ['extras'];
+    use HasFactory;
+    public $table = 'invoices';
 
     public $fillable = [
-        'name',
+        'invoice_number',
         'description',
-        'imageUrl',
-        'price',
-        'time',
-        'salon_id',
-        'service_type_id',
-        'service_place_type_id'
+        'quantity',
+        'unit',
+        'price_ht',
+        'total_ht',
+        'tva'
     ];
 
     protected $casts = [
-        'name' => 'string',
-        'imageUrl' => 'string',
-        'price' => 'string',
-        'salon_id' => 'integer'
+        'invoice_number' => 'string',
+        'description' => 'string',
+        'quantity' => 'string',
+        'unit' => 'string',
+        'price_ht' => 'string',
+        'total_ht' => 'string',
+        'tva' => 'string'
     ];
 
     public static array $rules = [];
-
-    public function getExtraAttribute(){
-
-    }
 }

@@ -70,7 +70,8 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class Order extends Model
+ */
+class Order extends Model
 {
     use HasFactory;    public $table = 'orders';
 
@@ -96,9 +97,5 @@ use Illuminate\Database\Eloquent\Model;
         'date' => 'datetime'
     ];
 
-    public static array $rules = [
-
-    ];
-
-
+    public static array $rules = [];
 }

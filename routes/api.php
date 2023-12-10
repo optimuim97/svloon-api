@@ -50,6 +50,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
     Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
+    Route::get('confirm-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'confirmRdv']);
+    Route::get('cancel-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'cancelRdv']);
 
     Route::post('add-salon-availabilies', [SalonAvailabilyAPIController::class, 'store']);
     Route::get('get-salon-availabilies', [SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
@@ -215,4 +217,7 @@ Route::resource('orders', App\Http\Controllers\API\OrderAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class)
     ->except(['create', 'edit']);

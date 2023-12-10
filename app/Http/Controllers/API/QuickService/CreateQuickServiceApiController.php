@@ -150,9 +150,10 @@ class CreateQuickServiceApiController extends AppBaseController
                         'is_report' => false,
                         'is_cancel' => false,
                         'report_date' => null,
+                        'salon_service_id' => $input['salon_service_id'] ?? null,
+                        'service_id' => $input['service_id'] ?? null,
                         'appointment_status_id' => 1
                     ]);
-
 
                     if(!empty($input["salon_service_id"])){
                         $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;

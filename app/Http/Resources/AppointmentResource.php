@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\AppointmentStatus;
 use App\Models\Order;
 use App\Models\SalonService;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class AppointmentResource extends JsonResource
             "creator_id" => $this->creator_id,
             "user_id" => $this->user_id,
             "artist_id" => $this->artist_id,
-            "appointment_status_id" => $this->appointment_status_id,
+            "appointment_status" => AppointmentStatus::find($this->appointment_status_id),
             "date" => $this->date,
             "hour" => $this->hour,
             "date_time" => $this->date_time,
@@ -30,7 +31,9 @@ class AppointmentResource extends JsonResource
             "is_cancel" => $this->is_cancel,
             "services" => SalonService::where(["id" => $this->salon_service_id])->get(),
             "report_date" => $this->report_date,
-            "order"=> new OrderResource(Order::where("appointement_id", $this->appointement_id)->first())
+            "order" => new OrderResource(
+                Order::where("appointement_id", $this->appointement_id)->first()
+            )
         ];
     }
 }

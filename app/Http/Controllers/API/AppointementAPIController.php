@@ -121,7 +121,7 @@ class AppointementAPIController extends AppBaseController
 
         $service_id = $input["salon_service_id"];
 
-        $salonService = SalonService::where(["salon_service_id"=>$service_id, "salon_id" => $user->id]);
+        $salonService = SalonService::where(["salon_service_id" => $service_id, "salon_id" => $user->id]);
 
         if (empty($salonService)) {
             return $this->sendResponse([], "Ce service n'existe");
@@ -140,9 +140,9 @@ class AppointementAPIController extends AppBaseController
             return $this->sendError('Vous ne pouvez pas de rendez-vous avec vous même');
         }
 
-        if(!empty($input["salon_service_id"])){
+        if (!empty($input["salon_service_id"])) {
             $input['total_price'] = (SalonService::find($input['salon_service_id']))?->price;
-        }elseif(!empty($input["service_id"])){
+        } elseif (!empty($input["service_id"])) {
             $input['total_price'] = (Service::find($input['service_id']))->price;
         }
 
@@ -157,13 +157,13 @@ class AppointementAPIController extends AppBaseController
 
         $order = Order::create(
             [
-                "appointement_id"=> $appointement->id,
+                "appointement_id" => $appointement->id,
                 'salon_id' => $input['salon_id'] ?? null,
                 'artist_id' => $input['artist_id'] ?? null,
                 'order_status_id' => 1,
                 'details' => $input['details'],
                 'instructions' => $input['instructions'],
-                'total_price' => floatval($input['total_price']) + ($fees ?? 0 ),
+                'total_price' => floatval($input['total_price']) + ($fees ?? 0),
                 'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s')
             ]
         );
@@ -357,8 +357,35 @@ class AppointementAPIController extends AppBaseController
         return $this->sendResponse($all, 'Liste des rendez-vous');
     }
 
-    public function calculateFee($price){
-
+    public function calculateFee($price)
+    {
     }
 
+    public function confirmRdv($idRdv)
+    {
+        $appointement = Appointement::find($idRdv);
+
+        if (empty($appointement)) {
+            return $this->sendError("Ce rdv n'existe pas");
+        }
+
+        $appointement->is_confirmed = !$appointement->is_confirmed;
+        $appointement->save();
+
+        return $this->sendResponse($appointement, "Mise à jour éffectué");
+    }
+
+    public function cancelRdv($idRdv)
+    {
+        $appointement = Appointement::find($idRdv);
+
+        if (empty($appointement)) {
+            return $this->sendError("Ce rdv n'existe pas");
+        }
+
+        $appointement->is_confirmed = !$appointement->is_confirmed;
+        $appointement->save();
+
+        return $this->sendResponse($appointement, "Mise à jour éffectué");
+    }
 }

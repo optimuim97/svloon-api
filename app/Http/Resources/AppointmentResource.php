@@ -32,7 +32,7 @@ class AppointmentResource extends JsonResource
             "services" => SalonService::where(["id" => $this->salon_service_id])->get(),
             "report_date" => $this->report_date,
             "order" => new OrderResource(
-                Order::where("appointement_id", $this->appointement_id)->first()
+                Order::where("appointement_id", $this->id)->first()
             )
         ];
     }

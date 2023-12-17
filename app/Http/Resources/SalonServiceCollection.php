@@ -16,6 +16,7 @@ class SalonServiceCollection extends ResourceCollection
     public function toArray(Request $request)
     {
         return $this->collection->map(
+
             function ($item) {
 
                 $extraList = [];
@@ -41,6 +42,7 @@ class SalonServiceCollection extends ResourceCollection
                 ];
 
             }
+
         );
     }
 }

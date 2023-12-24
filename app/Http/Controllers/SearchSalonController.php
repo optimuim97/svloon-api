@@ -40,6 +40,30 @@ class SearchSalonController extends Controller
         }
     }
 
+    public function searchByNameAndType(Request $request)
+    {
+        $all = [];
+        $name = $request->query('name');
+        $salons = Salon::where('name', 'like', "%$name%")->get();
+
+        foreach ($salons as $value) {
+            array_push($all, new UserResource($value->user));
+        }
+
+        if (!empty($salons) && count($salons) >= 1) {
+            return response()->json([
+                "message" => "retreived",
+                "status_code" => Response::HTTP_OK,
+                "data" => new SalonCollection($all)
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                "message" => "Not found",
+                "status_code" => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_OK);
+        }
+    }
+
     public function searchByAddressName(Request $request)
     {
         $salons = [];
@@ -98,7 +122,5 @@ class SearchSalonController extends Controller
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
         }
-
     }
-
 }

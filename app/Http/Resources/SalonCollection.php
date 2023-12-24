@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\SalonAddress;
+use App\Models\SalonService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -29,25 +30,32 @@ class SalonCollection extends ResourceCollection
         // return $all;
 
         return $this->collection->map(function ($item) {
+
+            $salon_pictures = [];
+
+            if(!empty($item->pictures)){
+                foreach($item->pictures as $picture){
+                    array_push($salon_pictures, $picture['path']);
+                }
+            }
+
+            $salonServices = SalonService::where(["salon_id"=> $item->id])->get();
+
             return [
+
                 "id"=> $item->id,
-                "user_id"=> $item->user_id,
-                "name"=> $item->name,
-                "email"=> $item->email,
-                "owner_fullname"=> $item->owner_fullname,
-                "dialCode"=> $item->dialCode,
-                "password"=> $item->password,
-                "scheduleStart"=> $item->scheduleStart,
-                "scheduleEnd"=> $item->scheduleEnd,
-                "scheduleStr"=> $item->scheduleStr,
-                "city"=> $item->city,
-                "phoneNumber"=> $item->phoneNumber,
-                "phone"=> $item->phone,
-                "postalCode"=> $item->postalCode,
-                "localNumber"=> $item->localNumber,
-                "bailDocument"=> $item->bailDocument,
-                "salon_type_id"=> $item->salon_type_id,
-                "cover_picture"=> $item->cover_picture
+                "name" => $item->name,
+                "email" => $item->email,
+                "dialCode" => $item->dialCode,
+                "phoneNumber" => $item->phoneNumber,
+                "cover_picture" => $item->cover_picture,
+                "city" => $item->city,
+                "pictures"=> $salon_pictures,
+                "availabilities"=> $item->availabilities,
+                "commodities"=> $item->commodities,
+                "staff"=> $item->staff,
+                "porfolio"=> $item->porfolio,
+                "services" => new SalonServiceCollection($salonServices)
             ];
         });
 

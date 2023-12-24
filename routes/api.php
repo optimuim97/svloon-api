@@ -83,6 +83,7 @@ Route::get('users/info_by_email', [UserSearchController::class, 'searchByEmail']
 Route::get('users/info_by_phone_number', [UserSearchController::class, 'searchByPhone']);
 
 Route::get('salons/search_by_name', [SearchSalonController::class, 'searchByName']);
+Route::get('salons/search_by_name_and_type', [SearchSalonController::class, 'searchByNameAndType']);
 Route::get('salons/search_by_address_name', [SearchSalonController::class, 'searchByAddressName']);
 Route::get('salons/find_salon_by_artist/{artistId}', [SearchSalonController::class, 'findSalonByArtist']);
 

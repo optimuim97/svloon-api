@@ -155,9 +155,20 @@ class CreateQuickServiceApiController extends AppBaseController
                         'appointment_status_id' => 1
                     ]);
 
-                    if(!empty($input["salon_service_id"])){
+                    if (!empty($input["salon_service_id"])) {
+
                         $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;
-                    }elseif(!empty($input["service_id"])){
+                        $price = $input['total_price'];
+                        //TODO add extra to price calculate
+                        // $extras_selected = $input['extras'] ?? null;
+
+                        // if (!empty($extras_selected)) {
+                        //     foreach ($extras_selected as $extra) {
+                        //         $price = float($extras_selected) + float($extra->price);
+                        //     }
+                        // }
+
+                    } elseif (!empty($input["service_id"])) {
                         $input['total_price'] = (Service::find($input['service_id']))->price;
                     }
 

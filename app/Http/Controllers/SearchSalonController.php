@@ -20,41 +20,27 @@ class SearchSalonController extends Controller
     {
         $all = [];
         $name = $request->query('name');
-        $salons = Salon::where('name', 'like', "%$name%")->get();
+        $service_type_id = $request->query('service_type_id') ?? "";
 
+        $salons = Salon::where('name', 'like', "%$name%")->get();
         foreach ($salons as $value) {
-            array_push($all, new UserResource($value->user));
+            $formatedUser = new UserResource($value->user);
+            array_push($all, $formatedUser);
         }
+
+        // if ($service_type_id != null && $service_type_id != "" && !empty($all)) {
+        //     foreach($all as $item){
+        //         dd($item->salon);
+        //     }
+        // array_filter($all, function ($item) {
+        // });
+        // }
 
         if (!empty($salons) && count($salons) >= 1) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_OK,
-                "data" => new SalonCollection($all)
-            ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                "message" => "Not found",
-                "status_code" => Response::HTTP_NOT_FOUND,
-            ], Response::HTTP_OK);
-        }
-    }
-
-    public function searchByNameAndType(Request $request)
-    {
-        $all = [];
-        $name = $request->query('name');
-        $salons = Salon::where('name', 'like', "%$name%")->get();
-
-        foreach ($salons as $value) {
-            array_push($all, new UserResource($value->user));
-        }
-
-        if (!empty($salons) && count($salons) >= 1) {
-            return response()->json([
-                "message" => "retreived",
-                "status_code" => Response::HTTP_OK,
-                "data" => new SalonCollection($all)
+                "data" => $all
             ], Response::HTTP_OK);
         } else {
             return response()->json([
@@ -86,7 +72,7 @@ class SearchSalonController extends Controller
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
-                "data" => new SalonCollection($all)
+                "data" => $all
             ], Response::HTTP_FOUND);
         } else {
             return response()->json([

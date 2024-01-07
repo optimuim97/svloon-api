@@ -168,7 +168,6 @@ class AppointementAPIController extends AppBaseController
             ]
         );
 
-        // dd($order->toArray());
         return $this->sendResponse([
             "appointement" => new AppointmentResource($appointement),
             "order" => new OrderResource($order)

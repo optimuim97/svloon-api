@@ -46,7 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class PaymentType extends Model
+ */
+class PaymentType extends Model
 {
     use HasFactory;    public $table = 'payment_types';
 
@@ -63,8 +64,8 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
+
 }

@@ -48,7 +48,7 @@ class OrderStatusController extends AppBaseController
 
         Flash::success('Order Status saved successfully.');
 
-        return redirect(route('orderStatuses.index'));
+        return redirect(route('order-statuses.index'));
     }
 
     /**
@@ -61,7 +61,7 @@ class OrderStatusController extends AppBaseController
         if (empty($orderStatus)) {
             Flash::error('Order Status not found');
 
-            return redirect(route('orderStatuses.index'));
+            return redirect(route('order-statuses.index'));
         }
 
         return view('order_statuses.show')->with('orderStatus', $orderStatus);
@@ -77,7 +77,7 @@ class OrderStatusController extends AppBaseController
         if (empty($orderStatus)) {
             Flash::error('Order Status not found');
 
-            return redirect(route('orderStatuses.index'));
+            return redirect(route('order-statuses.index'));
         }
 
         return view('order_statuses.edit')->with('orderStatus', $orderStatus);
@@ -93,14 +93,14 @@ class OrderStatusController extends AppBaseController
         if (empty($orderStatus)) {
             Flash::error('Order Status not found');
 
-            return redirect(route('orderStatuses.index'));
+            return redirect(route('order-statuses.index'));
         }
 
         $orderStatus = $this->orderStatusRepository->update($request->all(), $id);
 
         Flash::success('Order Status updated successfully.');
 
-        return redirect(route('orderStatuses.index'));
+        return redirect(route('order-statuses.index'));
     }
 
     /**
@@ -115,13 +115,13 @@ class OrderStatusController extends AppBaseController
         if (empty($orderStatus)) {
             Flash::error('Order Status not found');
 
-            return redirect(route('orderStatuses.index'));
+            return redirect(route('order-statuses.index'));
         }
 
         $this->orderStatusRepository->delete($id);
 
         Flash::success('Order Status deleted successfully.');
 
-        return redirect(route('orderStatuses.index'));
+        return redirect(route('order-statuses.index'));
     }
 }

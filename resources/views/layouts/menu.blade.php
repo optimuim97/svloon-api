@@ -290,7 +290,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('orderStatuses.index') }}" class="nav-link {{ Request::is('orderStatuses*') ? 'active' : '' }}">
+    <a href="{{ route('order-statuses.index') }}" class="nav-link {{ Request::is('order-statuses*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Order Statuses</p>
     </a>

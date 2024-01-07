@@ -160,7 +160,7 @@ return [
 
     'prefixes' => [
 
-        'route' => '',  // e.g. admin or admin.shipping or admin.shipping.logistics
+        'route' => 'dash',  // e.g. admin or admin.shipping or admin.shipping.logistics
 
         'namespace' => '',  // e.g. Admin or Admin\Shipping or Admin\Shipping\Logistics
 

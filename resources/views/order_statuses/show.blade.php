@@ -11,7 +11,7 @@ Order Status Details
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('orderStatuses.index') }}">
+                       href="{{ route('order-statuses.index') }}">
                                                     Back
                                             </a>
                 </div>

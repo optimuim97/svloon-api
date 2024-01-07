@@ -49,6 +49,8 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    // protected $appends = ['type'];
+
     /**
      * The attributes that should be cast.
      *
@@ -125,29 +127,28 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Artist::class);
     }
 
-    public function getAppointementsAttribute(){
+    public function getAppointementsAttribute()
+    {
+        $all = [];
+        $appointments = Appointement::where('creator_id', $this->id)
+            ->orWhere('user_id', $this->id)
+            ->get();
 
-        $all =[];
-        $appointments = Appointement::where('creator_id',$this->id)
-                            ->orWhere('user_id',$this->id)
-                            ->get();
-
-        foreach($appointments as $appointment){
-            if(!Carbon::parse($appointment->hour)->isPast()){
+        foreach ($appointments as $appointment) {
+            if (!Carbon::parse($appointment->hour)->isPast()) {
                 array_push($all, $appointment);
             }
         }
 
         return $all;
-
     }
 
     // public function getInfosAttribute(){
     //     return $this->userType;
     // }
 
-    // public function getTypeAttribute(){
+    // public function getTypeAttribute()
+    // {
     //     return $this->userType;
     // }
-
 }

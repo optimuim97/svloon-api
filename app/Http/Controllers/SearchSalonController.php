@@ -18,29 +18,31 @@ class SearchSalonController extends Controller
 {
     public function searchByName(Request $request)
     {
-        $all = [];
+        $searchData = [];
         $name = $request->query('name');
         $service_type_id = $request->query('service_type_id') ?? "";
 
         $salons = Salon::where('name', 'like', "%$name%")->get();
+        $formatedUser = null;
+
         foreach ($salons as $value) {
             $formatedUser = new UserResource($value->user);
-            array_push($all, $formatedUser);
+            array_push($searchData, $formatedUser);
         }
 
-        // if ($service_type_id != null && $service_type_id != "" && !empty($all)) {
-        //     foreach($all as $item){
-        //         dd($item->salon);
-        //     }
-        // array_filter($all, function ($item) {
-        // });
-        // }
+        if ($service_type_id != null && $service_type_id != "" && !empty($searchData)) {
+            $searchData = array_filter($searchData, function ($item) use ($service_type_id) {
+                if ($item->userType->id == $service_type_id) {
+                    return $item;
+                }
+            });
+        }
 
         if (!empty($salons) && count($salons) >= 1) {
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_OK,
-                "data" => $all
+                "data" => $searchData
             ], Response::HTTP_OK);
         } else {
             return response()->json([

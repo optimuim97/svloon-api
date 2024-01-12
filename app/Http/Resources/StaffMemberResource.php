@@ -23,7 +23,7 @@ class StaffMemberResource extends JsonResource
             "imageUrl"=> $user->photo_url,
             "fonction"=> $user->profession,
             "phone"=>$user->dial_code.$user->phone_number,
-            // "salon_id"=> $this->salon_id,
+            "salon_id"=> $this->salon_id
             // "artist_id"=> $this->artist_id
         ];
     }

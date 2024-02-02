@@ -222,3 +222,70 @@ Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIControl
 
 Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class)
     ->except(['create', 'edit']);
+
+
+
+
+
+
+Route::resource('dash/annonces', App\Http\Controllers\API\AnnonceAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.annonces.index',
+        'store' => 'dash.annonces.store',
+        'show' => 'dash.annonces.show',
+        'update' => 'dash.annonces.update',
+        'destroy' => 'dash.annonces.destroy'
+    ]);
+
+Route::resource('dash/annonce-commodities', App\Http\Controllers\API\AnnonceCommoditiesAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.annonceCommodities.index',
+        'store' => 'dash.annonceCommodities.store',
+        'show' => 'dash.annonceCommodities.show',
+        'update' => 'dash.annonceCommodities.update',
+        'destroy' => 'dash.annonceCommodities.destroy'
+    ]);
+
+Route::resource('dash/accessoires', App\Http\Controllers\API\AccessoireAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.accessoires.index',
+        'store' => 'dash.accessoires.store',
+        'show' => 'dash.accessoires.show',
+        'update' => 'dash.accessoires.update',
+        'destroy' => 'dash.accessoires.destroy'
+    ]);
+
+Route::resource('dash/accessoire-annonces', App\Http\Controllers\API\AccessoireAnnonceAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.accessoireAnnonces.index',
+        'store' => 'dash.accessoireAnnonces.store',
+        'show' => 'dash.accessoireAnnonces.show',
+        'update' => 'dash.accessoireAnnonces.update',
+        'destroy' => 'dash.accessoireAnnonces.destroy'
+    ]);
+
+Route::resource('dash/annonce-images', App\Http\Controllers\API\AnnonceImagesAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.annonceImages.index',
+        'store' => 'dash.annonceImages.store',
+        'show' => 'dash.annonceImages.show',
+        'update' => 'dash.annonceImages.update',
+        'destroy' => 'dash.annonceImages.destroy'
+    ]);
+
+
+
+Route::resource('dash/rules-and-safeties', App\Http\Controllers\API\rulesAndSafetyAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.rulesAndSafeties.index',
+        'store' => 'dash.rulesAndSafeties.store',
+        'show' => 'dash.rulesAndSafeties.show',
+        'update' => 'dash.rulesAndSafeties.update',
+        'destroy' => 'dash.rulesAndSafeties.destroy'
+    ]);

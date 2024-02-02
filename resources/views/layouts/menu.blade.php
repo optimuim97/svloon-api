@@ -295,3 +295,41 @@
         <p>Order Statuses</p>
     </a>
 </li>
+
+
+
+<li class="nav-item">
+    <a href="{{ route('dash.annonceCommodities.index') }}" class="nav-link {{ Request::is('dash.annonceCommodities*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Annonce Commodities</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('dash.accessoires.index') }}" class="nav-link {{ Request::is('dash.accessoires*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Accessoires</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('dash.accessoireAnnonces.index') }}" class="nav-link {{ Request::is('dash.accessoireAnnonces*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Accessoire Annonces</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('dash.annonceImages.index') }}" class="nav-link {{ Request::is('dash.annonceImages*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Annonce Images</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('dash.rulesAndSafeties.index') }}" class="nav-link {{ Request::is('dash.rulesAndSafeties*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Rules And Safeties</p>
+    </a>
+</li>

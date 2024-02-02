@@ -27,4 +27,5 @@ class StaffMemberResource extends JsonResource
             "artist_id"=> $this->artist_id
         ];
     }
+
 }

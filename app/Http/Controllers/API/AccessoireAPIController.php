@@ -9,6 +9,7 @@ use App\Repositories\AccessoireRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Service\ImgurHelpers;
 
 /**
  * Class AccessoireController
@@ -17,6 +18,7 @@ use App\Http\Controllers\AppBaseController;
 class AccessoireAPIController extends AppBaseController
 {
     private AccessoireRepository $accessoireRepository;
+    use ImgurHelpers;
 
     public function __construct(AccessoireRepository $accessoireRepo)
     {
@@ -96,6 +98,7 @@ class AccessoireAPIController extends AppBaseController
     public function store(CreateAccessoireAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $input['icone'] = $this->upload($request, 'icone');
 
         $accessoire = $this->accessoireRepository->create($input);
 
@@ -196,6 +199,10 @@ class AccessoireAPIController extends AppBaseController
 
         /** @var Accessoire $accessoire */
         $accessoire = $this->accessoireRepository->find($id);
+
+        if(!empty($input['icone'] ?? null)){
+            $input['icone'] = $this->upload($request, 'icone');
+        }
 
         if (empty($accessoire)) {
             return $this->sendError('Accessoire not found');

@@ -14,7 +14,7 @@ class CreateAnnonceAPIRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**

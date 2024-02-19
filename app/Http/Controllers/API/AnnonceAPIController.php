@@ -9,6 +9,11 @@ use App\Repositories\AnnonceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\AnnonceRessource;
+use App\Service\ImgurHelpers;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 /**
  * Class AnnonceController
@@ -17,6 +22,8 @@ use App\Http\Controllers\AppBaseController;
 class AnnonceAPIController extends AppBaseController
 {
     private AnnonceRepository $annonceRepository;
+
+    use ImgurHelpers;
 
     public function __construct(AnnonceRepository $annonceRepo)
     {
@@ -93,13 +100,39 @@ class AnnonceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateAnnonceAPIRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $input = $request->all();
+        $cover_image = $this->upload($request, "cover_image");
+
+        //TODO
+        // if(Carbon::parse($input['start_date'])->isPast()){
+        //     return $this->sendError('Vous ne pouvez pas choisir une date passé');
+        // }
+
+        // if(Carbon::parse($input['end_date'])->isPast()){
+        //     return $this->sendError('Vous ne pouvez pas choisir une date passé');
+        // }
+
+        $input = [
+            "reference" => Str::uuid(),
+            "label" => $input['label'],
+            "address" => $input['address'],
+            "rating" => $input['rating'] ?? 0,
+            "cover_image" => $cover_image,
+            "description" => $input['description'],
+            "salon_id" => $input['salon_id'],
+            "nombre_places" => $input['nombre_places'],
+            "price" => $input['price'],
+            "duration" => $input['duration'],
+            "start_date" => $input['start_date'],
+            "status" => $input['status'],
+            "end_date" => $input['end_date']
+        ];
 
         $annonce = $this->annonceRepository->create($input);
 
-        return $this->sendResponse($annonce->toArray(), 'Annonce saved successfully');
+        return $this->sendResponse( new AnnonceRessource($annonce), 'Annonce enregistré');
     }
 
     /**

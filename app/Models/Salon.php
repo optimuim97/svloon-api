@@ -186,8 +186,16 @@ class Salon extends Model
         "email" => "required|unique:email"
     ];
 
-    protected $appends = ['quick_service_list', "address", 'availabilities', 'commodities', 'staff', 'pictures', 'porfolio'];
+    protected $appends = [
+        'quick_service_list',
+        "address",
+        'availabilities',
+        'commodities',
+        'staff',
+        'pictures',
+        'porfolio'
 
+    ];
     /**
      * Get the user that owns the Salon
      *

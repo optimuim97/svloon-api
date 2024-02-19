@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AnnonceAPIController;
 use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\Artist\ArtistPictureAPIController;
 use App\Http\Controllers\API\Artist\ArtistPorfolioAPIController;
@@ -209,11 +210,6 @@ Route::resource('artist-services', ArtistServiceAPIController::class)
 Route::resource('service-artists', ServiceArtistAPIController::class);
 
 
-Route::get('ok', function () {
-    return 'ok';
-});
-
-
 Route::resource('orders', App\Http\Controllers\API\OrderAPIController::class)
     ->except(['create', 'edit']);
 
@@ -223,20 +219,7 @@ Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIControl
 Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class)
     ->except(['create', 'edit']);
 
-
-
-
-
-
-Route::resource('dash/annonces', App\Http\Controllers\API\AnnonceAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.annonces.index',
-        'store' => 'dash.annonces.store',
-        'show' => 'dash.annonces.show',
-        'update' => 'dash.annonces.update',
-        'destroy' => 'dash.annonces.destroy'
-    ]);
+Route::resource('annonces', App\Http\Controllers\API\AnnonceAPIController::class);
 
 Route::resource('dash/annonce-commodities', App\Http\Controllers\API\AnnonceCommoditiesAPIController::class)
     ->except(['create', 'edit'])
@@ -277,8 +260,6 @@ Route::resource('dash/annonce-images', App\Http\Controllers\API\AnnonceImagesAPI
         'update' => 'dash.annonceImages.update',
         'destroy' => 'dash.annonceImages.destroy'
     ]);
-
-
 
 Route::resource('dash/rules-and-safeties', App\Http\Controllers\API\rulesAndSafetyAPIController::class)
     ->except(['create', 'edit'])

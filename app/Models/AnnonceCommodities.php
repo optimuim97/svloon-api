@@ -41,7 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class AnnonceCommodities extends Model
+ */
+class AnnonceCommodities extends Model
 {
     use HasFactory;    public $table = 'annonce_commodities';
 
@@ -56,8 +57,8 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
+
 }

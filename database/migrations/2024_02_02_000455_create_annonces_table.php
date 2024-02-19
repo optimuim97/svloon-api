@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('id');
             $table->bigInteger('salon_id')->nullable();
             $table->string('label');
+            $table->string('reference');
             $table->string('description');
             $table->string('address');
             $table->string('rating');
@@ -24,8 +25,10 @@ return new class extends Migration
             $table->integer('nombre_places');
             $table->string('price');
             $table->string('duration');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('status')->nullable();
+            $table->boolean('is_active')->default();
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
             $table->timestamps();
         });
     }

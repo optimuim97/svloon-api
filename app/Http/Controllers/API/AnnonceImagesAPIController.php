@@ -9,6 +9,7 @@ use App\Repositories\AnnonceImagesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Service\ImgurHelpers;
 
 /**
  * Class AnnonceImagesController
@@ -17,6 +18,7 @@ use App\Http\Controllers\AppBaseController;
 class AnnonceImagesAPIController extends AppBaseController
 {
     private AnnonceImagesRepository $annonceImagesRepository;
+    use ImgurHelpers;
 
     public function __construct(AnnonceImagesRepository $annonceImagesRepo)
     {
@@ -96,7 +98,7 @@ class AnnonceImagesAPIController extends AppBaseController
     public function store(CreateAnnonceImagesAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-
+        $input['image'] = $this->upload($request, "image");
         $annonceImages = $this->annonceImagesRepository->create($input);
 
         return $this->sendResponse($annonceImages->toArray(), 'Annonce Images saved successfully');

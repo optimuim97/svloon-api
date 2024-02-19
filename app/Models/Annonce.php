@@ -17,6 +17,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          type="string",
  *      ),
  *      @OA\Property(
+ *          property="reference",
+ *          description="",
+ *          readOnly=false,
+ *          nullable=true,
+ *          type="string",
+ *      ),
+ *      @OA\Property(
  *          property="address",
  *          description="",
  *          readOnly=false,
@@ -104,11 +111,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="date-time"
  *      )
  * )
- */class Annonce extends Model
+ */
+class Annonce extends Model
 {
-    use HasFactory;    public $table = 'annonces';
+    use HasFactory;
+    public $table = 'annonces';
 
     public $fillable = [
+        'reference',
         'label',
         'address',
         'rating',
@@ -129,13 +139,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'cover_image' => 'string',
         'description' => 'string',
         'salon_id' => 'integer',
-        "nombre_places"=> "integer",
-        "price"=> "string",
-        "duration"=> "string",
-        "start_date"=> "string",
-        "end_date"=> "string"
+        "nombre_places" => "integer",
+        "price" => "string",
+        "duration" => "string",
+        "start_date" => "string",
+        "end_date" => "string"
     ];
 
-    public static array $rules = [];
-
+    public static array $rules = [
+        "label" => "required",
+        "address" => "required",
+        "rating" => "required",
+        "cover_image" => "required",
+        "description" => "required",
+        "salon_id" => "required",
+        "nombre_places" => "required",
+        "price" => "required",
+        "duration" => "required",
+        "start_date" => "required",
+        "end_date"        => "required"
+    ];
 }

@@ -131,7 +131,7 @@ class AppointementAPIController extends AppBaseController
         $hour = $input['hour'];
 
         $combinatedDateTime = Carbon::parse("$date $hour");
-
+        #   123D    XX
         if ($combinatedDateTime->isPast()) {
             return $this->sendError('Vous ne pouvez pas choisir une date passé');
         }
@@ -169,7 +169,7 @@ class AppointementAPIController extends AppBaseController
         );
 
         return $this->sendResponse([
-            "appointement" => new AppointmentResource($appointement),
+            "appointement" => new AppointmentResource($appointement) ,
             "order" => new OrderResource($order)
         ], 'RDV ajouté');
     }

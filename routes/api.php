@@ -270,3 +270,14 @@ Route::resource('dash/rules-and-safeties', App\Http\Controllers\API\rulesAndSafe
         'update' => 'dash.rulesAndSafeties.update',
         'destroy' => 'dash.rulesAndSafeties.destroy'
     ]);
+
+
+Route::resource('dash/annonce-orders', App\Http\Controllers\API\AnnonceOrderAPIController::class)
+    ->except(['create', 'edit'])
+    ->names([
+        'index' => 'dash.annonceOrders.index',
+        'store' => 'dash.annonceOrders.store',
+        'show' => 'dash.annonceOrders.show',
+        'update' => 'dash.annonceOrders.update',
+        'destroy' => 'dash.annonceOrders.destroy'
+    ]);

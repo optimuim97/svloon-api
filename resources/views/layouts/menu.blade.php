@@ -333,3 +333,10 @@
         <p>Rules And Safeties</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('dash.annonceOrders.index') }}" class="nav-link {{ Request::is('dash.annonceOrders*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Annonce Orders</p>
+    </a>
+</li>

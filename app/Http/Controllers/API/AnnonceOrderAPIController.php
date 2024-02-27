@@ -2,41 +2,33 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateAnnonceAPIRequest;
-use App\Http\Requests\API\UpdateAnnonceAPIRequest;
-use App\Models\Annonce;
-use App\Repositories\AnnonceRepository;
+use App\Http\Requests\API\CreateAnnonceOrderAPIRequest;
+use App\Http\Requests\API\UpdateAnnonceOrderAPIRequest;
+use App\Models\AnnonceOrder;
+use App\Repositories\AnnonceOrderRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\AnnonceResourceCollection;
-use App\Http\Resources\AnnonceRessource;
-use App\Service\ImgurHelpers;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 /**
- * Class AnnonceController
+ * Class AnnonceOrderController
  */
 
-class AnnonceAPIController extends AppBaseController
+class AnnonceOrderAPIController extends AppBaseController
 {
-    private AnnonceRepository $annonceRepository;
+    private AnnonceOrderRepository $annonceOrderRepository;
 
-    use ImgurHelpers;
-
-    public function __construct(AnnonceRepository $annonceRepo)
+    public function __construct(AnnonceOrderRepository $annonceOrderRepo)
     {
-        $this->annonceRepository = $annonceRepo;
+        $this->annonceOrderRepository = $annonceOrderRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/annonces",
-     *      summary="getAnnonceList",
-     *      tags={"Annonce"},
-     *      description="Get all Annonces",
+     *      path="/annonce-orders",
+     *      summary="getAnnonceOrderList",
+     *      tags={"AnnonceOrder"},
+     *      description="Get all AnnonceOrders",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -49,7 +41,7 @@ class AnnonceAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Annonce")
+     *                  @OA\Items(ref="#/components/schemas/AnnonceOrder")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -61,24 +53,24 @@ class AnnonceAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $annonces = $this->annonceRepository->all(
+        $annonceOrders = $this->annonceOrderRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse( new AnnonceResourceCollection($annonces) , 'Annonces retrieved successfully');
+        return $this->sendResponse($annonceOrders->toArray(), 'Annonce Orders retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/annonces",
-     *      summary="createAnnonce",
-     *      tags={"Annonce"},
-     *      description="Create Annonce",
+     *      path="/annonce-orders",
+     *      summary="createAnnonceOrder",
+     *      tags={"AnnonceOrder"},
+     *      description="Create AnnonceOrder",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Annonce")
+     *        @OA\JsonContent(ref="#/components/schemas/AnnonceOrder")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -91,7 +83,7 @@ class AnnonceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Annonce"
+     *                  ref="#/components/schemas/AnnonceOrder"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -101,50 +93,24 @@ class AnnonceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateAnnonceOrderAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $cover_image = $this->upload($request, "cover_image");
 
-        //TODO
-        // if(Carbon::parse($input['start_date'])->isPast()){
-        //     return $this->sendError('Vous ne pouvez pas choisir une date passé');
-        // }
+        $annonceOrder = $this->annonceOrderRepository->create($input);
 
-        // if(Carbon::parse($input['end_date'])->isPast()){
-        //     return $this->sendError('Vous ne pouvez pas choisir une date passé');
-        // }
-
-        $input = [
-            "reference" => Str::uuid(),
-            "label" => $input['label'],
-            "address" => $input['address'],
-            "rating" => $input['rating'] ?? 0,
-            "cover_image" => $cover_image,
-            "description" => $input['description'],
-            "salon_id" => $input['salon_id'],
-            "nombre_places" => $input['nombre_places'],
-            "price" => $input['price'],
-            "duration" => $input['duration'],
-            "start_date" => $input['start_date'],
-            "status" => $input['status']?? 1,
-            "end_date" => $input['end_date']
-        ];
-
-        $annonce = $this->annonceRepository->create($input);
-
-        return $this->sendResponse( new AnnonceRessource($annonce), 'Annonce enregistré');
+        return $this->sendResponse($annonceOrder->toArray(), 'Annonce Order saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/annonces/{id}",
-     *      summary="getAnnonceItem",
-     *      tags={"Annonce"},
-     *      description="Get Annonce",
+     *      path="/annonce-orders/{id}",
+     *      summary="getAnnonceOrderItem",
+     *      tags={"AnnonceOrder"},
+     *      description="Get AnnonceOrder",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Annonce",
+     *          description="id of AnnonceOrder",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -162,7 +128,7 @@ class AnnonceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Annonce"
+     *                  ref="#/components/schemas/AnnonceOrder"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -174,25 +140,25 @@ class AnnonceAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Annonce $annonce */
-        $annonce = $this->annonceRepository->find($id);
+        /** @var AnnonceOrder $annonceOrder */
+        $annonceOrder = $this->annonceOrderRepository->find($id);
 
-        if (empty($annonce)) {
-            return $this->sendError('Annonce not found');
+        if (empty($annonceOrder)) {
+            return $this->sendError('Annonce Order not found');
         }
 
-        return $this->sendResponse(new AnnonceRessource($annonce), 'Annonce retrieved successfully');
+        return $this->sendResponse($annonceOrder->toArray(), 'Annonce Order retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/annonces/{id}",
-     *      summary="updateAnnonce",
-     *      tags={"Annonce"},
-     *      description="Update Annonce",
+     *      path="/annonce-orders/{id}",
+     *      summary="updateAnnonceOrder",
+     *      tags={"AnnonceOrder"},
+     *      description="Update AnnonceOrder",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Annonce",
+     *          description="id of AnnonceOrder",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -201,7 +167,7 @@ class AnnonceAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Annonce")
+     *        @OA\JsonContent(ref="#/components/schemas/AnnonceOrder")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -214,7 +180,7 @@ class AnnonceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Annonce"
+     *                  ref="#/components/schemas/AnnonceOrder"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -224,31 +190,31 @@ class AnnonceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateAnnonceAPIRequest $request): JsonResponse
+    public function update($id, UpdateAnnonceOrderAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Annonce $annonce */
-        $annonce = $this->annonceRepository->find($id);
+        /** @var AnnonceOrder $annonceOrder */
+        $annonceOrder = $this->annonceOrderRepository->find($id);
 
-        if (empty($annonce)) {
-            return $this->sendError('Annonce not found');
+        if (empty($annonceOrder)) {
+            return $this->sendError('Annonce Order not found');
         }
 
-        $annonce = $this->annonceRepository->update($input, $id);
+        $annonceOrder = $this->annonceOrderRepository->update($input, $id);
 
-        return $this->sendResponse(new AnnonceRessource($annonce), 'Annonce updated successfully');
+        return $this->sendResponse($annonceOrder->toArray(), 'AnnonceOrder updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/annonces/{id}",
-     *      summary="deleteAnnonce",
-     *      tags={"Annonce"},
-     *      description="Delete Annonce",
+     *      path="/annonce-orders/{id}",
+     *      summary="deleteAnnonceOrder",
+     *      tags={"AnnonceOrder"},
+     *      description="Delete AnnonceOrder",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Annonce",
+     *          description="id of AnnonceOrder",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -278,15 +244,15 @@ class AnnonceAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Annonce $annonce */
-        $annonce = $this->annonceRepository->find($id);
+        /** @var AnnonceOrder $annonceOrder */
+        $annonceOrder = $this->annonceOrderRepository->find($id);
 
-        if (empty($annonce)) {
-            return $this->sendError('Annonce not found');
+        if (empty($annonceOrder)) {
+            return $this->sendError('Annonce Order not found');
         }
 
-        $annonce->delete();
+        $annonceOrder->delete();
 
-        return $this->sendSuccess('Annonce deleted successfully');
+        return $this->sendSuccess('Annonce Order deleted successfully');
     }
 }

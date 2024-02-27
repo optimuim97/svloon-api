@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('nombre_places');
             $table->string('price');
             $table->string('duration');
+            $table->string('contact')->nullable();
             $table->string('status')->nullable();
             $table->boolean('is_active')->default();
             $table->string('start_date')->nullable();

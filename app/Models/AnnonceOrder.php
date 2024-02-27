@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @OA\Schema(
- *      schema="AnnonceImages",
+ *      schema="AnnonceOrder",
  *      required={},
  *      @OA\Property(
  *          property="annonce_id",
@@ -17,11 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="image",
+ *          property="order_status_id",
  *          description="",
  *          readOnly=false,
  *          nullable=true,
- *          type="string",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -40,24 +41,23 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class AnnonceImages extends Model
+ */class AnnonceOrder extends Model
 {
-    use HasFactory;
-    public $table = 'annonce_images';
+    use HasFactory;    public $table = 'annonce_orders';
 
     public $fillable = [
         'annonce_id',
-        'image'
+        'order_status_id'
     ];
 
     protected $casts = [
         'annonce_id' => 'integer',
-        'image' => 'string'
+        'order_status_id' => 'integer'
     ];
 
     public static array $rules = [
-
+        
     ];
 
-
+    
 }

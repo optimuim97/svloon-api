@@ -128,6 +128,7 @@ class Annonce extends Model
         'nombre_places',
         'price',
         'duration',
+        'contact',
         'start_date',
         'end_date'
     ];
@@ -142,6 +143,7 @@ class Annonce extends Model
         "nombre_places" => "integer",
         "price" => "string",
         "duration" => "string",
+        "contact" => "string",
         "start_date" => "string",
         "end_date" => "string"
     ];
@@ -156,6 +158,7 @@ class Annonce extends Model
         "nombre_places" => "required",
         "price" => "required",
         "duration" => "required",
+        "contact" => "required",
         "start_date" => "required",
         "end_date"        => "required"
     ];

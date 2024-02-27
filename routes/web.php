@@ -115,3 +115,13 @@ Route::resource('dash/rules-and-safeties', App\Http\Controllers\rulesAndSafetyCo
         'create' => 'dash.rulesAndSafeties.create',
         'edit' => 'dash.rulesAndSafeties.edit'
     ]);
+Route::resource('dash/annonce-orders', App\Http\Controllers\AnnonceOrderController::class)
+    ->names([
+        'index' => 'dash.annonceOrders.index',
+        'store' => 'dash.annonceOrders.store',
+        'show' => 'dash.annonceOrders.show',
+        'update' => 'dash.annonceOrders.update',
+        'destroy' => 'dash.annonceOrders.destroy',
+        'create' => 'dash.annonceOrders.create',
+        'edit' => 'dash.annonceOrders.edit'
+    ]);

@@ -9,6 +9,9 @@ use App\Repositories\AnnonceCommoditiesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\AnnonceCommodityCollection;
+use App\Http\Resources\AnnonceCommodityResource;
+use App\Models\Annonce;
 
 /**
  * Class AnnonceCommoditiesController
@@ -59,7 +62,10 @@ class AnnonceCommoditiesAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse($annonceCommodities->toArray(), 'Annonce Commodities retrieved successfully');
+        return $this->sendResponse(
+            new AnnonceCommodityCollection($annonceCommodities),
+            'Annonce Commodities retrieved successfully'
+        );
     }
 
     /**
@@ -96,10 +102,9 @@ class AnnonceCommoditiesAPIController extends AppBaseController
     public function store(CreateAnnonceCommoditiesAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-
         $annonceCommodities = $this->annonceCommoditiesRepository->create($input);
 
-        return $this->sendResponse($annonceCommodities->toArray(), 'Annonce Commodities saved successfully');
+        return $this->sendResponse(new AnnonceCommodityCollection($annonceCommodities), 'Annonce Commodities saved successfully');
     }
 
     /**
@@ -147,7 +152,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
             return $this->sendError('Annonce Commodities not found');
         }
 
-        return $this->sendResponse($annonceCommodities->toArray(), 'Annonce Commodities retrieved successfully');
+        return $this->sendResponse(new AnnonceCommodityResource($annonceCommodities), 'Annonce Commodities retrieved successfully');
     }
 
     /**
@@ -203,7 +208,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
 
         $annonceCommodities = $this->annonceCommoditiesRepository->update($input, $id);
 
-        return $this->sendResponse($annonceCommodities->toArray(), 'AnnonceCommodities updated successfully');
+        return $this->sendResponse(new AnnonceCommodityResource($annonceCommodities), 'AnnonceCommodities updated successfully');
     }
 
     /**

@@ -129,8 +129,10 @@ class Annonce extends Model
         'price',
         'duration',
         'contact',
+        'status',
+        'is_active',
         'start_date',
-        'end_date'
+        'end_date',
     ];
 
     protected $casts = [
@@ -144,6 +146,8 @@ class Annonce extends Model
         "price" => "string",
         "duration" => "string",
         "contact" => "string",
+        "status"=> "string",
+        "is_active"=> "string",
         "start_date" => "string",
         "end_date" => "string"
     ];

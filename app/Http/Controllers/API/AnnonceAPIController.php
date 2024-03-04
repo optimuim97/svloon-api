@@ -67,7 +67,7 @@ class AnnonceAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse( new AnnonceResourceCollection($annonces) , 'Annonces retrieved successfully');
+        return $this->sendResponse(new AnnonceResourceCollection($annonces), 'Annonces retrieved successfully');
     }
 
     /**
@@ -127,13 +127,13 @@ class AnnonceAPIController extends AppBaseController
             "price" => $input['price'],
             "duration" => $input['duration'],
             "start_date" => $input['start_date'],
-            "status" => $input['status']?? 1,
+            "status" => $input['status'] ?? 1,
             "end_date" => $input['end_date']
         ];
 
         $annonce = $this->annonceRepository->create($input);
 
-        return $this->sendResponse( new AnnonceRessource($annonce), 'Annonce enregistré');
+        return $this->sendResponse(new AnnonceRessource($annonce), 'Annonce enregistré');
     }
 
     /**
@@ -224,16 +224,36 @@ class AnnonceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateAnnonceAPIRequest $request): JsonResponse
+    public function update($id,Request $request): JsonResponse
     {
         $input = $request->all();
-
         /** @var Annonce $annonce */
         $annonce = $this->annonceRepository->find($id);
 
         if (empty($annonce)) {
             return $this->sendError('Annonce not found');
         }
+
+        if(isset($input['cover_image'])){
+            if ($input['cover_image']) {
+                $cover_image = $this->upload($request, "cover_image");
+            }
+        }
+
+        $input = [
+            "label" => !isset($input['label']) ? $annonce->label : $input['label'],
+            "address" => !isset($input['address']) ? $annonce->address : $input['address'],
+            "rating" => !isset($input['rating']) ? $annonce->rating : $input['rating'] ?? 0,
+            "cover_image" => $cover_image ?? $annonce->cover_image,
+            "description" => !isset($input['description']) ? $annonce->description : $input['description'],
+            "salon_id" => !isset($input['salon_id']) ? $annonce->salon_id : $input['salon_id'],
+            "nombre_places" => !isset($input['nombre_places']) ? $annonce->nombre_places : $input['nombre_places'],
+            "price" => !isset($input['price']) ? $annonce->price : $input['price'],
+            "duration" => !isset($input['duration']) ? $annonce->duration : $input['duration'],
+            "start_date" => !isset($input['start_date']) ? $annonce->start_date : $input['start_date'],
+            "status" => !isset($input['status']) ? $annonce->status : $input['status'] ?? 1,
+            "end_date" => !isset($input['end_date']) ? $annonce->end_date : $input['end_date']
+        ];
 
         $annonce = $this->annonceRepository->update($input, $id);
 
@@ -288,5 +308,19 @@ class AnnonceAPIController extends AppBaseController
         $annonce->delete();
 
         return $this->sendSuccess('Annonce deleted successfully');
+    }
+
+    public function updateStatus($id): JsonResponse
+    {
+        /** @var Annonce $annonce */
+        $annonce = $this->annonceRepository->find($id);
+
+        if (empty($annonce)) {
+            return $this->sendError('Annonce not found');
+        }
+
+        $annonce->status = ! $annonce->status;
+
+        return $this->sendSuccess('Annonce status update successfully');
     }
 }

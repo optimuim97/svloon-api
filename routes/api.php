@@ -156,7 +156,6 @@ Route::resource('salon-schedules', SalonScheduleAPIController::class)
 Route::resource('salon-availabilies', SalonAvailabilyAPIController::class)
     ->except(['create', 'edit']);
 
-
 Route::resource('salon-un-availabilies', SalonUnAvailabilyAPIController::class)
     ->except(['create', 'edit']);
 
@@ -220,64 +219,35 @@ Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class
     ->except(['create', 'edit']);
 
 Route::resource('annonces', App\Http\Controllers\API\AnnonceAPIController::class);
+Route::post('annonces/{id}', [App\Http\Controllers\API\AnnonceAPIController::class, "update"]);
+Route::post('annonce-status/{id}', [App\Http\Controllers\API\AnnonceAPIController::class, "updateStatus"]);
 
-Route::resource('dash/annonce-commodities', App\Http\Controllers\API\AnnonceCommoditiesAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.annonceCommodities.index',
-        'store' => 'dash.annonceCommodities.store',
-        'show' => 'dash.annonceCommodities.show',
-        'update' => 'dash.annonceCommodities.update',
-        'destroy' => 'dash.annonceCommodities.destroy'
-    ]);
+Route::resource(
+    'annonce-commodities',
+    App\Http\Controllers\API\AnnonceCommoditiesAPIController::class
+);
 
-Route::resource('dash/accessoires', App\Http\Controllers\API\AccessoireAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.accessoires.index',
-        'store' => 'dash.accessoires.store',
-        'show' => 'dash.accessoires.show',
-        'update' => 'dash.accessoires.update',
-        'destroy' => 'dash.accessoires.destroy'
-    ]);
+Route::resource(
+    'accessoires',
+    App\Http\Controllers\API\AccessoireAPIController::class
+);
 
-Route::resource('dash/accessoire-annonces', App\Http\Controllers\API\AccessoireAnnonceAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.accessoireAnnonces.index',
-        'store' => 'dash.accessoireAnnonces.store',
-        'show' => 'dash.accessoireAnnonces.show',
-        'update' => 'dash.accessoireAnnonces.update',
-        'destroy' => 'dash.accessoireAnnonces.destroy'
-    ]);
+Route::resource(
+    'accessoire-annonces',
+    App\Http\Controllers\API\AccessoireAnnonceAPIController::class
+)
+;
+Route::resource(
+    'annonce-images',
+    App\Http\Controllers\API\AnnonceImagesAPIController::class
+);
 
-Route::resource('dash/annonce-images', App\Http\Controllers\API\AnnonceImagesAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.annonceImages.index',
-        'store' => 'dash.annonceImages.store',
-        'show' => 'dash.annonceImages.show',
-        'update' => 'dash.annonceImages.update',
-        'destroy' => 'dash.annonceImages.destroy'
-    ]);
+Route::resource(
+    'rules-and-safeties',
+    App\Http\Controllers\API\rulesAndSafetyAPIController::class
+);
 
-Route::resource('dash/rules-and-safeties', App\Http\Controllers\API\rulesAndSafetyAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.rulesAndSafeties.index',
-        'store' => 'dash.rulesAndSafeties.store',
-        'show' => 'dash.rulesAndSafeties.show',
-        'update' => 'dash.rulesAndSafeties.update',
-        'destroy' => 'dash.rulesAndSafeties.destroy'
-    ]);
-
-
-Route::resource('dash/annonce-orders', App\Http\Controllers\API\AnnonceOrderAPIController::class)
-    ->except(['create', 'edit'])
-    ->names([
-        'index' => 'dash.annonceOrders.index',
-        'store' => 'dash.annonceOrders.store',
-        'show' => 'dash.annonceOrders.show',
-        'update' => 'dash.annonceOrders.update',
-        'destroy' => 'dash.annonceOrders.destroy'
-    ]);
+Route::resource(
+    'annonce-orders',
+    App\Http\Controllers\API\AnnonceOrderAPIController::class
+);

@@ -19,7 +19,9 @@ class AnnonceResourceCollection extends ResourceCollection
     {
         return $this->collection->map(function ($item) {
 
-            $images = AnnonceImages::where(["annonce_id" => $item->id])->get()
+            $images = AnnonceImages::where(["annonce_id" => $item->id])
+            ->orderBy("created_at","desc")
+            ->get()
                 ->makeHidden(['created_at', 'updated_at', 'annonce_id']);
 
             $accessoires = AccessoireAnnonce::where(["annonce_id" => $item->id])->get()
@@ -32,7 +34,8 @@ class AnnonceResourceCollection extends ResourceCollection
                 "rating" => $item->rating,
                 "cover_image" => $item->cover_image,
                 "description" => $item->description,
-                "salon" => new SalonResource(Salon::find($item->salon_id)),
+                "salon" => new
+                    SalonResource(Salon::find($item->salon_id)),
                 "nombre_places" => $item->nombre_places,
                 "price" => $item->price,
                 "duration" => $item->duration,
@@ -42,7 +45,6 @@ class AnnonceResourceCollection extends ResourceCollection
                 "accessoires" => $accessoires,
                 "is_active" => $item->status
             ];
-
         });
     }
 }

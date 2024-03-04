@@ -38,7 +38,8 @@ class AnnonceRessource extends JsonResource
             "end_date" => $this->end_date,
             "images" => $images,
             "accessoires" => $accessoires,
-            "is_active"=> $this->status
+            "is_active"=> $this->is_active,
+            "created_at"=> $this->created_at
         ];
     }
 }

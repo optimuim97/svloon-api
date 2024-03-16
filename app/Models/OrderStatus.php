@@ -63,8 +63,7 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        
+
     ];
 
-    
 }

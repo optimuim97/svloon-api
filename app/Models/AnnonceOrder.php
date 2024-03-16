@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  * @OA\Schema(
  *      schema="AnnonceOrder",
@@ -41,23 +42,23 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class AnnonceOrder extends Model
-{
-    use HasFactory;    public $table = 'annonce_orders';
+ */
+class AnnonceOrder extends Model
+ {
+    use HasFactory;
+    public $table = 'annonce_orders';
 
     public $fillable = [
         'annonce_id',
+        'user_id',
         'order_status_id'
     ];
 
     protected $casts = [
         'annonce_id' => 'integer',
+        'user_id' => 'integer',
         'order_status_id' => 'integer'
     ];
 
-    public static array $rules = [
-        
-    ];
-
-    
+    public static array $rules = [];
 }

@@ -9,6 +9,10 @@ use App\Repositories\AnnonceOrderRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\AnnonceOrderCollection;
+use App\Http\Resources\AnnonceOrderResource;
+use App\Http\Resources\AnnonceRessource;
+use App\Models\OrderStatus;
 
 /**
  * Class AnnonceOrderController
@@ -96,10 +100,16 @@ class AnnonceOrderAPIController extends AppBaseController
     public function store(CreateAnnonceOrderAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $user = auth("api")->user();
+        if ($user == null) {
+            return $this->sendError("Votre session a expire", 401);
+        }
 
+        $input = $request->all();
+        $input["user_id"] = $user->id;
         $annonceOrder = $this->annonceOrderRepository->create($input);
 
-        return $this->sendResponse($annonceOrder->toArray(), 'Annonce Order saved successfully');
+        return $this->sendResponse(new AnnonceOrderResource($annonceOrder), 'Annonce Order saved successfully');
     }
 
     /**
@@ -146,7 +156,6 @@ class AnnonceOrderAPIController extends AppBaseController
         if (empty($annonceOrder)) {
             return $this->sendError('Annonce Order not found');
         }
-
         return $this->sendResponse($annonceOrder->toArray(), 'Annonce Order retrieved successfully');
     }
 
@@ -254,5 +263,34 @@ class AnnonceOrderAPIController extends AppBaseController
         $annonceOrder->delete();
 
         return $this->sendSuccess('Annonce Order deleted successfully');
+    }
+
+    public function changeStatus($id, Request $request)
+    {
+        /** @var AnnonceOrder $annonceOrder */
+        $annonceOrder = $this->annonceOrderRepository->find($id);
+
+        if (empty($annonceOrder)) {
+            return $this->sendError('Annonce Order not found');
+        }
+
+        if (empty(OrderStatus::find($request->order_status_id))) {
+            return $this->sendError('Statut non valide', 400);
+        }
+
+        $annonceOrder->order_status_id = $request->order_status_id;
+        $annonceOrder->save();
+
+        return $this->sendResponse(new AnnonceRessource($annonceOrder), 'Annonce Order Updated successfully');
+    }
+
+    public function getUserAnnonceOrder()
+    {
+        $user = auth("api")->user();
+        if ($user == null) {
+            return $this->sendError("Votre session a expire", 401);
+        }
+        $annonceOrder =  AnnonceOrder::where(['user_id'=> $user->id])->get();
+        return $this->sendResponse(new AnnonceOrderCollection($annonceOrder), 'Liste des commandes d\'annonce de l\'utilisateur ');
     }
 }

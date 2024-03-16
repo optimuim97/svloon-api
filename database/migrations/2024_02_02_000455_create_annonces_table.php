@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('annonces', function (Blueprint $table) {
             $table->id('id');
             $table->bigInteger('salon_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->string('label');
             $table->string('reference');
             $table->string('description');

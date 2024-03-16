@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\AnnonceTravelWork;
 
 use App\Http\Requests\API\CreateAnnonceAPIRequest;
 use App\Http\Requests\API\UpdateAnnonceAPIRequest;
@@ -114,6 +114,14 @@ class AnnonceAPIController extends AppBaseController
         // if(Carbon::parse($input['end_date'])->isPast()){
         //     return $this->sendError('Vous ne pouvez pas choisir une date passé');
         // }
+
+        // dd($request->validate(Annonce::$rules));
+
+        if($request->file('images')){
+            foreach($request->images as $image){
+
+            }
+        }
 
         $input = [
             "reference" => Str::uuid(),

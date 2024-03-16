@@ -4,6 +4,78 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `accessoire_annonces`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `accessoire_annonces` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `annonce_id` bigint NOT NULL,
+  `accessoire_id` bigint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `accessoires`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `accessoires` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icone` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `annonce_commodities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `annonce_commodities` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `annonce_id` bigint DEFAULT NULL,
+  `commodity_id` bigint DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `annonce_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `annonce_images` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `annonce_id` bigint NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `annonces`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `annonces` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `salon_id` bigint DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rating` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre_places` int NOT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `duration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `end_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT NULL COMMENT 'check if is validate',
+  `status` tinyint(1) DEFAULT NULL COMMENT 'give current status name',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `appointements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -438,6 +510,18 @@ CREATE TABLE `quick_services` (
   CONSTRAINT `quick_services_payment_type_id_foreign` FOREIGN KEY (`payment_type_id`) REFERENCES `payment_types` (`id`),
   CONSTRAINT `quick_services_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
   CONSTRAINT `quick_services_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `rules_and_safeties`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rules_and_safeties` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `salon_addresses`;
@@ -880,3 +964,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (55,'2024_11_03_202
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (56,'2023_12_03_124442_add_salon_service_id_and_service_id_fields',7);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (57,'2023_12_09_144656_add_appointmen_id_to_order',8);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (58,'2023_12_09_195743_create_invoices_table',9);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (59,'2024_02_02_000455_create_annonces_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (60,'2024_02_02_000733_create_annonce_commodities_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2024_02_02_001216_create_accessoires_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2024_02_02_001925_create_accessoire_annonces_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2024_02_02_002126_create_annonce_images_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (64,'2024_02_02_012322_create_rules_and_safeties_table',10);

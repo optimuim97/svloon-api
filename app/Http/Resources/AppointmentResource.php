@@ -19,6 +19,7 @@ class AppointmentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "creator_id" => $this->creator_id,
             "user_id" => $this->user_id,
             "artist_id" => $this->artist_id,

@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class AnnonceOrderRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'user_id',
         'annonce_id',
         'order_status_id'
     ];

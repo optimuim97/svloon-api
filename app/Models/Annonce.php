@@ -164,6 +164,6 @@ class Annonce extends Model
         "duration" => "required",
         "contact" => "required",
         "start_date" => "required",
-        "end_date"        => "required"
+        "end_date" => "required"
     ];
 }

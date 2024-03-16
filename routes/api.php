@@ -218,9 +218,9 @@ Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIControl
 Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('annonces', App\Http\Controllers\API\AnnonceAPIController::class);
-Route::post('annonces/{id}', [App\Http\Controllers\API\AnnonceAPIController::class, "update"]);
-Route::post('annonce-status/{id}', [App\Http\Controllers\API\AnnonceAPIController::class, "updateStatus"]);
+Route::resource('annonces', App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class);
+Route::post('annonces/{id}', [App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class, "update"]);
+Route::post('annonce-status/{id}', [App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class, "updateStatus"]);
 
 Route::resource(
     'annonce-commodities',
@@ -235,8 +235,7 @@ Route::resource(
 Route::resource(
     'accessoire-annonces',
     App\Http\Controllers\API\AccessoireAnnonceAPIController::class
-)
-;
+);
 Route::resource(
     'annonce-images',
     App\Http\Controllers\API\AnnonceImagesAPIController::class
@@ -250,4 +249,18 @@ Route::resource(
 Route::resource(
     'annonce-orders',
     App\Http\Controllers\API\AnnonceOrderAPIController::class
+);
+Route::post(
+    'order-annonce',
+    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'store']
+);
+
+Route::post(
+    'order-annonce-status/{id}',
+    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'changeStatus']
+);
+
+Route::get(
+    'get-user_annonce_order',
+    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'getUserAnnonceOrder']
 );

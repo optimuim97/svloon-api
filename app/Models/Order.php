@@ -78,7 +78,7 @@ class Order extends Model
     public $fillable = [
         'appointement_id',
         'salon_id',
-        'salon_id',
+        'artist_id',
         'order_status_id',
         'details',
         'instructions',

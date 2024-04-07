@@ -119,7 +119,7 @@ class CreateQuickServiceApiController extends AppBaseController
         }
 
         foreach ($nearlySalons as $nearlySalon) {
-            $nearlySalon = Salon::find($nearlySalon->id);
+            $nearlySalon = Salon::find($nearlySalon->salon_id);
             $salonAvailabilities = $nearlySalon?->availabilities;
 
             if (!$salonAvailabilities) {
@@ -137,6 +137,8 @@ class CreateQuickServiceApiController extends AppBaseController
                 if (!empty($nearlySalon)) {
 
                     $input["hour"] = Carbon::parse($input["hour"])->format('Y-m-d H:i:s');
+                    $salon_service_id = $input['salon_service_id'];
+                    unset($input["salon_service_id"]);
                     $quickService = $this->quickServiceRepository->create($input);
 
                     $appointement = Appointement::create([
@@ -155,31 +157,39 @@ class CreateQuickServiceApiController extends AppBaseController
                         'appointment_status_id' => 1
                     ]);
 
-                    if (!empty($input["salon_service_id"])) {
-
-                        $input['total_price'] = (SalonService::find($input['salon_service_id']))->price;
+                    $serviceSalon = SalonService::find($salon_service_id);
+                    if (!empty($salon_service_id)) {
+                        $input['total_price'] = $serviceSalon->prix;
                         $price = $input['total_price'];
                         //TODO add extra to price calculate
-                        // $extras_selected = $input['extras'] ?? null;
+                        $extras_selected = $input['extras'] ?? null;
 
-                        // if (!empty($extras_selected)) {
-                        //     foreach ($extras_selected as $extra) {
-                        //         $price = float($extras_selected) + float($extra->price);
-                        //     }
-                        // }
-
+                        if (!empty($extras_selected)) {
+                            foreach ($extras_selected as $extra) {
+                                $price = float($extras_selected) + float($extra->price);
+                            }
+                        }
                     } elseif (!empty($input["service_id"])) {
                         $input['total_price'] = (Service::find($input['service_id']))->price;
                     }
 
+                    $salon = Salon::find($serviceSalon->salon_id);
+                    $staff = $salon->staff;
+
+                    if (!empty($staff)) {
+                        //TODO filter staff
+                        $artist = $staff['0']['artist'];
+                    }
+
                     $order = Order::create(
                         [
-                            'salon_id' => $input['salon_id'] ?? null,
-                            'artist_id' => $input['artist_id'] ?? null,
-                            'details' => $input['details'],
-                            'instructions' => $input['instructions'],
+                            'salon_id' => $serviceSalon->salon_id,
+                            'artist_id' => $artist ?? 1,
+                            'details' => $input['details'] ?? "Service Rapide ",
+                            'instructions' => $input['instructions'] ?? "Instructions",
                             'total_price' => $input['total_price'],
-                            'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s')
+                            'date' => Carbon::parse($input["date"])->format('Y-m-d H:i:s'),
+                            "order_status_id" => 1
                         ]
                     );
 
@@ -221,7 +231,7 @@ class CreateQuickServiceApiController extends AppBaseController
                         + sin(radians(" . $latitude . "))
                         * sin(radians(salon_addresses.lat))) AS distance")
             )
-            // ->groupBy("salon_addresses.id")
+            ->groupBy("salon_addresses.id")
             ->get();
 
         // return DB::table("salons")

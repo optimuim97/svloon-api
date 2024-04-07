@@ -52,6 +52,19 @@ CREATE TABLE `annonce_images` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `annonce_orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `annonce_orders` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `annonce_id` bigint DEFAULT NULL,
+  `order_status_id` bigint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` bigint unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `annonces`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -970,3 +983,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2024_02_02_001
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2024_02_02_001925_create_accessoire_annonces_table',10);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2024_02_02_002126_create_annonce_images_table',10);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (64,'2024_02_02_012322_create_rules_and_safeties_table',10);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (65,'2024_02_25_194353_create_annonce_orders_table',11);

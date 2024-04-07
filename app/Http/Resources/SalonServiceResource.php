@@ -23,7 +23,7 @@ class SalonServiceResource extends JsonResource
             'service_id' =>  $this->id,
         ])->get();
 
-        foreach ($extras as $key => $value) {
+        foreach ($extras as $value) {
             $extra = Extra::find($value->extra_id);
             array_push($extraList, $extra);
         }

@@ -131,6 +131,7 @@ class SalonAvailabilyAPIController extends AppBaseController
         $combinatedDateTimeStart = Carbon::parse("$date $hour_start");
         $combinatedDateTimeEnd = Carbon::parse("$date $hour_end");
 
+
         if ($combinatedDateTimeStart->isPast()) {
             return $this->sendError('Vous ne pouvez pas choisir une date de début passé');
         }

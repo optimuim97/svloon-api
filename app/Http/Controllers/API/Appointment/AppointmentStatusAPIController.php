@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Appointment;
 
-use App\Http\Requests\API\CreatePortfolioAPIRequest;
-use App\Http\Requests\API\UpdatePortfolioAPIRequest;
-use App\Models\Portfolio;
-use App\Repositories\PortfolioRepository;
+use App\Http\Requests\API\CreateAppointmentStatusAPIRequest;
+use App\Http\Requests\API\UpdateAppointmentStatusAPIRequest;
+use App\Models\AppointmentStatus;
+use App\Repositories\AppointmentStatusRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class PortfolioController
+ * Class AppointmentStatusController
  */
 
-class PortfolioAPIController extends AppBaseController
+class AppointmentStatusAPIController extends AppBaseController
 {
-    private PortfolioRepository $portfolioRepository;
+    private AppointmentStatusRepository $appointmentStatusRepository;
 
-    public function __construct(PortfolioRepository $portfolioRepo)
+    public function __construct(AppointmentStatusRepository $appointmentStatusRepo)
     {
-        $this->portfolioRepository = $portfolioRepo;
+        $this->appointmentStatusRepository = $appointmentStatusRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/portfolios",
-     *      summary="getPortfolioList",
-     *      tags={"Portfolio"},
-     *      description="Get all Portfolios",
+     *      path="/appointment-statuses",
+     *      summary="getAppointmentStatusList",
+     *      tags={"AppointmentStatus"},
+     *      description="Get all AppointmentStatuses",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class PortfolioAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Portfolio")
+     *                  @OA\Items(ref="#/components/schemas/AppointmentStatus")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class PortfolioAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $portfolios = $this->portfolioRepository->all(
+        $appointmentStatuses = $this->appointmentStatusRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($portfolios->toArray(), 'Portfolios retrieved successfully');
+        return $this->sendResponse($appointmentStatuses->toArray(), 'Appointment Statuses retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/portfolios",
-     *      summary="createPortfolio",
-     *      tags={"Portfolio"},
-     *      description="Create Portfolio",
+     *      path="/appointment-statuses",
+     *      summary="createAppointmentStatus",
+     *      tags={"AppointmentStatus"},
+     *      description="Create AppointmentStatus",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Portfolio")
+     *        @OA\JsonContent(ref="#/components/schemas/AppointmentStatus")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class PortfolioAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Portfolio"
+     *                  ref="#/components/schemas/AppointmentStatus"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,24 +93,24 @@ class PortfolioAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreatePortfolioAPIRequest $request): JsonResponse
+    public function store(CreateAppointmentStatusAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $portfolio = $this->portfolioRepository->create($input);
+        $appointmentStatus = $this->appointmentStatusRepository->create($input);
 
-        return $this->sendResponse($portfolio->toArray(), 'Portfolio saved successfully');
+        return $this->sendResponse($appointmentStatus->toArray(), 'Appointment Status saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/portfolios/{id}",
-     *      summary="getPortfolioItem",
-     *      tags={"Portfolio"},
-     *      description="Get Portfolio",
+     *      path="/appointment-statuses/{id}",
+     *      summary="getAppointmentStatusItem",
+     *      tags={"AppointmentStatus"},
+     *      description="Get AppointmentStatus",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Portfolio",
+     *          description="id of AppointmentStatus",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -128,7 +128,7 @@ class PortfolioAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Portfolio"
+     *                  ref="#/components/schemas/AppointmentStatus"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -140,25 +140,25 @@ class PortfolioAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Portfolio $portfolio */
-        $portfolio = $this->portfolioRepository->find($id);
+        /** @var AppointmentStatus $appointmentStatus */
+        $appointmentStatus = $this->appointmentStatusRepository->find($id);
 
-        if (empty($portfolio)) {
-            return $this->sendError('Portfolio not found');
+        if (empty($appointmentStatus)) {
+            return $this->sendError('Appointment Status not found');
         }
 
-        return $this->sendResponse($portfolio->toArray(), 'Portfolio retrieved successfully');
+        return $this->sendResponse($appointmentStatus->toArray(), 'Appointment Status retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/portfolios/{id}",
-     *      summary="updatePortfolio",
-     *      tags={"Portfolio"},
-     *      description="Update Portfolio",
+     *      path="/appointment-statuses/{id}",
+     *      summary="updateAppointmentStatus",
+     *      tags={"AppointmentStatus"},
+     *      description="Update AppointmentStatus",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Portfolio",
+     *          description="id of AppointmentStatus",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -167,7 +167,7 @@ class PortfolioAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Portfolio")
+     *        @OA\JsonContent(ref="#/components/schemas/AppointmentStatus")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -180,7 +180,7 @@ class PortfolioAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Portfolio"
+     *                  ref="#/components/schemas/AppointmentStatus"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -190,31 +190,31 @@ class PortfolioAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdatePortfolioAPIRequest $request): JsonResponse
+    public function update($id, UpdateAppointmentStatusAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Portfolio $portfolio */
-        $portfolio = $this->portfolioRepository->find($id);
+        /** @var AppointmentStatus $appointmentStatus */
+        $appointmentStatus = $this->appointmentStatusRepository->find($id);
 
-        if (empty($portfolio)) {
-            return $this->sendError('Portfolio not found');
+        if (empty($appointmentStatus)) {
+            return $this->sendError('Appointment Status not found');
         }
 
-        $portfolio = $this->portfolioRepository->update($input, $id);
+        $appointmentStatus = $this->appointmentStatusRepository->update($input, $id);
 
-        return $this->sendResponse($portfolio->toArray(), 'Portfolio updated successfully');
+        return $this->sendResponse($appointmentStatus->toArray(), 'AppointmentStatus updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/portfolios/{id}",
-     *      summary="deletePortfolio",
-     *      tags={"Portfolio"},
-     *      description="Delete Portfolio",
+     *      path="/appointment-statuses/{id}",
+     *      summary="deleteAppointmentStatus",
+     *      tags={"AppointmentStatus"},
+     *      description="Delete AppointmentStatus",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Portfolio",
+     *          description="id of AppointmentStatus",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -244,15 +244,15 @@ class PortfolioAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Portfolio $portfolio */
-        $portfolio = $this->portfolioRepository->find($id);
+        /** @var AppointmentStatus $appointmentStatus */
+        $appointmentStatus = $this->appointmentStatusRepository->find($id);
 
-        if (empty($portfolio)) {
-            return $this->sendError('Portfolio not found');
+        if (empty($appointmentStatus)) {
+            return $this->sendError('Appointment Status not found');
         }
 
-        $portfolio->delete();
+        $appointmentStatus->delete();
 
-        return $this->sendSuccess('Portfolio deleted successfully');
+        return $this->sendSuccess('Appointment Status deleted successfully');
     }
 }

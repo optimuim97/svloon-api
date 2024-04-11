@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Salon;
 
-use App\Http\Requests\API\CreateAppointmentStatusAPIRequest;
-use App\Http\Requests\API\UpdateAppointmentStatusAPIRequest;
-use App\Models\AppointmentStatus;
-use App\Repositories\AppointmentStatusRepository;
+use App\Http\Requests\API\CreateCommoditySalonAPIRequest;
+use App\Http\Requests\API\UpdateCommoditySalonAPIRequest;
+use App\Models\CommoditySalon;
+use App\Repositories\CommoditySalonRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class AppointmentStatusController
+ * Class CommoditySalonController
  */
 
-class AppointmentStatusAPIController extends AppBaseController
+class CommoditySalonAPIController extends AppBaseController
 {
-    private AppointmentStatusRepository $appointmentStatusRepository;
+    private CommoditySalonRepository $commoditySalonRepository;
 
-    public function __construct(AppointmentStatusRepository $appointmentStatusRepo)
+    public function __construct(CommoditySalonRepository $commoditySalonRepo)
     {
-        $this->appointmentStatusRepository = $appointmentStatusRepo;
+        $this->commoditySalonRepository = $commoditySalonRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/appointment-statuses",
-     *      summary="getAppointmentStatusList",
-     *      tags={"AppointmentStatus"},
-     *      description="Get all AppointmentStatuses",
+     *      path="/commodity-salons",
+     *      summary="getCommoditySalonList",
+     *      tags={"CommoditySalon"},
+     *      description="Get all CommoditySalons",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class AppointmentStatusAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/AppointmentStatus")
+     *                  @OA\Items(ref="#/components/schemas/CommoditySalon")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class AppointmentStatusAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $appointmentStatuses = $this->appointmentStatusRepository->all(
+        $commoditySalons = $this->commoditySalonRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($appointmentStatuses->toArray(), 'Appointment Statuses retrieved successfully');
+        return $this->sendResponse($commoditySalons->toArray(), 'Commodity Salons retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/appointment-statuses",
-     *      summary="createAppointmentStatus",
-     *      tags={"AppointmentStatus"},
-     *      description="Create AppointmentStatus",
+     *      path="/commodity-salons",
+     *      summary="createCommoditySalon",
+     *      tags={"CommoditySalon"},
+     *      description="Create CommoditySalon",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AppointmentStatus")
+     *        @OA\JsonContent(ref="#/components/schemas/CommoditySalon")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class AppointmentStatusAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AppointmentStatus"
+     *                  ref="#/components/schemas/CommoditySalon"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,24 +93,24 @@ class AppointmentStatusAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateAppointmentStatusAPIRequest $request): JsonResponse
+    public function store(CreateCommoditySalonAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        $appointmentStatus = $this->appointmentStatusRepository->create($input);
+        $commoditySalon = $this->commoditySalonRepository->create($input);
 
-        return $this->sendResponse($appointmentStatus->toArray(), 'Appointment Status saved successfully');
+        return $this->sendResponse($commoditySalon->toArray(), 'Commodity Salon saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/appointment-statuses/{id}",
-     *      summary="getAppointmentStatusItem",
-     *      tags={"AppointmentStatus"},
-     *      description="Get AppointmentStatus",
+     *      path="/commodity-salons/{id}",
+     *      summary="getCommoditySalonItem",
+     *      tags={"CommoditySalon"},
+     *      description="Get CommoditySalon",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AppointmentStatus",
+     *          description="id of CommoditySalon",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -128,7 +128,7 @@ class AppointmentStatusAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AppointmentStatus"
+     *                  ref="#/components/schemas/CommoditySalon"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -140,25 +140,25 @@ class AppointmentStatusAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var AppointmentStatus $appointmentStatus */
-        $appointmentStatus = $this->appointmentStatusRepository->find($id);
+        /** @var CommoditySalon $commoditySalon */
+        $commoditySalon = $this->commoditySalonRepository->find($id);
 
-        if (empty($appointmentStatus)) {
-            return $this->sendError('Appointment Status not found');
+        if (empty($commoditySalon)) {
+            return $this->sendError('Commodity Salon not found');
         }
 
-        return $this->sendResponse($appointmentStatus->toArray(), 'Appointment Status retrieved successfully');
+        return $this->sendResponse($commoditySalon->toArray(), 'Commodity Salon retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/appointment-statuses/{id}",
-     *      summary="updateAppointmentStatus",
-     *      tags={"AppointmentStatus"},
-     *      description="Update AppointmentStatus",
+     *      path="/commodity-salons/{id}",
+     *      summary="updateCommoditySalon",
+     *      tags={"CommoditySalon"},
+     *      description="Update CommoditySalon",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AppointmentStatus",
+     *          description="id of CommoditySalon",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -167,7 +167,7 @@ class AppointmentStatusAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AppointmentStatus")
+     *        @OA\JsonContent(ref="#/components/schemas/CommoditySalon")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -180,7 +180,7 @@ class AppointmentStatusAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AppointmentStatus"
+     *                  ref="#/components/schemas/CommoditySalon"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -190,31 +190,31 @@ class AppointmentStatusAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateAppointmentStatusAPIRequest $request): JsonResponse
+    public function update($id, UpdateCommoditySalonAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var AppointmentStatus $appointmentStatus */
-        $appointmentStatus = $this->appointmentStatusRepository->find($id);
+        /** @var CommoditySalon $commoditySalon */
+        $commoditySalon = $this->commoditySalonRepository->find($id);
 
-        if (empty($appointmentStatus)) {
-            return $this->sendError('Appointment Status not found');
+        if (empty($commoditySalon)) {
+            return $this->sendError('Commodity Salon not found');
         }
 
-        $appointmentStatus = $this->appointmentStatusRepository->update($input, $id);
+        $commoditySalon = $this->commoditySalonRepository->update($input, $id);
 
-        return $this->sendResponse($appointmentStatus->toArray(), 'AppointmentStatus updated successfully');
+        return $this->sendResponse($commoditySalon->toArray(), 'CommoditySalon updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/appointment-statuses/{id}",
-     *      summary="deleteAppointmentStatus",
-     *      tags={"AppointmentStatus"},
-     *      description="Delete AppointmentStatus",
+     *      path="/commodity-salons/{id}",
+     *      summary="deleteCommoditySalon",
+     *      tags={"CommoditySalon"},
+     *      description="Delete CommoditySalon",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AppointmentStatus",
+     *          description="id of CommoditySalon",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -244,15 +244,15 @@ class AppointmentStatusAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var AppointmentStatus $appointmentStatus */
-        $appointmentStatus = $this->appointmentStatusRepository->find($id);
+        /** @var CommoditySalon $commoditySalon */
+        $commoditySalon = $this->commoditySalonRepository->find($id);
 
-        if (empty($appointmentStatus)) {
-            return $this->sendError('Appointment Status not found');
+        if (empty($commoditySalon)) {
+            return $this->sendError('Commodity Salon not found');
         }
 
-        $appointmentStatus->delete();
+        $commoditySalon->delete();
 
-        return $this->sendSuccess('Appointment Status deleted successfully');
+        return $this->sendSuccess('Commodity Salon deleted successfully');
     }
 }

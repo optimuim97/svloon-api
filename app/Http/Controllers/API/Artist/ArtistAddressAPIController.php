@@ -1,37 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Artist;
 
-use App\Http\Requests\API\CreateAnnonceCommoditiesAPIRequest;
-use App\Http\Requests\API\UpdateAnnonceCommoditiesAPIRequest;
-use App\Models\AnnonceCommodities;
-use App\Repositories\AnnonceCommoditiesRepository;
+use App\Http\Requests\API\CreateArtistAddressAPIRequest;
+use App\Http\Requests\API\UpdateArtistAddressAPIRequest;
+use App\Models\ArtistAddress;
+use App\Repositories\ArtistAddressRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Resources\AnnonceCommodityCollection;
-use App\Http\Resources\AnnonceCommodityResource;
-use App\Models\Annonce;
 
 /**
- * Class AnnonceCommoditiesController
+ * Class ArtistAddressController
  */
 
-class AnnonceCommoditiesAPIController extends AppBaseController
+class ArtistAddressAPIController extends AppBaseController
 {
-    private AnnonceCommoditiesRepository $annonceCommoditiesRepository;
+    private ArtistAddressRepository $artistAddressRepository;
 
-    public function __construct(AnnonceCommoditiesRepository $annonceCommoditiesRepo)
+    public function __construct(ArtistAddressRepository $artistAddressRepo)
     {
-        $this->annonceCommoditiesRepository = $annonceCommoditiesRepo;
+        $this->artistAddressRepository = $artistAddressRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/annonce-commodities",
-     *      summary="getAnnonceCommoditiesList",
-     *      tags={"AnnonceCommodities"},
-     *      description="Get all AnnonceCommodities",
+     *      path="/artist-addresses",
+     *      summary="getArtistAddressList",
+     *      tags={"ArtistAddress"},
+     *      description="Get all ArtistAddresses",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -44,7 +41,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/AnnonceCommodities")
+     *                  @OA\Items(ref="#/components/schemas/ArtistAddress")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -56,27 +53,24 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $annonceCommodities = $this->annonceCommoditiesRepository->all(
+        $artistAddresses = $this->artistAddressRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse(
-            new AnnonceCommodityCollection($annonceCommodities),
-            'Annonce Commodities retrieved successfully'
-        );
+        return $this->sendResponse($artistAddresses->toArray(), 'Artist Addresses retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/annonce-commodities",
-     *      summary="createAnnonceCommodities",
-     *      tags={"AnnonceCommodities"},
-     *      description="Create AnnonceCommodities",
+     *      path="/artist-addresses",
+     *      summary="createArtistAddress",
+     *      tags={"ArtistAddress"},
+     *      description="Create ArtistAddress",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AnnonceCommodities")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistAddress")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -89,7 +83,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceCommodities"
+     *                  ref="#/components/schemas/ArtistAddress"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -99,23 +93,24 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateAnnonceCommoditiesAPIRequest $request): JsonResponse
+    public function store(CreateArtistAddressAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $annonceCommodities = $this->annonceCommoditiesRepository->create($input);
 
-        return $this->sendResponse(new AnnonceCommodityCollection($annonceCommodities), 'Annonce Commodities saved successfully');
+        $artistAddress = $this->artistAddressRepository->create($input);
+
+        return $this->sendResponse($artistAddress->toArray(), 'Artist Address saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/annonce-commodities/{id}",
-     *      summary="getAnnonceCommoditiesItem",
-     *      tags={"AnnonceCommodities"},
-     *      description="Get AnnonceCommodities",
+     *      path="/artist-addresses/{id}",
+     *      summary="getArtistAddressItem",
+     *      tags={"ArtistAddress"},
+     *      description="Get ArtistAddress",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceCommodities",
+     *          description="id of ArtistAddress",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -133,7 +128,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceCommodities"
+     *                  ref="#/components/schemas/ArtistAddress"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -145,25 +140,25 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var AnnonceCommodities $annonceCommodities */
-        $annonceCommodities = $this->annonceCommoditiesRepository->find($id);
+        /** @var ArtistAddress $artistAddress */
+        $artistAddress = $this->artistAddressRepository->find($id);
 
-        if (empty($annonceCommodities)) {
-            return $this->sendError('Annonce Commodities not found');
+        if (empty($artistAddress)) {
+            return $this->sendError('Artist Address not found');
         }
 
-        return $this->sendResponse(new AnnonceCommodityResource($annonceCommodities), 'Annonce Commodities retrieved successfully');
+        return $this->sendResponse($artistAddress->toArray(), 'Artist Address retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/annonce-commodities/{id}",
-     *      summary="updateAnnonceCommodities",
-     *      tags={"AnnonceCommodities"},
-     *      description="Update AnnonceCommodities",
+     *      path="/artist-addresses/{id}",
+     *      summary="updateArtistAddress",
+     *      tags={"ArtistAddress"},
+     *      description="Update ArtistAddress",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceCommodities",
+     *          description="id of ArtistAddress",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -172,7 +167,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AnnonceCommodities")
+     *        @OA\JsonContent(ref="#/components/schemas/ArtistAddress")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -185,7 +180,7 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceCommodities"
+     *                  ref="#/components/schemas/ArtistAddress"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -195,31 +190,31 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateAnnonceCommoditiesAPIRequest $request): JsonResponse
+    public function update($id, UpdateArtistAddressAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var AnnonceCommodities $annonceCommodities */
-        $annonceCommodities = $this->annonceCommoditiesRepository->find($id);
+        /** @var ArtistAddress $artistAddress */
+        $artistAddress = $this->artistAddressRepository->find($id);
 
-        if (empty($annonceCommodities)) {
-            return $this->sendError('Annonce Commodities not found');
+        if (empty($artistAddress)) {
+            return $this->sendError('Artist Address not found');
         }
 
-        $annonceCommodities = $this->annonceCommoditiesRepository->update($input, $id);
+        $artistAddress = $this->artistAddressRepository->update($input, $id);
 
-        return $this->sendResponse(new AnnonceCommodityResource($annonceCommodities), 'AnnonceCommodities updated successfully');
+        return $this->sendResponse($artistAddress->toArray(), 'ArtistAddress updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/annonce-commodities/{id}",
-     *      summary="deleteAnnonceCommodities",
-     *      tags={"AnnonceCommodities"},
-     *      description="Delete AnnonceCommodities",
+     *      path="/artist-addresses/{id}",
+     *      summary="deleteArtistAddress",
+     *      tags={"ArtistAddress"},
+     *      description="Delete ArtistAddress",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceCommodities",
+     *          description="id of ArtistAddress",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -249,15 +244,15 @@ class AnnonceCommoditiesAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var AnnonceCommodities $annonceCommodities */
-        $annonceCommodities = $this->annonceCommoditiesRepository->find($id);
+        /** @var ArtistAddress $artistAddress */
+        $artistAddress = $this->artistAddressRepository->find($id);
 
-        if (empty($annonceCommodities)) {
-            return $this->sendError('Annonce Commodities not found');
+        if (empty($artistAddress)) {
+            return $this->sendError('Artist Address not found');
         }
 
-        $annonceCommodities->delete();
+        $artistAddress->delete();
 
-        return $this->sendSuccess('Annonce Commodities deleted successfully');
+        return $this->sendSuccess('Artist Address deleted successfully');
     }
 }

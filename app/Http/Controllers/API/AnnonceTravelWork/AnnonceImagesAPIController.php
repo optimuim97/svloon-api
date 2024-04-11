@@ -1,34 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\AnnonceTravelWork;
 
-use App\Http\Requests\API\CreateCommoditySalonAPIRequest;
-use App\Http\Requests\API\UpdateCommoditySalonAPIRequest;
-use App\Models\CommoditySalon;
-use App\Repositories\CommoditySalonRepository;
+use App\Http\Requests\API\CreateAnnonceImagesAPIRequest;
+use App\Http\Requests\API\UpdateAnnonceImagesAPIRequest;
+use App\Models\AnnonceImages;
+use App\Repositories\AnnonceImagesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Service\ImgurHelpers;
 
 /**
- * Class CommoditySalonController
+ * Class AnnonceImagesController
  */
 
-class CommoditySalonAPIController extends AppBaseController
+class AnnonceImagesAPIController extends AppBaseController
 {
-    private CommoditySalonRepository $commoditySalonRepository;
+    private AnnonceImagesRepository $annonceImagesRepository;
+    use ImgurHelpers;
 
-    public function __construct(CommoditySalonRepository $commoditySalonRepo)
+    public function __construct(AnnonceImagesRepository $annonceImagesRepo)
     {
-        $this->commoditySalonRepository = $commoditySalonRepo;
+        $this->annonceImagesRepository = $annonceImagesRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/commodity-salons",
-     *      summary="getCommoditySalonList",
-     *      tags={"CommoditySalon"},
-     *      description="Get all CommoditySalons",
+     *      path="/annonce-images",
+     *      summary="getAnnonceImagesList",
+     *      tags={"AnnonceImages"},
+     *      description="Get all AnnonceImages",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +43,7 @@ class CommoditySalonAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/CommoditySalon")
+     *                  @OA\Items(ref="#/components/schemas/AnnonceImages")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +55,24 @@ class CommoditySalonAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $commoditySalons = $this->commoditySalonRepository->all(
+        $annonceImages = $this->annonceImagesRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($commoditySalons->toArray(), 'Commodity Salons retrieved successfully');
+        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/commodity-salons",
-     *      summary="createCommoditySalon",
-     *      tags={"CommoditySalon"},
-     *      description="Create CommoditySalon",
+     *      path="/annonce-images",
+     *      summary="createAnnonceImages",
+     *      tags={"AnnonceImages"},
+     *      description="Create AnnonceImages",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/CommoditySalon")
+     *        @OA\JsonContent(ref="#/components/schemas/AnnonceImages")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +85,7 @@ class CommoditySalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/CommoditySalon"
+     *                  ref="#/components/schemas/AnnonceImages"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,24 +95,24 @@ class CommoditySalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateCommoditySalonAPIRequest $request): JsonResponse
+    public function store(CreateAnnonceImagesAPIRequest $request): JsonResponse
     {
         $input = $request->all();
+        $input['image'] = $this->upload($request, "image");
+        $annonceImages = $this->annonceImagesRepository->create($input);
 
-        $commoditySalon = $this->commoditySalonRepository->create($input);
-
-        return $this->sendResponse($commoditySalon->toArray(), 'Commodity Salon saved successfully');
+        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/commodity-salons/{id}",
-     *      summary="getCommoditySalonItem",
-     *      tags={"CommoditySalon"},
-     *      description="Get CommoditySalon",
+     *      path="/annonce-images/{id}",
+     *      summary="getAnnonceImagesItem",
+     *      tags={"AnnonceImages"},
+     *      description="Get AnnonceImages",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of CommoditySalon",
+     *          description="id of AnnonceImages",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -128,7 +130,7 @@ class CommoditySalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/CommoditySalon"
+     *                  ref="#/components/schemas/AnnonceImages"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -140,25 +142,25 @@ class CommoditySalonAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var CommoditySalon $commoditySalon */
-        $commoditySalon = $this->commoditySalonRepository->find($id);
+        /** @var AnnonceImages $annonceImages */
+        $annonceImages = $this->annonceImagesRepository->find($id);
 
-        if (empty($commoditySalon)) {
-            return $this->sendError('Commodity Salon not found');
+        if (empty($annonceImages)) {
+            return $this->sendError('Annonce Images not found');
         }
 
-        return $this->sendResponse($commoditySalon->toArray(), 'Commodity Salon retrieved successfully');
+        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/commodity-salons/{id}",
-     *      summary="updateCommoditySalon",
-     *      tags={"CommoditySalon"},
-     *      description="Update CommoditySalon",
+     *      path="/annonce-images/{id}",
+     *      summary="updateAnnonceImages",
+     *      tags={"AnnonceImages"},
+     *      description="Update AnnonceImages",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of CommoditySalon",
+     *          description="id of AnnonceImages",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -167,7 +169,7 @@ class CommoditySalonAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/CommoditySalon")
+     *        @OA\JsonContent(ref="#/components/schemas/AnnonceImages")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -180,7 +182,7 @@ class CommoditySalonAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/CommoditySalon"
+     *                  ref="#/components/schemas/AnnonceImages"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -190,31 +192,31 @@ class CommoditySalonAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateCommoditySalonAPIRequest $request): JsonResponse
+    public function update($id, UpdateAnnonceImagesAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var CommoditySalon $commoditySalon */
-        $commoditySalon = $this->commoditySalonRepository->find($id);
+        /** @var AnnonceImages $annonceImages */
+        $annonceImages = $this->annonceImagesRepository->find($id);
 
-        if (empty($commoditySalon)) {
-            return $this->sendError('Commodity Salon not found');
+        if (empty($annonceImages)) {
+            return $this->sendError('Annonce Images not found');
         }
 
-        $commoditySalon = $this->commoditySalonRepository->update($input, $id);
+        $annonceImages = $this->annonceImagesRepository->update($input, $id);
 
-        return $this->sendResponse($commoditySalon->toArray(), 'CommoditySalon updated successfully');
+        return $this->sendResponse($annonceImages->toArray(), 'AnnonceImages updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/commodity-salons/{id}",
-     *      summary="deleteCommoditySalon",
-     *      tags={"CommoditySalon"},
-     *      description="Delete CommoditySalon",
+     *      path="/annonce-images/{id}",
+     *      summary="deleteAnnonceImages",
+     *      tags={"AnnonceImages"},
+     *      description="Delete AnnonceImages",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of CommoditySalon",
+     *          description="id of AnnonceImages",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -244,15 +246,15 @@ class CommoditySalonAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var CommoditySalon $commoditySalon */
-        $commoditySalon = $this->commoditySalonRepository->find($id);
+        /** @var AnnonceImages $annonceImages */
+        $annonceImages = $this->annonceImagesRepository->find($id);
 
-        if (empty($commoditySalon)) {
-            return $this->sendError('Commodity Salon not found');
+        if (empty($annonceImages)) {
+            return $this->sendError('Annonce Images not found');
         }
 
-        $commoditySalon->delete();
+        $annonceImages->delete();
 
-        return $this->sendSuccess('Commodity Salon deleted successfully');
+        return $this->sendSuccess('Annonce Images deleted successfully');
     }
 }

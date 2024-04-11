@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\AnnonceTravelWork;
 
 use App\Http\Requests\API\CreateAnnonceOrderAPIRequest;
 use App\Http\Requests\API\UpdateAnnonceOrderAPIRequest;

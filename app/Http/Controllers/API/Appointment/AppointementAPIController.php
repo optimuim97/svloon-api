@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Appointment;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -153,7 +153,7 @@ class AppointementAPIController extends AppBaseController
         $input['appointment_status_id'] = 1;
         $appointement = $this->appointementRepository->create($input);
 
-        // $fees = $this->calculateFee($this->percent);
+        $fees = $this->calculateFee($this->percent);
 
         $order = Order::create(
             [

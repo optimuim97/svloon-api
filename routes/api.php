@@ -1,14 +1,32 @@
 <?php
 
-use App\Http\Controllers\API\AnnonceAPIController;
+use App\Http\Controllers\API\AccessoireAnnonceAPIController;
+use App\Http\Controllers\API\AccessoireAPIController;
+use App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController;
+use App\Http\Controllers\API\AnnonceTravelWork\AnnonceCommoditiesAPIController;
+use App\Http\Controllers\API\AnnonceTravelWork\AnnonceImagesAPIController;
+use App\Http\Controllers\API\AnnonceTravelWork\AnnonceOrderAPIController;
+use App\Http\Controllers\API\Appointment\AppointementAPIController;
+use App\Http\Controllers\API\Appointment\AppointmentStatusAPIController;
+use App\Http\Controllers\API\Artist\ArtistAddressAPIController;
 use App\Http\Controllers\API\Artist\ArtistAPIController;
 use App\Http\Controllers\API\Artist\ArtistPictureAPIController;
 use App\Http\Controllers\API\Artist\ArtistPorfolioAPIController;
 use App\Http\Controllers\API\Artist\ArtistServiceAPIController;
-use App\Http\Controllers\API\ArtistAddressAPIController;
+use App\Http\Controllers\API\Artist\PortfolioAPIController;
+use App\Http\Controllers\API\CommoditiesAPIController;
+use App\Http\Controllers\API\ConversationAPIController;
 use App\Http\Controllers\API\ExtraAPIController;
+use App\Http\Controllers\API\InvoiceAPIController;
+use App\Http\Controllers\API\MessageAPIController;
+use App\Http\Controllers\API\OrderAPIController;
+use App\Http\Controllers\API\OrderStatusAPIController;
+use App\Http\Controllers\API\PaymentMethodAPIController;
+use App\Http\Controllers\API\PaymentTypeAPIController;
 use App\Http\Controllers\API\QuickService\CreateQuickServiceApiController;
 use App\Http\Controllers\API\QuickService\GetServiceByTypeController;
+use App\Http\Controllers\API\rulesAndSafetyAPIController;
+use App\Http\Controllers\API\Salon\CommoditySalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAddressAPIController;
 use App\Http\Controllers\API\Salon\SalonAPIController;
 use App\Http\Controllers\API\Salon\SalonAvailabilyAPIController;
@@ -19,9 +37,16 @@ use App\Http\Controllers\API\Salon\SalonServiceTypeAPIController;
 use App\Http\Controllers\API\Salon\SalonTypeAccountAPIController;
 use App\Http\Controllers\API\Salon\SalonTypeAPIController;
 use App\Http\Controllers\API\Salon\SalonUnAvailabilyAPIController;
+use App\Http\Controllers\API\ServiceAPIController;
 use App\Http\Controllers\API\ServiceArtistAPIController;
+use App\Http\Controllers\API\ServicePlaceTypeAPIController;
+use App\Http\Controllers\API\ServicesSalonAPIController;
+use App\Http\Controllers\API\ServiceTypeAPIController;
+use App\Http\Controllers\API\StaffMemberAPIController;
 use App\Http\Controllers\API\User\UserActionController;
 use App\Http\Controllers\API\User\UserSearchController;
+use App\Http\Controllers\API\UserAddressAPIController;
+use App\Http\Controllers\API\UserTypeAPIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchArtistController;
 use App\Http\Controllers\SearchSalonController;
@@ -49,10 +74,10 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::post('create-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'store']);
-    Route::get('get-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'getUserRdv']);
-    Route::get('confirm-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'confirmRdv']);
-    Route::get('cancel-appointements', [App\Http\Controllers\API\AppointementAPIController::class, 'cancelRdv']);
+    Route::post('create-appointements', [AppointementAPIController::class, 'store']);
+    Route::get('get-appointements', [AppointementAPIController::class, 'getUserRdv']);
+    Route::get('confirm-appointements', [AppointementAPIController::class, 'confirmRdv']);
+    Route::get('cancel-appointements', [AppointementAPIController::class, 'cancelRdv']);
 
     Route::post('add-salon-availabilies', [SalonAvailabilyAPIController::class, 'store']);
     Route::get('get-salon-availabilies', [SalonAvailabilyAPIController::class, 'getUserAvailabilities']);
@@ -110,14 +135,14 @@ Route::post('callback', [testController::class, 'callBack']);
 Route::resource('salons', SalonAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('user-addresses', App\Http\Controllers\API\UserAddressAPIController::class)
+Route::resource('user-addresses', UserAddressAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-addresses', SalonAddressAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class);
-Route::resource('user-types', App\Http\Controllers\API\UserTypeAPIController::class)
+Route::resource('appointements', AppointementAPIController::class);
+Route::resource('user-types', UserTypeAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-type-accounts', SalonTypeAccountAPIController::class)
@@ -126,7 +151,7 @@ Route::resource('salon-type-accounts', SalonTypeAccountAPIController::class)
 Route::resource('salon-service-types', SalonServiceTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('service-place-types', App\Http\Controllers\API\ServicePlaceTypeAPIController::class)
+Route::resource('service-place-types', ServicePlaceTypeAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-services', SalonServiceAPIController::class)
@@ -135,19 +160,19 @@ Route::resource('salon-services', SalonServiceAPIController::class)
 Route::resource('salon-pictures', SalonPictureAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('payment-methods', App\Http\Controllers\API\PaymentMethodAPIController::class)
+Route::resource('payment-methods', PaymentMethodAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('payment-types', App\Http\Controllers\API\PaymentTypeAPIController::class)
+Route::resource('payment-types', PaymentTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('appointements', App\Http\Controllers\API\AppointementAPIController::class)
+Route::resource('appointements', AppointementAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('service-types', App\Http\Controllers\API\ServiceTypeAPIController::class)
+Route::resource('service-types', ServiceTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('services-salons', App\Http\Controllers\API\ServicesSalonAPIController::class)
+Route::resource('services-salons', ServicesSalonAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-schedules', SalonScheduleAPIController::class)
@@ -162,33 +187,33 @@ Route::resource('salon-un-availabilies', SalonUnAvailabilyAPIController::class)
 Route::resource('extras', ExtraAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('conversations', App\Http\Controllers\API\ConversationAPIController::class)
+Route::resource('conversations', ConversationAPIController::class)
     ->except(['create', 'edit']);
 
-Route::post('auth/conversations', [App\Http\Controllers\API\ConversationAPIController::class, 'store']);
+Route::post('auth/conversations', [ConversationAPIController::class, 'store']);
 
-Route::resource('messages', App\Http\Controllers\API\MessageAPIController::class)
+Route::resource('messages', MessageAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('appointment-statuses', App\Http\Controllers\API\AppointmentStatusAPIController::class)
+Route::resource('appointment-statuses', AppointmentStatusAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('salon-types', SalonTypeAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('services', App\Http\Controllers\API\ServiceAPIController::class)
+Route::resource('services', ServiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('commodities', App\Http\Controllers\API\CommoditiesAPIController::class)
+Route::resource('commodities', CommoditiesAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('commodity-salons', App\Http\Controllers\API\CommoditySalonAPIController::class)
+Route::resource('commodity-salons', CommoditySalonAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('staff-members', App\Http\Controllers\API\StaffMemberAPIController::class)
+Route::resource('staff-members', StaffMemberAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('portfolios', App\Http\Controllers\API\PortfolioAPIController::class)
+Route::resource('portfolios', PortfolioAPIController::class)
     ->except(['create', 'edit']);
 
 Route::resource('artists', ArtistAPIController::class)
@@ -209,58 +234,58 @@ Route::resource('artist-services', ArtistServiceAPIController::class)
 Route::resource('service-artists', ServiceArtistAPIController::class);
 
 
-Route::resource('orders', App\Http\Controllers\API\OrderAPIController::class)
+Route::resource('orders', OrderAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('order-statuses', App\Http\Controllers\API\OrderStatusAPIController::class)
+Route::resource('order-statuses', OrderStatusAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('invoices', App\Http\Controllers\API\InvoiceAPIController::class)
+Route::resource('invoices', InvoiceAPIController::class)
     ->except(['create', 'edit']);
 
-Route::resource('annonces', App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class);
-Route::post('annonces/{id}', [App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class, "update"]);
-Route::post('annonce-status/{id}', [App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController::class, "updateStatus"]);
+Route::resource('annonces', AnnonceAPIController::class);
+Route::post('annonces/{id}', [AnnonceAPIController::class, "update"]);
+Route::post('annonce-status/{id}', [AnnonceAPIController::class, "updateStatus"]);
 
 Route::resource(
     'annonce-commodities',
-    App\Http\Controllers\API\AnnonceCommoditiesAPIController::class
+    AnnonceCommoditiesAPIController::class
 );
 
 Route::resource(
     'accessoires',
-    App\Http\Controllers\API\AccessoireAPIController::class
+    AccessoireAPIController::class
 );
 
 Route::resource(
     'accessoire-annonces',
-    App\Http\Controllers\API\AccessoireAnnonceAPIController::class
+    AccessoireAnnonceAPIController::class
 );
 Route::resource(
     'annonce-images',
-    App\Http\Controllers\API\AnnonceImagesAPIController::class
+    AnnonceImagesAPIController::class
 );
 
 Route::resource(
     'rules-and-safeties',
-    App\Http\Controllers\API\rulesAndSafetyAPIController::class
+    rulesAndSafetyAPIController::class
 );
 
 Route::resource(
     'annonce-orders',
-    App\Http\Controllers\API\AnnonceOrderAPIController::class
+    AnnonceOrderAPIController::class
 );
 Route::post(
     'order-annonce',
-    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'store']
+    [AnnonceOrderAPIController::class, 'store']
 );
 
 Route::post(
     'order-annonce-status/{id}',
-    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'changeStatus']
+    [AnnonceOrderAPIController::class, 'changeStatus']
 );
 
 Route::get(
     'get-user_annonce_order',
-    [App\Http\Controllers\API\AnnonceOrderAPIController::class, 'getUserAnnonceOrder']
+    [AnnonceOrderAPIController::class, 'getUserAnnonceOrder']
 );

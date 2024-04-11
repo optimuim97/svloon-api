@@ -1,36 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Artist;
 
-use App\Http\Requests\API\CreateAnnonceImagesAPIRequest;
-use App\Http\Requests\API\UpdateAnnonceImagesAPIRequest;
-use App\Models\AnnonceImages;
-use App\Repositories\AnnonceImagesRepository;
+use App\Http\Requests\API\CreatePortfolioAPIRequest;
+use App\Http\Requests\API\UpdatePortfolioAPIRequest;
+use App\Models\Portfolio;
+use App\Repositories\PortfolioRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use App\Service\ImgurHelpers;
 
 /**
- * Class AnnonceImagesController
+ * Class PortfolioController
  */
 
-class AnnonceImagesAPIController extends AppBaseController
+class PortfolioAPIController extends AppBaseController
 {
-    private AnnonceImagesRepository $annonceImagesRepository;
-    use ImgurHelpers;
+    private PortfolioRepository $portfolioRepository;
 
-    public function __construct(AnnonceImagesRepository $annonceImagesRepo)
+    public function __construct(PortfolioRepository $portfolioRepo)
     {
-        $this->annonceImagesRepository = $annonceImagesRepo;
+        $this->portfolioRepository = $portfolioRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/annonce-images",
-     *      summary="getAnnonceImagesList",
-     *      tags={"AnnonceImages"},
-     *      description="Get all AnnonceImages",
+     *      path="/portfolios",
+     *      summary="getPortfolioList",
+     *      tags={"Portfolio"},
+     *      description="Get all Portfolios",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -43,7 +41,7 @@ class AnnonceImagesAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/AnnonceImages")
+     *                  @OA\Items(ref="#/components/schemas/Portfolio")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -55,24 +53,24 @@ class AnnonceImagesAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $annonceImages = $this->annonceImagesRepository->all(
+        $portfolios = $this->portfolioRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images retrieved successfully');
+        return $this->sendResponse($portfolios->toArray(), 'Portfolios retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/annonce-images",
-     *      summary="createAnnonceImages",
-     *      tags={"AnnonceImages"},
-     *      description="Create AnnonceImages",
+     *      path="/portfolios",
+     *      summary="createPortfolio",
+     *      tags={"Portfolio"},
+     *      description="Create Portfolio",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AnnonceImages")
+     *        @OA\JsonContent(ref="#/components/schemas/Portfolio")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -85,7 +83,7 @@ class AnnonceImagesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceImages"
+     *                  ref="#/components/schemas/Portfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -95,24 +93,24 @@ class AnnonceImagesAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateAnnonceImagesAPIRequest $request): JsonResponse
+    public function store(CreatePortfolioAPIRequest $request): JsonResponse
     {
         $input = $request->all();
-        $input['image'] = $this->upload($request, "image");
-        $annonceImages = $this->annonceImagesRepository->create($input);
 
-        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images saved successfully');
+        $portfolio = $this->portfolioRepository->create($input);
+
+        return $this->sendResponse($portfolio->toArray(), 'Portfolio saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/annonce-images/{id}",
-     *      summary="getAnnonceImagesItem",
-     *      tags={"AnnonceImages"},
-     *      description="Get AnnonceImages",
+     *      path="/portfolios/{id}",
+     *      summary="getPortfolioItem",
+     *      tags={"Portfolio"},
+     *      description="Get Portfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceImages",
+     *          description="id of Portfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -130,7 +128,7 @@ class AnnonceImagesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceImages"
+     *                  ref="#/components/schemas/Portfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -142,25 +140,25 @@ class AnnonceImagesAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var AnnonceImages $annonceImages */
-        $annonceImages = $this->annonceImagesRepository->find($id);
+        /** @var Portfolio $portfolio */
+        $portfolio = $this->portfolioRepository->find($id);
 
-        if (empty($annonceImages)) {
-            return $this->sendError('Annonce Images not found');
+        if (empty($portfolio)) {
+            return $this->sendError('Portfolio not found');
         }
 
-        return $this->sendResponse($annonceImages->toArray(), 'Annonce Images retrieved successfully');
+        return $this->sendResponse($portfolio->toArray(), 'Portfolio retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/annonce-images/{id}",
-     *      summary="updateAnnonceImages",
-     *      tags={"AnnonceImages"},
-     *      description="Update AnnonceImages",
+     *      path="/portfolios/{id}",
+     *      summary="updatePortfolio",
+     *      tags={"Portfolio"},
+     *      description="Update Portfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceImages",
+     *          description="id of Portfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -169,7 +167,7 @@ class AnnonceImagesAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/AnnonceImages")
+     *        @OA\JsonContent(ref="#/components/schemas/Portfolio")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -182,7 +180,7 @@ class AnnonceImagesAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/AnnonceImages"
+     *                  ref="#/components/schemas/Portfolio"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -192,31 +190,31 @@ class AnnonceImagesAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateAnnonceImagesAPIRequest $request): JsonResponse
+    public function update($id, UpdatePortfolioAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var AnnonceImages $annonceImages */
-        $annonceImages = $this->annonceImagesRepository->find($id);
+        /** @var Portfolio $portfolio */
+        $portfolio = $this->portfolioRepository->find($id);
 
-        if (empty($annonceImages)) {
-            return $this->sendError('Annonce Images not found');
+        if (empty($portfolio)) {
+            return $this->sendError('Portfolio not found');
         }
 
-        $annonceImages = $this->annonceImagesRepository->update($input, $id);
+        $portfolio = $this->portfolioRepository->update($input, $id);
 
-        return $this->sendResponse($annonceImages->toArray(), 'AnnonceImages updated successfully');
+        return $this->sendResponse($portfolio->toArray(), 'Portfolio updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/annonce-images/{id}",
-     *      summary="deleteAnnonceImages",
-     *      tags={"AnnonceImages"},
-     *      description="Delete AnnonceImages",
+     *      path="/portfolios/{id}",
+     *      summary="deletePortfolio",
+     *      tags={"Portfolio"},
+     *      description="Delete Portfolio",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of AnnonceImages",
+     *          description="id of Portfolio",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -246,15 +244,15 @@ class AnnonceImagesAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var AnnonceImages $annonceImages */
-        $annonceImages = $this->annonceImagesRepository->find($id);
+        /** @var Portfolio $portfolio */
+        $portfolio = $this->portfolioRepository->find($id);
 
-        if (empty($annonceImages)) {
-            return $this->sendError('Annonce Images not found');
+        if (empty($portfolio)) {
+            return $this->sendError('Portfolio not found');
         }
 
-        $annonceImages->delete();
+        $portfolio->delete();
 
-        return $this->sendSuccess('Annonce Images deleted successfully');
+        return $this->sendSuccess('Portfolio deleted successfully');
     }
 }

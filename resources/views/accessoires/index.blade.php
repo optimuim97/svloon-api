@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('dash.accessoires.create') }}">
-                        Add New
+                        Ajouter
                     </a>
                 </div>
             </div>

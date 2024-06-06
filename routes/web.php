@@ -63,7 +63,6 @@ Route::resource('bank-infos', App\Http\Controllers\BankInfoController::class);
 Route::resource('orders', App\Http\Controllers\OrderController::class);
 Route::resource('order-statuses', App\Http\Controllers\OrderStatusController::class);
 
-
 Route::resource('dash/annonce-commodities', App\Http\Controllers\AnnonceCommoditiesController::class)
     ->names([
         'index' => 'dash.annonceCommodities.index',
@@ -78,11 +77,11 @@ Route::resource('dash/accessoires', App\Http\Controllers\AccessoireController::c
     ->names([
         'index' => 'dash.accessoires.index',
         'store' => 'dash.accessoires.store',
-        'show' => 'dash.accessoires.show',
-        'update' => 'dash.accessoires.update',
-        'destroy' => 'dash.accessoires.destroy',
+        'show' => 'accessoires.show',
+        'update' => 'accessoires.update',
+        'destroy' => 'accessoires.destroy',
         'create' => 'dash.accessoires.create',
-        'edit' => 'dash.accessoires.edit'
+        'edit' => 'accessoires.edit'
     ]);
 Route::resource('dash/accessoire-annonces', App\Http\Controllers\AccessoireAnnonceController::class)
     ->names([

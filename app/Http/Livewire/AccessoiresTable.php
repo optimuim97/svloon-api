@@ -33,10 +33,15 @@ class AccessoiresTable extends DataTableComponent
                 ->searchable(),
             Column::make("Icone", "icone")
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->format(
+                    fn ($value) => view('common.livewire-tables.column-image', [
+                        'url' => $value
+                    ])
+                ),
             Column::make("Actions", 'id')
                 ->format(
-                    fn($value, $row, Column $column) => view('common.livewire-tables.actions', [
+                    fn ($value, $row, Column $column) => view('common.livewire-tables.actions', [
                         'showUrl' => route('accessoires.show', $row->id),
                         'editUrl' => route('accessoires.edit', $row->id),
                         'recordId' => $row->id,

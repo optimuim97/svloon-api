@@ -41,8 +41,9 @@ class AccessoireController extends AppBaseController
     public function store(CreateAccessoireRequest $request)
     {
         $input = $request->all();
+        $input['icone'] = $this->upload($request, 'icone');
 
-        $accessoire = $this->accessoireRepository->create($input);
+       $this->accessoireRepository->create($input);
 
         Flash::success('Accessoire saved successfully.');
 

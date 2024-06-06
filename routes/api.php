@@ -70,6 +70,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
+
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -88,11 +89,16 @@ Route::group([
         'add-artist-service',
         [ServiceArtistAPIController::class, 'add']
     );
+
 });
 
+
+// Register
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);
 Route::post('sign-up-salon', [SignUpController::class, 'registerSalon']);
 Route::post('sign-up-artist', [SignUpController::class, 'registerArtist']);
+// Register
+
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::post('auth/update-user-info', [UserActionController::class, 'updateUser']);
@@ -261,6 +267,7 @@ Route::resource(
     'accessoire-annonces',
     AccessoireAnnonceAPIController::class
 );
+
 Route::resource(
     'annonce-images',
     AnnonceImagesAPIController::class

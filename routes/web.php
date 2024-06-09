@@ -3,12 +3,18 @@
 use App\Http\Controllers\API\User\UserAddressController;
 use App\Http\Controllers\API\User\UserPieceController;
 use App\Http\Controllers\API\User\UserTypeController;
+use App\Http\Controllers\BraintreeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dash', function () {
     return view('home');
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 Route::get('/', function () {
     return view('landingPage');
 });
@@ -124,3 +130,6 @@ Route::resource('dash/annonce-orders', App\Http\Controllers\AnnonceOrderControll
         'create' => 'dash.annonceOrders.create',
         'edit' => 'dash.annonceOrders.edit'
     ]);
+
+Route::any('/payment', [BraintreeController::class, 'token'])->name('token')
+/*->middleware('auth')*/;

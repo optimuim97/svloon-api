@@ -46,10 +46,10 @@ class QuickServicesTable extends DataTableComponent
             Column::make("Duration", "duration")
                 ->sortable()
                 ->searchable(),
-            Column::make("Isconfirmed", "isConfirmed")
+            Column::make("Isconfirmed", "is_confirmed")
                 ->sortable()
                 ->searchable(),
-            Column::make("Hasalreadysendremeber", "hasAlreadySendRemeber")
+            Column::make("Hasalreadysendremeber", "has_already_send_remeber")
                 ->sortable()
                 ->searchable(),
             Column::make("Actions", 'id')

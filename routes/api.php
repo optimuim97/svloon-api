@@ -92,13 +92,11 @@ Route::group([
 
 });
 
-
 // Register
 Route::post('sign-up-client', [SignUpController::class, 'registerClient']);
 Route::post('sign-up-salon', [SignUpController::class, 'registerSalon']);
 Route::post('sign-up-artist', [SignUpController::class, 'registerArtist']);
 // Register
-
 
 Route::post('auth/request-quick-service', CreateQuickServiceApiController::class);
 Route::post('auth/update-user-info', [UserActionController::class, 'updateUser']);
@@ -296,3 +294,5 @@ Route::get(
     'get-user_annonce_order',
     [AnnonceOrderAPIController::class, 'getUserAnnonceOrder']
 );
+
+Route::get('/payment/process', 'PaymentsController@process')->name('payment.process');

@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "braintree/braintree_php": "^6.18",
         "darkaonline/l5-swagger": "8.*",
         "doctrine/dbal": "~2.3",
         "guzzlehttp/guzzle": "^7.2",

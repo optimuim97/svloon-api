@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\API\Service;
+namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateServiceAPIRequest;
-use App\Http\Requests\API\UpdateServiceAPIRequest;
-use App\Models\Service;
-use App\Repositories\ServiceRepository;
+use App\Http\Requests\API\CreateCarteAPIRequest;
+use App\Http\Requests\API\UpdateCarteAPIRequest;
+use App\Models\Carte;
+use App\Repositories\CarteRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
 /**
- * Class ServiceController
+ * Class CarteController
  */
 
-class ServiceAPIController extends AppBaseController
+class CarteAPIController extends AppBaseController
 {
-    private ServiceRepository $serviceRepository;
+    private CarteRepository $carteRepository;
 
-    public function __construct(ServiceRepository $serviceRepo)
+    public function __construct(CarteRepository $carteRepo)
     {
-        $this->serviceRepository = $serviceRepo;
+        $this->carteRepository = $carteRepo;
     }
 
     /**
      * @OA\Get(
-     *      path="/services",
-     *      summary="getServiceList",
-     *      tags={"Service"},
-     *      description="Get all Services",
+     *      path="/cartes",
+     *      summary="getCarteList",
+     *      tags={"Carte"},
+     *      description="Get all Cartes",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -41,7 +41,7 @@ class ServiceAPIController extends AppBaseController
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/Service")
+     *                  @OA\Items(ref="#/components/schemas/Carte")
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -53,24 +53,24 @@ class ServiceAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $services = $this->serviceRepository->all(
+        $cartes = $this->carteRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($services->toArray(), 'Services retrieved successfully');
+        return $this->sendResponse($cartes->toArray(), 'Cartes retrieved successfully');
     }
 
     /**
      * @OA\Post(
-     *      path="/services",
-     *      summary="createService",
-     *      tags={"Service"},
-     *      description="Create Service",
+     *      path="/cartes",
+     *      summary="createCarte",
+     *      tags={"Carte"},
+     *      description="Create Carte",
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Service")
+     *        @OA\JsonContent(ref="#/components/schemas/Carte")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -83,7 +83,7 @@ class ServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Service"
+     *                  ref="#/components/schemas/Carte"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -93,29 +93,24 @@ class ServiceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateServiceAPIRequest $request): JsonResponse
+    public function store(CreateCarteAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        if (!empty($input['imageUrl'])) {
-            $url = (new Service)->upload($request, 'imageUrl');
-            $input['imageUrl'] = $url;
-        }
+        $carte = $this->carteRepository->create($input);
 
-        $service = $this->serviceRepository->create($input);
-
-        return $this->sendResponse($service->toArray(), 'Service saved successfully');
+        return $this->sendResponse($carte->toArray(), 'Carte saved successfully');
     }
 
     /**
      * @OA\Get(
-     *      path="/services/{id}",
-     *      summary="getServiceItem",
-     *      tags={"Service"},
-     *      description="Get Service",
+     *      path="/cartes/{id}",
+     *      summary="getCarteItem",
+     *      tags={"Carte"},
+     *      description="Get Carte",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Service",
+     *          description="id of Carte",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -133,7 +128,7 @@ class ServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Service"
+     *                  ref="#/components/schemas/Carte"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -145,24 +140,25 @@ class ServiceAPIController extends AppBaseController
      */
     public function show($id): JsonResponse
     {
-        /** @var Service $service */
-        $service = $this->serviceRepository->find($id);
-        if (empty($service)) {
-            return $this->sendError('Service not found');
+        /** @var Carte $carte */
+        $carte = $this->carteRepository->find($id);
+
+        if (empty($carte)) {
+            return $this->sendError('Carte not found');
         }
 
-        return $this->sendResponse($service->toArray(), 'Service retrieved successfully');
+        return $this->sendResponse($carte->toArray(), 'Carte retrieved successfully');
     }
 
     /**
      * @OA\Put(
-     *      path="/services/{id}",
-     *      summary="updateService",
-     *      tags={"Service"},
-     *      description="Update Service",
+     *      path="/cartes/{id}",
+     *      summary="updateCarte",
+     *      tags={"Carte"},
+     *      description="Update Carte",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Service",
+     *          description="id of Carte",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -171,7 +167,7 @@ class ServiceAPIController extends AppBaseController
      *      ),
      *      @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(ref="#/components/schemas/Service")
+     *        @OA\JsonContent(ref="#/components/schemas/Carte")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -184,7 +180,7 @@ class ServiceAPIController extends AppBaseController
      *              ),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Service"
+     *                  ref="#/components/schemas/Carte"
      *              ),
      *              @OA\Property(
      *                  property="message",
@@ -194,38 +190,31 @@ class ServiceAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateServiceAPIRequest $request): JsonResponse
+    public function update($id, UpdateCarteAPIRequest $request): JsonResponse
     {
         $input = $request->all();
 
-        /** @var Service $service */
-        $service = $this->serviceRepository->find($id);
+        /** @var Carte $carte */
+        $carte = $this->carteRepository->find($id);
 
-        if (empty($service)) {
-            return $this->sendError('Service not found');
+        if (empty($carte)) {
+            return $this->sendError('Carte not found');
         }
 
-        if (!empty($input['imageUrl'])) {
-            $url = (new Service)->upload($request, 'photo_url');
-            $input['imageUrl'] = $url;
-        } else {
-            $input['imageUrl'] = $service->imageUrl;
-        }
+        $carte = $this->carteRepository->update($input, $id);
 
-        $service = $this->serviceRepository->update($input, $id);
-
-        return $this->sendResponse($service->toArray(), 'Service updated successfully');
+        return $this->sendResponse($carte->toArray(), 'Carte updated successfully');
     }
 
     /**
      * @OA\Delete(
-     *      path="/services/{id}",
-     *      summary="deleteService",
-     *      tags={"Service"},
-     *      description="Delete Service",
+     *      path="/cartes/{id}",
+     *      summary="deleteCarte",
+     *      tags={"Carte"},
+     *      description="Delete Carte",
      *      @OA\Parameter(
      *          name="id",
-     *          description="id of Service",
+     *          description="id of Carte",
      *           @OA\Schema(
      *             type="integer"
      *          ),
@@ -255,15 +244,15 @@ class ServiceAPIController extends AppBaseController
      */
     public function destroy($id): JsonResponse
     {
-        /** @var Service $service */
-        $service = $this->serviceRepository->find($id);
+        /** @var Carte $carte */
+        $carte = $this->carteRepository->find($id);
 
-        if (empty($service)) {
-            return $this->sendError('Service not found');
+        if (empty($carte)) {
+            return $this->sendError('Carte not found');
         }
 
-        $service->delete();
+        $carte->delete();
 
-        return $this->sendSuccess('Service deleted successfully');
+        return $this->sendSuccess('Carte deleted successfully');
     }
 }

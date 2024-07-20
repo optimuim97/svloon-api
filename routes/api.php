@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\addCarteController;
 use App\Http\Controllers\API\AccessoireAnnonceAPIController;
 use App\Http\Controllers\API\AccessoireAPIController;
 use App\Http\Controllers\API\AnnonceTravelWork\AnnonceAPIController;
@@ -37,11 +38,11 @@ use App\Http\Controllers\API\Salon\SalonServiceTypeAPIController;
 use App\Http\Controllers\API\Salon\SalonTypeAccountAPIController;
 use App\Http\Controllers\API\Salon\SalonTypeAPIController;
 use App\Http\Controllers\API\Salon\SalonUnAvailabilyAPIController;
+use App\Http\Controllers\API\Service\ServiceArtistAPIController;
 use App\Http\Controllers\API\ServiceAPIController;
-use App\Http\Controllers\API\ServiceArtistAPIController;
-use App\Http\Controllers\API\ServicePlaceTypeAPIController;
-use App\Http\Controllers\API\ServicesSalonAPIController;
-use App\Http\Controllers\API\ServiceTypeAPIController;
+use App\Http\Controllers\API\Service\ServicePlaceTypeAPIController;
+use App\Http\Controllers\API\Service\ServicesSalonAPIController;
+use App\Http\Controllers\API\Service\ServiceTypeAPIController;
 use App\Http\Controllers\API\StaffMemberAPIController;
 use App\Http\Controllers\API\User\UserActionController;
 use App\Http\Controllers\API\User\UserSearchController;
@@ -106,6 +107,10 @@ Route::get('auth/add-artist-favorite/{artistId}', [UserActionController::class, 
 
 Route::get('auth/favorite/artist', [UserActionController::class, 'getFavoriteArtist']);
 Route::get('auth/favorite/salon', [UserActionController::class, 'getFavoriteSalon']);
+
+
+// add Carte
+Route::post('auth/add-carte', [addCarteController::class, 'addCarte']);
 
 Route::get('get-service-by-type/{id}', GetServiceByTypeController::class);
 
@@ -296,3 +301,7 @@ Route::get(
 );
 
 Route::get('/payment/process', 'PaymentsController@process')->name('payment.process');
+
+
+Route::resource('cartes', App\Http\Controllers\API\CarteAPIController::class)
+    ->except(['create', 'edit']);

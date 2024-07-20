@@ -4,28 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\SalonService;
 use App\Models\Service;
-use App\Models\ServicesSalon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SearchServiceController extends Controller
 {
+
     public function searchSalonServiceByName(Request $request)
     {
         $service_name = $request->query('word');
         $services = SalonService::where('name', "like", "%$service_name%")->get();
 
         if (!empty($services)) {
+
             return response()->json([
                 "message" => "retreived",
                 "status_code" => Response::HTTP_FOUND,
                 "data" => $services
             ], Response::HTTP_FOUND);
+
         } else {
+
             return response()->json([
                 "message" => "Not found",
                 "status_code" => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_OK);
+
         }
     }
 
@@ -86,11 +90,10 @@ class SearchServiceController extends Controller
         }
     }
 
-
     //Salon-Service
     function getSalonServiceById($id)
     {
-        $service = SalonService::where("salon_id",$id)->get();
+        $service = SalonService::where("salon_id", $id)->get();
 
         if (!empty($service)) {
             return response()->json([
@@ -105,4 +108,5 @@ class SearchServiceController extends Controller
             ], Response::HTTP_OK);
         }
     }
+
 }

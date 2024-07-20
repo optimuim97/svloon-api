@@ -340,3 +340,10 @@
         <p>Annonce Orders</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('cartes.index') }}" class="nav-link {{ Request::is('cartes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Cartes</p>
+    </a>
+</li>

@@ -133,3 +133,5 @@ Route::resource('dash/annonce-orders', App\Http\Controllers\AnnonceOrderControll
 
 Route::any('/payment', [BraintreeController::class, 'token'])->name('token')
 /*->middleware('auth')*/;
+
+Route::resource('cartes', App\Http\Controllers\CarteController::class);

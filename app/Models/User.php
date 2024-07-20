@@ -143,6 +143,16 @@ class User extends Authenticatable implements JWTSubject
         return $all;
     }
 
+    /**
+     * Get all of the cartes for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cartes()
+    {
+        return $this->hasMany(Carte::class);
+    }
+
     // public function getInfosAttribute(){
     //     return $this->userType;
     // }

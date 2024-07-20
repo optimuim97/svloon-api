@@ -1,8 +1,6 @@
 <?php
+namespace App\Http\Controllers\API\Service;
 
-namespace App\Http\Controllers\API;
-
-use App\Http\Requests\API\CreateServiceArtistAPIRequest;
 use App\Http\Requests\API\UpdateServiceArtistAPIRequest;
 use App\Models\ServiceArtist;
 use App\Repositories\ServiceArtistRepository;
@@ -102,7 +100,7 @@ class ServiceArtistAPIController extends AppBaseController
             return $this->sendResponse([], 'L\'utilisateur doit être connecté');
         }
 
-        if ($user->userType?->slug != "artist") {
+        if ($user->userType->slug != "artist") {
             return $this->sendResponse([], 'L\'utilisateur doit être de type salon');
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Service;
 
 use App\Http\Requests\API\CreateServiceTypeAPIRequest;
 use App\Http\Requests\API\UpdateServiceTypeAPIRequest;

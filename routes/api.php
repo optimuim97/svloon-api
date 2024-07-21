@@ -1,10 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-=======
 use App\Http\Controllers\addCarteController;
 use App\Http\Controllers\API\AccessoireAnnonceAPIController;
 use App\Http\Controllers\API\AccessoireAPIController;
@@ -61,7 +56,6 @@ use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Route;
 // use Imgur;
->>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -73,11 +67,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-<<<<<<< HEAD
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-=======
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -316,4 +305,3 @@ Route::get('/payment/process', 'PaymentsController@process')->name('payment.proc
 
 Route::resource('cartes', App\Http\Controllers\API\CarteAPIController::class)
     ->except(['create', 'edit']);
->>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f

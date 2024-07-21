@@ -83,6 +83,10 @@ return [
     |
     */
 
+<<<<<<< HEAD
+=======
+    // 'locale' => 'en',
+>>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
     'locale' => 'en',
 
     /*
@@ -165,9 +169,16 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+<<<<<<< HEAD
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+=======
+        App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        \Yish\Imgur\UploadServiceProvider::class,
+>>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
     ])->toArray(),
 
     /*
@@ -183,6 +194,11 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+<<<<<<< HEAD
+=======
+        'Imgur' => Yish\Imgur\Facades\Upload::class,
+
+>>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
     ])->toArray(),
 
 ];

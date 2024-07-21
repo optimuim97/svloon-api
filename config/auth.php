@@ -13,10 +13,23 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+=======
+    // 'defaults' => [
+    //     'guard' => 'web',
+    //     'passwords' => 'users',
+    // ],
+
+    'defaults' => [
+        'guard' => 'api',
+        'passwords' => 'users',
+    ],
+    
+>>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
 
     /*
     |--------------------------------------------------------------------------
@@ -40,6 +53,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+<<<<<<< HEAD
+=======
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ]
+>>>>>>> ffd55c5a43fcdf5de69499b0a9a15dbf36570d2f
     ],
 
     /*

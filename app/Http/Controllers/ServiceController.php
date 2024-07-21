@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\CreateServiceRequest;
+use App\Http\Requests\UpdateServiceRequest;
+use App\Http\Controllers\AppBaseController;
+use App\Models\Service;
+use App\Models\ServiceType;
+use App\Repositories\ServiceRepository;
+use Illuminate\Http\Request;
+use Flash;
+
+class ServiceController extends AppBaseController
+{
+    /** @var ServiceRepository $serviceRepository*/
+    private $serviceRepository;
+
+    public function __construct(ServiceRepository $serviceRepo)
+    {
+        $this->serviceRepository = $serviceRepo;
+    }
+
+    /**
+     * Display a listing of the Service.
+     */
+    public function index(Request $request)
+    {
+        return view('services.index');
+    }
+
+    /**
+     * Show the form for creating a new Service.
+     */
+    public function create()
+    {
+        $serviceType = ServiceType::all()->pluck('label', 'id');
+
+        // dd($serviceType);
+        return view('services.create', compact("serviceType"));
+    }
+
+    /**
+     * Store a newly created Service in storage.
+     */
+    public function store(CreateServiceRequest $request)
+    {
+        $input = $request->all();
+
+        if (empty($input['imageUrl'])) {
+            $url = (new Service)->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        }
+
+        $service = $this->serviceRepository->create($input);
+
+        Flash::success('Service saved successfully.');
+
+        return redirect(route('services.index'));
+    }
+
+    /**
+     * Display the specified Service.
+     */
+    public function show($id)
+    {
+        $service = $this->serviceRepository->find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('services.index'));
+        }
+
+        return view('services.show')->with('service', $service);
+    }
+
+    /**
+     * Show the form for editing the specified Service.
+     */
+    public function edit($id)
+    {
+        $service = $this->serviceRepository->find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('services.index'));
+        }
+
+        return view('services.edit')->with('service', $service);
+    }
+
+    /**
+     * Update the specified Service in storage.
+     */
+    public function update($id, UpdateServiceRequest $request)
+    {
+        $service = $this->serviceRepository->find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('services.index'));
+        }
+
+        if (!empty($input['imageUrl'])) {
+            $url = (new Service)->upload($request, 'imageUrl');
+            $input['imageUrl'] = $url;
+        } else {
+            $input['imageUrl'] = $service->imageUrl;
+        }
+
+        $service = $this->serviceRepository->update($request->all(), $id);
+
+        Flash::success('Service updated successfully.');
+
+        return redirect(route('services.index'));
+    }
+
+    /**
+     * Remove the specified Service from storage.
+     *
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $service = $this->serviceRepository->find($id);
+
+        if (empty($service)) {
+            Flash::error('Service not found');
+
+            return redirect(route('services.index'));
+        }
+
+        $this->serviceRepository->delete($id);
+
+        Flash::success('Service deleted successfully.');
+
+        return redirect(route('services.index'));
+    }
+
+    public function getServiceByType($type)
+    {
+        $serviceList = Service::where()->get();
+    }
+}
